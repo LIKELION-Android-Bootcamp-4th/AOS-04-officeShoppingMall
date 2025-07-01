@@ -15,18 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [],
-      child: MultiBlocProvider(
-          providers: [],
-          child: MaterialApp(
-            title: AppConstants.appName,
-            theme: ThemeData(primaryColor: AppColors.primaryColor),
-            debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.home,
-            onGenerateRoute: AppRouter.onGenerateRoute,
-          ),
-      ),
+    return MaterialApp(
+      title: AppConstants.appName,
+      theme: ThemeData(primaryColor: AppColors.primaryColor),
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }
