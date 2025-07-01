@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/AppRouter.dart';
+import 'package:office_shopping_mall/app_router.dart';
 import 'package:office_shopping_mall/core/constants/app_colors.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
