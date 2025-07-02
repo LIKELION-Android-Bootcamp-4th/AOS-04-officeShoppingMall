@@ -20,13 +20,27 @@ class _ProductListContent extends State<ProductListContent>{
 
     var categories = ["td", "asd", "aijdoaisd", "asoijdoiasd", "aosijdoaisdj", "aosijdoaijsdoiasjoid"];
 
-    var products = List<Product>.generate(20, (index) => Product(id: index, productName: '상품명', price: '10000원'));
+    var products = List<Product>.generate(60, (index) => Product(
+      id: index,
+      productName: "상품명",
+      price: '${10000 + index}원',
+      category: index,
+      ),
+    );
+
+    void selectCategory(int index) {
+      setState(() {
+        _selectCategoryIndex = index;
+      });
+    }
 
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          SizedBox(
+          Container(
+            color: Colors.white,
+            child: SizedBox(
               height: 50,
 
               child: ListView.builder(
@@ -37,9 +51,7 @@ class _ProductListContent extends State<ProductListContent>{
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: TextButton(
                         onPressed: () {
-                          setState(() {
-                            _selectCategoryIndex = index;
-                          });
+                          selectCategory(index);
                         },
                         child: Text(
                           categories[index],
@@ -52,6 +64,7 @@ class _ProductListContent extends State<ProductListContent>{
                     );
                   },
               ),
+            ),
           ),
 
           SizedBox(height: 20),
