@@ -29,7 +29,6 @@ class _DeliveryNavigationState extends State<DeliveryNavigation> {
       child: SizedBox(
         height: 75,
         child: Card(
-          elevation: 1.5,
           shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(60)),
           // clipBehavior: Clip.antiAlias,
           child: Row(
