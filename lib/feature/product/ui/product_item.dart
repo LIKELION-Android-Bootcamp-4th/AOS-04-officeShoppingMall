@@ -18,9 +18,17 @@ class _ProductItem extends State<ProductItem>{
 
   bool isFavorite = false;
 
+  void _setFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(// 눌렸을 때 라운드 효과
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+
       onTap: () {
         Navigator.pushNamed(context, '/product_detail/${widget.product.id}');
       },
@@ -47,11 +55,13 @@ class _ProductItem extends State<ProductItem>{
                   Positioned(
                     right: 11,
                     bottom: 13,
+
+                    width: 25,
+                    height: 25,
+
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          isFavorite = !isFavorite;
-                        });
+                        _setFavorite();
                       },
 
                       child: SvgPicture.asset(
