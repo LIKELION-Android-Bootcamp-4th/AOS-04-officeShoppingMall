@@ -7,11 +7,11 @@ import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const WalkinApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WalkinApp extends StatelessWidget {
+  const WalkinApp({super.key});
 
   @override
   Widget build(BuildContext context) {
