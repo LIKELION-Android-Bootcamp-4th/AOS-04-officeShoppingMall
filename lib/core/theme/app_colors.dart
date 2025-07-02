@@ -13,14 +13,20 @@ class AppColors {
   static const tertiaryColor = Color(0x8270AEFF);
   static const onTertiaryColor = Color(0xFFFFFFFF);
 
-  // 주요 배경 컬러
+  // 주 배경
   static const backgroundColor = Color(0xFFFCFDFF);
   static const onBackgroundColor = Color(0xFF000000);
 
+  // 컴포넌트 배경
   static const surfaceColor = Color(0xFFFCFDFF);
-  static const onSurfaceColor = Color(0xFF000000);
-  static const surfaceContainerColor = Color(0xFFF5F6FA);
-  static const onSurfaceContainerColor = Color(0xFF626262);
+  static const onSurfaceColor = Color(0xFF626262);
+  static const surfaceContainerLowestColor = Color(0xFFF5F6FA);
+  static const surfaceContainerLowColor = Color(0xFFF5F5F5);
+  static const surfaceContainerColor = Color(0xFFD9D9D9);
+  static const surfaceContainerHighColor = Color(0xFFC5C5C5);
+  static const surfaceContainerHighestColor = Color(0xFF969696);
+  static const surfaceVariantColor = Color(0xFFF5F5F5);
+  static const onSurfaceVariantColor = Color(0xFF949494);
 
   // 테두리, 디바이더
   static const outlineColor = Color(0xFFDBDBDB);
