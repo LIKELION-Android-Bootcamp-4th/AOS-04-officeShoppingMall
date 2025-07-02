@@ -10,12 +10,18 @@ class ProductListScreen extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return Scaffold(
-
       appBar: CustomAppBar(),
 
-      body: ProductListContent()
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            ProductListContent()
+          ],
+        ),
+      ),
     );
-
   }
 
 
