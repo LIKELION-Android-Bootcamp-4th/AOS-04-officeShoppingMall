@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/feature/auth/ui/login_screen.dart';
 import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
+import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
