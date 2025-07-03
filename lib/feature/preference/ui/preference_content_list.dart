@@ -40,7 +40,6 @@ class _PreferenceContentListState extends State<PreferenceContentList> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 8,
-        // mainAxisSpacing: -5,
         childAspectRatio: 0.6,
       ),
     );
