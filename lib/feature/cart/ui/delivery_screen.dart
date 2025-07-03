@@ -47,7 +47,14 @@ class DeliveryScreenState extends State<DeliveryScreen> with SingleTickerProvide
                     CartScreen(),  //장바구니 이동
 
                     //상품 목록
-                    ProductListItem(),
+                    ListView.builder(
+                      itemCount: 2,
+                      itemBuilder: (context, index){
+                        return ProductListItem(
+                          index: _selectIndex
+                        );
+                      },
+                    ),
                     //ProductList(model.product_id),
                     Text("배송 중입니다.. 기다려주세요"),
                     Text("리뷰 작성 합시다~")

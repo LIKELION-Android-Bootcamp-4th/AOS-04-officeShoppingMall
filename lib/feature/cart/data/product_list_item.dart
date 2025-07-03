@@ -8,14 +8,16 @@ import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProductListItem extends StatelessWidget {
+  final int index;
   // Product productID;
-  const ProductListItem({super.key});
+  const ProductListItem({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
+        margin: EdgeInsets.only(bottom: 16),
         width: 360,
         height: 190,
         decoration: BoxDecoration(
@@ -32,15 +34,17 @@ class ProductListItem extends StatelessWidget {
           child: SizedBox(
             child: Column(
               children: [
-                //체크박스, 지우기 버튼. 장바구니 탭에서만 활성화
+                index == 0 ?  //체크박스, 지우기 버튼. 장바구니 탭에서만 활성화
                 Row(
                   children: [
                     SizedBox(width: 10,),
                     Align(
                       alignment: Alignment.topLeft,
-                      child: IconButton(
-                        onPressed: (){},
-                        icon: SvgPicture.asset('images/icon/ic_add_image.svg'),
+                      child: Checkbox(
+                        value: false,
+                        onChanged: (bool? checked){
+                          print("체크박스 누름!");
+                        },
                       ),
                     ),
                     SizedBox(width: 250,),
@@ -54,7 +58,8 @@ class ProductListItem extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                )
+                : SizedBox(height: 48,),
 
                 Row(
                   children: [
@@ -103,7 +108,6 @@ class ProductListItem extends StatelessWidget {
                               ],
                             )
                         ),
-
                       ],
                     ),
                   ],

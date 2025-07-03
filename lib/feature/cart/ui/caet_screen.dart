@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/feature/cart/data/product_list_item.dart';
 
 class CartScreen extends StatefulWidget{
   @override
@@ -15,7 +16,8 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("장바구니 탭 입니다"),
+          Text("장바구니예요")
+          // ProductListItem(),
         ],
       ),
 
