@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 
@@ -92,6 +93,9 @@ class SignUpFormState extends State<SignUpForm> {
                       borderSide: BorderSide(color: AppColors.gray600, width: 1.5)
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
+                  errorStyle: TextStyle(
+                    color: AppColors.red600
+                  ),
                   filled: false,
                   labelText: "이름",
                 ),
@@ -117,6 +121,9 @@ class SignUpFormState extends State<SignUpForm> {
                       borderSide: BorderSide(color: AppColors.gray600, width: 1.5)
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
+                  errorStyle: TextStyle(
+                      color: AppColors.red600
+                  ),
                   filled: false,
                   labelText: "이메일",
                   hintText: "예) Walkin@walkin.co.kr",
@@ -143,7 +150,7 @@ class SignUpFormState extends State<SignUpForm> {
               TextFormField(
                 controller: _pwController,
                 keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.next,
                 obscureText: _showVisibleIcon,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
@@ -154,13 +161,19 @@ class SignUpFormState extends State<SignUpForm> {
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   filled: false,
+                  errorStyle: TextStyle(
+                      color: AppColors.red600
+                  ),
                   labelText: "비밀번호",
                   suffixIcon: IconButton(
                     onPressed: _changeVisibilityIcon,
                     icon: _showVisibleIcon
-                        ? Icon(Icons.visibility_off_outlined)
-                        : Icon(Icons.visibility),
-                  ),
+                        ? SvgPicture.asset('images/icon/ic_invisible.svg')
+                        : SvgPicture.asset(
+                      'images/icon/ic_visible.svg',
+                      colorFilter: const ColorFilter.mode(Color(0x80000000), BlendMode.srcIn),
+                    ),
+                    ),
                 ),
                 validator: (value){
                   if(_pwController.text.isEmpty) {
@@ -188,6 +201,9 @@ class SignUpFormState extends State<SignUpForm> {
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   filled: false,
+                  errorStyle: TextStyle(
+                      color: AppColors.red600
+                  ),
                   labelText: "비밀번호 확인",
                 ),
                 validator: (value){

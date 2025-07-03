@@ -15,12 +15,8 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: "로그인",
-        centerTitle: true,
-        titleTextStyle: GoogleFonts.notoSans(
-          fontSize: 22,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 0.5,
-        ),
+        centerTitle: true, //appTextTheme().headlineLarge
+        titleTextStyle: Theme.of(context).textTheme.headlineMedium,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -34,7 +30,13 @@ class LoginScreen extends StatelessWidget {
 
                 SizedBox(height: 32),
 
-                LoginButton(),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "로그인",
+                  ),
+                ),
+
                 GoSignUpButton(),
               ],
             ),
