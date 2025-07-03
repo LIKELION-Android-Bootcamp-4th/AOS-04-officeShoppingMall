@@ -8,6 +8,8 @@ class AppRouter {
     switch (settings.name) {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => SignupScreen());
+      case AppRoutes.signup:
+        return MaterialPageRoute(builder: (_) => SignupScreen());
 
       default:
         return MaterialPageRoute(
