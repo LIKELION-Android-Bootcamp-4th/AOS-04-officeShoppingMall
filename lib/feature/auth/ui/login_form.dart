@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/app_router.dart';
 import 'package:office_shopping_mall/core/services/auth_service.dart';
+
+import '../../../core/constants/app_routes.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({super.key});
@@ -59,6 +62,7 @@ class LoginFormState extends State<LoginForm> {
           password: "password123"
       );
       print('로그인 성공! 액세스 토큰: $accessToken');
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
     }catch(e){
       final error = e.toString();
       if (error.contains("401")) {
