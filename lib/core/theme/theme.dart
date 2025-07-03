@@ -13,7 +13,7 @@ ThemeData appThemeData() {
       elevation: 1,
       surfaceTintColor: appColorScheme().surface,
       shadowColor: appColorScheme().onSurface,
-      titleTextStyle: appTextTheme().headlineMedium
+      titleTextStyle: appTextTheme().headlineMedium,
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -29,10 +29,24 @@ ThemeData appThemeData() {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
     ),
 
-    textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom()),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        textStyle: appTextTheme().bodyMedium,
+        backgroundColor: Colors.transparent,
+      ),
+    ),
 
-    cardTheme: CardThemeData(
-      color: appColorScheme().surface
+    cardTheme: CardThemeData(color: appColorScheme().surface),
+
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.selected)) return appColorScheme().surface;
+        return appColorScheme().surfaceContainerHigh;
+      }),
+      trackColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.selected)) return appColorScheme().primary;
+        return appColorScheme().surfaceContainerLow;
+      }),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
@@ -60,23 +74,51 @@ TextTheme appTextTheme() {
     // AppBar 헤드라인 한글
     headlineMedium: GoogleFonts.roboto(
       fontSize: 24,
-      color: appColorScheme().onSurface,
+      color: appColorScheme().onBackground,
       fontWeight: FontWeight.w900,
       fontStyle: FontStyle.italic,
     ),
     // 스크린 전체 타이틀
-    titleLarge: GoogleFonts.notoSans(fontSize: 24, fontWeight: FontWeight.bold),
+    titleLarge: GoogleFonts.notoSans(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: Colors.black87,
+    ),
     // 카테고리 & 리스트 타이틀
-    titleMedium: GoogleFonts.notoSans(fontSize: 22, fontWeight: FontWeight.bold),
+    titleMedium: GoogleFonts.notoSans(
+      fontSize: 22,
+      fontWeight: FontWeight.bold,
+      color: Colors.black87,
+    ),
     // 기타 볼드체
-    titleSmall: GoogleFonts.notoSans(fontSize: 20, fontWeight: FontWeight.bold),
+    titleSmall: GoogleFonts.notoSans(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: Colors.black87,
+    ),
     // 일반 텍스트, 리스트 텍스트 (적은 텍스트)
-    bodyLarge: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w400),
+    bodyLarge: GoogleFonts.notoSans(
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      color: Colors.black54,
+    ),
     // 본문 텍스트 (많은 텍스트)
-    bodyMedium: GoogleFonts.notoSans(fontSize: 16, fontWeight: FontWeight.w400),
+    bodyMedium: GoogleFonts.notoSans(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Colors.black54,
+    ),
 
-    labelLarge: GoogleFonts.notoSans(fontSize: 14, fontWeight: FontWeight.w400),
-    labelMedium: GoogleFonts.notoSans(fontSize: 12, fontWeight: FontWeight.w400),
+    labelLarge: GoogleFonts.notoSans(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: Colors.black45,
+    ),
+    labelMedium: GoogleFonts.notoSans(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: Colors.black45,
+    ),
   );
 }
 
