@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_list_content.dart';
 
+import '../../../core/widgets/bottom_navigation.dart';
+
 
 class ProductListScreen extends StatelessWidget{
   const ProductListScreen({super.key});
@@ -21,6 +23,8 @@ class ProductListScreen extends StatelessWidget{
           ],
         ),
       ),
+
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 
