@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
 class SignUpForm extends StatefulWidget {
   SignUpForm({super.key});
