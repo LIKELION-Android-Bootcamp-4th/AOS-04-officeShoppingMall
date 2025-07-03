@@ -56,7 +56,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     : SvgPicture.asset('images/icon/ic_nav_home_0.svg'),
                 onPressed: () {
                   onTap(2);
-                  Navigator.pushNamed(context, AppRoutes.home);
+                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
                 },
               ),
               IconButton(
@@ -66,6 +66,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     : SvgPicture.asset('images/icon/ic_nav_heart_0.svg'),
                 onPressed: () {
                   onTap(3);
+                  Navigator.pushNamed(context, AppRoutes.preference);
                 },
               ),
               IconButton(
