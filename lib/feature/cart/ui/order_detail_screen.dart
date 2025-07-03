@@ -175,8 +175,13 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                           ),
                         ),
                         actions: [
-                          TextButton(onPressed: (){}, child: Text("주문 취소하기")),
-                          TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("그냥 구매하기")),
+                          TextButton(
+                              onPressed: () {
+
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("네")),
+                          TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("아니요")),
                         ],
                       );
                     }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
 
 class CartScreen extends StatefulWidget{
   @override
