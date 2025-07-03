@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:office_shopping_mall/core/services/api_client.dart';
 import 'package:office_shopping_mall/core/widgets/bottom_navigation.dart';
 import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_content_banner.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_content_category.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_content_products.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 10),
 
-          HomeContentProducts()
+          HomeContentProducts(),
         ],
       ),
       bottomNavigationBar: BottomNavigation(),
