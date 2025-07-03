@@ -36,8 +36,8 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                   ),
                 ],
               ),
-              Text('상품명', style: Theme.of(context).textTheme.titleMedium),
-              Text('100,000원', style: Theme.of(context).textTheme.bodyLarge),
+              Text('상품명', style: Theme.of(context).textTheme.titleSmall),
+              Text('100,000원', style: Theme.of(context).textTheme.bodyMedium),
             ],
           );
         },
