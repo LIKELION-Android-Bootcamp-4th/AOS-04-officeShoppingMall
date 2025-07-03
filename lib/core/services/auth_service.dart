@@ -31,4 +31,30 @@ class AuthService {
       rethrow;
     }
   }
+
+  // 로그인
+  Future<String> loginAction({required String email, required String password}) async{
+    final response = await _dio.post(
+        ApiEndpoints.login,
+        data: {
+          'email': email,
+          'password': password
+        }
+    );
+    if(response.statusCode == 200){
+      final responseData = response.data as Map<String, dynamic>;
+      final data = responseData['data'] as Map<String, dynamic>;
+      final accessToken = data['accessToken'] as String;
+      return accessToken;
+    } else if(response.statusCode == 400)
+    {
+      throw Exception("잘못된 요청");
+    } else
+    {
+      throw Exception("인증 실패(이메일/비밀번호 불일치");
+    }
+  }
+
+
+
 }
