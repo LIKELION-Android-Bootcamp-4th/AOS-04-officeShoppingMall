@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/app_router.dart';
 
+import '../../../core/constants/app_routes.dart';
 import '../data/product.dart';
 
 
@@ -30,7 +32,7 @@ class _ProductItem extends State<ProductItem>{
       behavior: HitTestBehavior.opaque,
 
       onTap: () {
-        Navigator.pushNamed(context, '/product_detail/${widget.product.id}');
+        AppRouter.onGenerateRoute(RouteSettings(name: AppRoutes.productDetail));
       },
 
       child: Container(
