@@ -41,33 +41,18 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                       children: [
                         Padding(
                           padding: EdgeInsets.only(top: 16),
-                          child: Text(
-                            "결제 금액",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
+                          child: Text("결제 금액", style: TextStyle(fontSize: 20,),),
                         ),
                         Spacer(),
                         Padding(
                           padding: EdgeInsets.only(top: 16,),
-                          child: Text(
-                            "100,000",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: Text("100,000", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
                           ),
                         ),
                         SizedBox(width: 7,),
                         Padding(
                           padding: EdgeInsets.only(top: 16, right: 16),
-                          child: Text(
-                            "원",
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
+                          child: Text("원", style: TextStyle(fontSize: 15,),),
                         ),
                       ],
                     ),
@@ -76,18 +61,13 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                       alignment: Alignment.center,
                       child: ElevatedButton(
                         onPressed:(){
-                          print("press button");
+                          print("go to OrderScreen");
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(379, 56),
                           backgroundColor: Color(0xFF2E77D6),
                         ),
-                        child: Text(
-                          "결제",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+                        child: Text("결제", style: TextStyle(fontSize: 20, color: Colors.white,),
                         ),
                       ),
                     ),
