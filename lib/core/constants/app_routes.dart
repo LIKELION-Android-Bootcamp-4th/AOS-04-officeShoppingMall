@@ -4,6 +4,6 @@ class AppRoutes {
   static const String signup = "/signup";
 
   static const String product = "/product";
-  static const String product_detail = "/product_detail";
+  static const String productDetail = "/product_detail";
 
 }
