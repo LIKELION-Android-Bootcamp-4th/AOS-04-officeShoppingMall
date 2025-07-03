@@ -24,7 +24,6 @@ class SignupScreen extends StatelessWidget {
             child:  Column(
               children: [
                 AuthHeader(),
-                // Text("회원가입 폼")
                 SignUpForm(),
               ],
             ),

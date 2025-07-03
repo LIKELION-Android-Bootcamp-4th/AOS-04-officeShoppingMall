@@ -13,13 +13,6 @@ class LoginButton extends StatelessWidget{
             style: TextStyle(color: Color(0xFFFFFFFF),
             fontSize: 18),
           ),
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size.fromHeight(50),
-            backgroundColor: AppColors.primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
-            ),
-          ),
         ),
     );
   }

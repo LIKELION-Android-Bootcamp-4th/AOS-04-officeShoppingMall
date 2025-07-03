@@ -46,13 +46,7 @@ class LoginFormState extends State<LoginForm> {
         TextFormField(
           controller: _emailController,
           decoration: InputDecoration(
-            hintText: "eamil",
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            filled: true,
-            fillColor: Color(0x30D9D9D9),
+            hintText: "이메일",
             suffixIcon: _showClearIcon
                 ? IconButton(
                     onPressed: () {
@@ -70,18 +64,15 @@ class LoginFormState extends State<LoginForm> {
           controller: _pwController,
           obscureText: _showVisibleIcon,
           decoration: InputDecoration(
-            hintText: "password",
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            filled: true,
-            fillColor: Color(0x30D9D9D9),
+            hintText: "비밀번호",
             suffixIcon: IconButton(
               onPressed: _changeVisibilityIcon,
               icon: _showVisibleIcon
-                  ? Icon(Icons.visibility_off_outlined)
-                  : Icon(Icons.visibility),
+                  ? SvgPicture.asset('images/icon/ic_invisible.svg')
+                  : SvgPicture.asset(
+                'images/icon/ic_visible.svg',
+                colorFilter: const ColorFilter.mode(Color(0x80000000), BlendMode.srcIn)
+              ),
             ),
           ),
         ),
