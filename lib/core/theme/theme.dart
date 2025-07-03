@@ -11,7 +11,9 @@ ThemeData appThemeData() {
 
     appBarTheme: AppBarTheme(
       elevation: 1,
+      scrolledUnderElevation: 1,
       surfaceTintColor: appColorScheme().surface,
+      backgroundColor: appColorScheme().surface,
       shadowColor: appColorScheme().onSurface,
       titleTextStyle: appTextTheme().headlineMedium,
     ),
@@ -64,9 +66,11 @@ ThemeData appThemeData() {
 
 TextTheme appTextTheme() {
   return TextTheme(
+    // 인증 화면 앱 로고
     displayLarge: GoogleFonts.roboto(
-      fontSize: 64,
-      fontWeight: FontWeight.w900,
+      fontSize: 96,
+      color: appColorScheme().onBackground,
+      fontWeight: FontWeight.w700,
       fontStyle: FontStyle.italic,
     ),
     // AppBar 헤드라인 영어
