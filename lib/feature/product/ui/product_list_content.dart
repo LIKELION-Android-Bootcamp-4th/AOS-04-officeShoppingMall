@@ -24,9 +24,13 @@ class _ProductListContent extends State<ProductListContent>{
       id: index,
       productName: "상품명",
       price: '${10000 + index}원',
-      category: index,
+      category: 0,
       ),
     );
+
+    var filteredProducts = products
+        .where((product) => product.category == _selectCategoryIndex)
+        .toList();
 
     void selectCategory(int index) {
       setState(() {
@@ -83,7 +87,7 @@ class _ProductListContent extends State<ProductListContent>{
               ),
               itemCount: products.length,
               itemBuilder: (context, index){
-                return ProductItem(product: products[index]);
+                return ProductItem(product: filteredProducts[index]);
               },
             ),
           )
