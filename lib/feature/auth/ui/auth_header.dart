@@ -23,7 +23,7 @@ class AuthHeader extends StatelessWidget {
 
           Text(
             "직장인을 위한 스마트 쇼핑몰",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           SizedBox(height: 56),
         ],
