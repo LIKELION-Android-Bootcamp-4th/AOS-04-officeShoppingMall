@@ -14,10 +14,10 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GridView.builder(
-        shrinkWrap: true,
         // 부모 내에서 출력되도록 축소
-        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         // 자체 스크롤 끄기
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: 4,
         itemBuilder: (context, index) {
           return Column(

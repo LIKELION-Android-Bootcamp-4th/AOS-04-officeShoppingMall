@@ -22,11 +22,7 @@ class LoginScreen extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AuthHeader(),
-                LoginForm(),
-                GoSignUpButton(),
-              ],
+              children: [AuthHeader(), LoginForm(), GoSignUpButton()],
             ),
           ),
         ),
