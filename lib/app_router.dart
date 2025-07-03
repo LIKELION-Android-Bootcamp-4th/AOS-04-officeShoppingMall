@@ -14,8 +14,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => LoginScreen());
-      case AppRoutes.signup:
-        return MaterialPageRoute(builder: (_) => SignupScreen());
 
       default:
         return MaterialPageRoute(

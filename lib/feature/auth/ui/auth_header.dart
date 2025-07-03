@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 
 import '../../../core/theme/app_colors.dart';
 
@@ -15,9 +16,7 @@ class AuthHeader extends StatelessWidget {
           Container(
             width: 150,
             height: 120,
-            color: AppColors.surfaceContainerHighColor,
-            alignment: Alignment.center,
-            child: Text("앱 아이콘"),
+            child: Image.asset('images/app_icon.jpg',),
           ),
           SizedBox(height: 16),
 

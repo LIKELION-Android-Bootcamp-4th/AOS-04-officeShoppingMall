@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/constants/app_colors.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 
 class GoSignUpButton extends StatelessWidget{
