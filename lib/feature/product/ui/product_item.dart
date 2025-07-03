@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../bloc/product.dart';
+import '../data/product.dart';
 
 
 class ProductItem extends StatefulWidget{
@@ -53,11 +53,8 @@ class _ProductItem extends State<ProductItem>{
                   ),
 
                   Positioned(
-                    right: 11,
-                    bottom: 13,
-
-                    width: 25,
-                    height: 25,
+                    right: 12,
+                    bottom: 14,
 
                     child: GestureDetector(
                       onTap: () {
@@ -66,8 +63,6 @@ class _ProductItem extends State<ProductItem>{
 
                       child: SvgPicture.asset(
                         isFavorite ? 'images/icon/ic_heart_small_1.svg' : 'images/icon/ic_heart_small_0.svg',
-                        width: 20,
-                        height: 20,
                       ),
                     ),
                   ),
