@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 
-class BottomNavigation extends StatefulWidget {
+class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
 
   @override
-  State<BottomNavigation> createState() => _BottomNavigationState();
-}
-
-class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 2;
-
-  void onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final nav = context.watch<BottomNavProvider>();
+    final index = nav.currentIndex;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: SizedBox(
@@ -33,49 +25,49 @@ class _BottomNavigationState extends State<BottomNavigation> {
             children: [
               IconButton(
                 padding: EdgeInsets.zero, // 패딩을 없애야 원래 크기로 적용되어 사용
-                icon: _selectedIndex == 0
+                icon: index == 0
                     ? SvgPicture.asset('images/icon/ic_nav_category_1.svg')
                     : SvgPicture.asset('images/icon/ic_nav_category_0.svg'),
                 onPressed: () {
-                  onTap(0);
+                  nav.changeIndex(0);
                 },
               ),
               IconButton(
                 padding: EdgeInsets.zero,
-                icon: _selectedIndex == 1
+                icon: index == 1
                     ? SvgPicture.asset('images/icon/ic_nav_feed_1.svg')
                     : SvgPicture.asset('images/icon/ic_nav_feed_0.svg'),
                 onPressed: () {
-                  onTap(1);
+                  nav.changeIndex(1);
                 },
               ),
               IconButton(
                 padding: EdgeInsets.zero,
-                icon: _selectedIndex == 2
+                icon: index == 2
                     ? SvgPicture.asset('images/icon/ic_nav_home_1.svg')
                     : SvgPicture.asset('images/icon/ic_nav_home_0.svg'),
                 onPressed: () {
-                  onTap(2);
+                  nav.changeIndex(2);
                   Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
                 },
               ),
               IconButton(
                 padding: EdgeInsets.zero,
-                icon: _selectedIndex == 3
+                icon: index == 3
                     ? SvgPicture.asset('images/icon/ic_nav_heart_1.svg')
                     : SvgPicture.asset('images/icon/ic_nav_heart_0.svg'),
                 onPressed: () {
-                  onTap(3);
+                  nav.changeIndex(3);
                   Navigator.pushNamed(context, AppRoutes.preference);
                 },
               ),
               IconButton(
                 padding: EdgeInsets.zero,
-                icon: _selectedIndex == 4
+                icon: index == 4
                     ? SvgPicture.asset('images/icon/ic_nav_user_1.svg')
                     : SvgPicture.asset('images/icon/ic_nav_user_0.svg'),
                 onPressed: () {
-                  onTap(4);
+                  nav.changeIndex(4);
                 },
               ),
             ],
