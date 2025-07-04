@@ -43,7 +43,7 @@ class CategoryContentList extends StatelessWidget {
                   ],
                 ),
 
-                Divider(color: Theme.of(context).dividerColor, height: 18, endIndent: 16),
+                Divider(height: 18, endIndent: 16),
 
                 GridView.builder(
                   shrinkWrap: true,

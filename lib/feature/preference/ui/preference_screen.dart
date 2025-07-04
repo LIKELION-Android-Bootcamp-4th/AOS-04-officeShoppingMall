@@ -13,6 +13,7 @@ class PreferenceScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       appBar: CustomAppBar(
+        title: '좋아요',
         actions: [
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg')),
