@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list_item.dart';
 
 class CartScreen extends StatefulWidget{
+  final int index;
+  const CartScreen({super.key, required this.index});
+
   @override
   State<StatefulWidget> createState() {
     return CartScreenState();
@@ -14,9 +17,14 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("장바구니예요")
+          Expanded(child: ListView.builder(
+            itemCount: 3,
+            itemBuilder: (context, index){
+              return ProductListItem(index: widget.index);
+            },
+          ))
           // ProductListItem(),
         ],
       ),

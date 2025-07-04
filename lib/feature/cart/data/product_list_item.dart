@@ -16,38 +16,40 @@ class ProductListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topCenter,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 16),
-        width: 360,
-        height: 190,
-        decoration: BoxDecoration(
-          color: Color(0x4DD9D9D9),
-          borderRadius: BorderRadiusGeometry.circular(10),
-        ),
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => OrderDetailScreen(),),
-            );
-          },
-          child: SizedBox(
-            child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          index == 0 ?  //체크박스. 장바구니 탭에서만 활성화
+            Checkbox(
+              value: false,
+              onChanged: (bool? checked){
+                print("체크박스 클릭");
+              },
+            )
+          : SizedBox(width: 16,),
+          Container(
+            margin: EdgeInsets.only(bottom: 16),
+            width: index == 0 ? 330 : 360,
+            height: 190,
+            decoration: BoxDecoration(
+              color: Color(0x4DD9D9D9),
+              borderRadius: BorderRadiusGeometry.circular(10),
+            ),
+            child: InkWell(
+              onTap: () {
+               Navigator.push(
+                 context,
+                 index == 0
+                     ? MaterialPageRoute(builder: (_) => OrderDetailScreen(),)  //장바구니에 담긴 상품은 상품 상세페이지로
+                     : MaterialPageRoute(builder: (_) => OrderDetailScreen(),),  //결제 완료~배송 완료 상품은 주문 내역으로
+               );},
+              child: SizedBox(
+               child: Column(
               children: [
-                index == 0 ?  //체크박스, 지우기 버튼. 장바구니 탭에서만 활성화
+                index == 0 ?  //지우기 버튼. 장바구니 탭에서만 활성화
                 Row(
                   children: [
-                    SizedBox(width: 10,),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Checkbox(
-                        value: false,
-                        onChanged: (bool? checked){
-                          print("체크박스 누름!");
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 250,),
+                    SizedBox(width: 280,),
                     Align(
                       alignment: Alignment.topRight,
                       child: IconButton(
@@ -95,7 +97,7 @@ class ProductListItem extends StatelessWidget {
                           ),
                         ),
                         Container(
-                            width: 220,
+                            width: index == 0 ? 190 : 220,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -116,6 +118,8 @@ class ProductListItem extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    ],
       ),
     );
   }
