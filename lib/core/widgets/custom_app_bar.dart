@@ -27,6 +27,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title, style: titleTextStyle ?? appTextTheme().headlineMedium),
       centerTitle: centerTitle,
       leading: leading,
+      // TODO: 모든 구현 완료 시 자동 뒤로가기 버튼 삭제
+      // automaticallyImplyLeading: false,
       actions: actions,
     );
   }
