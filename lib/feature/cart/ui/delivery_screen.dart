@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_list_item.dart';
+import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
-import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_navigation.dart';
 
 class DeliveryScreen extends StatefulWidget{
@@ -46,17 +46,14 @@ class DeliveryScreenState extends State<DeliveryScreen> with SingleTickerProvide
                   children: [
                     CartScreen(),//장바구니 이동
 
-                    //상품 목록
-                    ListView.builder(
-                      itemCount: 2,
-                      itemBuilder: (context, index){
-                        return ProductListItem(index: _selectIndex);
-                      },
-                    ),
+                    //결제 완료
+                    ProductList(products: context.watch<ProductProvider>().products.where((a) => a.productDeliveryIndex == 1).toList(),),
+                    //배송 중
+                    ProductList(products: context.watch<ProductProvider>().products.where((a) => a.productDeliveryIndex == 2).toList(),),
+                    //배송 완료
+                    ProductList(products: context.watch<ProductProvider>().products.where((a) => a.productDeliveryIndex == 3).toList(),),
 
-                    Text("배송 중입니다.. 기다려주세요"),
-                    Text("리뷰 작성 합시다~")
-                 ],
+                  ],
                 )
             ),
           ],

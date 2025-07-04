@@ -2,15 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/feature/cart/data/product.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
-import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
+import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductListItem extends StatelessWidget {
-  final int index;
-  // Product productID;
-  const ProductListItem({super.key, required this.index});
+  final Product product;
+  const ProductListItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class ProductListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          index == 0 ?  //체크박스. 장바구니 탭에서만 활성화
+          product.productDeliveryIndex == 0 ?  //체크박스. 장바구니 탭에서만 활성화
             Checkbox(
               value: false,
               onChanged: (bool? checked){
@@ -29,7 +27,7 @@ class ProductListItem extends StatelessWidget {
           : SizedBox(width: 16,),
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            width: index == 0 ? 330 : 360,
+            width: product.productDeliveryIndex == 0 ? 330 : 360,
             height: 190,
             decoration: BoxDecoration(
               color: Color(0x4DD9D9D9),
@@ -39,14 +37,14 @@ class ProductListItem extends StatelessWidget {
               onTap: () {
                Navigator.push(
                  context,
-                 index == 0
+                 product.productDeliveryIndex == 0
                      ? MaterialPageRoute(builder: (_) => OrderDetailScreen(),)  //장바구니에 담긴 상품은 상품 상세페이지로
                      : MaterialPageRoute(builder: (_) => OrderDetailScreen(),),  //결제 완료~배송 완료 상품은 주문 내역으로
                );},
               child: SizedBox(
                child: Column(
               children: [
-                index == 0 ?  //지우기 버튼. 장바구니 탭에서만 활성화
+                product.productDeliveryIndex == 0 ?  //지우기 버튼. 장바구니 탭에서만 활성화
                 Row(
                   children: [
                     SizedBox(width: 280,),
@@ -54,7 +52,7 @@ class ProductListItem extends StatelessWidget {
                       alignment: Alignment.topRight,
                       child: IconButton(
                         onPressed: (){
-                          //Provider.of<Product>(context, listen: false).deleteProduct(productID);
+                          Provider.of<ProductProvider>(context, listen: false).deleteProduct(product);
                         },
                         icon: SvgPicture.asset('images/icon/ic_close.svg'),
                       ),
@@ -83,7 +81,7 @@ class ProductListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "상품명",
+                          product.productName,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -97,7 +95,7 @@ class ProductListItem extends StatelessWidget {
                           ),
                         ),
                         Container(
-                            width: index == 0 ? 190 : 220,
+                            width: product.productDeliveryIndex == 0 ? 190 : 220,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/feature/cart/data/product.dart';
+import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailScreen extends StatefulWidget{
   @override
@@ -10,8 +13,11 @@ class OrderDetailScreen extends StatefulWidget{
 }
 
 class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerProviderStateMixin{
+
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -46,7 +52,6 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                   ),
                 ),
                 Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -152,7 +157,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
             ),
             SizedBox(height: 20,),
 
-            //주문 취소버튼. 결제 완료 상태에서만 보여야 됨
+            //주문 취소버튼. 결제 완료 상태에서만 보여야 됨(예정)
             Container(
               width: 360,
               height: 50,
@@ -176,10 +181,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                         ),
                         actions: [
                           TextButton(
-                              onPressed: () {
-
-                                Navigator.of(context).pop();
-                              },
+                              onPressed: () {},
                               child: Text("네")),
                           TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("아니요")),
                         ],

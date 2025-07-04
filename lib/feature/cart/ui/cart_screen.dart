@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_list_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
+import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
+import 'package:office_shopping_mall/feature/cart/ui/delivery_navigation.dart';
 
 class CartScreen extends StatefulWidget{
-  int index = 0;
 
   @override
   State<StatefulWidget> createState() {
@@ -12,19 +15,17 @@ class CartScreen extends StatefulWidget{
 }
 
 class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMixin{
+
   @override
   Widget build(BuildContext context) {
+    final bool showAppbar = Navigator.canPop(context);
     return Scaffold(
+      //
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, index){
-              return ProductListItem(index: widget.index);
-            },
-          ))
-          // ProductListItem(),
+          Expanded(child: ProductList(products: context.watch<ProductProvider>().products.where((a) => a.productDeliveryIndex == 0).toList(),),
+          )
         ],
       ),
 
@@ -40,7 +41,8 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                 ),
               ),
             ),
-              child: SizedBox(
+              child: Container(
+                color: Colors.white,
                 height: 130,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
