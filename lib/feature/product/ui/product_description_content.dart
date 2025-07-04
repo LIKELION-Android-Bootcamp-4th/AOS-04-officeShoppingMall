@@ -22,7 +22,7 @@ class ProductDescriptionContent extends StatelessWidget {
           ),
 
           padding: EdgeInsets.all(16),
-          alignment: Alignment.center,
+          alignment: Alignment.topLeft,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: AppColors.gray200,
