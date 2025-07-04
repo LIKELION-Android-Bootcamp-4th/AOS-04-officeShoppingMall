@@ -49,10 +49,25 @@ class _ProductItem extends State<ProductItem>{
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
+                      image: (widget.product.imageUrl == null) ? null : DecorationImage(
+                        image: NetworkImage(widget.product.imageUrl!.first),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
+
+                  if (widget.product.imageUrl == null)
+                    Center(
+                      child: Text(
+                        '상품 이미지가 없습니다',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
 
                   Positioned(
                     right: 12,
