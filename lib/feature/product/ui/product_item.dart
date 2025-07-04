@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/app_router.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../data/product.dart';
@@ -46,40 +47,34 @@ class _ProductItem extends State<ProductItem>{
           children: [
             SizedBox(
               height: 180,
-
               child: Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey,
-                      image: (widget.product.imageUrl == null) ? null : DecorationImage(
-                        image: NetworkImage(widget.product.imageUrl!.first),
-                        fit: BoxFit.fill,
-                      ),
+                  Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    elevation: 4,
+                    child: widget.product.imageUrl != null
+                        ? Image.network(
+                      widget.product.imageUrl!.first,
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )
+                        : Container(
+                      color: AppColors.gray200,
+                      alignment: Alignment.center,
+                      child: Text('상품 이미지가 없습니다'),
                     ),
                   ),
-
-                  if (widget.product.imageUrl == null)
-                    Center(
-                      child: Text(
-                        '상품 이미지가 없습니다',
-                        style: Theme.of(context).textTheme.bodySmall,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-
                   Positioned(
                     right: 12,
                     bottom: 14,
-
                     child: GestureDetector(
-                      onTap: () {
-                        _setFavorite();
-                      },
-
+                      onTap: _setFavorite,
                       child: SvgPicture.asset(
-                        isFavorite ? 'images/icon/ic_heart_small_1.svg' : 'images/icon/ic_heart_small_0.svg',
+                        isFavorite
+                            ? 'images/icon/ic_heart_small_1.svg'
+                            : 'images/icon/ic_heart_small_0.svg',
                       ),
                     ),
                   ),
