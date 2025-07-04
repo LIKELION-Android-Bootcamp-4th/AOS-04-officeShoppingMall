@@ -142,7 +142,7 @@ class SignUpFormState extends State<SignUpForm> {
                 hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
               ),
               validator: (value) {
-                if (_nameController.text.isEmpty) {
+                if (_emailController.text.isEmpty) {
                   return "이메일을 입력해주세요.";
                 }
                 if (!RegExp(
