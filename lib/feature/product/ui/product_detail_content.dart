@@ -14,6 +14,8 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   Product product = Product(id: 0, productName: '상품명', price: '1000', description: '', category: 0);
 
+  final int _selectProductIndex = selectedProductIndex;
+
   List<bool> isSelected = [true, false];
 
   void _selectTab(int index) {
