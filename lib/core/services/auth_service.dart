@@ -58,11 +58,6 @@ class AuthService {
   }) async {
     final response = await _dio.post(
       ApiEndpoints.signUp,
-      // options: Options(
-      //   headers:{
-      //     'Content-Type': 'application/json',
-      //   }
-      // ),
       data: {'email': email, 'password': password, 'nickName': nickname},
     );
 
