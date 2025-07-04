@@ -4,10 +4,11 @@ class Product{
   final int price;
   final String? description;
   final List<String>? imageUrl;
+  bool isFavorite;
   final int category;
   final Map<String, String>? categoryInfo;
 
-  Product({required this.id, required this.productName, required this.price, this.description, this.imageUrl, required this.category, this.categoryInfo});
+  Product({required this.id, required this.productName, required this.price, this.description, this.imageUrl, this.isFavorite = false, required this.category, this.categoryInfo});
 }
 
 int? _selectProductId;
