@@ -11,6 +11,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: CustomAppBar(
         title: '카테고리',
         actions: [
