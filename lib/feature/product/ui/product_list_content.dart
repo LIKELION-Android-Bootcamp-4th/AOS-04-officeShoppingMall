@@ -46,7 +46,6 @@ class _ProductListContent extends State<ProductListContent>{
             color: Colors.white,
             child: SizedBox(
               height: 50,
-
               child: ListView.builder(
                   itemCount: categories.length,
                   scrollDirection: Axis.horizontal,
