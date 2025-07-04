@@ -51,6 +51,10 @@ ThemeData appThemeData() {
       }),
     ),
 
+    dividerTheme: DividerThemeData(
+      color: appColorScheme().outline,
+    ),
+
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: appColorScheme().surfaceContainerLow,
