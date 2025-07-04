@@ -47,7 +47,7 @@ class BottomNavigation extends StatelessWidget {
               navItem('ic_nav_feed', 1),
               navItem('ic_nav_home', 2, route: AppRoutes.home),
               navItem('ic_nav_heart', 3, route: AppRoutes.preference),
-              navItem('ic_nav_user', 4),
+              navItem('ic_nav_user', 4, route: AppRoutes.mypage),
             ],
           ),
         ),
