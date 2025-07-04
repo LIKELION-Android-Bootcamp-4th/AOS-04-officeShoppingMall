@@ -3,19 +3,16 @@ import 'package:flutter_svg/svg.dart';
 
 import '../bloc/product.dart';
 
-
-class ProductItem extends StatefulWidget{
+class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
   final Product product;
 
   @override
   State<ProductItem> createState() => _ProductItem();
-
 }
 
-class _ProductItem extends State<ProductItem>{
-
+class _ProductItem extends State<ProductItem> {
   bool isFavorite = false;
 
   void _setFavorite() {
@@ -65,7 +62,9 @@ class _ProductItem extends State<ProductItem>{
                       },
 
                       child: SvgPicture.asset(
-                        isFavorite ? 'images/icon/ic_heart_small_1.svg' : 'images/icon/ic_heart_small_0.svg',
+                        isFavorite
+                            ? 'images/icon/ic_heart_small_1.svg'
+                            : 'images/icon/ic_heart_small_0.svg',
                         width: 20,
                         height: 20,
                       ),
@@ -88,10 +87,7 @@ class _ProductItem extends State<ProductItem>{
                     alignment: Alignment.topLeft,
                     child: Text(
                       widget.product.productName,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
 
@@ -99,15 +95,12 @@ class _ProductItem extends State<ProductItem>{
                     alignment: Alignment.bottomRight,
                     child: Text(
                       widget.product.price,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

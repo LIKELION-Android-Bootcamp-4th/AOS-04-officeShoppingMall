@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -9,7 +10,7 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void onTap(int index) {
     setState(() {
@@ -55,6 +56,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     : SvgPicture.asset('images/icon/ic_nav_home_0.svg'),
                 onPressed: () {
                   onTap(2);
+                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
                 },
               ),
               IconButton(
@@ -64,6 +66,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     : SvgPicture.asset('images/icon/ic_nav_heart_0.svg'),
                 onPressed: () {
                   onTap(3);
+                  Navigator.pushNamed(context, AppRoutes.preference);
                 },
               ),
               IconButton(

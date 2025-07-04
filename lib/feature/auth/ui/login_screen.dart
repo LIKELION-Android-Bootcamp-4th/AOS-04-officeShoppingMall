@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:office_shopping_mall/feature/auth/ui/auth_header.dart';
-import 'package:office_shopping_mall/feature/auth/ui/login_button.dart';
 import 'package:office_shopping_mall/feature/auth/ui/login_form.dart';
 import 'package:office_shopping_mall/feature/auth/ui/login_goSignup.dart';
 
@@ -24,21 +22,7 @@ class LoginScreen extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AuthHeader(),
-                LoginForm(),
-
-                SizedBox(height: 32),
-
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "로그인",
-                  ),
-                ),
-
-                GoSignUpButton(),
-              ],
+              children: [AuthHeader(), LoginForm(), GoSignUpButton()],
             ),
           ),
         ),

@@ -11,7 +11,9 @@ ThemeData appThemeData() {
 
     appBarTheme: AppBarTheme(
       elevation: 1,
+      scrolledUnderElevation: 1,
       surfaceTintColor: appColorScheme().surface,
+      backgroundColor: appColorScheme().surface,
       shadowColor: appColorScheme().onSurface,
       titleTextStyle: appTextTheme().headlineMedium,
     ),
@@ -64,6 +66,13 @@ ThemeData appThemeData() {
 
 TextTheme appTextTheme() {
   return TextTheme(
+    // 인증 화면 앱 로고
+    displayLarge: GoogleFonts.roboto(
+      fontSize: 96,
+      color: appColorScheme().onBackground,
+      fontWeight: FontWeight.w700,
+      fontStyle: FontStyle.italic,
+    ),
     // AppBar 헤드라인 영어
     headlineLarge: GoogleFonts.roboto(
       fontSize: 30,
@@ -76,7 +85,11 @@ TextTheme appTextTheme() {
       fontSize: 24,
       color: appColorScheme().onBackground,
       fontWeight: FontWeight.w900,
-      fontStyle: FontStyle.italic,
+    ),
+    headlineSmall: GoogleFonts.roboto(
+      fontSize: 22,
+      color: appColorScheme().onBackground,
+      fontWeight: FontWeight.w700,
     ),
     // 스크린 전체 타이틀
     titleLarge: GoogleFonts.notoSans(
