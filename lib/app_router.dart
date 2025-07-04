@@ -6,6 +6,7 @@ import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
 
+import 'feature/category/ui/category_screen.dart';
 import 'feature/product/ui/product_detail_screen.dart';
 import 'feature/product/ui/product_list_screen.dart';
 
@@ -20,6 +21,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case AppRoutes.preference:
         return MaterialPageRoute(builder: (_) => PreferenceScreen());
+      case AppRoutes.category:
+        return MaterialPageRoute(builder: (_) => CategoryScreen());
       case AppRoutes.productList:
         return MaterialPageRoute(builder: (_) => ProductListScreen());
       case AppRoutes.productDetail:

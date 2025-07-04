@@ -49,4 +49,33 @@ class AuthService {
       throw Exception("인증 실패(이메일/비밀번호 불일치");
     }
   }
+
+  // 회원가입
+  Future<void> signupAction({
+    required String email,
+    required String password,
+    required String nickname
+  }) async {
+    final response = await _dio.post(
+      ApiEndpoints.signUp,
+      data: {'email': email, 'password': password, 'nickName': nickname},
+    );
+
+    if(response.statusCode == 201){
+      final data = response.data;
+      final message = data['message'];
+      print('가입 성공! $message');
+    } else if(response.statusCode == 400){
+      throw Exception("요청 형식이 잘못되었거나 중복된 이메일입니다.");
+    }else if(response.statusCode == 409){
+      throw Exception("이미 가입된 계정입니다.");
+    }else{
+      throw Exception("회원가입 실패! ${response.statusCode}");
+    }
+  }
+
+
+
+
+
 }
