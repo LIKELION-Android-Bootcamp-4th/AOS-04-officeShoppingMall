@@ -12,6 +12,7 @@ class MypageContentUserCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       child: Card(
         elevation: 2,
+        color: appColorScheme().surfaceContainerLowest,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: Column(
