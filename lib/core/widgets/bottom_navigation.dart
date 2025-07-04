@@ -12,6 +12,25 @@ class BottomNavigation extends StatelessWidget {
     final nav = context.watch<BottomNavProvider>();
     final index = nav.currentIndex;
 
+    // TODO: 추후 모든 루트가 생성되면 null 제거
+    Widget navItem(String icon, int tabIndex, {String? route}) {
+      final isSelected = index == tabIndex;
+      return IconButton(
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          nav.changeIndex(tabIndex);
+          if (route != null) {
+            if (route == AppRoutes.home) {
+              Navigator.pushNamedAndRemoveUntil(context, route, (_) => false);
+            } else {
+              Navigator.pushNamed(context, route);
+            }
+          }
+        },
+        icon: SvgPicture.asset('images/icon/$icon${isSelected ? '_1' : '_0'}.svg'),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: SizedBox(
@@ -23,53 +42,12 @@ class BottomNavigation extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(
-                padding: EdgeInsets.zero, // 패딩을 없애야 원래 크기로 적용되어 사용
-                icon: index == 0
-                    ? SvgPicture.asset('images/icon/ic_nav_category_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_category_0.svg'),
-                onPressed: () {
-                  nav.changeIndex(0);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: index == 1
-                    ? SvgPicture.asset('images/icon/ic_nav_feed_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_feed_0.svg'),
-                onPressed: () {
-                  nav.changeIndex(1);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: index == 2
-                    ? SvgPicture.asset('images/icon/ic_nav_home_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_home_0.svg'),
-                onPressed: () {
-                  nav.changeIndex(2);
-                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: index == 3
-                    ? SvgPicture.asset('images/icon/ic_nav_heart_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_heart_0.svg'),
-                onPressed: () {
-                  nav.changeIndex(3);
-                  Navigator.pushNamed(context, AppRoutes.preference);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: index == 4
-                    ? SvgPicture.asset('images/icon/ic_nav_user_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_user_0.svg'),
-                onPressed: () {
-                  nav.changeIndex(4);
-                },
-              ),
+              // TODO: 앱 루트 추가
+              navItem('ic_nav_category', 0),
+              navItem('ic_nav_feed', 1),
+              navItem('ic_nav_home', 2, route: AppRoutes.home),
+              navItem('ic_nav_heart', 3, route: AppRoutes.preference),
+              navItem('ic_nav_user', 4),
             ],
           ),
         ),
