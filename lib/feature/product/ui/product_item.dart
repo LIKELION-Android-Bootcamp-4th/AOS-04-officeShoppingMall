@@ -23,6 +23,7 @@ class _ProductItem extends State<ProductItem>{
   void _setFavorite() {
     setState(() {
       isFavorite = !isFavorite;
+      widget.product.isFavorite = isFavorite;
     });
   }
 
