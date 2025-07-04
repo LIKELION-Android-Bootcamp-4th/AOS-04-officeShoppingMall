@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 
-class BottomNavigation extends StatefulWidget {
+class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
 
   @override
-  State<BottomNavigation> createState() => _BottomNavigationState();
-}
-
-class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0;
-
-  void onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final nav = context.watch<BottomNavProvider>();
+    final index = nav.currentIndex;
+
+    // TODO: 추후 모든 루트가 생성되면 null 제거
+    Widget navItem(String icon, int tabIndex, {String? route}) {
+      final isSelected = index == tabIndex;
+      return IconButton(
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          nav.changeIndex(tabIndex);
+          if (route != null) {
+            if (route == AppRoutes.home) {
+              Navigator.pushNamedAndRemoveUntil(context, route, (_) => false);
+            } else {
+              Navigator.pushNamed(context, route);
+            }
+          }
+        },
+        icon: SvgPicture.asset('images/icon/$icon${isSelected ? '_1' : '_0'}.svg'),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: SizedBox(
@@ -30,51 +42,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(
-                padding: EdgeInsets.zero, // 패딩을 없애야 원래 크기로 적용되어 사용
-                icon: _selectedIndex == 0
-                    ? SvgPicture.asset('images/icon/ic_nav_category_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_category_0.svg'),
-                onPressed: () {
-                  onTap(0);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: _selectedIndex == 1
-                    ? SvgPicture.asset('images/icon/ic_nav_feed_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_feed_0.svg'),
-                onPressed: () {
-                  onTap(1);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: _selectedIndex == 2
-                    ? SvgPicture.asset('images/icon/ic_nav_home_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_home_0.svg'),
-                onPressed: () {
-                  onTap(2);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: _selectedIndex == 3
-                    ? SvgPicture.asset('images/icon/ic_nav_heart_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_heart_0.svg'),
-                onPressed: () {
-                  onTap(3);
-                },
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: _selectedIndex == 4
-                    ? SvgPicture.asset('images/icon/ic_nav_user_1.svg')
-                    : SvgPicture.asset('images/icon/ic_nav_user_0.svg'),
-                onPressed: () {
-                  onTap(4);
-                },
-              ),
+              // TODO: 앱 루트 추가
+              navItem('ic_nav_category', 0, route: AppRoutes.category),
+              navItem('ic_nav_feed', 1),
+              navItem('ic_nav_home', 2, route: AppRoutes.home),
+              navItem('ic_nav_heart', 3, route: AppRoutes.preference),
+              navItem('ic_nav_user', 4, route: AppRoutes.mypage),
             ],
           ),
         ),
