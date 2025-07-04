@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
 import '../data/product.dart';
 
-class ProductDescriptionContent extends StatelessWidget {
-  final Product product;
+Product productData = products.firstWhere((element) => element.id == getSelectProductId());
 
-  const ProductDescriptionContent({super.key, required this.product,});
+class ProductDescriptionContent extends StatelessWidget {
+  const ProductDescriptionContent({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
         Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+          width: double.infinity,
+
+          constraints: BoxConstraints(
+            minHeight: 200,
           ),
 
+          padding: const EdgeInsets.all(16),
+
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: AppColors.gray200,
+          ),
+
+          child: Text(
+            '상품 정보가 없습니다',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
         ),
 
-        Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16),
 
-              Text(
-                product.description ?? '상품 정보가 없습니다',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              )
-            ]
-        )
       ]
     );
   }
