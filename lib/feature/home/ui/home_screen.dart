@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg')),
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
         ],
+        titleTextStyle: Theme.of(context).textTheme.headlineLarge,
       ),
       body: ListView(
         children: [
