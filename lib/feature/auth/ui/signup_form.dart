@@ -31,7 +31,7 @@ class SignUpFormState extends State<SignUpForm> {
 
   Map<String, String> getFormData() {
     return {
-      "nickname": _nameController.text,
+      "nickName": _nameController.text,
       "email": _emailController.text,
       "password": _pwController.text,
     };
@@ -64,14 +64,13 @@ class SignUpFormState extends State<SignUpForm> {
       if (confirm == true) {
         final formData = getFormData();
         print("$formData");
-        //TODO 회원가입 api
 
         try{
           final authService = AuthService();
           await authService.signupAction(
               email: formData["email"]!,
               password: formData["password"]!,
-              nickname: formData["nickname"]!,);
+              nickname: formData["nickName"]!,);
 
           showToast("회원가입이 완료되었습니다.");
           return Navigator.pop(context);
