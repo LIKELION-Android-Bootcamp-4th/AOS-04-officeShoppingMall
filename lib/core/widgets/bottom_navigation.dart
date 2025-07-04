@@ -43,7 +43,7 @@ class BottomNavigation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // TODO: 앱 루트 추가
-              navItem('ic_nav_category', 0),
+              navItem('ic_nav_category', 0, route: AppRoutes.category),
               navItem('ic_nav_feed', 1),
               navItem('ic_nav_home', 2, route: AppRoutes.home),
               navItem('ic_nav_heart', 3, route: AppRoutes.preference),
