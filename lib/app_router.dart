@@ -6,6 +6,9 @@ import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
 
+import 'feature/product/ui/product_detail_screen.dart';
+import 'feature/product/ui/product_list_screen.dart';
+
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -17,6 +20,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case AppRoutes.preference:
         return MaterialPageRoute(builder: (_) => PreferenceScreen());
+      case AppRoutes.productList:
+        return MaterialPageRoute(builder: (_) => ProductListScreen());
+      case AppRoutes.productDetail:
+        return MaterialPageRoute(builder: (_) => ProductDetailScreen());
 
       default:
         return MaterialPageRoute(
