@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list_item.dart';
-import 'package:office_shopping_mall/feature/cart/ui/caet_screen.dart';
+import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_navigation.dart';
 
@@ -15,7 +15,6 @@ class DeliveryScreen extends StatefulWidget{
 
 class DeliveryScreenState extends State<DeliveryScreen> with SingleTickerProviderStateMixin{
   int _selectIndex = 1;
-  int _listCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class DeliveryScreenState extends State<DeliveryScreen> with SingleTickerProvide
                 child: IndexedStack(
                   index: _selectIndex,
                   children: [
-                    CartScreen(index: _selectIndex),//장바구니 이동
+                    CartScreen(),//장바구니 이동
 
                     //상품 목록
                     ListView.builder(

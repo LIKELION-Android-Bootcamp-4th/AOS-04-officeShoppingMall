@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list_item.dart';
 
 class CartScreen extends StatefulWidget{
-  final int index;
-  const CartScreen({super.key, required this.index});
+  int index = 0;
 
   @override
   State<StatefulWidget> createState() {
