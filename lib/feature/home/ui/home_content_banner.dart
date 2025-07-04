@@ -20,7 +20,7 @@ class _HomeContentBannerState extends State<HomeContentBanner> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 220,
+      height: 250,
       child: Stack(
         children: [
           PageView(

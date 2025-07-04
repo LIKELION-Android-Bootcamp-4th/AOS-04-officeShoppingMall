@@ -13,7 +13,7 @@ class AuthHeader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(width: 150, height: 120, child: Image.asset('images/app_icon.jpg')),
+          Text("Walkin", style: Theme.of(context).textTheme.displayLarge,),
           SizedBox(height: 16),
 
           Text("직장인을 위한 스마트 쇼핑몰", style: Theme.of(context).textTheme.titleSmall),
