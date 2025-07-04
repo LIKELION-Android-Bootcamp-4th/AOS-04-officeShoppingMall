@@ -19,7 +19,6 @@ class ProductDetailScreen extends StatelessWidget{
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
         actions: [
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg')),
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
         ]
       ),
