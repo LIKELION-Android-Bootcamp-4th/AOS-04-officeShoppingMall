@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/app_router.dart';
-import 'package:office_shopping_mall/core/constants/app_colors.dart';
-import 'package:office_shopping_mall/core/constants/app_constants.dart';
-import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:provider/provider.dart';
+import 'app_router.dart';
+import 'core/constants/app_constants.dart';
+import 'core/constants/app_routes.dart';
+import 'core/theme/theme.dart';
 
 void main() {
   runApp(const WalkinApp());
@@ -17,9 +15,9 @@ class WalkinApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppConstants.appName,
-      theme: ThemeData(primaryColor: AppColors.primaryColor),
+      theme: appThemeData(),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.login,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
