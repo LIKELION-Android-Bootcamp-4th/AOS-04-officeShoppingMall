@@ -20,14 +20,6 @@ class _ProductListContent extends State<ProductListContent>{
 
     var categories = ["td", "asd", "aijdoaisd", "asoijdoiasd", "aosijdoaisdj", "aosijdoaijsdoiasjoid"];
 
-    var products = List<Product>.generate(60, (index) => Product(
-      id: index,
-      productName: "상품명",
-      price: '${10000 + index}원',
-      category: 0,
-      ),
-    );
-
     var filteredProducts = products
         .where((product) => product.category == _selectCategoryIndex)
         .toList();
@@ -42,54 +34,45 @@ class _ProductListContent extends State<ProductListContent>{
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          Container(
-            color: Colors.white,
-            child: SizedBox(
-              height: 50,
-              child: ListView.builder(
-                  itemCount: categories.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: TextButton(
-                        onPressed: () {
-                          selectCategory(index);
-                        },
-                        child: Text(
-                          categories[index],
-                          style: TextStyle(
-                            color: _selectCategoryIndex == index ? Colors.black : Colors.grey,
-                            fontSize: 20,
-                          ),
+          SizedBox(
+            height: 50,
+            child: ListView.builder(
+                itemCount: categories.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: TextButton(
+                      onPressed: () {
+                        selectCategory(index);
+                      },
+                      child: Text(
+                        categories[index],
+                        style: TextStyle(
+                          color: _selectCategoryIndex == index ? Colors.black : Colors.grey,
+                          fontSize: 20,
                         ),
                       ),
-                    );
-                  },
-              ),
+                    ),
+                  );
+                },
             ),
           ),
 
           SizedBox(height: 20),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 10,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index){
-                return ProductItem(product: filteredProducts[index]);
-              },
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.7,
             ),
-          )
+            itemCount: products.length,
+            itemBuilder: (context, index){
+              return ProductItem(product: filteredProducts[index]);},
+          ),
         ],
     );
   }

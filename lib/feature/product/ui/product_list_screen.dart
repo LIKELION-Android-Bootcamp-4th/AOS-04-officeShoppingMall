@@ -13,6 +13,8 @@ class ProductListScreen extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return Scaffold(
+      extendBody: true,
+
       appBar: CustomAppBar(
         actions: [
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
@@ -21,13 +23,18 @@ class ProductListScreen extends StatelessWidget{
         ]
       ),
 
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
           children: [
-            SizedBox(height: 20),
-            ProductListContent()
-          ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20),
+                ProductListContent(),
+              ],
+          ),
+        ],
         ),
       ),
 
