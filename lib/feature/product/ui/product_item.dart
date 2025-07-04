@@ -32,7 +32,8 @@ class _ProductItem extends State<ProductItem>{
       behavior: HitTestBehavior.opaque,
 
       onTap: () {
-        AppRouter.onGenerateRoute(RouteSettings(name: AppRoutes.productDetail));
+        setSelectProductId(widget.product.id);
+        Navigator.pushNamed(context, AppRoutes.productDetail);
       },
 
       child: Container(
@@ -49,10 +50,11 @@ class _ProductItem extends State<ProductItem>{
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey,
                       image: (widget.product.imageUrl == null) ? null : DecorationImage(
                         image: NetworkImage(widget.product.imageUrl!.first),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -61,10 +63,7 @@ class _ProductItem extends State<ProductItem>{
                     Center(
                       child: Text(
                         '상품 이미지가 없습니다',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -100,21 +99,15 @@ class _ProductItem extends State<ProductItem>{
                     alignment: Alignment.topLeft,
                     child: Text(
                       widget.product.productName,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
 
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      widget.product.price,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      '${widget.product.price}원',
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                 ],
