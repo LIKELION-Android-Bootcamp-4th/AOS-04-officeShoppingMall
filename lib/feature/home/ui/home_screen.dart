@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/bottom_navigation.dart';
 import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_content_banner.dart';
@@ -15,11 +15,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true, // 바텀 내비 뒤까지 확장
       appBar: CustomAppBar(
-        actions: [
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
-        ],
+        actions: AppBarActionsDefault(),
         titleTextStyle: Theme.of(context).textTheme.headlineLarge,
       ),
       body: ListView(
