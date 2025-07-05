@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 import 'package:provider/provider.dart';
 import 'app_router.dart';
@@ -18,6 +20,7 @@ class WalkinApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavProvider(), child: WalkinApp(),),
+        ChangeNotifierProvider(create: (_) => ProductProvider(), ),
       ],
       child: MaterialApp(
         title: AppConstants.appName,
