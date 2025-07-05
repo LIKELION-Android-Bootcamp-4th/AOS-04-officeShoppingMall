@@ -49,6 +49,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   sqflite: ^2.4.2
   flutter_native_splash: ^2.4.6
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -94,8 +95,6 @@ flutter:
     - assets/icon/
     - images/
     - images/icon/
-    - images/icon/ic_heart_small_0.svg
-    - images/icon/ic_heart_small_1.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
