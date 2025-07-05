@@ -38,7 +38,9 @@ class _SettingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, AppRoutes.setting);
+      },
       icon: SvgPicture.asset('images/icon/ic_appbar_setting.svg'),
     );
   }
