@@ -18,6 +18,18 @@ ThemeData appThemeData() {
       titleTextStyle: appTextTheme().headlineMedium,
     ),
 
+    tabBarTheme: TabBarThemeData(
+      indicator: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: appColorScheme().tertiary,
+      ),
+      indicatorSize: TabBarIndicatorSize.tab,
+      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      dividerColor: Colors.transparent,
+      labelColor: appColorScheme().onBackground,
+      unselectedLabelColor: appColorScheme().onBackground,
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: appColorScheme().primary,
@@ -177,6 +189,7 @@ ColorScheme appColorScheme() {
     onError: AppColors.red900,
 
     outline: AppColors.outlineColor,
+    outlineVariant: AppColors.outlineVariantColor,
     shadow: Colors.black,
 
     inverseSurface: AppColors.onSurfaceColor,
