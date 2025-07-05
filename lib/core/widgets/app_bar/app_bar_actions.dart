@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 
-List<Widget> AppBarActionsDefault() => [_SearchButton(), _BellButton(), _CartButton()];
+List<Widget> appBarActionsDefault() => [_SearchButton(), _BellButton(), _CartButton()];
 
-List<Widget> AppBarActionsMypage() => [_SettingButton(), _CartButton()];
+List<Widget> appBarActionsMypage() => [_SettingButton(), _CartButton()];
 
-List<Widget> AppBarActionsNoBell() => [_SearchButton(), _CartButton()];
+List<Widget> appBarActionsNoBell() => [_SearchButton(), _CartButton()];
 
 class _CartButton extends StatelessWidget {
   @override
