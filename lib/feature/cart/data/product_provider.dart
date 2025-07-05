@@ -14,7 +14,7 @@ class ProductProvider with ChangeNotifier {
     Product("배송완료 상품", 100000, 2222, 3),
   ];
 
-  void deleteProduct(Product product){
+  void deleteProduct(Product product) {
     products.remove(product);
     notifyListeners();
   }
