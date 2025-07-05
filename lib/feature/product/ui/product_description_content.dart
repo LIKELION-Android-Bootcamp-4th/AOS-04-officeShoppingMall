@@ -14,18 +14,29 @@ class ProductDescriptionContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
         Container(
           width: double.infinity,
+
           constraints: BoxConstraints(
             minHeight: 200,
           ),
 
           padding: EdgeInsets.all(16),
           alignment: Alignment.topLeft,
+
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: AppColors.gray200,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.gray200,
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(0, 2)
+              )
+            ]
           ),
 
           child: Text(
