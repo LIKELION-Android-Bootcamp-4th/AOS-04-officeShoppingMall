@@ -60,7 +60,7 @@ class _ProductTab extends State<ProductTab> {
               alignment: Alignment.center,
               child: Text(
                 widget.tabs[index],
-                style: Theme.of(context).textTheme.bodyLarge
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
               ),
             ),
           );

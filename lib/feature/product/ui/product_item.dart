@@ -52,7 +52,6 @@ class _ProductItem extends State<ProductItem>{
                   Card(
                     clipBehavior: Clip.antiAlias,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    elevation: 4,
                     child: widget.product.imageUrl != null
                         ? Image.network(
                       widget.product.imageUrl!.first,
@@ -63,7 +62,10 @@ class _ProductItem extends State<ProductItem>{
                         : Container(
                       color: AppColors.gray200,
                       alignment: Alignment.center,
-                      child: Text('상품 이미지가 없습니다'),
+                      child: Text(
+                          '상품 이미지가 없습니다',
+                          style: Theme.of(context).textTheme.bodySmall
+                      ),
                     ),
                   ),
                   Positioned(
