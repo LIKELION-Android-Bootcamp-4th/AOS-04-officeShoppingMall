@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="office_shopping_mall"
+        android:label="Walkin"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
