@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/feature/product/data/product.dart';
+import 'package:office_shopping_mall/feature/product/ui/product_detail_bottom.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_detail_content.dart';
 
+import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/custom_app_bar.dart';
 
 
@@ -37,6 +39,22 @@ class ProductDetailScreen extends StatelessWidget{
           ),
         ],
       ),
+
+      bottomNavigationBar: Container(
+        height: 64,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.gray200,
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, -1),
+            )
+          ],
+        ),
+        child: ProductDetailBottom(),
+      )
     );
 
   }
