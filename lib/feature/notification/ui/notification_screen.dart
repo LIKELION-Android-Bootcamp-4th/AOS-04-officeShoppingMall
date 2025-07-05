@@ -36,15 +36,34 @@ class NotificationScreenState extends State<NotificationScreen> {
             child: IndexedStack(
               index: _selectNotiIndex,
               children: [
-                Column(
-                  children: [
-                    Text("전체 알림 탭 입니다"),
-                    AppNotificationList(),
-                  ],
+                //전체 알림
+                ListView.builder(
+                  itemCount: notiList.length,
+                  itemBuilder: (context, index){
+                    return AppNotificationList(notification: notiList[index]);
+                    },
                 ),
-                Text("공지사항 알림 탭입니다"),
-                Text("배송 상황 알림 탭입니다"),
-                Text("광고 알림 탭입니다"),
+                //공지사항 알림
+                ListView(
+                  children: notiList
+                      .where((e) => e.notiIndex == 1)
+                      .map((e) => AppNotificationList(notification: e))
+                      .toList(),
+                ),
+                //배송 알림
+                ListView(
+                  children: notiList
+                      .where((e) => e.notiIndex == 2)
+                      .map((e) => AppNotificationList(notification: e))
+                      .toList(),
+                ),
+                //광고 알림
+                ListView(
+                  children: notiList
+                      .where((e) => e.notiIndex == 3)
+                      .map((e) => AppNotificationList(notification: e))
+                      .toList(),
+                ),
               ],
             ),
           ),
