@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:office_shopping_mall/app_router.dart';
-import 'package:office_shopping_mall/core/services/auth_service.dart';
+import 'package:office_shopping_mall/core/data/services/auth_service.dart';
 
 import '../../../core/constants/app_routes.dart';
 

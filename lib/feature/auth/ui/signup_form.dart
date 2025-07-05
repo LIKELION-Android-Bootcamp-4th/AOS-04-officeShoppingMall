@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:office_shopping_mall/core/services/auth_service.dart';
+import 'package:office_shopping_mall/core/data/services/auth_service.dart';
 
 import '../../../core/theme/app_colors.dart';
 

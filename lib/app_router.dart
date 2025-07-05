@@ -9,7 +9,7 @@ import 'package:office_shopping_mall/feature/mypage/ui/mypage_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_screen.dart';
-import 'package:office_shopping_mall/feature/setting/setting_screen.dart';
+import 'package:office_shopping_mall/feature/setting/ui/setting_screen.dart';
 
 
 class AppRouter {
