@@ -50,6 +50,7 @@ class _ProductTab extends State<ProductTab> {
           return GestureDetector(
             onTap: () => _handleTabSelected(index),
             child: AnimatedContainer(
+              height: 56,
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               margin: const EdgeInsets.symmetric(horizontal: 4),
