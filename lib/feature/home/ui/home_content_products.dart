@@ -32,7 +32,10 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                   Positioned(
                     bottom: 8,
                     right: 8,
-                    child: Icon(Icons.favorite_border, color: appColorScheme().onSurface),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.favorite_border, color: appColorScheme().onSurface),
+                    ),
                   ),
                 ],
               ),
