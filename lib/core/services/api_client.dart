@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiClient {
   static final Dio dio =
       Dio(
           BaseOptions(
-            baseUrl: 'http://git.hansul.kr:3000/',
+            baseUrl: Api.baseUrl,
             responseType: ResponseType.json,
             connectTimeout: Duration(seconds: 5),
             receiveTimeout: Duration(seconds: 3),

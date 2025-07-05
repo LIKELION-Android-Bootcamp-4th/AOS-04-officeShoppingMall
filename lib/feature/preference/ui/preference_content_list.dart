@@ -28,7 +28,10 @@ class _PreferenceContentListState extends State<PreferenceContentList> {
                 Positioned(
                   bottom: 8,
                   right: 8,
-                  child: Icon(Icons.favorite_border, color: appColorScheme().onSurface),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.favorite_border, color: appColorScheme().onSurface),
+                  ),
                 ),
               ],
             ),

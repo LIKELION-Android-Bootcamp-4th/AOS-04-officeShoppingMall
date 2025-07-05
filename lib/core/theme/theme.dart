@@ -65,6 +65,10 @@ ThemeData appThemeData() {
       labelStyle: appTextTheme().bodyLarge,
       hintStyle: appTextTheme().bodyLarge,
     ),
+
+    dialogTheme: DialogThemeData(
+      backgroundColor: appColorScheme().surface,
+    )
   );
 }
 
@@ -72,7 +76,7 @@ TextTheme appTextTheme() {
   return TextTheme(
     // 인증 화면 앱 로고
     displayLarge: GoogleFonts.roboto(
-      fontSize: 96,
+      fontSize: 84,
       color: appColorScheme().onBackground,
       fontWeight: FontWeight.w700,
       fontStyle: FontStyle.italic,

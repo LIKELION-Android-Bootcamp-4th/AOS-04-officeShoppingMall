@@ -13,7 +13,6 @@ class SignupScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: "회원가입",
         centerTitle: true, //appTextTheme().headlineLarge
-        titleTextStyle: Theme.of(context).textTheme.headlineMedium,
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
