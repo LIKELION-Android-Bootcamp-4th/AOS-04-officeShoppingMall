@@ -7,21 +7,25 @@ import '../../../core/constants/app_routes.dart';
 import '../data/product.dart';
 
 
-class ProductItem extends StatefulWidget{
+class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
   final Product product;
 
   @override
   State<ProductItem> createState() => _ProductItem();
-
 }
 
-class _ProductItem extends State<ProductItem>{
+class _ProductItem extends State<ProductItem> {
+  late bool isFavorite;
 
-  bool isFavorite = false;
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.product.isFavorite;
+  }
 
-  void _setFavorite() {
+  void _onFavoritePressed() {
     setState(() {
       isFavorite = !isFavorite;
       widget.product.isFavorite = isFavorite;
@@ -30,20 +34,19 @@ class _ProductItem extends State<ProductItem>{
 
   @override
   Widget build(BuildContext context) {
+    final product = widget.product;
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-
       onTap: () {
-        setSelectProductId(widget.product.id);
+        setSelectProductId(product.id);
         Navigator.pushNamed(context, AppRoutes.productDetail);
       },
-
       child: Container(
         width: 180,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-
           children: [
             SizedBox(
               height: 180,
@@ -51,11 +54,13 @@ class _ProductItem extends State<ProductItem>{
                 children: [
                   Card(
                     clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    child: widget.product.imageUrl != null
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: product.imageUrl != null && product.imageUrl!.isNotEmpty
                         ? Image.network(
-                      widget.product.imageUrl!.first,
-                      fit: BoxFit.fill,
+                      product.imageUrl!.first,
+                      fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
                     )
@@ -63,8 +68,8 @@ class _ProductItem extends State<ProductItem>{
                       color: AppColors.gray200,
                       alignment: Alignment.center,
                       child: Text(
-                          '상품 이미지가 없습니다',
-                          style: Theme.of(context).textTheme.bodySmall
+                        '상품 이미지가 없습니다',
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ),
@@ -72,7 +77,10 @@ class _ProductItem extends State<ProductItem>{
                     right: 12,
                     bottom: 14,
                     child: GestureDetector(
-                      onTap: _setFavorite,
+                      onTap: () {
+                        _onFavoritePressed();
+                      },
+                      behavior: HitTestBehavior.translucent,
                       child: SvgPicture.asset(
                         isFavorite
                             ? 'images/icon/ic_heart_small_1.svg'
@@ -83,28 +91,27 @@ class _ProductItem extends State<ProductItem>{
                 ],
               ),
             ),
-
             SizedBox(height: 8),
-
             SizedBox(
               height: 60,
-
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.product.productName,
-                      style: Theme.of(context).textTheme.titleMedium,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        product.productName,
+                        style: Theme.of(context).textTheme.titleMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      '${widget.product.price}원',
+                      '${product.price}원',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
