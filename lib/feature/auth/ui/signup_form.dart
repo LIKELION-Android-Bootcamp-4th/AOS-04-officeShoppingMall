@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:office_shopping_mall/core/services/auth_service.dart';
 
 import '../../../core/theme/app_colors.dart';
 
@@ -29,7 +31,7 @@ class SignUpFormState extends State<SignUpForm> {
 
   Map<String, String> getFormData() {
     return {
-      "nickname": _nameController.text,
+      "nickName": _nameController.text,
       "email": _emailController.text,
       "password": _pwController.text,
     };
@@ -62,7 +64,19 @@ class SignUpFormState extends State<SignUpForm> {
       if (confirm == true) {
         final formData = getFormData();
         print("$formData");
-        //TODO 회원가입 api
+
+        try{
+          final authService = AuthService();
+          await authService.signupAction(
+              email: formData["email"]!,
+              password: formData["password"]!,
+              nickname: formData["nickName"]!,);
+
+          showToast("회원가입이 완료되었습니다.");
+          return Navigator.pop(context);
+        }catch(e){
+          showToast(e.toString());
+        }
       }
     }
   }
@@ -127,7 +141,7 @@ class SignUpFormState extends State<SignUpForm> {
                 hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
               ),
               validator: (value) {
-                if (_nameController.text.isEmpty) {
+                if (_emailController.text.isEmpty) {
                   return "이메일을 입력해주세요.";
                 }
                 if (!RegExp(
@@ -219,4 +233,12 @@ class SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+}
+
+
+void showToast(String msg){
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+  );
 }

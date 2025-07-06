@@ -8,7 +8,7 @@ class AuthService {
   Future<String> refreshAccessToken() async {
     try {
       final response = await _dio.post(
-        ApiEndpoints.refreshToken,
+        Api.auth.refreshToken,
         data: {
           'refreshToken':
               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODVmNjlmYzQzOTkyMmMwOWMyMWFlZjMiLCJjb21wYW55SWQiOiI2ODVmNjlmYzQzOTkyMmMwOWMyMWFlZjAiLCJpc0FkbWluIjp0cnVlLCJpc1N1cGVyQWRtaW4iOnRydWUsImlhdCI6MTc1MTMzOTI2OCwiZXhwIjoxNzUxNDI1NjY4fQ.oRj5tVMltqCJ0Su_lVZy9PGiUyZ94NVFS4DnI4_Pc1w',
@@ -34,10 +34,7 @@ class AuthService {
 
   // 로그인
   Future<String> loginAction({required String email, required String password}) async {
-    final response = await _dio.post(
-      ApiEndpoints.login,
-      data: {'email': email, 'password': password},
-    );
+    final response = await _dio.post(Api.auth.login, data: {'email': email, 'password': password});
     if (response.statusCode == 200) {
       final responseData = response.data as Map<String, dynamic>;
       final data = responseData['data'] as Map<String, dynamic>;
@@ -47,6 +44,30 @@ class AuthService {
       throw Exception("잘못된 요청");
     } else {
       throw Exception("인증 실패(이메일/비밀번호 불일치");
+    }
+  }
+
+  // 회원가입
+  Future<void> signupAction({
+    required String email,
+    required String password,
+    required String nickname,
+  }) async {
+    final response = await _dio.post(
+      Api.auth.signUp,
+      data: {'email': email, 'password': password, 'nickName': nickname},
+    );
+
+    if (response.statusCode == 201) {
+      final data = response.data;
+      final message = data['message'];
+      print('가입 성공! $message');
+    } else if (response.statusCode == 400) {
+      throw Exception("요청 형식이 잘못되었거나 중복된 이메일입니다.");
+    } else if (response.statusCode == 409) {
+      throw Exception("이미 가입된 계정입니다.");
+    } else {
+      throw Exception("회원가입 실패! ${response.statusCode}");
     }
   }
 }
