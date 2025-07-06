@@ -10,6 +10,7 @@ class AppRoutes {
   static const String orderComplete = "/orderComplete";
   static const String search = "/search";
   static const String mypage = "/mypage";
+  static const String review = "/review";
   static const String setting = "/mypage/setting";
   static const String notification = "/notification";
   static const String cart = "/cart";
