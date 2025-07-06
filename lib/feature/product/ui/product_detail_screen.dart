@@ -25,19 +25,19 @@ class ProductDetailScreen extends StatelessWidget{
         ]
       ),
 
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
+          children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20),
                 ProductDetailContent(),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
 
       bottomNavigationBar: Container(
@@ -58,6 +58,5 @@ class ProductDetailScreen extends StatelessWidget{
     );
 
   }
-
 
 }
