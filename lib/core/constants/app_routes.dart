@@ -14,4 +14,5 @@ class AppRoutes {
   static const String notification = "/notification";
   static const String cart = "/cart";
   static const String delivery = "/delivery";
+  static const String pwsetting = '/pwsetting';
 }
