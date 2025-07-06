@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/feature/product/ui/product_content_container.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../data/product.dart';
@@ -40,57 +41,34 @@ class OrderContent extends StatelessWidget {
                 height: 86,
                 child: Text(
                   '상품 이미지가 없습니다',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
             ),
-
             SizedBox(width: 16),
-
             Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                  Text(
-                    product.productName,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge,
-                  ),
-
-                  SizedBox(height: 4),
-
-                  Text(
-                    '${product.price}원',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge,
-                  ),
-
-                ]
-
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.productName,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                SizedBox(height: 4),
+                Text(
+                  '${product.price}원',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
             ),
           ],
         ),
-
         SizedBox(height: 24),
 
-        Container(
+        ProductContentContainer(
           width: double.infinity,
           height: 204,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.gray100,
-            borderRadius: BorderRadius.circular(20),
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,20 +77,17 @@ class OrderContent extends StatelessWidget {
                     '배송 정보',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      minimumSize: Size(80, 40),
+                      minimumSize: Size(60, 30),
                       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       backgroundColor: AppColors.gray200,
-                      foregroundColor: AppColors.primaryColor,
+                      foregroundColor: AppColors.onBackgroundColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(60),
                       ),
                     ),
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                     child: Text('수정'),
                   )
                 ],
@@ -128,17 +103,11 @@ class OrderContent extends StatelessWidget {
             ],
           ),
         ),
-
         SizedBox(height: 16),
 
-        Container(
+        ProductContentContainer(
           width: double.infinity,
           height: 200,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.gray100,
-            borderRadius: BorderRadius.circular(20),
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
