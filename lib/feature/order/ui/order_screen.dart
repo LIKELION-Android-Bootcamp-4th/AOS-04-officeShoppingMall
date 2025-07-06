@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/product/ui/order_bottom.dart';
-import 'package:office_shopping_mall/feature/product/ui/order_content.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
+import 'package:office_shopping_mall/feature/order/ui/order_bottom.dart';
+import 'package:office_shopping_mall/feature/order/ui/order_content.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
-import '../data/product.dart';
+import '../../product/data/product.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -17,10 +17,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
 
-      appBar: CustomAppBar(
-        title: "결제",
-        titleTextStyle: Theme.of(context).textTheme.titleLarge,
-      ),
+      appBar: CustomAppBar(title: "결제", titleTextStyle: Theme.of(context).textTheme.titleLarge),
 
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -61,10 +58,7 @@ class OrderScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('결제 금액', style: Theme.of(context).textTheme.titleLarge),
-                  Text(
-                    '${product?.price}원',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+                  Text('${product?.price}원', style: Theme.of(context).textTheme.titleLarge),
                 ],
               ),
             ),

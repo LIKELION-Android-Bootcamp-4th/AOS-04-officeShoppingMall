@@ -18,6 +18,18 @@ ThemeData appThemeData() {
       titleTextStyle: appTextTheme().headlineMedium,
     ),
 
+    tabBarTheme: TabBarThemeData(
+      indicator: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: appColorScheme().tertiary,
+      ),
+      indicatorSize: TabBarIndicatorSize.tab,
+      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      dividerColor: Colors.transparent,
+      labelColor: appColorScheme().onBackground,
+      unselectedLabelColor: appColorScheme().onBackground,
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: appColorScheme().primary,
@@ -51,9 +63,7 @@ ThemeData appThemeData() {
       }),
     ),
 
-    dividerTheme: DividerThemeData(
-      color: appColorScheme().outline,
-    ),
+    dividerTheme: DividerThemeData(color: appColorScheme().outline),
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -66,9 +76,7 @@ ThemeData appThemeData() {
       hintStyle: appTextTheme().bodyLarge,
     ),
 
-    dialogTheme: DialogThemeData(
-      backgroundColor: appColorScheme().surface,
-    )
+    dialogTheme: DialogThemeData(backgroundColor: appColorScheme().surface),
   );
 }
 
@@ -121,24 +129,24 @@ TextTheme appTextTheme() {
     bodyLarge: GoogleFonts.notoSans(
       fontSize: 18,
       fontWeight: FontWeight.w400,
-      color: Colors.black54,
+      color: Colors.black87,
     ),
     // 본문 텍스트 (많은 텍스트)
     bodyMedium: GoogleFonts.notoSans(
       fontSize: 16,
       fontWeight: FontWeight.w400,
-      color: Colors.black54,
+      color: Colors.black87,
     ),
 
     labelLarge: GoogleFonts.notoSans(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: Colors.black45,
+      color: Colors.black54,
     ),
     labelMedium: GoogleFonts.notoSans(
       fontSize: 12,
       fontWeight: FontWeight.w400,
-      color: Colors.black45,
+      color: Colors.black54,
     ),
   );
 }
@@ -177,6 +185,7 @@ ColorScheme appColorScheme() {
     onError: AppColors.red900,
 
     outline: AppColors.outlineColor,
+    outlineVariant: AppColors.outlineVariantColor,
     shadow: Colors.black,
 
     inverseSurface: AppColors.onSurfaceColor,

@@ -53,11 +53,8 @@ class _ProductItem extends State<ProductItem> {
                 children: [
                   Card(
                     clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child:
-                        product.imageUrl != null && product.imageUrl!.isNotEmpty
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    child: product.imageUrl != null && product.imageUrl!.isNotEmpty
                         ? Image.network(
                             product.imageUrl!.first,
                             fit: BoxFit.cover,
@@ -110,10 +107,7 @@ class _ProductItem extends State<ProductItem> {
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: Text(
-                      '${product.price}원',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    child: Text('${product.price}원', style: Theme.of(context).textTheme.bodyLarge),
                   ),
                 ],
               ),

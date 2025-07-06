@@ -30,6 +30,7 @@ class AppColors {
 
   // 테두리, 디바이더
   static const outlineColor = Color(0xFFDBDBDB);
+  static const outlineVariantColor = Color(0xFF9A9A9A);
 
   // 그레이톤
   static const gray900 = Color(0xFF1B1D1F);

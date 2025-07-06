@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:office_shopping_mall/core/services/auth_service.dart';
+import 'package:office_shopping_mall/core/data/services/auth_service.dart';
 
 import '../../../core/theme/app_colors.dart';
 
@@ -65,16 +64,17 @@ class SignUpFormState extends State<SignUpForm> {
         final formData = getFormData();
         print("$formData");
 
-        try{
+        try {
           final authService = AuthService();
           await authService.signupAction(
-              email: formData["email"]!,
-              password: formData["password"]!,
-              nickname: formData["nickName"]!,);
+            email: formData["email"]!,
+            password: formData["password"]!,
+            nickname: formData["nickName"]!,
+          );
 
           showToast("회원가입이 완료되었습니다.");
           return Navigator.pop(context);
-        }catch(e){
+        } catch (e) {
           showToast(e.toString());
         }
       }
@@ -235,10 +235,6 @@ class SignUpFormState extends State<SignUpForm> {
   }
 }
 
-
-void showToast(String msg){
-  Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-  );
+void showToast(String msg) {
+  Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);
 }

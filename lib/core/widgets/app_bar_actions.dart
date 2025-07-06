@@ -3,18 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/feature/notification/ui/notification_screen.dart';
 
 List<Widget> AppBarActionsDefault() {
-  return [
-    _SearchButton(),
-    _BellButton(),
-    _CartButton(),
-  ];
+  return [_SearchButton(), _BellButton(), _CartButton()];
 }
 
 List<Widget> AppBarActionsMypage() {
-  return [
-    IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_setting.svg')),
-    _CartButton(),
-  ];
+  return [_SettingButton(), _CartButton()];
 }
 
 List<Widget> AppBarActionsNoBell() => [_SearchButton(), _CartButton()];
@@ -33,11 +26,24 @@ class _SearchButton extends StatelessWidget {
   }
 }
 
+class _SettingButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {},
+      icon: SvgPicture.asset('images/icon/ic_appbar_setting.svg'),
+    );
+  }
+}
+
 class _BellButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
-    }, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg'));
+    return IconButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
+      },
+      icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg'),
+    );
   }
 }

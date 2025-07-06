@@ -27,7 +27,9 @@ class MypageContentMenuList extends StatelessWidget {
                   children: [
                     SvgPicture.asset(item.icon),
                     SizedBox(width: 12),
-                    Expanded(child: Text(item.title, style: Theme.of(context).textTheme.titleSmall)),
+                    Expanded(
+                      child: Text(item.title, style: Theme.of(context).textTheme.titleSmall),
+                    ),
                   ],
                 ),
               ),

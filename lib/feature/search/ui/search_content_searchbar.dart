@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
-class SearchContentSearchBar extends StatelessWidget{
+class SearchContentSearchBar extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -18,8 +18,10 @@ class SearchContentSearchBar extends StatelessWidget{
             child: Row(
               children: [
                 IconButton(
-                    onPressed: () {Navigator.pop(context);},
-                    icon: SvgPicture.asset('images/icon/ic_back.svg')
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: SvgPicture.asset('images/icon/ic_back.svg'),
                 ),
                 Expanded(
                   child: Container(
@@ -28,11 +30,11 @@ class SearchContentSearchBar extends StatelessWidget{
                       controller: _searchController,
                       trailing: [
                         IconButton(
-                            onPressed: () {
-                              //TODO: 검색 이벤트 추가
-                              print('검색할 내용: ${_searchController.text}');
-                            },
-                            icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')
+                          onPressed: () {
+                            //TODO: 검색 이벤트 추가
+                            print('검색할 내용: ${_searchController.text}');
+                          },
+                          icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
                         ),
                       ],
                       backgroundColor: WidgetStateProperty.all(AppColors.gray200),

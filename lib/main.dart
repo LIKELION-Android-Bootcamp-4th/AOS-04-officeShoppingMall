@@ -20,15 +20,14 @@ class WalkinApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => BottomNavProvider(), child: WalkinApp(),),
-        ChangeNotifierProvider(create: (_) => ProductProvider(), ),
-        ChangeNotifierProvider(create: (_) => AuthProvider(), ),
+        ChangeNotifierProvider(create: (_) => BottomNavProvider(), child: WalkinApp()),
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MaterialApp(
         title: AppConstants.appName,
         theme: appThemeData(),
         debugShowCheckedModeBanner: false,
-        //TODO: 앱루트 login으로 바꾸기
         initialRoute: AppRoutes.login,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
