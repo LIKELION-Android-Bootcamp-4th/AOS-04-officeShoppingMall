@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/feature/product/data/product.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_item.dart';
 
-
-class ProductListContent extends StatefulWidget{
+class ProductListContent extends StatefulWidget {
   const ProductListContent({super.key});
 
   @override
   State<ProductListContent> createState() => _ProductListContent();
-
 }
 
-class _ProductListContent extends State<ProductListContent>{
-
+class _ProductListContent extends State<ProductListContent> {
   int _selectCategoryIndex = 0;
 
   @override
@@ -23,7 +20,7 @@ class _ProductListContent extends State<ProductListContent>{
       "aijdoaisd",
       "asoijdoiasd",
       "aosijdoaisdj",
-      "aosijdoaijsdoiasjoid"
+      "aosijdoaijsdoiasjoid",
     ];
 
     var filteredProducts = products

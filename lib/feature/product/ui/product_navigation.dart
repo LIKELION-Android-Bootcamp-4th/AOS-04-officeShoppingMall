@@ -40,7 +40,9 @@ class _ProductNavigation extends State<ProductNavigation> {
         height: 56,
         width: 188,
         child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(60),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(widget.tabs.length, (index) {
@@ -50,7 +52,9 @@ class _ProductNavigation extends State<ProductNavigation> {
                 onPressed: () => _handleTabSelected(index),
                 style: TextButton.styleFrom(
                   minimumSize: const Size(65, 65),
-                  backgroundColor: isSelected ? const Color(0x8270AEFF) : const Color(0xFFf7f2fa),
+                  backgroundColor: isSelected
+                      ? const Color(0x8270AEFF)
+                      : const Color(0xFFf7f2fa),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
                   ),

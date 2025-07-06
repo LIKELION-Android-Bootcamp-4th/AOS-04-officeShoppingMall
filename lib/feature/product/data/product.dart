@@ -1,4 +1,4 @@
-class Product{
+class Product {
   final int id;
   final String productName;
   final int price;
@@ -8,7 +8,16 @@ class Product{
   final int category;
   final Map<String, String>? categoryInfo;
 
-  Product({required this.id, required this.productName, required this.price, this.description, this.imageUrl, this.isFavorite = false, required this.category, this.categoryInfo});
+  Product({
+    required this.id,
+    required this.productName,
+    required this.price,
+    this.description,
+    this.imageUrl,
+    this.isFavorite = false,
+    required this.category,
+    this.categoryInfo,
+  });
 }
 
 int? _selectProductId;
@@ -30,14 +39,13 @@ Product? getSelectedProductData() {
   }
 }
 
-var products = List<Product>.generate(60, (index) => Product(
-  id: index,
-  productName: "상품명",
-  price: 10000 + index,
-  category: 0,
-  categoryInfo: {"td": "asd"}
-),
+var products = List<Product>.generate(
+  60,
+  (index) => Product(
+    id: index,
+    productName: "상품명",
+    price: 10000 + index,
+    category: 0,
+    categoryInfo: {"td": "asd"},
+  ),
 );
-
-
-

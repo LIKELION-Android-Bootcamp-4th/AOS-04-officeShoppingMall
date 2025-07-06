@@ -6,7 +6,6 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import '../../../core/constants/app_routes.dart';
 import '../data/product.dart';
 
-
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
@@ -57,21 +56,22 @@ class _ProductItem extends State<ProductItem> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: product.imageUrl != null && product.imageUrl!.isNotEmpty
+                    child:
+                        product.imageUrl != null && product.imageUrl!.isNotEmpty
                         ? Image.network(
-                      product.imageUrl!.first,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    )
+                            product.imageUrl!.first,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          )
                         : Container(
-                      color: AppColors.gray200,
-                      alignment: Alignment.center,
-                      child: Text(
-                        '상품 이미지가 없습니다',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
+                            color: AppColors.gray200,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '상품 이미지가 없습니다',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
                   ),
                   Positioned(
                     right: 12,
@@ -117,7 +117,7 @@ class _ProductItem extends State<ProductItem> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

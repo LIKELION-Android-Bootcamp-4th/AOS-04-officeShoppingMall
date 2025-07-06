@@ -6,7 +6,6 @@ import 'package:office_shopping_mall/feature/product/ui/product_button.dart';
 import '../../../core/constants/app_routes.dart';
 import '../data/product.dart';
 
-
 class ProductDetailBottom extends StatefulWidget {
   const ProductDetailBottom({super.key});
 
@@ -23,18 +22,13 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
     });
   }
 
-  void _onCartPressed() {
-
-  }
+  void _onCartPressed() {}
 
   void _onBuyPressed() {
     final product = getSelectedProductData();
     if (product == null) return;
 
-    Navigator.pushNamed(
-      context,
-      AppRoutes.order,
-    );
+    Navigator.pushNamed(context, AppRoutes.order);
   }
 
   @override

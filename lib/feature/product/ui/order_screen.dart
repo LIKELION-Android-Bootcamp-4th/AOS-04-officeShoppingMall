@@ -7,10 +7,8 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../data/product.dart';
 
-
-class OrderScreen extends StatelessWidget{
+class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +28,13 @@ class OrderScreen extends StatelessWidget{
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                OrderContent(),
-              ],
+              children: [SizedBox(height: 20), OrderContent()],
             ),
           ],
         ),
       ),
 
-
       bottomNavigationBar: Container(
-
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -50,7 +43,7 @@ class OrderScreen extends StatelessWidget{
               spreadRadius: 1,
               blurRadius: 2,
               offset: Offset(0, -1),
-            )
+            ),
           ],
         ),
 
@@ -59,7 +52,6 @@ class OrderScreen extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-
             SizedBox(height: 16),
 
             Container(
@@ -68,10 +60,7 @@ class OrderScreen extends StatelessWidget{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '결제 금액',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+                  Text('결제 금액', style: Theme.of(context).textTheme.titleLarge),
                   Text(
                     '${product?.price}원',
                     style: Theme.of(context).textTheme.titleLarge,
@@ -108,22 +97,13 @@ class OrderScreen extends StatelessWidget{
                 );
 
                 if (confirm == true) {
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.orderComplete,
-                  );
+                  Navigator.pushNamed(context, AppRoutes.orderComplete);
                 }
               },
-            )
-          ]
+            ),
+          ],
         ),
-
       ),
-
     );
-
-
-
   }
-
 }

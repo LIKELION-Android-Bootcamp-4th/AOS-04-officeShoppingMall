@@ -5,22 +5,29 @@ import 'package:office_shopping_mall/feature/product/ui/product_list_content.dar
 
 import '../../../core/widgets/bottom_navigation.dart';
 
-
-class ProductListScreen extends StatelessWidget{
+class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       extendBody: true,
 
       appBar: CustomAppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
-        ]
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg'),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg'),
+          ),
+        ],
       ),
 
       body: Container(
@@ -29,18 +36,13 @@ class ProductListScreen extends StatelessWidget{
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                ProductListContent(),
-              ],
-          ),
-        ],
+              children: [SizedBox(height: 20), ProductListContent()],
+            ),
+          ],
         ),
       ),
 
       bottomNavigationBar: BottomNavigation(),
     );
   }
-
-
 }

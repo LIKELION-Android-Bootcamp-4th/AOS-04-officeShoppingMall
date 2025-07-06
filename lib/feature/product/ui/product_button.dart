@@ -37,10 +37,7 @@ class ProductButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 16, color: textColor),
-        ),
+        child: Text(text, style: TextStyle(fontSize: 16, color: textColor)),
       ),
     );
 

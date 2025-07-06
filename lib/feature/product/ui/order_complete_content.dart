@@ -16,8 +16,11 @@ class OrderCompleteContent extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            '주문 완료',
-            style: Theme.of(context).textTheme.titleLarge
+              '주문 완료',
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleLarge
           ),
         ),
 
@@ -45,7 +48,11 @@ class OrderCompleteContent extends StatelessWidget {
         Center(
           child: Text(
             '주문하신 상품을 곧 보내드리겠습니다.',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+            style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black),
             textAlign: TextAlign.center,
           ),
         ),
@@ -54,7 +61,10 @@ class OrderCompleteContent extends StatelessWidget {
 
         Text(
           '결제 정보',
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme
+              .of(context)
+              .textTheme
+              .titleMedium,
         ),
 
         SizedBox(height: 16),
@@ -64,9 +74,17 @@ class OrderCompleteContent extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:[
-                  Text('결제 방식', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black)),
-                  Text('카드 결제', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black)),
+                children: [
+                  Text('결제 방식', style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
+                  Text('카드 결제', style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
                 ],
               ),
 
@@ -75,8 +93,16 @@ class OrderCompleteContent extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('주문 번호', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black)),
-                  Text('123456789', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black)),
+                  Text('주문 번호', style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
+                  Text('123456789', style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
                 ],
               ),
 
@@ -85,8 +111,16 @@ class OrderCompleteContent extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('배송지', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black)),
-                  Text('주소주소', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black)),
+                  Text('배송지', style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
+                  Text('주소주소', style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
                 ],
               ),
             ],
@@ -116,7 +150,7 @@ class OrderCompleteContent extends StatelessWidget {
           ),
         ),
 
-       SizedBox(height: 20),
+        SizedBox(height: 20),
 
       ],
     );

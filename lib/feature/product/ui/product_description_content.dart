@@ -14,9 +14,7 @@ class ProductDescriptionContent extends StatelessWidget {
       children: [
         ProductContentContainer(
           width: double.infinity,
-          constraints: BoxConstraints(
-            minHeight: 200,
-          ),
+          constraints: BoxConstraints(minHeight: 200),
           child: Text(
             '상품 정보가 없습니다',
             style: Theme.of(context).textTheme.bodyLarge,

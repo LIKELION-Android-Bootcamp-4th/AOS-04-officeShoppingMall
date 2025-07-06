@@ -36,32 +36,32 @@ class _ProductDetailContent extends State<ProductDetailContent> {
           height: 228,
           child: product.imageUrl == null
               ? Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.gray200,
-            ),
-            child: Center(
-              child: Text(
-                '상품 이미지가 없습니다',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
-          )
-              : PageView.builder(
-            itemCount: product.imageUrl!.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(product.imageUrl![index]),
-                    fit: BoxFit.cover,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.gray200,
                   ),
+                  child: Center(
+                    child: Text(
+                      '상품 이미지가 없습니다',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                )
+              : PageView.builder(
+                  itemCount: product.imageUrl!.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: NetworkImage(product.imageUrl![index]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
         SizedBox(height: 20),
         Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
-class ProductTab extends StatefulWidget{
+class ProductTab extends StatefulWidget {
   final List<String> tabs;
   final int selectedIndex;
   final Function(int) onTabSelected;
@@ -55,13 +55,17 @@ class _ProductTab extends State<ProductTab> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               margin: const EdgeInsets.symmetric(horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.secondaryContainerColor : Colors.transparent,
+                color: isSelected
+                    ? AppColors.secondaryContainerColor
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(60),
               ),
               alignment: Alignment.center,
               child: Text(
                 widget.tabs[index],
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge?.copyWith(color: Colors.black),
               ),
             ),
           );

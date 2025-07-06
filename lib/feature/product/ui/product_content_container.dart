@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-
 class ProductContentContainer extends StatelessWidget {
   final Widget child;
   final double? width;

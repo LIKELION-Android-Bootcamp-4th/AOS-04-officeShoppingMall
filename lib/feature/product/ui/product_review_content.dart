@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_content_container.dart';
 
-
-class ProductReviewContent extends StatelessWidget{
+class ProductReviewContent extends StatelessWidget {
   const ProductReviewContent({super.key});
 
   @override
@@ -27,5 +26,4 @@ class ProductReviewContent extends StatelessWidget{
       ],
     );
   }
-
 }

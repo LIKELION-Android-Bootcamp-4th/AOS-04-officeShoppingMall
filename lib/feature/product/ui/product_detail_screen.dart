@@ -7,22 +7,28 @@ import 'package:office_shopping_mall/feature/product/ui/product_detail_content.d
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/custom_app_bar.dart';
 
-
-class ProductDetailScreen extends StatelessWidget{
+class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       extendBody: true,
       appBar: CustomAppBar(
-        title: products.firstWhere((element) => element.id == getSelectProductId()).productName,
+        title: products
+            .firstWhere((element) => element.id == getSelectProductId())
+            .productName,
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
         actions: [
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
-        ]
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg'),
+          ),
+        ],
       ),
 
       body: Container(
@@ -31,10 +37,7 @@ class ProductDetailScreen extends StatelessWidget{
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                ProductDetailContent(),
-              ],
+              children: [SizedBox(height: 20), ProductDetailContent()],
             ),
           ],
         ),
@@ -50,13 +53,11 @@ class ProductDetailScreen extends StatelessWidget{
               spreadRadius: 1,
               blurRadius: 2,
               offset: Offset(0, -1),
-            )
+            ),
           ],
         ),
         child: ProductDetailBottom(),
-      )
+      ),
     );
-
   }
-
 }
