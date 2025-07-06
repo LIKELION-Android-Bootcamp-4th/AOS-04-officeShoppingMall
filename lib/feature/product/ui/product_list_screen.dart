@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_list_content.dart';
 
 import '../../../core/widgets/bottom_navigation.dart';
@@ -16,18 +15,9 @@ class ProductListScreen extends StatelessWidget {
 
       appBar: CustomAppBar(
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg'),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg'),
-          ),
+          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
+          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg')),
+          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
         ],
       ),
 

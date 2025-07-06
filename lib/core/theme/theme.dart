@@ -63,9 +63,7 @@ ThemeData appThemeData() {
       }),
     ),
 
-    dividerTheme: DividerThemeData(
-      color: appColorScheme().outline,
-    ),
+    dividerTheme: DividerThemeData(color: appColorScheme().outline),
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -78,9 +76,7 @@ ThemeData appThemeData() {
       hintStyle: appTextTheme().bodyLarge,
     ),
 
-    dialogTheme: DialogThemeData(
-      backgroundColor: appColorScheme().surface,
-    )
+    dialogTheme: DialogThemeData(backgroundColor: appColorScheme().surface),
   );
 }
 

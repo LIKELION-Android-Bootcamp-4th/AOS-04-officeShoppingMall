@@ -52,9 +52,7 @@ class _ProductListContent extends State<ProductListContent> {
                   child: Text(
                     categories[index],
                     style: TextStyle(
-                      color: _selectCategoryIndex == index
-                          ? Colors.black
-                          : Colors.grey,
+                      color: _selectCategoryIndex == index ? Colors.black : Colors.grey,
                       fontSize: 20,
                     ),
                   ),

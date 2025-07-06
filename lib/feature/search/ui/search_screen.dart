@@ -18,11 +18,11 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Column(
         children: [
           SearchContentSearchBar(),
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
           SearchRecentKeyword(),
-          SizedBox(height: 32,),
+          SizedBox(height: 32),
           Divider(),
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
           SearchPopular(),
         ],
       ),

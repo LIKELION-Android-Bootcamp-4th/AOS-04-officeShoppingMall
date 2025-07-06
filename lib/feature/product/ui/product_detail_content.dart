@@ -41,10 +41,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
                     color: AppColors.gray200,
                   ),
                   child: Center(
-                    child: Text(
-                      '상품 이미지가 없습니다',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                    child: Text('상품 이미지가 없습니다', style: Theme.of(context).textTheme.bodySmall),
                   ),
                 )
               : PageView.builder(
@@ -67,14 +64,8 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              product.productName,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            Text(
-              '${product.price}원',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text(product.productName, style: Theme.of(context).textTheme.titleLarge),
+            Text('${product.price}원', style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         SizedBox(height: 4),

@@ -6,18 +6,17 @@ import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
 import 'package:office_shopping_mall/feature/mypage/ui/mypage_screen.dart';
 import 'package:office_shopping_mall/feature/notification/ui/notification_screen.dart';
+import 'package:office_shopping_mall/feature/order/ui/order_complete_screen.dart';
+import 'package:office_shopping_mall/feature/order/ui/order_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
-import 'package:office_shopping_mall/feature/product/ui/order_complete_screen.dart';
 
 import 'feature/category/ui/category_screen.dart';
-import 'feature/product/ui/order_screen.dart';
 import 'feature/product/ui/product_detail_screen.dart';
 import 'feature/product/ui/product_list_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_screen.dart';
 import 'package:office_shopping_mall/feature/setting/ui/setting_screen.dart';
 import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
-
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {

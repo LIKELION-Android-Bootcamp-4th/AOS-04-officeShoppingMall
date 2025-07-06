@@ -17,10 +17,7 @@ class MypageScreen extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MypageContentUserCard(),
-              MypageContentMenuList(),
-            ],
+            children: [MypageContentUserCard(), MypageContentMenuList()],
           ),
         ],
       ),

@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
 import '../../../core/constants/app_routes.dart';
-import '../data/product.dart';
+import '../../product/data/product.dart';
 
 class OrderBottom extends StatefulWidget {
   const OrderBottom({super.key, required this.onSelected});
@@ -43,9 +43,7 @@ class _OrderBottom extends State<OrderBottom> {
                 ),
                 child: Text(
                   '결제',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
                 ),
               ),
             ),

@@ -4,14 +4,14 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SearchRecentKeyword extends StatefulWidget{
+class SearchRecentKeyword extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _SearchRecentKeywordState();
   }
 }
 
-class _SearchRecentKeywordState extends State<SearchRecentKeyword>{
+class _SearchRecentKeywordState extends State<SearchRecentKeyword> {
   //TODO: SharedPreferences 데이터로
   List<String> recentKeywords = ['검색1', '검색2', '검색3', '검색4', '검색5'];
 
@@ -41,7 +41,7 @@ class _SearchRecentKeywordState extends State<SearchRecentKeyword>{
                     labelPadding: EdgeInsets.only(left: 4.0, right: 4.0),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
-                    onPressed: (){
+                    onPressed: () {
                       //TODO: 검색 이벤트 추가할 것
                       print('최근 검색어는 : $text');
                     },
@@ -51,15 +51,15 @@ class _SearchRecentKeywordState extends State<SearchRecentKeyword>{
                         Container(
                           width: 60,
                           height: 18,
-                          child: Text(text, style: appTextTheme().labelLarge,),
+                          child: Text(text, style: appTextTheme().labelLarge),
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             //TODO: 삭제 이벤트 추가할 것
                             print('삭제할 키워드는: $text');
                           },
-                          child: Icon(Icons.close, size: 16, color: Colors.black,),
-                        )
+                          child: Icon(Icons.close, size: 16, color: Colors.black),
+                        ),
                       ],
                     ),
                   ),

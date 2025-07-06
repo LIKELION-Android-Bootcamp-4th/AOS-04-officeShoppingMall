@@ -10,8 +10,16 @@ class SearchPopular extends StatefulWidget {
 
 class SearchPopularState extends State<SearchPopular> {
   final List<String> popularSearches = [
-    '검색어1', '검색어2', '검색어3', '검색어4', '검색어5',
-    '검색어6', '검색어7', '검색어8', '검색어9', '검색어10',
+    '검색어1',
+    '검색어2',
+    '검색어3',
+    '검색어4',
+    '검색어5',
+    '검색어6',
+    '검색어7',
+    '검색어8',
+    '검색어9',
+    '검색어10',
   ];
 
   @override
@@ -58,24 +66,15 @@ class SearchPopularState extends State<SearchPopular> {
           Container(
             width: 24,
             alignment: Alignment.centerLeft,
-            child: Text(
-              '${index + 1}',
-              style: appTextTheme().bodyLarge,
-            ),
+            child: Text('${index + 1}', style: appTextTheme().bodyLarge),
           ),
           SizedBox(width: 12),
           SizedBox(
             width: 72,
-            child: Text(
-              keyword,
-              style: appTextTheme().bodyLarge,
-              overflow: TextOverflow.ellipsis,
-            ),
+            child: Text(keyword, style: appTextTheme().bodyLarge, overflow: TextOverflow.ellipsis),
           ),
         ],
       ),
     );
   }
-
-
 }

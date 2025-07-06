@@ -12,10 +12,7 @@ class PreferenceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: CustomAppBar(
-        title: '좋아요',
-        actions: appBarActionsDefault(),
-      ),
+      appBar: CustomAppBar(title: '좋아요', actions: appBarActionsDefault()),
       body: ListView(
         children: [
           Padding(
