@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class UserInfoTab extends StatefulWidget {
@@ -89,7 +90,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('이름', style: Theme.of(context).textTheme.bodyLarge),
+                        child: Text('이름', style: Theme.of(context).textTheme.bodyMedium),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -104,7 +105,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('전화번호', style: Theme.of(context).textTheme.bodyLarge),
+                        child: Text('전화번호', style: Theme.of(context).textTheme.bodyMedium),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -120,7 +121,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('이메일', style: Theme.of(context).textTheme.bodyLarge),
+                        child: Text('이메일', style: Theme.of(context).textTheme.bodyMedium),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -136,7 +137,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('비밀번호', style: Theme.of(context).textTheme.bodyLarge),
+                        child: Text('비밀번호', style: Theme.of(context).textTheme.bodyMedium),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -205,6 +206,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
               color: appColorScheme().surfaceContainerLow,
               elevation: 0,
               child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.destSetting);
+                },
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(vertical: 16),
