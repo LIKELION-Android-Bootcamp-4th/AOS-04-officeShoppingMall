@@ -23,14 +23,12 @@ class _CartButton extends StatelessWidget {
 class _SearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'));
-  }
-}
-
-class _BellButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg'));
+    return IconButton(
+      onPressed: () {
+        Navigator.pushNamed(context, AppRoutes.search);
+      },
+      icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
+    );
   }
 }
 
@@ -42,6 +40,18 @@ class _SettingButton extends StatelessWidget {
         Navigator.pushNamed(context, AppRoutes.setting);
       },
       icon: SvgPicture.asset('images/icon/ic_appbar_setting.svg'),
+    );
+  }
+}
+
+class _BellButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        Navigator.pushNamed(context, AppRoutes.notification);
+      },
+      icon: SvgPicture.asset('images/icon/ic_appbar_bell.svg'),
     );
   }
 }

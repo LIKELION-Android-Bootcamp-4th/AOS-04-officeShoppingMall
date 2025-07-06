@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppBar(
         actions: appBarActionsDefault(),
         titleTextStyle: Theme.of(context).textTheme.headlineLarge,
+        isLeading: false,
       ),
       body: ListView(
         children: [

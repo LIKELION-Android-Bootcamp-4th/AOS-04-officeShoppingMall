@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/core/widgets/app_bar_actions.dart';
+import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
 import 'package:office_shopping_mall/feature/notification/data/app_notification_list.dart';
-import 'package:office_shopping_mall/feature/notification/ui/notification_navigation.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -11,27 +11,41 @@ class NotificationScreen extends StatefulWidget {
   }
 }
 
-class NotificationScreenState extends State<NotificationScreen> {
-  int _selectNotiIndex = 0;
+class NotificationScreenState extends State<NotificationScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: '알림', actions: AppBarActionsNoBell()),
+      appBar: CustomAppBar(title: '알림', actions: appBarActionsNoBell()),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          NotificationNavigation(
-            selectNotiIndex: _selectNotiIndex,
-            onTap: (index) {
-              setState(() {
-                _selectNotiIndex = index;
-              });
-            },
+          customTabBar(
+            controller: _controller,
+            tabs: [
+              Tab(text: '전체 알림'),
+              Tab(text: '공지사항'),
+              Tab(text: '배송 알림'),
+              Tab(text: '광고'),
+            ],
           ),
           Expanded(
-            child: IndexedStack(
-              index: _selectNotiIndex,
+            child: TabBarView(
+              controller: _controller,
               children: [
                 //전체 알림
                 ListView.builder(

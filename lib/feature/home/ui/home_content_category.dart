@@ -11,13 +11,20 @@ class HomeContentCategory extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(5, (index) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_close.svg')),
-              Text('이름 ${index + 1}', style: Theme.of(context).textTheme.labelMedium),
-            ],
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: InkWell(
+              onTap: () {},
+              splashFactory: NoSplash.splashFactory,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('images/icon/ic_close.svg'),
+                  Text('이름 ${index + 1}', style: Theme.of(context).textTheme.labelMedium),
+                ],
+              ),
+            ),
           );
         }),
       ),

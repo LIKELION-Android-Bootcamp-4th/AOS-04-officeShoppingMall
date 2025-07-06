@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 
@@ -14,7 +15,6 @@ class CartScreen extends StatefulWidget {
 class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final bool showAppbar = Navigator.canPop(context);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
