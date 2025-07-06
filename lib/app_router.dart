@@ -9,8 +9,8 @@ import 'package:office_shopping_mall/feature/mypage/ui/mypage_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_screen.dart';
+import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
 
-import 'package:office_shopping_mall/feature/home/ui/search_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
