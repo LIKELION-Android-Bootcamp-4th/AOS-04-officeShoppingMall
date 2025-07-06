@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchRecentKeyword extends StatefulWidget {
   @override
@@ -35,7 +32,7 @@ class _SearchRecentKeywordState extends State<SearchRecentKeyword> {
                 return ConstrainedBox(
                   constraints: BoxConstraints(minWidth: 100),
                   child: ActionChip(
-                    backgroundColor: Color(0x3070AEFF),
+                    backgroundColor: appColorScheme().tertiaryContainer,
                     side: BorderSide.none,
                     shape: StadiumBorder(),
                     labelPadding: EdgeInsets.only(left: 4.0, right: 4.0),

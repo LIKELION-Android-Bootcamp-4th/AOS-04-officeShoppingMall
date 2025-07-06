@@ -9,6 +9,7 @@ import 'package:office_shopping_mall/feature/notification/ui/notification_screen
 import 'package:office_shopping_mall/feature/order/ui/order_complete_screen.dart';
 import 'package:office_shopping_mall/feature/order/ui/order_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
+import 'package:office_shopping_mall/feature/setting/ui/pw_setting.dart';
 import 'package:office_shopping_mall/feature/review/ui/review_screen.dart';
 
 import 'feature/category/ui/category_screen.dart';
@@ -52,6 +53,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DeliveryScreen());
       case AppRoutes.search:
         return MaterialPageRoute(builder: (_) => SearchScreen());
+      case AppRoutes.pwSetting:
+        return MaterialPageRoute(builder: (_) => PwSetting());
       case AppRoutes.review:
         return MaterialPageRoute(builder: (_) => ReviewScreen());
 

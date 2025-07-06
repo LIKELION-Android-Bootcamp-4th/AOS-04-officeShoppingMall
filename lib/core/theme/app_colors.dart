@@ -12,6 +12,7 @@ class AppColors {
 
   static const tertiaryColor = Color(0x8270AEFF);
   static const onTertiaryColor = Color(0xFFFFFFFF);
+  static const tertiaryContainerColor = Color(0x3070AEFF);
 
   // 주 배경
   static const backgroundColor = Color(0xFFFCFDFF);

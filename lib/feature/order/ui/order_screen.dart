@@ -22,6 +22,7 @@ class OrderScreen extends StatelessWidget {
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(
+          physics: NeverScrollableScrollPhysics(),
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
