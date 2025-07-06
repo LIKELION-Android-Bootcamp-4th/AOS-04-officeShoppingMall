@@ -10,6 +10,7 @@ import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dar
 import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_screen.dart';
 import 'package:office_shopping_mall/feature/setting/ui/setting_screen.dart';
+import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
 
 
 class AppRouter {
@@ -33,6 +34,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => CartScreen());
       case AppRoutes.delivery:
         return MaterialPageRoute(builder: (_) => DeliveryScreen());
+      case AppRoutes.search:
+        return MaterialPageRoute(builder: (_) => SearchScreen());
 
       default:
         return MaterialPageRoute(

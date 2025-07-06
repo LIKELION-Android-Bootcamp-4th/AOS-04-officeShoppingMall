@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:office_shopping_mall/core/data/services/auth_service.dart';
+import 'package:office_shopping_mall/app_router.dart';
+import 'package:office_shopping_mall/core/services/auth_service.dart';
+import 'package:office_shopping_mall/feature/auth/bloc/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_routes.dart';
 
@@ -60,6 +63,10 @@ class LoginFormState extends State<LoginForm> {
           password: pw
       );
       print('로그인 성공! 액세스 토큰: $accessToken');
+
+      final auth = Provider.of<AuthProvider>(context, listen: false);
+      auth.login();
+
       Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
     }catch(e){
       final error = e.toString();
@@ -116,7 +123,9 @@ class LoginFormState extends State<LoginForm> {
         SizedBox(height: 32),
 
         ElevatedButton(
-          onPressed: () {loginAction();},
+          onPressed: () {
+            loginAction();
+            },
           child: Text(
             "로그인",
           ),
