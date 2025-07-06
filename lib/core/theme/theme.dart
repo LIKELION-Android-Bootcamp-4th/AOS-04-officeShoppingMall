@@ -72,8 +72,8 @@ ThemeData appThemeData() {
         borderSide: BorderSide.none,
         borderRadius: BorderRadius.circular(8.0),
       ),
-      labelStyle: appTextTheme().bodyLarge,
-      hintStyle: appTextTheme().bodyLarge,
+      labelStyle: appTextTheme().bodySmall,
+      hintStyle: appTextTheme().labelLarge,
     ),
 
     dialogTheme: DialogThemeData(backgroundColor: appColorScheme().surface),
@@ -141,12 +141,12 @@ TextTheme appTextTheme() {
     labelLarge: GoogleFonts.notoSans(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: Colors.black54,
+      color: Colors.black45,
     ),
     labelMedium: GoogleFonts.notoSans(
       fontSize: 12,
       fontWeight: FontWeight.w400,
-      color: Colors.black54,
+      color: Colors.black45,
     ),
   );
 }
