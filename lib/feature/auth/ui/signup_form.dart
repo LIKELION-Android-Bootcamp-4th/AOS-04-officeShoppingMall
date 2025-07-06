@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/data/services/auth_service.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class SignUpForm extends StatefulWidget {
   SignUpForm({super.key});
@@ -102,23 +103,7 @@ class SignUpFormState extends State<SignUpForm> {
               controller: _nameController,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 12,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade200,
-                    width: 1.5,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: "이름",
-              ),
+              decoration: buildInputDecoration(label: "이름"),
               validator: (value) {
                 if (_nameController.text.isEmpty) {
                   return "이름을 입력해주세요.";
@@ -133,23 +118,9 @@ class SignUpFormState extends State<SignUpForm> {
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 12,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade200,
-                    width: 1.5,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: "이메일",
-                hintText: "예) Walkin@walkin.co.kr",
+              decoration: buildInputDecoration(
+                label: "이메일",
+                hint: "예) Walkin@walkin.co.kr",
               ),
               validator: (value) {
                 if (_emailController.text.isEmpty) {
@@ -171,22 +142,8 @@ class SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,
               obscureText: _showVisibleIcon,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 12,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade200,
-                    width: 1.5,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: "비밀번호",
+              decoration: buildInputDecoration(
+                label: "비밀번호",
                 suffixIcon: IconButton(
                   onPressed: _changeVisibilityIcon,
                   icon: SvgPicture.asset(
@@ -213,23 +170,7 @@ class SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,
               obscureText: true,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 12,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade200,
-                    width: 1.5,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: "비밀번호 확인",
-              ),
+              decoration: buildInputDecoration(label: "비밀번호 확인"),
               validator: (value) {
                 if (_confirmPwController.text.isEmpty) {
                   return "비밀번호를 입력해주세요.";
@@ -246,17 +187,7 @@ class SignUpFormState extends State<SignUpForm> {
               onPressed: () {
                 _submitForm();
               },
-              child: Text(
-                "회원가입",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size.fromHeight(50),
-                backgroundColor: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32),
-                ),
-              ),
+              child: Text("회원가입"),
             ),
           ],
         ),
@@ -264,6 +195,37 @@ class SignUpFormState extends State<SignUpForm> {
     );
   }
 }
+
+
+InputDecoration buildInputDecoration({
+  required String label,
+  String? hint,
+  Widget? suffixIcon,
+}) {
+  return InputDecoration(
+    filled: false,
+    labelText: label,
+    hintText: hint,
+    suffixIcon: suffixIcon,
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+    labelStyle: appTextTheme().bodyMedium,
+    floatingLabelStyle: appTextTheme().bodyMedium,
+    contentPadding: EdgeInsets.symmetric(vertical: 12),
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: AppColors.gray200, width: 1),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: AppColors.gray400, width: 1.5),
+    ),
+    errorBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: AppColors.red600, width: 1),
+    ),
+    focusedErrorBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: appColorScheme().onError, width: 1.5),
+    ),
+  );
+}
+
 
 void showToast(String msg) {
   Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);
