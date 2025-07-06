@@ -7,11 +7,11 @@ class AppRoutes {
   static const String category = "/category";
 
   static const String preference = "/preference";
-
+  static const String search = "/search";
   static const String mypage = "/mypage";
 
   static const String notification = "/notification";
-  
+
   static const String cart = "/cart";
   static const String delivery = "/delivery";
   
