@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
 import 'package:office_shopping_mall/feature/review/data/review_list.dart';
-import 'package:office_shopping_mall/feature/setting/ui/noti_setting_tab.dart';
-import 'package:office_shopping_mall/feature/setting/ui/user_info_tab.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({super.key});
