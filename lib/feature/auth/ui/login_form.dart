@@ -103,10 +103,7 @@ class LoginFormState extends State<LoginForm> {
               onPressed: _changeVisibilityIcon,
               icon: _showVisibleIcon
                   ? SvgPicture.asset('images/icon/ic_invisible.svg')
-                  : SvgPicture.asset(
-                      'images/icon/ic_visible.svg',
-                      colorFilter: const ColorFilter.mode(Color(0x80000000), BlendMode.srcIn),
-                    ),
+                  : SvgPicture.asset('images/icon/ic_visible.svg'),
             ),
           ),
         ),
