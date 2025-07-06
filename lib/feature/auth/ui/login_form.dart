@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/app_router.dart';
 import 'package:office_shopping_mall/core/services/auth_service.dart';
+import 'package:office_shopping_mall/feature/auth/bloc/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_routes.dart';
 
@@ -17,6 +19,7 @@ class LoginForm extends StatefulWidget {
 class LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+
   bool _showClearIcon = false;
   bool _showVisibleIcon = true;
 
@@ -43,35 +46,42 @@ class LoginFormState extends State<LoginForm> {
     _pwController.dispose();
   }
 
-  void loginAction() async {
+  void loginAction() async{
     final email = _emailController.text;
     final pw = _pwController.text;
 
     if (email.isEmpty || pw.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("이메일과 비밀번호를 입력해주세요")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("이메일과 비밀번호를 입력해주세요")),
+      );
       return;
     }
 
-    try {
+    try{
       final authService = AuthService();
       final accessToken = await authService.loginAction(
-        //TODO: 추후 사용자 입력값으로 변경할 것.
-        email: "buyer@example.com",
-        password: "password123",
+          email: email,
+          password: pw
       );
       print('로그인 성공! 액세스 토큰: $accessToken');
+
+      final auth = Provider.of<AuthProvider>(context, listen: false);
+      auth.login();
+
       Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
-    } catch (e) {
+    }catch(e){
       final error = e.toString();
       if (error.contains("401")) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("이메일 또는 비밀번호가 올바르지 않습니다")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("이메일 또는 비밀번호가 올바르지 않습니다")),
+        );
         return;
       }
       print('로그인 실패: $e');
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +114,9 @@ class LoginFormState extends State<LoginForm> {
               icon: _showVisibleIcon
                   ? SvgPicture.asset('images/icon/ic_invisible.svg')
                   : SvgPicture.asset(
-                      'images/icon/ic_visible.svg',
-                      colorFilter: const ColorFilter.mode(Color(0x80000000), BlendMode.srcIn),
-                    ),
+                'images/icon/ic_visible.svg',
+                colorFilter: const ColorFilter.mode(Color(0x80000000), BlendMode.srcIn)
+              ),
             ),
           ),
         ),
@@ -116,9 +126,12 @@ class LoginFormState extends State<LoginForm> {
         ElevatedButton(
           onPressed: () {
             loginAction();
-          },
-          child: Text("로그인"),
+            },
+          child: Text(
+            "로그인",
+          ),
         ),
+
       ],
     );
   }
