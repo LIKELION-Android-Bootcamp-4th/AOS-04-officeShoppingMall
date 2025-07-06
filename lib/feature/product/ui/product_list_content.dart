@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/feature/product/bloc/product.dart';
+import 'package:office_shopping_mall/feature/product/data/product.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_item.dart';
 
 class ProductListContent extends StatefulWidget {
@@ -23,11 +23,9 @@ class _ProductListContent extends State<ProductListContent> {
       "aosijdoaijsdoiasjoid",
     ];
 
-    var products = List<Product>.generate(
-      60,
-      (index) =>
-          Product(id: index, productName: "상품명", price: '${10000 + index}원', category: index),
-    );
+    var filteredProducts = products
+        .where((product) => product.category == _selectCategoryIndex)
+        .toList();
 
     void selectCategory(int index) {
       setState(() {
@@ -39,54 +37,48 @@ class _ProductListContent extends State<ProductListContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-        Container(
-          color: Colors.white,
-          child: SizedBox(
-            height: 50,
-
-            child: ListView.builder(
-              itemCount: categories.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: TextButton(
-                    onPressed: () {
-                      selectCategory(index);
-                    },
-                    child: Text(
-                      categories[index],
-                      style: TextStyle(
-                        color: _selectCategoryIndex == index ? Colors.black : Colors.grey,
-                        fontSize: 20,
-                      ),
+        SizedBox(
+          height: 50,
+          child: ListView.builder(
+            itemCount: categories.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: TextButton(
+                  onPressed: () {
+                    selectCategory(index);
+                  },
+                  child: Text(
+                    categories[index],
+                    style: TextStyle(
+                      color: _selectCategoryIndex == index
+                          ? Colors.black
+                          : Colors.grey,
+                      fontSize: 20,
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
 
         SizedBox(height: 20),
 
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.7,
-            ),
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return ProductItem(product: products[index]);
-            },
+        GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            childAspectRatio: 0.7,
           ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            final product = filteredProducts[index];
+            return ProductItem(product: product);
+          },
         ),
       ],
     );
