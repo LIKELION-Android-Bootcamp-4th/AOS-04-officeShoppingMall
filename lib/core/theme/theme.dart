@@ -170,6 +170,7 @@ ColorScheme appColorScheme() {
 
     tertiary: AppColors.tertiaryColor,
     onTertiary: AppColors.onTertiaryColor,
+    tertiaryContainer: AppColors.tertiaryContainerColor,
 
     background: AppColors.backgroundColor,
     onBackground: AppColors.onBackgroundColor,
