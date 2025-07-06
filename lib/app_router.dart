@@ -51,6 +51,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DeliveryScreen());
       case AppRoutes.search:
         return MaterialPageRoute(builder: (_) => SearchScreen());
+      case AppRoutes.addReview:
+        return MaterialPageRoute(builder: (_) => AddReviewScreen());
 
       default:
         return MaterialPageRoute(
