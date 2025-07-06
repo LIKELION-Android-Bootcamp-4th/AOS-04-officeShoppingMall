@@ -27,7 +27,10 @@ ThemeData appThemeData() {
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       dividerColor: Colors.transparent,
       labelColor: appColorScheme().onBackground,
+      labelStyle: appTextTheme().bodyLarge,
+      labelPadding: EdgeInsets.symmetric(horizontal: 8),
       unselectedLabelColor: appColorScheme().onBackground,
+      unselectedLabelStyle: appTextTheme().bodyLarge,
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
