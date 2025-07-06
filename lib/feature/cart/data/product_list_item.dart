@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/data/product.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
@@ -32,7 +33,7 @@ class ProductListItem extends StatelessWidget {
             width: product.productDeliveryIndex == 0 ? 330 : 360,
             height: 190,
             decoration: BoxDecoration(
-              color: Color(0x4DD9D9D9),
+              color: appColorScheme().surfaceContainerLow,
               borderRadius: BorderRadiusGeometry.circular(10),
             ),
             child: InkWell(
@@ -40,6 +41,7 @@ class ProductListItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   product.productDeliveryIndex == 0
+                  // TODO: 추후 수정 필요
                       ? MaterialPageRoute(
                           builder: (_) => OrderDetailScreen(),
                         ) //장바구니에 담긴 상품은 상품 상세페이지로
@@ -48,6 +50,7 @@ class ProductListItem extends StatelessWidget {
                         ), //결제 완료~배송 완료 상품은 주문 내역으로
                 );
               },
+              // TODO: 전체 수정 필요
               child: SizedBox(
                 child: Column(
                   children: [
@@ -81,7 +84,7 @@ class ProductListItem extends StatelessWidget {
                             height: 86,
                             margin: EdgeInsets.only(top: 6, left: 5),
                             decoration: BoxDecoration(
-                              color: Color(0xFFD9D9D9),
+                              color: appColorScheme().surfaceContainer,
                               borderRadius: BorderRadiusGeometry.circular(10),
                               border: Border.all(color: Colors.black),
                             ),
