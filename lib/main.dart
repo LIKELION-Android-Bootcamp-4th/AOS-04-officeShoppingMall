@@ -23,7 +23,7 @@ class WalkinApp extends StatelessWidget {
         title: AppConstants.appName,
         theme: appThemeData(),
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.productList,
+        initialRoute: AppRoutes.login,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
