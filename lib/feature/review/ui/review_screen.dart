@@ -51,7 +51,7 @@ class _ReviewScreenState extends State<ReviewScreen>
               children: [
                 ReviewList(),
                 Text("이번"),
-              ],
+              ]
             ),
           ),
         ],
