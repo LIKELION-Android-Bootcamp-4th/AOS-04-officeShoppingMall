@@ -1,52 +1,149 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
-
-class AddReviewContent extends StatefulWidget{
+class AddReviewContent extends StatefulWidget {
+  const AddReviewContent({super.key});
 
   @override
   State<AddReviewContent> createState() => _AddReviewContent();
-
 }
 
-class _AddReviewContent extends State<AddReviewContent>{
+class _AddReviewContent extends State<AddReviewContent> {
+  final TextEditingController _reviewController = TextEditingController();
+  final List<XFile?> _images = [];
+  final ImagePicker _picker = ImagePicker();
+  final int visibleCount = 3;
+
+  Future<void> _pickImage(int index) async {
+    final XFile? pickedFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      if (index < _images.length) {
+        _images[index] = pickedFile;
+      } else {
+        _images.add(pickedFile);
+      }
+      setState(() {});
+    }
+  }
+
+  Widget _buildImageSlot(int index) {
+    bool isFilled = index < _images.length && _images[index] != null;
+
+    return GestureDetector(
+      onTap: () => _pickImage(index),
+      child: Container(
+        width: 74,
+        height: 74,
+        decoration: BoxDecoration(
+          color: AppColors.gray100,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: isFilled
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.file(
+                  File(_images[index]!.path),
+                  fit: BoxFit.cover,
+                ),
+              )
+            : const Icon(Icons.add, color: Colors.black),
+      ),
+    );
+  }
+
+  void _onCancel() {
+    Navigator.pop(context);
+  }
+
+  void _onSubmit() {}
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-
-        Text(
-          "별점을 남겨주세요",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        Text("별점을 남겨주세요", style: Theme.of(context).textTheme.bodyLarge),
 
         SizedBox(height: 16),
 
+        SizedBox(height: 20),
 
+        Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyLarge),
+        SizedBox(height: 16),
+        TextField(
+          controller: _reviewController,
+          decoration: const InputDecoration(
+            filled: true,
+            fillColor: AppColors.gray100,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide.none,
+            ),
+          ),
+          maxLines: 5,
+        ),
 
         SizedBox(height: 20),
 
         Text(
-          "후기를 남겨주세요",
-          style: Theme.of(context).textTheme.bodyLarge,
+          "사진을 업로드 해 주세요. (선택)",
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
 
-        TextField(
-          decoration: InputDecoration(
-            hintText: "리뷰를 작성해주세요",
-            border: OutlineInputBorder(),
+        SizedBox(height: 8),
+
+        Row(
+          children: List.generate(
+            visibleCount,
+            (index) => Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: _buildImageSlot(index),
+            ),
           ),
-          maxLines: 5,
+        ),
 
-        )
+        const Spacer(),
 
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: _onCancel,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.gray100,
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                  minimumSize: const Size.fromHeight(48),
+                ),
+                child: const Text("취소"),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: _onSubmit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                  minimumSize: const Size.fromHeight(48),
+                ),
+                child: const Text("등록"),
+              ),
+            ),
+          ],
+        ),
       ],
-
     );
-
   }
-
 }
