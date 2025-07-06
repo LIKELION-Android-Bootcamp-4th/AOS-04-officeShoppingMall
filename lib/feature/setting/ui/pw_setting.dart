@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 
@@ -26,6 +27,8 @@ class _PwSettingState extends State<PwSetting> {
 
   void getNewPw(String newPW) {
     print('새 비밀번호는: $newPW');
+    showToast("비밀번호가 변경되었습니다.");
+    //TODO: 비밀번호 변경 api 연결
   }
 
   @override
@@ -138,4 +141,9 @@ class _PwSettingState extends State<PwSetting> {
       ),
     );
   }
+}
+
+
+void showToast(String msg) {
+  Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);
 }
