@@ -27,7 +27,7 @@ class ProductContentContainer extends StatelessWidget {
       alignment: Alignment.topLeft,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.gray200,
+        color: AppColors.gray100,
       ),
       child: child,
     );
