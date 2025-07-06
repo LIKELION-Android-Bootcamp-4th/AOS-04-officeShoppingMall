@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/notification/data/app_notification.dart';
 
 final List<AppNotification> notiList = [
@@ -14,11 +15,11 @@ class AppNotificationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       width: 360,
       height: 100,
       decoration: BoxDecoration(
-        color: Color(0x4DD9D9D9),
+        color: appColorScheme().surfaceContainerLow,
         borderRadius: BorderRadiusGeometry.circular(10),
       ),
       child: Padding(
