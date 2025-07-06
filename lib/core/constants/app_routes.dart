@@ -15,4 +15,5 @@ class AppRoutes {
   static const String cart = "/cart";
   static const String delivery = "/delivery";
   static const String pwSetting = '/pwSetting';
+  static const String destSetting = '/destSetting';
 }

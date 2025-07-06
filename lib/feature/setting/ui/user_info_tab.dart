@@ -205,6 +205,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
               color: appColorScheme().surfaceContainerLow,
               elevation: 0,
               child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.destSetting);
+                },
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(vertical: 16),
