@@ -1,6 +1,5 @@
 class AppRoutes {
   static const String home = "/";
-
   static const String login = "/login";
   static const String signup = "/signup";
   static const String category = "/category";
@@ -9,8 +8,8 @@ class AppRoutes {
   static const String productDetail = "/productDetail";
   static const String order = "/order";
   static const String orderComplete = "/orderComplete";
+  static const String search = "/search";
   static const String mypage = "/mypage";
   static const String cart = "/cart";
   static const String delivery = "/delivery";
-
 }
