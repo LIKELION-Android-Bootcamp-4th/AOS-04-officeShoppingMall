@@ -7,7 +7,7 @@ class CategorySection {
 }
 
 final List<CategorySection> categorySections = <CategorySection>[
-  CategorySection('images/category_desk_terrier.png', '데스크테리어', [
+  CategorySection('images/category_deskterior.png', '데스크테리어', [
     '타공판·보드',
     '받침대·모니터 암',
     '데스크 매트',
@@ -16,7 +16,7 @@ final List<CategorySection> categorySections = <CategorySection>[
     '소품',
   ]),
   CategorySection('images/category_peripheral.png', '주변기기', ['키보드', '마우스', '스피커', '의자']),
-  CategorySection('images/category_pill.png', '건강보조식품', [
+  CategorySection('images/category_supplement.png', '건강보조식품', [
     '정기 배송',
     '루테인',
     '비타민',
