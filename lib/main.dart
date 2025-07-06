@@ -29,7 +29,7 @@ class WalkinApp extends StatelessWidget {
         theme: appThemeData(),
         debugShowCheckedModeBanner: false,
         //TODO: 앱루트 login으로 바꾸기
-        initialRoute: AppRoutes.search,
+        initialRoute: AppRoutes.login,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
