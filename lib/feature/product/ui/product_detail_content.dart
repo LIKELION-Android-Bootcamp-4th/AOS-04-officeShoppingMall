@@ -5,21 +5,15 @@ import 'package:office_shopping_mall/feature/product/ui/product_description_cont
 import 'package:office_shopping_mall/feature/product/ui/product_review_content.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_tab.dart';
 
-class ProductDetailContent extends StatefulWidget{
+class ProductDetailContent extends StatefulWidget {
   const ProductDetailContent({super.key});
 
   @override
   State<ProductDetailContent> createState() => _ProductDetailContent();
-
 }
 
 class _ProductDetailContent extends State<ProductDetailContent> {
-
-  Product productData = products.firstWhere((element) => element.id == getSelectProductId());
-
   int _selectedTabIndex = 0;
-
-  List<Widget> _contents = [ProductDescriptionContent(), Text('리뷰')];
 
   void _selectTab(int index) {
     setState(() {
@@ -29,97 +23,85 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
+    final product = getSelectedProductData();
+
+    if (product == null) {
+      return Center(child: Text("상품 데이터를 불러올 수 없습니다"));
+    }
+
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 228,
-            child: productData.imageUrl == null ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.surfaceContainerHighestColor,
-              ),
-              child: Center(
-                child: Text(
-                  '상품 이미지가 없습니다',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
-                ),
-              ),
-            ) : PageView.builder(
-                itemCount: productData.imageUrl!.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(productData.imageUrl![index]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                }
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 228,
+          child: product.imageUrl == null
+              ? Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColors.gray200,
             ),
-          ),
-
-          SizedBox(height: 20),
-
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  productData.productName,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleLarge,
+            child: Center(
+              child: Text(
+                '상품 이미지가 없습니다',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+          )
+              : PageView.builder(
+            itemCount: product.imageUrl!.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(product.imageUrl![index]),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-
-                Text(
-                    '${productData.price}원',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge
-                ),
-
-              ]
+              );
+            },
           ),
-
-          SizedBox(height: 4),
-
-          Text(
-              '',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodySmall
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              product.productName,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Text(
+              '${product.price}원',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ],
+        ),
+        SizedBox(height: 4),
+        GestureDetector(
+          onTap: () {},
+          child: Text(
+            "${product.categoryInfo?.keys.toString() ?? ''} / ${product.categoryInfo?.values.toString() ?? ''}",
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
-
-          SizedBox(height: 20),
-
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ProductTab(
-                  tabs: ['상세 설명', '리뷰'],
-                  selectedIndex: _selectedTabIndex,
-                  onTabSelected: _selectTab,
-                ),
-              ]
-          ),
-
-          SizedBox(height: 20),
-
-          if (_selectedTabIndex == 0)
-            ProductDescriptionContent()
-          else if (_selectedTabIndex == 1)
-              ProductReviewContent()
-        ]
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ProductTab(
+              tabs: ['상세 설명', '리뷰'],
+              selectedIndex: _selectedTabIndex,
+              onTabSelected: _selectTab,
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        if (_selectedTabIndex == 0)
+          ProductDescriptionContent()
+        else if (_selectedTabIndex == 1)
+          ProductReviewContent(),
+      ],
     );
   }
-
 }
