@@ -7,7 +7,7 @@ Widget customTabBar({
   ValueChanged<int>? onTap,
 }) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: tabs.length < 3 ? 95 : 0, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: tabs.length < 3 ? 80 : 0, vertical: 10),
     child: Container(
       height: 56,
       decoration: BoxDecoration(
