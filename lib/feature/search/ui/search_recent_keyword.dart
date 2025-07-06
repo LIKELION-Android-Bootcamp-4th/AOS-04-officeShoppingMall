@@ -55,7 +55,11 @@ class _SearchRecentKeywordState extends State<SearchRecentKeyword> {
                             //TODO: 삭제 이벤트 추가할 것
                             print('삭제할 키워드는: $text');
                           },
-                          child: Icon(Icons.close, size: 16, color: Colors.black),
+                          child: Icon(
+                            Icons.close,
+                            size: 16,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),

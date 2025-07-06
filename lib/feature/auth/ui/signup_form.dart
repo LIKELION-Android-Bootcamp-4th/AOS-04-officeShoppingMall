@@ -103,12 +103,18 @@ class SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 12,
+                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+                  borderSide: BorderSide(
+                    color: Colors.grey.shade200,
+                    width: 1.5,
+                  ),
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: "이름",
@@ -128,12 +134,18 @@ class SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 12,
+                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+                  borderSide: BorderSide(
+                    color: Colors.grey.shade200,
+                    width: 1.5,
+                  ),
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: "이메일",
@@ -160,12 +172,18 @@ class SignUpFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               obscureText: _showVisibleIcon,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 12,
+                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+                  borderSide: BorderSide(
+                    color: Colors.grey.shade200,
+                    width: 1.5,
+                  ),
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: "비밀번호",
@@ -196,12 +214,18 @@ class SignUpFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               obscureText: true,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 12,
+                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+                  borderSide: BorderSide(
+                    color: Colors.grey.shade200,
+                    width: 1.5,
+                  ),
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: "비밀번호 확인",
@@ -222,11 +246,16 @@ class SignUpFormState extends State<SignUpForm> {
               onPressed: () {
                 _submitForm();
               },
-              child: Text("회원가입", style: TextStyle(color: Colors.white, fontSize: 18)),
+              child: Text(
+                "회원가입",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size.fromHeight(50),
                 backgroundColor: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                ),
               ),
             ),
           ],
