@@ -7,7 +7,9 @@ import '../data/product.dart';
 
 
 class OrderBottom extends StatefulWidget{
-  const OrderBottom({super.key});
+  const OrderBottom({super.key, required this.onSelected});
+
+  final Function onSelected;
 
   @override
   State<OrderBottom> createState() => _OrderBottom();
@@ -16,23 +18,15 @@ class OrderBottom extends StatefulWidget{
 
 class _OrderBottom extends State<OrderBottom> {
 
-  void _onBuyPressed() {
-    final product = getSelectedProductData();
-    if (product == null) return;
-
-    Navigator.pushNamed(
-      context,
-      AppRoutes.order,
-      arguments: product,
-    );
+  onSelected(){
+    widget.onSelected();
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
         child: SizedBox(
             width: double.infinity,
@@ -42,9 +36,9 @@ class _OrderBottom extends State<OrderBottom> {
               child: Expanded(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(32),
-                  onTap: _onBuyPressed,
+                  onTap: onSelected,
                   child: Container(
-                    height: 48,
+                    height: 56,
                     width: double.infinity,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
