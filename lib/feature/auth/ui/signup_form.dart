@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/data/services/auth_service.dart';
-
-import '../../../core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
 class SignUpForm extends StatefulWidget {
   SignUpForm({super.key});
@@ -103,7 +103,7 @@ class SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12),
+                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
@@ -128,7 +128,7 @@ class SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12),
+                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
@@ -138,7 +138,6 @@ class SignUpFormState extends State<SignUpForm> {
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: "이메일",
                 hintText: "예) Walkin@walkin.co.kr",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
               ),
               validator: (value) {
                 if (_emailController.text.isEmpty) {
@@ -161,7 +160,7 @@ class SignUpFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               obscureText: _showVisibleIcon,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12),
+                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
@@ -172,9 +171,11 @@ class SignUpFormState extends State<SignUpForm> {
                 labelText: "비밀번호",
                 suffixIcon: IconButton(
                   onPressed: _changeVisibilityIcon,
-                  icon: _showVisibleIcon
-                      ? Icon(Icons.visibility_off_outlined)
-                      : Icon(Icons.visibility),
+                  icon: SvgPicture.asset(
+                    _showVisibleIcon
+                        ? 'images/icon/ic_invisible.svg'
+                        : 'images/icon/ic_visible.svg',
+                  ),
                 ),
               ),
               validator: (value) {
@@ -195,7 +196,7 @@ class SignUpFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               obscureText: true,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 12),
+                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),

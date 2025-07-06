@@ -27,7 +27,10 @@ ThemeData appThemeData() {
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       dividerColor: Colors.transparent,
       labelColor: appColorScheme().onBackground,
+      labelStyle: appTextTheme().bodyLarge,
+      labelPadding: EdgeInsets.symmetric(horizontal: 8),
       unselectedLabelColor: appColorScheme().onBackground,
+      unselectedLabelStyle: appTextTheme().bodyLarge,
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -72,8 +75,8 @@ ThemeData appThemeData() {
         borderSide: BorderSide.none,
         borderRadius: BorderRadius.circular(8.0),
       ),
-      labelStyle: appTextTheme().bodyLarge,
-      hintStyle: appTextTheme().bodyLarge,
+      labelStyle: appTextTheme().bodySmall,
+      hintStyle: appTextTheme().labelLarge,
     ),
 
     dialogTheme: DialogThemeData(backgroundColor: appColorScheme().surface),
@@ -141,12 +144,12 @@ TextTheme appTextTheme() {
     labelLarge: GoogleFonts.notoSans(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: Colors.black54,
+      color: Colors.black45,
     ),
     labelMedium: GoogleFonts.notoSans(
       fontSize: 12,
       fontWeight: FontWeight.w400,
-      color: Colors.black54,
+      color: Colors.black45,
     ),
   );
 }
@@ -167,6 +170,7 @@ ColorScheme appColorScheme() {
 
     tertiary: AppColors.tertiaryColor,
     onTertiary: AppColors.onTertiaryColor,
+    tertiaryContainer: AppColors.tertiaryContainerColor,
 
     background: AppColors.backgroundColor,
     onBackground: AppColors.onBackgroundColor,
