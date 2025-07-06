@@ -3,11 +3,16 @@ import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/feature/auth/ui/login_screen.dart';
 import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
-import 'package:office_shopping_mall/feature/category/ui/category_screen.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
 import 'package:office_shopping_mall/feature/mypage/ui/mypage_screen.dart';
 import 'package:office_shopping_mall/feature/notification/ui/notification_screen.dart';
 import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
+import 'package:office_shopping_mall/feature/product/ui/order_complete_screen.dart';
+
+import 'feature/category/ui/category_screen.dart';
+import 'feature/product/ui/order_screen.dart';
+import 'feature/product/ui/product_detail_screen.dart';
+import 'feature/product/ui/product_list_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
 import 'package:office_shopping_mall/feature/cart/ui/delivery_screen.dart';
 import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
@@ -26,6 +31,14 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PreferenceScreen());
       case AppRoutes.category:
         return MaterialPageRoute(builder: (_) => CategoryScreen());
+      case AppRoutes.productList:
+        return MaterialPageRoute(builder: (_) => ProductListScreen());
+      case AppRoutes.productDetail:
+        return MaterialPageRoute(builder: (_) => ProductDetailScreen());
+      case AppRoutes.order:
+        return MaterialPageRoute(builder: (_) => OrderScreen());
+      case AppRoutes.orderComplete:
+        return MaterialPageRoute(builder: (_) => OrderCompleteScreen());
       case AppRoutes.mypage:
         return MaterialPageRoute(builder: (_) => MypageScreen());
       case AppRoutes.notification:
