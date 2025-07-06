@@ -51,7 +51,7 @@ class _AddReviewContent extends State<AddReviewContent> {
                   fit: BoxFit.cover,
                 ),
               )
-            : const Icon(Icons.add, color: Colors.black),
+            : Icon(Icons.add, color: Colors.black),
       ),
     );
   }
@@ -68,13 +68,15 @@ class _AddReviewContent extends State<AddReviewContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-        Text("별점을 남겨주세요", style: Theme.of(context).textTheme.bodyMedium,),
+        SizedBox(height: 20),
+
+        Text("별점을 남겨주세요", style: Theme.of(context).textTheme.bodyMedium),
 
         SizedBox(height: 8),
 
         SizedBox(height: 20),
 
-        Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyMedium,),
+        Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyMedium),
         SizedBox(height: 8),
         TextField(
           controller: _reviewController,
@@ -102,13 +104,13 @@ class _AddReviewContent extends State<AddReviewContent> {
           children: List.generate(
             visibleCount,
             (index) => Padding(
-              padding: const EdgeInsets.only(right: 8),
+              padding: EdgeInsets.only(right: 8),
               child: _buildImageSlot(index),
             ),
           ),
         ),
 
-        const Spacer(),
+        Spacer(),
 
         Row(
           children: [
@@ -121,12 +123,12 @@ class _AddReviewContent extends State<AddReviewContent> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
                   ),
-                  minimumSize: const Size.fromHeight(48),
+                  minimumSize: Size.fromHeight(48),
                 ),
-                child: const Text("취소"),
+                child: Text("취소"),
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Expanded(
               child: ElevatedButton(
                 onPressed: _onSubmit,
@@ -136,9 +138,9 @@ class _AddReviewContent extends State<AddReviewContent> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
                   ),
-                  minimumSize: const Size.fromHeight(48),
+                  minimumSize: Size.fromHeight(48),
                 ),
-                child: const Text("등록"),
+                child: Text("등록"),
               ),
             ),
           ],
