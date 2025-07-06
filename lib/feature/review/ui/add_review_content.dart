@@ -68,14 +68,14 @@ class _AddReviewContent extends State<AddReviewContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-        Text("별점을 남겨주세요", style: Theme.of(context).textTheme.bodyLarge),
+        Text("별점을 남겨주세요", style: Theme.of(context).textTheme.bodyMedium,),
 
-        SizedBox(height: 16),
+        SizedBox(height: 8),
 
         SizedBox(height: 20),
 
-        Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyLarge),
-        SizedBox(height: 16),
+        Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyMedium,),
+        SizedBox(height: 8),
         TextField(
           controller: _reviewController,
           decoration: const InputDecoration(
