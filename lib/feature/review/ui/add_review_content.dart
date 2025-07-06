@@ -41,11 +41,11 @@ class _AddReviewContent extends State<AddReviewContent> {
         height: 74,
         decoration: BoxDecoration(
           color: AppColors.gray100,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(60),
         ),
         child: isFilled
             ? ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(60),
                 child: Image.file(
                   File(_images[index]!.path),
                   fit: BoxFit.cover,
