@@ -12,7 +12,11 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: CustomAppBar(title: '카테고리', actions: appBarActionsDefault()),
+      appBar: CustomAppBar(
+        title: '카테고리',
+        isLeading: false,
+        actions: appBarActionsDefault(),
+      ),
       body: CategoryContentList(),
       bottomNavigationBar: BottomNavigation(),
     );

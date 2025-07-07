@@ -11,7 +11,11 @@ class MypageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: '마이페이지', actions: appBarActionsMypage()),
+      appBar: CustomAppBar(
+        title: '마이페이지',
+        isLeading: false,
+        actions: appBarActionsMypage(),
+      ),
       body: ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
