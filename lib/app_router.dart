@@ -21,6 +21,7 @@ import 'package:office_shopping_mall/feature/setting/ui/setting_screen.dart';
 import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
 
 import 'feature/review/ui/add_review_screen.dart';
+import 'feature/review/ui/review_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -61,6 +62,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DestSettingScreen());
       case AppRoutes.addReview:
         return MaterialPageRoute(builder: (_) => AddReviewScreen());
+      case AppRoutes.review:
+        return MaterialPageRoute(builder: (_) => ReviewScreen());
+
 
       default:
         return MaterialPageRoute(
