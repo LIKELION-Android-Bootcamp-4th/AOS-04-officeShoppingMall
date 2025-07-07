@@ -14,17 +14,17 @@ class ApiClient {
             connectTimeout: Duration(seconds: 5),
             receiveTimeout: Duration(seconds: 3),
             headers: {
-              'X-Company-Code': '685f69fc439922c09c21aef0',
+              'X-Company-Code': '6866fd325b230f5dc709bdf7',
               HttpHeaders.contentTypeHeader: 'application/json',
               HttpHeaders.acceptHeader: 'application/json',
               HttpHeaders.authorizationHeader:
-                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODVmNjlmYzQzOTkyMmMwOWMyMWFlZjMiLCJjb21wYW55SWQiOiI2ODVmNjlmYzQzOTkyMmMwOWMyMWFlZjAiLCJpc0FkbWluIjp0cnVlLCJpc1N1cGVyQWRtaW4iOnRydWUsImlhdCI6MTc1MTMzOTI2OCwiZXhwIjoxNzUxNDI1NjY4fQ.oRj5tVMltqCJ0Su_lVZy9PGiUyZ94NVFS4DnI4_Pc1w',
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODY3YjY4ODczMTY4NmUyZTE5OTMwZjkiLCJjb21wYW55SWQiOiI2ODY2ZmQzMjViMjMwZjVkYzcwOWJkZjciLCJpc0FkbWluIjp0cnVlLCJpc1N1cGVyQWRtaW4iOmZhbHNlLCJpYXQiOjE3NTE4ODk1NTgsImV4cCI6MTc1MTk3NTk1OH0.HAn4klb7Ptlg8MGDzu6YpxUQ-wCM8xJSixeXlC5o0co',
             },
           ),
         )
         ..interceptors.add(
           PrettyDioLogger(
-            requestHeader: true,
+            requestHeader: false,
             requestBody: true,
             responseHeader: false,
             responseBody: true,
