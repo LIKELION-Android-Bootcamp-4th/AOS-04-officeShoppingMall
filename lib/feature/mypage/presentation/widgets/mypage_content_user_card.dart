@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/feature/mypage/presentation/viewmodel/mypage_viewmodel.dart';
 
 class MypageContentUserCard extends StatelessWidget {
   const MypageContentUserCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((MypageViewModel vm) => vm.userDTO!);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       child: Card(
@@ -20,13 +23,17 @@ class MypageContentUserCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CircleAvatar(backgroundColor: appColorScheme().surfaceContainerHigh, radius: 32),
+                  CircleAvatar(
+                    backgroundColor: appColorScheme().surfaceContainerHigh,
+                    radius: 32,
+                    // foregroundImage: AssetImage(user.profile.profileImage?:),
+                  ),
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('data', style: Theme.of(context).textTheme.titleMedium),
-                      Text('data', style: Theme.of(context).textTheme.bodyMedium),
+                      Text(user.nickName, style: Theme.of(context).textTheme.titleMedium),
+                      Text('고객님, 안녕하세요!', style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   ),
                   Spacer(),
