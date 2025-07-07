@@ -4,12 +4,14 @@ part 'signup_response.g.dart';
 
 @JsonSerializable()
 class SignupResponse {
-  final String code;
+  final bool success;
   final String message;
+
+  @JsonKey(name: 'data')
   final SignupResult result;
 
   SignupResponse({
-    required this.code,
+    required this.success,
     required this.message,
     required this.result,
   });

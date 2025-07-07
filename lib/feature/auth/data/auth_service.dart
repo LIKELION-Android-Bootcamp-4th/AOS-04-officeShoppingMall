@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/services/api_client.dart';
 
+import '../../../core/data/models/signup_request.dart';
+import '../../../core/data/models/signup_response.dart';
+
 class AuthService {
   final Dio _dio = ApiClient.dio;
 
@@ -33,8 +36,14 @@ class AuthService {
   }
 
   // 로그인
-  Future<String> loginAction({required String email, required String password}) async {
-    final response = await _dio.post(Api.auth.login, data: {'email': email, 'password': password});
+  Future<String> loginAction({
+    required String email,
+    required String password,
+  }) async {
+    final response = await _dio.post(
+      Api.auth.login,
+      data: {'email': email, 'password': password},
+    );
     if (response.statusCode == 200) {
       final responseData = response.data as Map<String, dynamic>;
       final data = responseData['data'] as Map<String, dynamic>;
@@ -48,20 +57,20 @@ class AuthService {
   }
 
   // 회원가입
-  Future<void> signupAction({
-    required String email,
-    required String password,
-    required String nickname,
+  Future<SignupResponse> signupAction({
+    required SignupRequest requestData,
   }) async {
     final response = await _dio.post(
       Api.auth.signUp,
-      data: {'email': email, 'password': password, 'nickName': nickname},
+      data: requestData.toJson(),
     );
 
     if (response.statusCode == 201) {
-      final data = response.data;
-      final message = data['message'];
-      print('가입 성공! $message');
+      final SignupResponse signupResponse = SignupResponse.fromJson(
+        response.data,
+      );
+      print('가입 성공! ${signupResponse.message}');
+      return signupResponse;
     } else if (response.statusCode == 400) {
       throw Exception("요청 형식이 잘못되었거나 중복된 이메일입니다.");
     } else if (response.statusCode == 409) {

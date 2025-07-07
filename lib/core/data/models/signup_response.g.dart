@@ -8,16 +8,16 @@ part of 'signup_response.dart';
 
 SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) =>
     SignupResponse(
-      code: json['code'] as String,
+      success: json['success'] as bool,
       message: json['message'] as String,
-      result: SignupResult.fromJson(json['result'] as Map<String, dynamic>),
+      result: SignupResult.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SignupResponseToJson(SignupResponse instance) =>
     <String, dynamic>{
-      'code': instance.code,
+      'success': instance.success,
       'message': instance.message,
-      'result': instance.result,
+      'data': instance.result,
     };
 
 SignupResult _$SignupResultFromJson(Map<String, dynamic> json) => SignupResult(

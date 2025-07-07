@@ -5,6 +5,8 @@ import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
+import '../../../../core/data/models/signup_request.dart';
+
 class SignUpForm extends StatefulWidget {
   SignUpForm({super.key});
 
@@ -66,17 +68,21 @@ class SignUpFormState extends State<SignUpForm> {
         print("$formData");
 
         try {
-          final authService = AuthService();
-          await authService.signupAction(
+          final SignupRequest signupRequest = SignupRequest(
             email: formData["email"]!,
             password: formData["password"]!,
-            nickname: formData["nickName"]!,
+            nickName: formData["nickName"]!,
+          );
+
+          final authService = AuthService();
+          final signupResponse = await authService.signupAction(
+            requestData: signupRequest,
           );
 
           showToast("회원가입이 완료되었습니다.");
           return Navigator.pop(context);
         } catch (e) {
-          showToast(e.toString());
+          showToast("회원가입 실패: ${e.toString()}");
         }
       }
     }
@@ -196,7 +202,6 @@ class SignUpFormState extends State<SignUpForm> {
   }
 }
 
-
 InputDecoration buildInputDecoration({
   required String label,
   String? hint,
@@ -225,7 +230,6 @@ InputDecoration buildInputDecoration({
     ),
   );
 }
-
 
 void showToast(String msg) {
   Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);

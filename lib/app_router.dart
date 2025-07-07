@@ -10,7 +10,7 @@ import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dar
 import 'package:office_shopping_mall/feature/setting/ui/dest_setting_screen.dart';
 import 'package:office_shopping_mall/feature/setting/ui/pw_setting.dart';
 
-import 'feature/auth/presentation/login_screen.dart';
+import 'feature/auth/presentation/widgets/login_screen.dart';
 import 'feature/auth/presentation/signup_screen.dart';
 import 'feature/category/ui/category_screen.dart';
 import 'feature/product/ui/product_detail_screen.dart';
@@ -65,10 +65,10 @@ class AppRouter {
       case AppRoutes.review:
         return MaterialPageRoute(builder: (_) => ReviewScreen());
 
-
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(body: Center(child: Text(AppConstants.pageNotFound))),
+          builder: (_) =>
+              Scaffold(body: Center(child: Text(AppConstants.pageNotFound))),
         );
     }
   }
