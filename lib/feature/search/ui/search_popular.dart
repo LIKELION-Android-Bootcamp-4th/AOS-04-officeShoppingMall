@@ -71,7 +71,11 @@ class SearchPopularState extends State<SearchPopular> {
           SizedBox(width: 12),
           SizedBox(
             width: 72,
-            child: Text(keyword, style: appTextTheme().bodyLarge, overflow: TextOverflow.ellipsis),
+            child: Text(
+              keyword,
+              style: appTextTheme().bodyLarge,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

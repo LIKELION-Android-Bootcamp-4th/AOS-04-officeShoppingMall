@@ -143,7 +143,6 @@ class _PwSettingState extends State<PwSetting> {
   }
 }
 
-
 void showToast(String msg) {
   Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);
 }
