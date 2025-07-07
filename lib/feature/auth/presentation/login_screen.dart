@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/feature/auth/ui/auth_header.dart';
-import 'package:office_shopping_mall/feature/auth/ui/login_form.dart';
-import 'package:office_shopping_mall/feature/auth/ui/login_goSignup.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/auth_header.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/login_form.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/login_goSignup.dart';
 
 import '../../../core/widgets/app_bar/custom_app_bar.dart';
 

@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel with ChangeNotifier {
+  final AuthService _authService;
   bool _isLogIn = false;
+  bool _isLoading = false;
+
+  AuthViewModel(this._authService);
 
   bool get isLogIn => _isLogIn;
 

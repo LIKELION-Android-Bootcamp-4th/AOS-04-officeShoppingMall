@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/core/data/services/auth_service.dart';
-import 'package:office_shopping_mall/feature/auth/bloc/auth_view_model.dart';
+import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
 import 'package:provider/provider.dart';
+
+import '../viewmodel/auth_view_model.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({super.key});

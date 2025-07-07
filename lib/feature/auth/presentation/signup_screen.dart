@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/auth/ui/auth_header.dart';
-import 'package:office_shopping_mall/feature/auth/ui/signup_form.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/auth_header.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/signup_form.dart';
+
 
 class SignupScreen extends StatelessWidget {
   @override
