@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/constants/app_constants.dart';
+import 'package:office_shopping_mall/core/constants/app_const.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/feature/auth/ui/login_screen.dart';
-import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
-import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
-import 'package:office_shopping_mall/feature/mypage/ui/mypage_screen.dart';
-import 'package:office_shopping_mall/feature/notification/ui/notification_screen.dart';
-import 'package:office_shopping_mall/feature/order/ui/order_complete_screen.dart';
-import 'package:office_shopping_mall/feature/order/ui/order_screen.dart';
-import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dart';
-import 'package:office_shopping_mall/feature/setting/ui/dest_setting_screen.dart';
-import 'package:office_shopping_mall/feature/setting/ui/pw_setting.dart';
-
-import 'feature/category/ui/category_screen.dart';
-import 'feature/product/ui/product_detail_screen.dart';
-import 'feature/product/ui/product_list_screen.dart';
-import 'package:office_shopping_mall/feature/cart/ui/cart_screen.dart';
-import 'package:office_shopping_mall/feature/cart/ui/delivery_screen.dart';
-import 'package:office_shopping_mall/feature/setting/ui/setting_screen.dart';
-import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/login_screen.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/signup_screen.dart';
+import 'package:office_shopping_mall/feature/home/presentation/home_screen.dart';
+import 'package:office_shopping_mall/feature/mypage/presentation/mypage_screen.dart';
+import 'package:office_shopping_mall/feature/notification/presentation/notification_screen.dart';
+import 'package:office_shopping_mall/feature/order/presentation/order_complete_screen.dart';
+import 'package:office_shopping_mall/feature/order/presentation/order_screen.dart';
+import 'package:office_shopping_mall/feature/preference/presentation/preference_screen.dart';
+import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
+import 'package:office_shopping_mall/feature/review/presentation/review_screen.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/dest_setting_screen.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/setting_screen.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/widgets/pw_setting.dart';
+import 'feature/category/presentation/category_screen.dart';
+import 'feature/product/presentation/product_detail_screen.dart';
+import 'feature/product/presentation/product_list_screen.dart';
+import 'package:office_shopping_mall/feature/cart/presentation/cart_screen.dart';
+import 'package:office_shopping_mall/feature/cart/presentation/delivery_screen.dart';
+import 'package:office_shopping_mall/feature/search/presentation/search_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -57,6 +58,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PwSetting());
       case AppRoutes.destSetting:
         return MaterialPageRoute(builder: (_) => DestSettingScreen());
+      case AppRoutes.addReview:
+        return MaterialPageRoute(builder: (_) => AddReviewScreen());
+      case AppRoutes.review:
+        return MaterialPageRoute(builder: (_) => ReviewScreen());
 
       default:
         return MaterialPageRoute(

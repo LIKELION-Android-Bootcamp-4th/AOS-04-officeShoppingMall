@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/widgets/custom_app_bar.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/auth_header.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/login_form.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/login_goSignup.dart';
+
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: "로그인",
+        centerTitle: true, //appTextTheme().headlineLarge
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [AuthHeader(), LoginForm(), GoSignUpButton()],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
