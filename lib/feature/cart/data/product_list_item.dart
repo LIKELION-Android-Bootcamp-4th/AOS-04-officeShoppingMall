@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/data/product.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
-import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
+import 'package:office_shopping_mall/feature/cart/presentation/order_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductListItem extends StatelessWidget {
