@@ -72,10 +72,6 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                     onPressed: () {
                       print("go to OrderScreen");
                     },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(379, 56),
-                      backgroundColor: Color(0xFF2E77D6),
-                    ),
                     child: Text("결제", style: TextStyle(fontSize: 20, color: Colors.white)),
                   ),
                 ),

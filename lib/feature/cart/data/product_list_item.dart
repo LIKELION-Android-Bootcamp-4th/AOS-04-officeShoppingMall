@@ -27,7 +27,7 @@ class ProductListItem extends StatelessWidget {
                     print("체크박스 클릭");
                   },
                 )
-              : SizedBox(width: 16),
+              : SizedBox(width: MediaQuery.of(context).size.height * 0.02),
           Container(
             margin: EdgeInsets.only(bottom: 16),
             width: product.productDeliveryIndex == 0
