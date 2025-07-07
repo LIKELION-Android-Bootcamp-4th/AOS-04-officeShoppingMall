@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/feature/auth/ui/login_screen.dart';
-import 'package:office_shopping_mall/feature/auth/ui/signup_screen.dart';
 import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
 import 'package:office_shopping_mall/feature/mypage/ui/mypage_screen.dart';
 import 'package:office_shopping_mall/feature/notification/ui/notification_screen.dart';
@@ -12,6 +10,8 @@ import 'package:office_shopping_mall/feature/preference/ui/preference_screen.dar
 import 'package:office_shopping_mall/feature/setting/ui/dest_setting_screen.dart';
 import 'package:office_shopping_mall/feature/setting/ui/pw_setting.dart';
 
+import 'feature/auth/presentation/login_screen.dart';
+import 'feature/auth/presentation/signup_screen.dart';
 import 'feature/category/ui/category_screen.dart';
 import 'feature/product/ui/product_detail_screen.dart';
 import 'feature/product/ui/product_list_screen.dart';
@@ -21,6 +21,7 @@ import 'package:office_shopping_mall/feature/setting/ui/setting_screen.dart';
 import 'package:office_shopping_mall/feature/search/ui/search_screen.dart';
 
 import 'feature/review/ui/add_review_screen.dart';
+import 'feature/review/ui/review_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -61,6 +62,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DestSettingScreen());
       case AppRoutes.addReview:
         return MaterialPageRoute(builder: (_) => AddReviewScreen());
+      case AppRoutes.review:
+        return MaterialPageRoute(builder: (_) => ReviewScreen());
+
 
       default:
         return MaterialPageRoute(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/feature/auth/bloc/auth_provider.dart';
+import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,13 +22,14 @@ class WalkinApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavProvider(), child: WalkinApp()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => AuthViewModel(AuthService())),
       ],
       child: MaterialApp(
         title: AppConstants.appName,
         theme: appThemeData(),
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.login,
+        //TODO: login으로 바꾸기
+        initialRoute: AppRoutes.home,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
