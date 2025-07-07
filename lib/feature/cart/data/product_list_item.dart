@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/data/product.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
-import 'package:office_shopping_mall/feature/cart/presentation/order_detail_screen.dart';
+import 'package:office_shopping_mall/feature/cart/ui/order_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductListItem extends StatelessWidget {
@@ -27,12 +27,10 @@ class ProductListItem extends StatelessWidget {
                     print("체크박스 클릭");
                   },
                 )
-              : SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+              : SizedBox(width: 16),
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            width: product.productDeliveryIndex == 0
-                ? MediaQuery.of(context).size.width * 0.84
-                : MediaQuery.of(context).size.width * 0.92,
+            width: product.productDeliveryIndex == 0 ? 330 : 360,
             height: 190,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
@@ -43,7 +41,7 @@ class ProductListItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   product.productDeliveryIndex == 0
-                      // TODO: 추후 수정 필요
+                  // TODO: 추후 수정 필요
                       ? MaterialPageRoute(
                           builder: (_) => OrderDetailScreen(),
                         ) //장바구니에 담긴 상품은 상품 상세페이지로
@@ -60,7 +58,7 @@ class ProductListItem extends StatelessWidget {
                         ? //지우기 버튼. 장바구니 탭에서만 활성화
                           Row(
                             children: [
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
+                              SizedBox(width: 280),
                               Align(
                                 alignment: Alignment.topRight,
                                 child: IconButton(
@@ -103,9 +101,7 @@ class ProductListItem extends StatelessWidget {
                             SizedBox(height: 3),
                             Text("2개", style: TextStyle(fontSize: 15)),
                             Container(
-                              width: product.productDeliveryIndex == 0
-                                  ? MediaQuery.of(context).size.width * 0.48
-                                  : MediaQuery.of(context).size.width * 0.56,
+                              width: product.productDeliveryIndex == 0 ? 190 : 220,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
