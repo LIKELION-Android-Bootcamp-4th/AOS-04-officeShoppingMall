@@ -27,6 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actionsPadding: EdgeInsets.only(right: 8),
       title: Text(title, style: titleTextStyle ?? appTextTheme().headlineMedium),
       centerTitle: centerTitle,
+      automaticallyImplyLeading: false,
       leading: isLeading
           ? IconButton(
               onPressed: () {
