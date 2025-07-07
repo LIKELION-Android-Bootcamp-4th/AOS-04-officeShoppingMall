@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/ui/order_bottom.dart';
 import 'package:office_shopping_mall/feature/order/ui/order_content.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../product/data/product.dart';
+import '../../product/data/models/product.dart';
+import '../../product/data/product_viewmodel.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final product = getSelectedProductData();
+    final Product? product = context.watch<ProductDataProvider>().selectedProduct as Product?;
 
     return Scaffold(
       extendBody: true,
@@ -66,7 +68,6 @@ class OrderScreen extends StatelessWidget {
 
             OrderBottom(
               onSelected: () async {
-                final product = getSelectedProductData();
                 if (product == null) return;
 
                 final confirm = await showDialog<bool>(

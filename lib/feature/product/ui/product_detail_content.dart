@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/product/data/product.dart';
+import 'package:office_shopping_mall/feature/product/data/models/product.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_description_content.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_review_content.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_tab.dart';
+
+import '../data/product_viewmodel.dart';
 
 class ProductDetailContent extends StatefulWidget {
   const ProductDetailContent({super.key});
@@ -15,6 +18,7 @@ class ProductDetailContent extends StatefulWidget {
 class _ProductDetailContent extends State<ProductDetailContent> {
   int _selectedTabIndex = 0;
 
+
   void _selectTab(int index) {
     setState(() {
       _selectedTabIndex = index;
@@ -23,9 +27,11 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    final product = getSelectedProductData();
 
-    if (product == null) {
+    final Product? _product = context.watch<ProductDataProvider>().selectedProduct as Product?;
+
+
+    if (_product == null) {
       return Center(child: Text("상품 데이터를 불러올 수 없습니다"));
     }
 
@@ -34,7 +40,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
       children: [
         SizedBox(
           height: 228,
-          child: product.imageUrl == null
+          child: _product.imageUrl == null
               ? Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -45,14 +51,14 @@ class _ProductDetailContent extends State<ProductDetailContent> {
                   ),
                 )
               : PageView.builder(
-                  itemCount: product.imageUrl!.length,
+                  itemCount: _product.imageUrl!.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image: NetworkImage(product.imageUrl![index]),
+                          image: NetworkImage(_product.imageUrl![index]),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -64,15 +70,15 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(product.productName, style: Theme.of(context).textTheme.titleLarge),
-            Text('${product.price}원', style: Theme.of(context).textTheme.titleLarge),
+            Text(_product.name, style: Theme.of(context).textTheme.titleLarge),
+            Text('${_product.price}원', style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         SizedBox(height: 4),
         GestureDetector(
           onTap: () {},
           child: Text(
-            "${product.categoryInfo?.keys.toString() ?? ''} / ${product.categoryInfo?.values.toString() ?? ''}",
+            getCategoryInfo(_product.categoryId) ?? '',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),

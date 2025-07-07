@@ -4,7 +4,8 @@ import 'package:office_shopping_mall/app_router.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
 import '../../../core/constants/app_routes.dart';
-import '../data/product.dart';
+import '../data/models/product.dart';
+import '../data/product_viewmodel.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
@@ -16,18 +17,16 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItem extends State<ProductItem> {
-  late bool isFavorite;
 
-  @override
-  void initState() {
-    super.initState();
-    isFavorite = widget.product.isFavorite;
-  }
+  final ProductDataProvider productDataViewModel = ProductDataProvider();
+
+  bool isFavorite = false;
+
+
 
   void _onFavoritePressed() {
     setState(() {
       isFavorite = !isFavorite;
-      widget.product.isFavorite = isFavorite;
     });
   }
 
@@ -38,7 +37,7 @@ class _ProductItem extends State<ProductItem> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        setSelectProductId(product.id);
+        productDataViewModel.setSelectedProduct(product.id);
         Navigator.pushNamed(context, AppRoutes.productDetail);
       },
       child: Container(
@@ -99,7 +98,7 @@ class _ProductItem extends State<ProductItem> {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        product.productName,
+                        product.name,
                         style: Theme.of(context).textTheme.titleMedium,
                         overflow: TextOverflow.ellipsis,
                       ),

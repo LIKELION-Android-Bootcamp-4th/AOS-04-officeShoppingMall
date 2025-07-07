@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/product/data/product.dart';
+import 'package:office_shopping_mall/feature/product/data/models/product.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_detail_bottom.dart';
 import 'package:office_shopping_mall/feature/product/ui/product_detail_content.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../data/product_viewmodel.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ProductDataProvider productDataViewModel = ProductDataProvider();
+    final Product? product = productDataViewModel.selectedProduct as Product?;
+
     return Scaffold(
       extendBody: true,
       appBar: CustomAppBar(
-        title: products.firstWhere((element) => element.id == getSelectProductId()).productName,
+        title: product?.name ?? '',
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
         actions: [
           IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
