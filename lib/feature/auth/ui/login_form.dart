@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/services/auth_service.dart';
-import 'package:office_shopping_mall/feature/auth/bloc/auth_provider.dart';
+import 'package:office_shopping_mall/feature/auth/bloc/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
@@ -62,7 +62,7 @@ class LoginFormState extends State<LoginForm> {
       );
       print('로그인 성공! 액세스 토큰: $accessToken');
 
-      final auth = Provider.of<AuthProvider>(context, listen: false);
+      final auth = Provider.of<AuthViewModel>(context, listen: false);
       auth.login();
 
       Navigator.pushNamedAndRemoveUntil(
