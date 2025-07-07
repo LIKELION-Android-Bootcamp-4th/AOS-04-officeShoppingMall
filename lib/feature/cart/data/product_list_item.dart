@@ -27,10 +27,12 @@ class ProductListItem extends StatelessWidget {
                     print("체크박스 클릭");
                   },
                 )
-              : SizedBox(width: 16),
+              : SizedBox(width: MediaQuery.of(context).size.width * 0.04),
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            width: product.productDeliveryIndex == 0 ? 330 : 360,
+            width: product.productDeliveryIndex == 0
+                ? MediaQuery.of(context).size.width * 0.84
+                : MediaQuery.of(context).size.width * 0.92,
             height: 190,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
@@ -41,7 +43,7 @@ class ProductListItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   product.productDeliveryIndex == 0
-                  // TODO: 추후 수정 필요
+                      // TODO: 추후 수정 필요
                       ? MaterialPageRoute(
                           builder: (_) => OrderDetailScreen(),
                         ) //장바구니에 담긴 상품은 상품 상세페이지로
@@ -58,7 +60,7 @@ class ProductListItem extends StatelessWidget {
                         ? //지우기 버튼. 장바구니 탭에서만 활성화
                           Row(
                             children: [
-                              SizedBox(width: 280),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
                               Align(
                                 alignment: Alignment.topRight,
                                 child: IconButton(
@@ -68,7 +70,9 @@ class ProductListItem extends StatelessWidget {
                                       listen: false,
                                     ).deleteProduct(product);
                                   },
-                                  icon: SvgPicture.asset('images/icon/ic_close.svg'),
+                                  icon: SvgPicture.asset(
+                                    'images/icon/ic_close.svg',
+                                  ),
                                 ),
                               ),
                             ],
@@ -96,12 +100,17 @@ class ProductListItem extends StatelessWidget {
                           children: [
                             Text(
                               product.productName,
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(height: 3),
                             Text("2개", style: TextStyle(fontSize: 15)),
                             Container(
-                              width: product.productDeliveryIndex == 0 ? 190 : 220,
+                              width: product.productDeliveryIndex == 0
+                                  ? MediaQuery.of(context).size.width * 0.48
+                                  : MediaQuery.of(context).size.width * 0.56,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -110,7 +119,10 @@ class ProductListItem extends StatelessWidget {
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
                                       "100,000",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Text("원", style: TextStyle(fontSize: 15)),
