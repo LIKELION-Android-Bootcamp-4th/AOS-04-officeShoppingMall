@@ -11,7 +11,10 @@ class AddReviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: "리뷰 작성"),
 
-      body: Container(padding: EdgeInsets.all(16), child: AddReviewContent()),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: AddReviewContent(),
+      ),
     );
   }
 }

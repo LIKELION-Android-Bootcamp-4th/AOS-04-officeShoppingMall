@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 
@@ -13,9 +14,23 @@ class AddReviewContent extends StatefulWidget {
 
 class _AddReviewContent extends State<AddReviewContent> {
   final TextEditingController _reviewController = TextEditingController();
+  final List<SvgPicture?> _score = List.generate(5, (index) => SvgPicture.asset(""));
   final List<XFile?> _images = [];
   final ImagePicker _picker = ImagePicker();
   final int visibleCount = 3;
+
+  void _onScoreSelected(int index) {
+    setState(() {
+      for(int i = 0; i < _score.length; i++) {
+        if(i <= index) {
+          _score[index] = SvgPicture.asset("");
+        }
+        else{
+          _score[index] = SvgPicture.asset("");
+        }
+      }
+    });
+  }
 
   Future<void> _pickImage(int index) async {
     final XFile? pickedFile = await _picker.pickImage(
@@ -41,7 +56,7 @@ class _AddReviewContent extends State<AddReviewContent> {
         height: 74,
         decoration: BoxDecoration(
           color: AppColors.gray100,
-          borderRadius: BorderRadius.circular(60),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: isFilled
             ? ClipRRect(
@@ -74,15 +89,30 @@ class _AddReviewContent extends State<AddReviewContent> {
 
         SizedBox(height: 8),
 
+        Row(
+          children: List.generate(
+            5,
+            (index) => Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: GestureDetector(
+                onTap: () => _onScoreSelected(index),
+                child: _score[index],
+              ),
+            ),
+          ),
+        ),
+
         SizedBox(height: 20),
 
         Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyMedium),
         SizedBox(height: 8),
         TextField(
           controller: _reviewController,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.gray100,
+            hintText: "내용을 입력하세요",
+            hintStyle: TextStyle(color: AppColors.gray200),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               borderSide: BorderSide.none,
@@ -110,7 +140,7 @@ class _AddReviewContent extends State<AddReviewContent> {
           ),
         ),
 
-        Spacer(),
+        SizedBox(height: 20),
 
         Row(
           children: [
