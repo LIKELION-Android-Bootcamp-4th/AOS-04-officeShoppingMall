@@ -9,7 +9,8 @@ class OrderDetailScreen extends StatefulWidget {
   }
 }
 
-class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerProviderStateMixin {
+class OrderDetailScreenState extends State<OrderDetailScreen>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,10 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
           },
           icon: SvgPicture.asset('images/icon/ic_back.svg'),
         ),
-        title: Text("주문 정보", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+        title: Text(
+          "주문 정보",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.all(16),
@@ -44,16 +48,22 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 250,
+                      width: MediaQuery.of(context).size.width * 0.64,
                       child: Row(
                         children: [
-                          Text("상품명", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text(
+                            "상품명",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           Spacer(),
-                          Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: Text(
-                              "결제 완료",
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          Text(
+                            "결제 완료",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -76,8 +86,8 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
             ),
 
             Container(
-              width: 360,
-              height: 300,
+              width: MediaQuery.of(context).size.width * 0.86,
+              height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                 color: Color(0x4DD9D9D9),
                 borderRadius: BorderRadiusGeometry.circular(10),
@@ -91,35 +101,41 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                       child: Column(
                         children: [
                           Container(
-                            width: 320,
+                            width: MediaQuery.of(context).size.height * 0.4,
                             child: Row(
                               children: [
                                 Text("결제 방식", style: TextStyle(fontSize: 15)),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text("카드 결제", style: TextStyle(fontSize: 15)),
+                                  child: Text(
+                                    "카드 결제",
+                                    style: TextStyle(fontSize: 15),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                           SizedBox(height: 40),
                           Container(
-                            width: 320,
+                            width: MediaQuery.of(context).size.height * 0.4,
                             child: Row(
                               children: [
                                 Text("주문 번호", style: TextStyle(fontSize: 15)),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text("123456789", style: TextStyle(fontSize: 15)),
+                                  child: Text(
+                                    "123456789",
+                                    style: TextStyle(fontSize: 15),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                           SizedBox(height: 40),
                           Container(
-                            width: 320,
+                            width: MediaQuery.of(context).size.width * 1,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -152,8 +168,8 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
 
             //주문 취소버튼. 결제 완료 상태에서만 보여야 됨(예정)
             Container(
-              width: 360,
-              height: 50,
+              width: MediaQuery.of(context).size.width * 0.86,
+              height: MediaQuery.of(context).size.height * 0.06,
               decoration: BoxDecoration(
                 color: Color(0x80D9D9D9),
                 borderRadius: BorderRadiusGeometry.circular(10),
@@ -170,7 +186,10 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             children: [
                               Padding(
                                 padding: EdgeInsets.all(16),
-                                child: Text("주문을 취소 하시겠습니까?", style: TextStyle(fontSize: 20)),
+                                child: Text(
+                                  "주문을 취소 하시겠습니까?",
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ),
                             ],
                           ),

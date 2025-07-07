@@ -19,7 +19,6 @@ class _DeliveryNavigationState extends State<DeliveryNavigation> {
         height: 75,
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(60)),
-          // clipBehavior: Clip.antiAlias,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -28,7 +27,7 @@ class _DeliveryNavigationState extends State<DeliveryNavigation> {
                 style: TextButton.styleFrom(
                   // padding: EdgeInsets.all(16),
                   minimumSize: Size(65, 65),
-                  backgroundColor: widget.selectIndex == 0 ? Color(0x8270AEFF) : Color(0xFFf7f2fa),
+                  backgroundColor: widget.selectIndex == 0 ? Color(0x8270AEFF) : Colors.white,
                   shape: CircleBorder(),
                 ),
                 child: Column(
@@ -56,7 +55,7 @@ class _DeliveryNavigationState extends State<DeliveryNavigation> {
                 onPressed: () => widget.onTap(1),
                 style: TextButton.styleFrom(
                   minimumSize: Size(65, 65),
-                  backgroundColor: widget.selectIndex == 1 ? Color(0x8270AEFF) : Color(0xFFf7f2fa),
+                  backgroundColor: widget.selectIndex == 1 ? Color(0x8270AEFF) : Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(60)),
                 ),
                 child: Column(
@@ -84,7 +83,7 @@ class _DeliveryNavigationState extends State<DeliveryNavigation> {
                 onPressed: () => widget.onTap(2),
                 style: TextButton.styleFrom(
                   minimumSize: Size(65, 65),
-                  backgroundColor: widget.selectIndex == 2 ? Color(0x8270AEFF) : Color(0xFFf7f2fa),
+                  backgroundColor: widget.selectIndex == 2 ? Color(0x8270AEFF) : Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(60)),
                 ),
                 child: Column(
@@ -112,7 +111,7 @@ class _DeliveryNavigationState extends State<DeliveryNavigation> {
                 onPressed: () => widget.onTap(3),
                 style: TextButton.styleFrom(
                   minimumSize: Size(65, 65),
-                  backgroundColor: widget.selectIndex == 3 ? Color(0x8270AEFF) : Color(0xFFf7f2fa),
+                  backgroundColor: widget.selectIndex == 3 ? Color(0x8270AEFF) : Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(60)),
                 ),
                 child: Column(

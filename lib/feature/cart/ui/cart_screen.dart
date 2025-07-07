@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 
@@ -72,10 +71,6 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                     onPressed: () {
                       print("go to OrderScreen");
                     },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(379, 56),
-                      backgroundColor: Color(0xFF2E77D6),
-                    ),
                     child: Text("결제", style: TextStyle(fontSize: 20, color: Colors.white)),
                   ),
                 ),
