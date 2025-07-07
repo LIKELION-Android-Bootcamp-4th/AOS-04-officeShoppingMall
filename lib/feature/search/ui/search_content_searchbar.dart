@@ -34,10 +34,14 @@ class SearchContentSearchBar extends StatelessWidget {
                             //TODO: 검색 이벤트 추가
                             print('검색할 내용: ${_searchController.text}');
                           },
-                          icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
+                          icon: SvgPicture.asset(
+                            'images/icon/ic_appbar_search.svg',
+                          ),
                         ),
                       ],
-                      backgroundColor: WidgetStateProperty.all(AppColors.gray200),
+                      backgroundColor: WidgetStateProperty.all(
+                        AppColors.gray200,
+                      ),
                       elevation: WidgetStateProperty.all(0),
                     ),
                   ),

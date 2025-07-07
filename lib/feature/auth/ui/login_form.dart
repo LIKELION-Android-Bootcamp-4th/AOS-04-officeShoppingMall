@@ -48,19 +48,28 @@ class LoginFormState extends State<LoginForm> {
     final pw = _pwController.text;
 
     if (email.isEmpty || pw.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("이메일과 비밀번호를 입력해주세요")));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("이메일과 비밀번호를 입력해주세요")));
       return;
     }
 
     try {
       final authService = AuthService();
-      final accessToken = await authService.loginAction(email: email, password: pw);
+      final accessToken = await authService.loginAction(
+        email: email,
+        password: pw,
+      );
       print('로그인 성공! 액세스 토큰: $accessToken');
 
       final auth = Provider.of<AuthProvider>(context, listen: false);
       auth.login();
 
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.home,
+        (route) => false,
+      );
     } catch (e) {
       final error = e.toString();
       if (error.contains("401")) {
