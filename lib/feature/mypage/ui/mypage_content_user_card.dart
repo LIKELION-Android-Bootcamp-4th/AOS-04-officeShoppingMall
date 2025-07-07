@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class MypageContentUserCard extends StatelessWidget {
@@ -11,8 +12,8 @@ class MypageContentUserCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       child: Card(
-        elevation: 2,
-        color: appColorScheme().surfaceContainerLowest,
+        elevation: 0,
+        color: appColorScheme().surfaceContainerLow,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: Column(
@@ -45,11 +46,14 @@ class MypageContentUserCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      Text('0', style: Theme.of(context).textTheme.headlineMedium),
-                      Text('결제 완료', style: Theme.of(context).textTheme.bodyLarge),
-                    ],
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.delivery),
+                    child: Column(
+                      children: [
+                        Text('0', style: Theme.of(context).textTheme.headlineMedium),
+                        Text('결제 완료', style: Theme.of(context).textTheme.bodyLarge),
+                      ],
+                    ),
                   ),
                   Column(
                     children: [

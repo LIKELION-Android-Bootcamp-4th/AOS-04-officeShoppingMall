@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
@@ -6,7 +7,7 @@ import 'package:office_shopping_mall/core/theme/theme.dart';
 // 추가로 Scaffold 위젯이 PreferredSizeWidget 타입의 위젯을 전달받기를 기대함
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final Widget? leading;
+  final bool isLeading;
   final List<Widget> actions;
   final bool centerTitle;
   final TextStyle? titleTextStyle;
@@ -14,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     this.title = AppConstants.appName,
-    this.leading,
+    this.isLeading = true,
     this.actions = const [],
     this.centerTitle = false,
     this.titleTextStyle,
@@ -26,9 +27,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actionsPadding: EdgeInsets.only(right: 8),
       title: Text(title, style: titleTextStyle ?? appTextTheme().headlineMedium),
       centerTitle: centerTitle,
-      leading: leading,
-      // TODO: 모든 구현 완료 시 자동 뒤로가기 버튼 삭제
-      // automaticallyImplyLeading: false,
+      automaticallyImplyLeading: false,
+      leading: isLeading
+          ? IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: SvgPicture.asset('images/icon/ic_back.svg'),
+            )
+          : null,
       actions: actions,
     );
   }
