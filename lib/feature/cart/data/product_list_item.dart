@@ -27,12 +27,12 @@ class ProductListItem extends StatelessWidget {
                     print("체크박스 클릭");
                   },
                 )
-              : SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+              : SizedBox(width: MediaQuery.of(context).size.width * 0.04),
           Container(
             margin: EdgeInsets.only(bottom: 16),
             width: product.productDeliveryIndex == 0
-                ? MediaQuery.of(context).size.height * 0.4
-                : MediaQuery.of(context).size.height * 0.45,
+                ? MediaQuery.of(context).size.width * 0.84
+                : MediaQuery.of(context).size.width * 0.92,
             height: 190,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
@@ -60,7 +60,7 @@ class ProductListItem extends StatelessWidget {
                         ? //지우기 버튼. 장바구니 탭에서만 활성화
                           Row(
                             children: [
-                              SizedBox(width: MediaQuery.of(context).size.height * 0.34,),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
                               Align(
                                 alignment: Alignment.topRight,
                                 child: IconButton(
@@ -109,8 +109,8 @@ class ProductListItem extends StatelessWidget {
                             Text("2개", style: TextStyle(fontSize: 15)),
                             Container(
                               width: product.productDeliveryIndex == 0
-                                  ? 190
-                                  : 220,
+                                  ? MediaQuery.of(context).size.width * 0.48
+                                  : MediaQuery.of(context).size.width * 0.56,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
