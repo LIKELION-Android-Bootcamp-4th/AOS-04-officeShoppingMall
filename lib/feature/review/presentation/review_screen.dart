@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
-import 'package:office_shopping_mall/feature/review/data/review_list.dart';
 import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
+import 'package:office_shopping_mall/feature/review/presentation/widgets/review_writable_tab.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({super.key});
@@ -45,7 +45,7 @@ class _ReviewScreenState extends State<ReviewScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                ReviewList(),
+                ReviewWritableTab(),
                 //작성완료 탭. 수정 필요
                 Column(
                   children: [
