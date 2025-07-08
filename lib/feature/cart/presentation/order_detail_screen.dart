@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 
 class OrderDetailScreen extends StatefulWidget {
