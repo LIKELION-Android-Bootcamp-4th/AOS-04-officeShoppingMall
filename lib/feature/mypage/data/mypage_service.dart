@@ -9,7 +9,7 @@ class MypageService {
 
   Future<UserDTO> fetchUser() async {
     try {
-      final response = await _dio.get(Api.mypage.getOrUpdateProfile);
+      final response = await _dio.get(Api.mypage.getProfile);
       if (response.statusCode == 200) {
         return UserDTO.fromJson(response.data['data'] as Map<String, dynamic>);
       } else {
