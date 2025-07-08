@@ -63,8 +63,8 @@ class LoginFormState extends State<LoginForm> {
       );
       print('로그인 성공! 액세스 토큰: $accessToken');
 
-      final auth = Provider.of<AuthViewModel>(context, listen: false);
-      auth.login();
+      // final auth = Provider.of<AuthViewModel>(context, listen: false);
+      // auth.login();
 
       Navigator.pushNamedAndRemoveUntil(
         context,

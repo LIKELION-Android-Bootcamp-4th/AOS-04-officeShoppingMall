@@ -3,7 +3,7 @@ import 'package:office_shopping_mall/feature/auth/presentation/widgets/auth_head
 import 'package:office_shopping_mall/feature/auth/presentation/widgets/login_form.dart';
 import 'package:office_shopping_mall/feature/auth/presentation/widgets/login_goSignup.dart';
 
-import '../../../core/widgets/app_bar/custom_app_bar.dart';
+import '../../../../core/widgets/app_bar/custom_app_bar.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
