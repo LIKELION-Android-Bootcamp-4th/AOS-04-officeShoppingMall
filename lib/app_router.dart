@@ -11,7 +11,7 @@ import 'package:office_shopping_mall/feature/setting/ui/dest_setting_screen.dart
 import 'package:office_shopping_mall/feature/setting/ui/pw_setting.dart';
 
 import 'feature/auth/presentation/widgets/login_screen.dart';
-import 'feature/auth/presentation/signup_screen.dart';
+import 'feature/auth/presentation/widgets/signup_screen.dart';
 import 'feature/category/ui/category_screen.dart';
 import 'feature/product/ui/product_detail_screen.dart';
 import 'feature/product/ui/product_list_screen.dart';
