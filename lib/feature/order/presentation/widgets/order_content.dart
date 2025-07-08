@@ -5,6 +5,9 @@ import 'package:office_shopping_mall/feature/product/ui/product_content_containe
 import '../../../core/theme/app_colors.dart';
 import '../../product/data/models/product.dart';
 import '../../product/data/product_viewmodel.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/feature/product/data/product.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
 class OrderContent extends StatelessWidget {
   const OrderContent({super.key});
