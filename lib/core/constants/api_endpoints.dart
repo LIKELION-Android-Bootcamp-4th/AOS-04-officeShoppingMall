@@ -1,5 +1,5 @@
 class Api {
-  static const baseUrl = 'http://git.hansul.kr:3000/';
+  static const baseUrl = 'http://git.hansul.kr:3004/';
 
   static const auth = _AuthEndpoints();
   static const cart = _CartEndpoints();
