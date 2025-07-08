@@ -11,16 +11,14 @@ import 'package:office_shopping_mall/feature/preference/presentation/preference_
 import 'package:office_shopping_mall/feature/review/presentation/review_screen.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/dest_setting_screen.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/widgets/pw_setting.dart';
-
-import 'feature/auth/presentation/login_screen.dart';
-import 'feature/auth/presentation/signup_screen.dart';
 import 'feature/category/presentation/category_screen.dart';
 import 'feature/product/presentation/product_detail_screen.dart';
 import 'feature/product/presentation/product_list_screen.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/cart_screen.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/setting_screen.dart';
 import 'package:office_shopping_mall/feature/search/presentation/search_screen.dart';
-
+import 'feature/auth/presentation/widgets/login_screen.dart';
+import 'feature/auth/presentation/widgets/signup_screen.dart';
 import 'feature/review/presentation/add_review_screen.dart';
 
 class AppRouter {
@@ -64,6 +62,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => AddReviewScreen());
       case AppRoutes.review:
         return MaterialPageRoute(builder: (_) => ReviewScreen());
+
 
       default:
         return MaterialPageRoute(
