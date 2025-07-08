@@ -16,11 +16,12 @@ class SignupScreen extends StatelessWidget {
         title: "회원가입",
         centerTitle: true, //appTextTheme().headlineLarge
       ),
+
       body: Builder(
         builder: (context) {
           if (viewModel.isLoading) return CustomCircleIndicator();
-          if (viewModel.error != null)
-            return Center(child: Text("에러뜰때 화면 어케 할지"));
+          // if (viewModel.error != null)
+          //   return Center(child: Text("에러뜰때 화면 어케 할지"));
           return Padding(
             padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
             child: SingleChildScrollView(

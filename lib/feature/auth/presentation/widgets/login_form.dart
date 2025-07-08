@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/widgets/signup_form.dart';
 
 class LoginForm extends StatefulWidget {
-  LoginForm({super.key});
+  const LoginForm({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -44,6 +46,7 @@ class LoginFormState extends State<LoginForm> {
   void loginAction() async {
     final email = _emailController.text;
     final pw = _pwController.text;
+    final authViewModel = context.read<AuthViewModel>();
 
     if (email.isEmpty || pw.isEmpty) {
       ScaffoldMessenger.of(
@@ -52,40 +55,34 @@ class LoginFormState extends State<LoginForm> {
       return;
     }
 
-    try {
-      final authService = AuthService();
-      final accessToken = await authService.loginAction(
-        email: email,
-        password: pw,
-      );
-      print('로그인 성공! 액세스 토큰: $accessToken');
-
-      // final auth = Provider.of<AuthViewModel>(context, listen: false);
-      // auth.login();
-
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        AppRoutes.home,
-        (route) => false,
-      );
-    } catch (e) {
-      final error = e.toString();
-      if (error.contains("401")) {
+    if (mounted) {
+      if (authViewModel.error != null) {
+        showToast("로그인 실패!: ${authViewModel.error}");
+      } else if (authViewModel.loginResponse!.message.contains("401")) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text("이메일 또는 비밀번호가 올바르지 않습니다")));
+        ).showSnackBar(SnackBar(content: Text("이메일 또는 비밀번호가 올바르지 않습니다.")));
         return;
+      } else if (authViewModel.loginResponse != null) {
+        print(
+          '로그인 성공! 액세스 토큰: ${authViewModel.loginResponse!.data.accessToken}');
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.home,
+        (route) => false,
+        );
       }
-      print('로그인 실패: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = context.watch<AuthViewModel>();
     return Column(
       children: [
         TextFormField(
           controller: _emailController,
+          keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: "이메일",
             suffixIcon: _showClearIcon
