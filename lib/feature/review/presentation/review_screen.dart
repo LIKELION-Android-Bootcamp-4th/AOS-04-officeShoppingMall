@@ -51,7 +51,7 @@ class _ReviewScreenState extends State<ReviewScreen>
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: 200,
+                      height: 190,
                       decoration: BoxDecoration(
                         color: appColorScheme().surfaceContainer,
                         borderRadius: BorderRadiusGeometry.circular(10),
