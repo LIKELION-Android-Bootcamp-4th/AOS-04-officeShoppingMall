@@ -55,72 +55,74 @@ class LoginFormState extends State<LoginForm> {
       return;
     }
 
-    if (mounted) {
-      if (authViewModel.error != null) {
-        showToast("로그인 실패!: ${authViewModel.error}");
-      } else if (authViewModel.loginResponse!.message.contains("401")) {
+    await authViewModel.logIn(email: email, password: pw);
+    final String? error = authViewModel.error;
+    if (error != null) {
+      if (error.contains("인증 실패")) {
+        showToast("로그인 실패");
+      } else {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("이메일 또는 비밀번호가 올바르지 않습니다.")));
-        return;
-      } else if (authViewModel.loginResponse != null) {
-        print(
-          '로그인 성공! 액세스 토큰: ${authViewModel.loginResponse!.data.accessToken}');
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.home,
-        (route) => false,
-        );
       }
+    } else if (authViewModel.loginResponse != null) {
+      print('로그인 성공! 액세스 토큰: ${authViewModel.loginResponse!.data.accessToken}');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.home,
+        (route) => false,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final authViewModel = context.watch<AuthViewModel>();
-    return Column(
-      children: [
-        TextFormField(
-          controller: _emailController,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            hintText: "이메일",
-            suffixIcon: _showClearIcon
-                ? IconButton(
-                    onPressed: () {
-                      _emailController.clear();
-                    },
-                    icon: Icon(Icons.clear),
-                  )
-                : null,
-          ),
-        ),
-
-        SizedBox(height: 16),
-
-        TextFormField(
-          controller: _pwController,
-          obscureText: _showVisibleIcon,
-          decoration: InputDecoration(
-            hintText: "비밀번호",
-            suffixIcon: IconButton(
-              onPressed: _changeVisibilityIcon,
-              icon: _showVisibleIcon
-                  ? SvgPicture.asset('images/icon/ic_invisible.svg')
-                  : SvgPicture.asset('images/icon/ic_visible.svg'),
+    return Form(
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: "이메일",
+              suffixIcon: _showClearIcon
+                  ? IconButton(
+                      onPressed: () {
+                        _emailController.clear();
+                      },
+                      icon: Icon(Icons.clear),
+                    )
+                  : null,
             ),
           ),
-        ),
 
-        SizedBox(height: 32),
+          SizedBox(height: 16),
 
-        ElevatedButton(
-          onPressed: () {
-            loginAction();
-          },
-          child: Text("로그인"),
-        ),
-      ],
+          TextFormField(
+            controller: _pwController,
+            obscureText: _showVisibleIcon,
+            decoration: InputDecoration(
+              hintText: "비밀번호",
+              suffixIcon: IconButton(
+                onPressed: _changeVisibilityIcon,
+                icon: _showVisibleIcon
+                    ? SvgPicture.asset('images/icon/ic_invisible.svg')
+                    : SvgPicture.asset('images/icon/ic_visible.svg'),
+              ),
+            ),
+          ),
+
+          SizedBox(height: 32),
+
+          ElevatedButton(
+            onPressed: () {
+              loginAction();
+            },
+            child: Text("로그인"),
+          ),
+        ],
+      ),
     );
   }
 }
