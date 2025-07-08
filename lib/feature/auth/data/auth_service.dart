@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
+import 'package:office_shopping_mall/core/data/models/auth/login_response.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
+import '../../../core/data/models/auth/login_request.dart';
 import '../../../core/data/models/auth/signup_request.dart';
 import '../../../core/data/models/auth/signup_response.dart';
 
@@ -35,19 +37,17 @@ class AuthService {
   }
 
   // 로그인
-  Future<String> loginAction({
-    required String email,
-    required String password,
+  Future<LoginResponse> loginAction({
+    required LoginRequest requestData
   }) async {
     final response = await _dio.post(
       Api.auth.login,
-      data: {'email': email, 'password': password},
+      data: requestData.toJson(),
     );
     if (response.statusCode == 200) {
-      final responseData = response.data as Map<String, dynamic>;
-      final data = responseData['data'] as Map<String, dynamic>;
-      final accessToken = data['accessToken'] as String;
-      return accessToken;
+      final LoginResponse loginResponse = LoginResponse.fromJson(response.data);
+      print('로그인 성공! ${loginResponse.message}');
+      return loginResponse;
     } else if (response.statusCode == 400) {
       throw Exception("잘못된 요청");
     } else {
