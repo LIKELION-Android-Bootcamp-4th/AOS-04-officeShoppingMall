@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
-import '../../../../core/data/models/signup_request.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});

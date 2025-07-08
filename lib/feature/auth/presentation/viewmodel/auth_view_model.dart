@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/signup_request.dart';
-import 'package:office_shopping_mall/core/data/models/signup_response.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_request.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_response.dart';
+import 'package:office_shopping_mall/feature/auth/data/signup_request.dart';
+import 'package:office_shopping_mall/feature/auth/data/signup_response.dart';
 import 'package:office_shopping_mall/feature/auth/domain/auth_repository.dart';
 
 class AuthViewModel with ChangeNotifier {
@@ -9,6 +11,7 @@ class AuthViewModel with ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   SignupResponse? _signupResponse;
+  LoginResponse? _loginResponse;
 
   bool get isLoading => _isLoading;
 
@@ -16,7 +19,8 @@ class AuthViewModel with ChangeNotifier {
 
   SignupResponse? get signupResponse => _signupResponse;
 
-  //TODO: 로그인도 만들면 추가하기
+  LoginResponse? get loginResponse => _loginResponse;
+
   AuthViewModel(this._authRepository);
 
   Future<void> signUp({
@@ -27,7 +31,6 @@ class AuthViewModel with ChangeNotifier {
     _isLoading = true;
     _error = null;
     notifyListeners();
-
     try {
       final request = SignupRequest(
         email: email,
@@ -38,8 +41,25 @@ class AuthViewModel with ChangeNotifier {
       _error = null;
     } catch (e) {
       _error = "회원가입 실패 : $e";
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
-    _isLoading = false;
+  }
+
+  Future<void> logIn({required String email, required String password}) async {
+    _isLoading = true;
+    _error = null;
     notifyListeners();
+    try {
+      final request = LoginRequest(email: email, password: password);
+      _loginResponse = await _authRepository.logIn(request);
+      _error = null;
+    } catch (e) {
+      _error = "로그인 실패 : $e";
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 }

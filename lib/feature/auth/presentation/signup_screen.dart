@@ -16,18 +16,20 @@ class SignupScreen extends StatelessWidget {
         title: "회원가입",
         centerTitle: true, //appTextTheme().headlineLarge
       ),
-      body: Builder(
-        builder: (context) {
-          if (viewModel.isLoading) return CustomCircleIndicator();
-          if (viewModel.error != null)
-            return Center(child: Text("에러뜰때 화면 어케 할지"));
-          return Padding(
+      body: Stack(
+        children: [
+          Padding(
             padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
             child: SingleChildScrollView(
               child: Column(children: [AuthHeader(), SignUpForm()]),
             ),
-          );
-        },
+          ),
+          if (viewModel.isLoading)
+            Container(
+              color: Colors.black54, //배경 살짝 어두워진 상태로 인디케이터 돌아가게
+              child: Center(child: CustomCircleIndicator()),
+            ),
+        ],
       ),
     );
   }
