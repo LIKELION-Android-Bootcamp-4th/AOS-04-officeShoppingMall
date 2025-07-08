@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
-
-import '../../../core/data/models/signup_request.dart';
-import '../../../core/data/models/signup_response.dart';
+import '../../../core/data/models/auth/signup_request.dart';
+import '../../../core/data/models/auth/signup_response.dart';
 
 class AuthService {
   final Dio _dio = ApiClient.dio;

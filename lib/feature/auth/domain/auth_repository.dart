@@ -1,7 +1,6 @@
-import 'package:office_shopping_mall/core/data/models/signup_response.dart';
-import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
-
-import '../../../core/data/models/signup_request.dart';
+import '../../../core/data/models/auth/signup_request.dart';
+import '../../../core/data/models/auth/signup_response.dart';
+import '../data/auth_service.dart';
 
 class AuthRepository{
   final AuthService _service;
