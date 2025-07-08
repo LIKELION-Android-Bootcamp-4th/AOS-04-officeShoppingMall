@@ -1,7 +1,7 @@
-import 'package:office_shopping_mall/core/data/models/auth/login_request.dart';
-import 'package:office_shopping_mall/core/data/models/auth/login_response.dart';
-import '../../../core/data/models/auth/signup_request.dart';
-import '../../../core/data/models/auth/signup_response.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_request.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_response.dart';
+import '../data/signup_request.dart';
+import '../data/signup_response.dart';
 import '../data/auth_service.dart';
 
 class AuthRepository{

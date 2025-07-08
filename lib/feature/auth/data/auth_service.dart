@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
-import 'package:office_shopping_mall/core/data/models/auth/login_response.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_response.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
-import '../../../core/data/models/auth/login_request.dart';
-import '../../../core/data/models/auth/signup_request.dart';
-import '../../../core/data/models/auth/signup_response.dart';
+import 'login_request.dart';
+import 'signup_request.dart';
+import 'signup_response.dart';
 
 class AuthService {
   final Dio _dio = ApiClient.dio;

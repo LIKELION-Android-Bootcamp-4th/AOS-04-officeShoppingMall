@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/auth/login_request.dart';
-import 'package:office_shopping_mall/core/data/models/auth/login_response.dart';
-import 'package:office_shopping_mall/core/data/models/auth/signup_request.dart';
-import 'package:office_shopping_mall/core/data/models/auth/signup_response.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_request.dart';
+import 'package:office_shopping_mall/feature/auth/data/login_response.dart';
+import 'package:office_shopping_mall/feature/auth/data/signup_request.dart';
+import 'package:office_shopping_mall/feature/auth/data/signup_response.dart';
 import 'package:office_shopping_mall/feature/auth/domain/auth_repository.dart';
 
 class AuthViewModel with ChangeNotifier {
