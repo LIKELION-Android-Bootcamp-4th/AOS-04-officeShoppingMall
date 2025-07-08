@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/bottom_navigation.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/viewmodel/mypage_viewmodel.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/widgets/mypage_content_user_card.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/widgets/mypage_content_menu_list.dart';
@@ -17,7 +18,7 @@ class MypageScreen extends StatelessWidget {
       appBar: CustomAppBar(title: '마이페이지', actions: appBarActionsMypage()),
       body: Builder(
         builder: (context) {
-          if (vm.isLoading) return Center(child: Text('임시'));
+          if (vm.isLoading) return CustomCircleIndicator();
           if (vm.error != null) return Center(child: Text('에러:${vm.error.toString()}'));
 
           return ListView(
