@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
-import 'package:office_shopping_mall/feature/home/ui/home_screen.dart';
-import 'package:office_shopping_mall/feature/review/ui/add_review_screen.dart';
+import 'package:office_shopping_mall/feature/home/presentation/home_screen.dart';
+import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
 
 class ReviewList extends StatelessWidget {
   @override

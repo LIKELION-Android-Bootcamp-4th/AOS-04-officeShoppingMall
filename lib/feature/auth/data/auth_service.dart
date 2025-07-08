@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
-import 'package:office_shopping_mall/core/data/services/api_client.dart';
+import 'package:office_shopping_mall/core/data/network/api_client.dart';
 
 import '../../../core/data/models/signup_request.dart';
 import '../../../core/data/models/signup_response.dart';
