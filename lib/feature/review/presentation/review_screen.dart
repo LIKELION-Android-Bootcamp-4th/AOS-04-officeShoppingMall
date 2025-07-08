@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
 import 'package:office_shopping_mall/feature/review/data/review_list.dart';
+import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({super.key});
@@ -28,12 +31,7 @@ class _ReviewScreenState extends State<ReviewScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "리뷰",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: CustomAppBar(title: '리뷰'),
       body: Column(
         children: [
           customTabBar(
@@ -48,8 +46,29 @@ class _ReviewScreenState extends State<ReviewScreen>
               controller: _tabController,
               children: [
                 ReviewList(),
-                Text("이번"),
-              ]
+                //작성완료 탭. 수정 필요
+                Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: appColorScheme().surfaceContainer,
+                        borderRadius: BorderRadiusGeometry.circular(10),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => ReviewDetailScreen()),
+                          );
+                        },
+                        child: Text("리뷰 작성 완료 리스트"),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
