@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
-import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
 import 'package:office_shopping_mall/feature/review/presentation/widgets/review_writable_tab.dart';
 import 'package:office_shopping_mall/feature/review/presentation/widgets/review_written_tab.dart';
 
