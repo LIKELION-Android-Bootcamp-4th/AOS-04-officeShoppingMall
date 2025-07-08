@@ -51,10 +51,7 @@ class PasswordChangeFail {
   final String? type;
   final List<String>? details;
 
-  PasswordChangeFail({
-    this.type,
-    this.details,
-  });
+  PasswordChangeFail({this.type, this.details});
 
   factory PasswordChangeFail.fromJson(Map<String, dynamic> json) {
     return PasswordChangeFail(
