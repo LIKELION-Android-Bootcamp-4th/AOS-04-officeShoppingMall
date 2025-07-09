@@ -11,15 +11,30 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final GlobalKey<SearchRecentKeywordState> _recentKeywordKey = GlobalKey();
+
+  void _onSearchSubmitted(String keyword) {
+    _recentKeywordKey.currentState?.addKeyword(keyword);
+  }
+
+  void _onKeywordSelected(String keyword) {
+    //TODO: 검색기능 추가하기
+    print('선택된 검색어: $keyword');
+    _recentKeywordKey.currentState?.addKeyword(keyword);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          SearchContentSearchBar(),
+          SearchContentSearchBar(onSearchSubmitted: _onSearchSubmitted),
           SizedBox(height: 16),
-          SearchRecentKeyword(),
+          SearchRecentKeyword(
+            key: _recentKeywordKey,
+            onKeywordSelected: _onKeywordSelected,
+          ),
           SizedBox(height: 32),
           Divider(),
           SizedBox(height: 16),
