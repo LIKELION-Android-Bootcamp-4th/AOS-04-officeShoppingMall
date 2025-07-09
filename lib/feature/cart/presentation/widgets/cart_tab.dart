@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 
 class CartTab extends StatefulWidget {
@@ -11,18 +12,13 @@ class CartTab extends StatefulWidget {
 }
 
 class CartTabState extends State<CartTab> with SingleTickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: ProductList(
-          products: context
-              .watch<ProductProvider>()
-              .products
-              .where((a) => a.productDeliveryIndex == 0)
-              .toList(),
-        ),
-      ),
+      body: ListView.builder(itemCount: 1, itemBuilder: (context, index){
+        return CartListItem(product: products, cart: cart);
+      }),
 
       //금액~결제 버튼
       bottomNavigationBar: Padding(
