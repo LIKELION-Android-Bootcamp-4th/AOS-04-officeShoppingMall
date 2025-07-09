@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   @override
@@ -14,18 +13,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: SvgPicture.asset('images/icon/ic_back.svg'),
-        ),
-        title: Text(
-          "주문 정보",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: CustomAppBar(title: '주문 정보',),
       body: Container(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -108,10 +96,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text(
-                                    "카드 결제",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
+                                  child: Text("카드 결제", style: TextStyle(fontSize: 15),),
                                 ),
                               ],
                             ),
@@ -125,10 +110,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text(
-                                    "123456789",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
+                                  child: Text("123456789", style: TextStyle(fontSize: 15),),
                                 ),
                               ],
                             ),

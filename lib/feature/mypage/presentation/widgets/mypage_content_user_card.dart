@@ -54,7 +54,7 @@ class MypageContentUserCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () => Navigator.pushNamed(context, AppRoutes.delivery),
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.orderPaid),
                     child: Column(
                       children: [
                         Text('0', style: Theme.of(context).textTheme.headlineMedium),
@@ -62,17 +62,23 @@ class MypageContentUserCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Column(
-                    children: [
-                      Text('1', style: Theme.of(context).textTheme.headlineMedium),
-                      Text('배송 중', style: Theme.of(context).textTheme.bodyLarge),
-                    ],
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.orderShipping),
+                    child: Column(
+                      children: [
+                        Text('1', style: Theme.of(context).textTheme.headlineMedium),
+                        Text('배송 중', style: Theme.of(context).textTheme.bodyLarge),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Text('2', style: Theme.of(context).textTheme.headlineMedium),
-                      Text('배송 완료', style: Theme.of(context).textTheme.bodyLarge),
-                    ],
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.orderDelivered),
+                    child: Column(
+                      children: [
+                        Text('2', style: Theme.of(context).textTheme.headlineMedium),
+                        Text('배송 완료', style: Theme.of(context).textTheme.bodyLarge),
+                      ],
+                    ),
                   ),
                 ],
               ),
