@@ -1,27 +1,33 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
+import 'package:office_shopping_mall/core/data/network/secure_storage.dart';
 
 import '../../../core/data/models/signup_request.dart';
 import '../../../core/data/models/signup_response.dart';
 
 class AuthService {
-  final Dio _dio = ApiClient.dio;
+  final Dio _dio = ApiClient().dio;
 
   Future<String> refreshAccessToken() async {
     try {
+      final refreshToken = await SecureStorage.loadRefreshToken();
+      if (refreshToken == null) throw Exception('Refresh Token 없음. 다시 로그인 필요.');
+
       final response = await _dio.post(
         Api.auth.refreshToken,
-        data: {
-          'refreshToken':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODVmNjlmYzQzOTkyMmMwOWMyMWFlZjMiLCJjb21wYW55SWQiOiI2ODVmNjlmYzQzOTkyMmMwOWMyMWFlZjAiLCJpc0FkbWluIjp0cnVlLCJpc1N1cGVyQWRtaW4iOnRydWUsImlhdCI6MTc1MTMzOTI2OCwiZXhwIjoxNzUxNDI1NjY4fQ.oRj5tVMltqCJ0Su_lVZy9PGiUyZ94NVFS4DnI4_Pc1w',
-        },
+        data: { Api.refreshToken: refreshToken},
       );
 
       // 요청이 성공적이면 새 액세스 토큰 추출
       if (response.statusCode == 200) {
         final data = response.data as Map<String, dynamic>;
-        return data['accessToken'] as String;
+        final newAccessToken = data[Api.accessToken] as String?;
+        if (newAccessToken == null) throw Exception('토큰 만료. 다시 로그인 필요');
+
+        await SecureStorage.saveToken(accessToken: newAccessToken, refreshToken: refreshToken);
+
+        return newAccessToken;
       } else {
         throw Exception('토큰 발급 실패: ${response.statusCode}');
       }
@@ -36,19 +42,17 @@ class AuthService {
   }
 
   // 로그인
-  Future<String> loginAction({
-    required String email,
-    required String password,
-  }) async {
-    final response = await _dio.post(
-      Api.auth.login,
-      data: {'email': email, 'password': password},
-    );
+  Future<String> loginAction({required String email, required String password}) async {
+    final response = await _dio.post(Api.auth.login, data: {'email': email, 'password': password});
     if (response.statusCode == 200) {
       final responseData = response.data as Map<String, dynamic>;
       final data = responseData['data'] as Map<String, dynamic>;
-      final accessToken = data['accessToken'] as String;
-      return accessToken;
+      final access  = data[Api.accessToken]  as String;
+      final refresh = data[Api.refreshToken] as String;
+
+      await SecureStorage.saveToken(accessToken: access, refreshToken: refresh);
+
+      return access;
     } else if (response.statusCode == 400) {
       throw Exception("잘못된 요청");
     } else {
@@ -57,18 +61,11 @@ class AuthService {
   }
 
   // 회원가입
-  Future<SignupResponse> signupAction({
-    required SignupRequest requestData,
-  }) async {
-    final response = await _dio.post(
-      Api.auth.signUp,
-      data: requestData.toJson(),
-    );
+  Future<SignupResponse> signupAction({required SignupRequest requestData}) async {
+    final response = await _dio.post(Api.auth.signUp, data: requestData.toJson());
 
     if (response.statusCode == 201) {
-      final SignupResponse signupResponse = SignupResponse.fromJson(
-        response.data,
-      );
+      final SignupResponse signupResponse = SignupResponse.fromJson(response.data);
       print('가입 성공! ${signupResponse.message}');
       return signupResponse;
     } else if (response.statusCode == 400) {
