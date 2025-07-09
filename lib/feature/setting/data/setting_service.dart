@@ -70,4 +70,5 @@ class SettingService {
   Future<UserDTO> updateProfile(UserDTO dto) async {
     final response = await _dio.patch(Api.mypage.updateProfile, data: dto.toJson());
     return UserDTO.fromJson(response.data['data']);
+  }
 }

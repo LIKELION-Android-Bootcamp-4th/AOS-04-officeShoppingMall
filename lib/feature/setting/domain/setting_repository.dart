@@ -1,4 +1,6 @@
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
+import 'package:office_shopping_mall/feature/setting/data/pw_setting_request.dart';
+import 'package:office_shopping_mall/feature/setting/data/pw_setting_response.dart';
 import 'package:office_shopping_mall/feature/setting/data/setting_service.dart';
 
 class SettingRepository {
@@ -15,6 +17,7 @@ class SettingRepository {
     } catch (e) {
       rethrow;
     }
+  }
 
   Future<User> getProfile() async {
     final dto = await _service.fetchProfile();
