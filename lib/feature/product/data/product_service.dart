@@ -30,10 +30,8 @@ class ProductService {
   }) async {
     final response = await _dio.get(
       Api.product.getProducts(
-        q: q,
         categoryId: categoryId,
         category: category,
-        sort: sort,
       ),
     );
 

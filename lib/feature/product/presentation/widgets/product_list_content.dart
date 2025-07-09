@@ -48,22 +48,25 @@ class _ProductListContentState extends State<ProductListContent> {
                           return AlertDialog(
                             title: Text(categories[index].title),
                             content: SizedBox(
-                              height: 200,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    for (var category in categories[index].details)
-                                      ListTile(
-                                        title: Text(category),
-                                        onTap: () {
-                                          vm.selectCategory("${categories[index].title} / $category");
-                                          Navigator.pop(context);
-                                          vm.loadProducts();
-                                          },
-                                      )
-                                  ]
+                                height: 200,
+                                child: SingleChildScrollView(
+                                    child: Column(
+                                        children: [
+                                          for (var category in categories[index]
+                                              .details)
+                                            ListTile(
+                                              title: Text(category),
+                                              onTap: () {
+                                                vm.selectCategory(
+                                                    "${categories[index]
+                                                        .title} / $category");
+                                                Navigator.pop(context);
+                                                vm.loadProducts();
+                                              },
+                                            )
+                                        ]
+                                    )
                                 )
-                              )
                             ),
                           );
                         }
