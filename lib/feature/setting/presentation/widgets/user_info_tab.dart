@@ -40,8 +40,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
     _emailCtrl.dispose();
   }
 
-  void _onSubmit() {
+  Future<void> _onSave() async {
     if (!_formKey.currentState!.validate()) return;
+    await context.read<SettingViewModel>().updateProfile(_nameCtrl.text, _nameCtrl.text, widget.user.address);
   }
 
   @override
@@ -233,6 +234,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(onPressed: (){ _onSave(); }, child: Text('저장하기')),
+            const SizedBox(height: 10),
           ],
         ),
       ),

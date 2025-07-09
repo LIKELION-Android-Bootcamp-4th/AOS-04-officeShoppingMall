@@ -41,7 +41,6 @@ class _SettingScreenState extends State<SettingScreen> with SingleTickerProvider
       appBar: CustomAppBar(title: '설정'),
       body: Builder(
         builder: (context) {
-
           return Column(
             children: [
               customTabBar(
@@ -55,14 +54,14 @@ class _SettingScreenState extends State<SettingScreen> with SingleTickerProvider
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    UserInfoTab(controller: _tabController, user: user),
+                    UserInfoTab(controller: _tabController, user: user,),
                     NotiSettingTab(controller: _tabController),
                   ],
                 ),
               ),
             ],
           );
-        }
+        },
       ),
     );
   }
