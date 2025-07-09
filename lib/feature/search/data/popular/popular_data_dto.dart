@@ -8,7 +8,7 @@ part 'popular_data_dto.g.dart';
 @JsonSerializable()
 class PopularDataDto{
   final List<PopularKeywordDto> keywords;
-  final total;
+  final int total;
   final PopularOptionsDto options;
 
   PopularDataDto({

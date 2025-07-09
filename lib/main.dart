@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
+import 'package:office_shopping_mall/feature/search/search_module.dart';
 import 'package:office_shopping_mall/feature/setting/setting_module.dart';
 import 'package:provider/provider.dart';
 import 'app_router.dart';
@@ -31,14 +32,15 @@ class WalkinApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ...mypageModule,
         ...authModule,
-        ...settingModule
+        ...settingModule,
+        ...searchModule,
       ],
       child: MaterialApp(
         title: AppConst.appName,
         theme: appThemeData(),
         debugShowCheckedModeBanner: false,
         //TODO: 최후에 login으로 바꿀것
-        initialRoute: AppRoutes.mypage,
+        initialRoute: AppRoutes.search,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );

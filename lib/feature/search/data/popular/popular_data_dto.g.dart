@@ -11,7 +11,7 @@ PopularDataDto _$PopularDataDtoFromJson(Map<String, dynamic> json) =>
       keywords: (json['keywords'] as List<dynamic>)
           .map((e) => PopularKeywordDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      total: json['total'],
+      total: (json['total'] as num).toInt(),
       options: PopularOptionsDto.fromJson(
         json['options'] as Map<String, dynamic>,
       ),
