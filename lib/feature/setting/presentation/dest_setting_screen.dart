@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-
+import 'package:office_shopping_mall/feature/setting/domain/setting_address.dart';
 
 class DestSettingScreen extends StatefulWidget {
   const DestSettingScreen({super.key});
@@ -26,11 +26,11 @@ class _DestSettingScreenState extends State<DestSettingScreen> {
     _recipientCtrl.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: '배송지 설정',),
+      appBar: CustomAppBar(title: '배송지 설정'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
@@ -42,9 +42,9 @@ class _DestSettingScreenState extends State<DestSettingScreen> {
                 Row(
                   children: [
                     SizedBox(
-                    width: 70,
-                    child: Text('배송지 이름', style: Theme.of(context).textTheme.bodyMedium),
-                  ),
+                      width: 70,
+                      child: Text('배송지 이름', style: Theme.of(context).textTheme.bodyMedium),
+                    ),
                     Expanded(
                       child: TextFormField(
                         controller: _nameCtrl,
@@ -134,22 +134,36 @@ class _DestSettingScreenState extends State<DestSettingScreen> {
           children: [
             Expanded(
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 style: ElevatedButton.styleFrom(backgroundColor: appColorScheme().surfaceContainer),
-                child: Text('취소', style: Theme.of(context).textTheme.bodyLarge,),
+                child: Text('취소', style: Theme.of(context).textTheme.bodyLarge),
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: () {
+                  if (!_formKey.currentState!.validate()) return;
+
+                  final newAddress = SettingAddress(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    name: _nameCtrl.text,
+                    addr: _addressCtrl.text,
+                    phone: _phoneCtrl.text,
+                    recipient: _recipientCtrl.text,
+                    isDefault: _isDefault,
+                  );
+
+                  Navigator.pop(context, newAddress);
+                },
                 child: const Text('등록'),
               ),
             ),
           ],
         ),
       ),
-
     );
   }
 }
