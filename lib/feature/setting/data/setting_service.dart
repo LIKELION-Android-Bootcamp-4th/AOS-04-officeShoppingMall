@@ -5,7 +5,7 @@ import 'package:office_shopping_mall/feature/setting/data/pw_setting_request.dar
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_response.dart';
 
 class SettingService {
-  final Dio _dio = ApiClient.dio;
+  final Dio _dio = ApiClient().dio;
 
   // 비밀번호 변경
   Future<PasswordSettingResponse> settingPassword({

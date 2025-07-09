@@ -1,5 +1,5 @@
-import 'package:office_shopping_mall/core/data/models/user_dto.dart';
 import 'package:office_shopping_mall/feature/mypage/data/mypage_service.dart';
+import '../../../core/data/models/dto/user_dto.dart';
 
 class MypageRepository {
   final MypageService _service;

@@ -31,7 +31,7 @@ class WalkinApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ...mypageModule,
         ...authModule,
-        ...settingModule,
+        ...settingModule
       ],
       child: MaterialApp(
         title: AppConst.appName,

@@ -51,7 +51,7 @@ class _PwSettingState extends State<PwSetting> {
     }
   }
 
-  void _showResult(){
+  void _viewModelListener(){
     final viewModel = Provider.of<SettingViewModel>(context, listen: false);
 
     if(viewModel.error != null){
@@ -68,18 +68,27 @@ class _PwSettingState extends State<PwSetting> {
             showToast("현재 비밀번호를 다시 확인해주세요");
           }else{
             //그 외의 오류 코드들에 대한 토스트
-            showToast("오류가 발생하였습니다. ${response.message}");
+            showToast("${response.message}");
           }
         }else{
-          showToast("오류가 발생하였습니다. ${response.message}");
+          showToast("${response.message}");
         }
       }
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<SettingViewModel>(context, listen: false).addListener(_viewModelListener);
+    });
+  }
+
+  @override
   void dispose() {
     super.dispose();
+    Provider.of<SettingViewModel>(context, listen: false).addListener(_viewModelListener);
     _formKey.currentState?.dispose();
     _pwController.dispose();
     _confirmPwController.dispose();
@@ -94,95 +103,103 @@ class _PwSettingState extends State<PwSetting> {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: ElevatedButton(
-          onPressed: () { viewModel.isLoading ? null : _changeAction },
-          child: viewModel.isLoading ?
-          CustomCircleIndicator() : Text("변경"),
+          onPressed: () { viewModel.isLoading ? null : _changeAction(); },
+          child: Text("변경"),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
+      body: Stack(
+        children: [
+          Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
 
-                TextFormField(
-                  controller: _currentPwController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
-                  obscureText: _showCurrentPwVisible,
-                  decoration: buildInputDecoration(
-                    label: "현재 비밀번호",
-                    suffixIcon: IconButton(
-                      onPressed: _toggleCurrentPwVisibility,
-                      icon: SvgPicture.asset(
-                        _showCurrentPwVisible
-                            ? 'images/icon/ic_invisible.svg'
-                            : 'images/icon/ic_visible.svg',
+                    TextFormField(
+                      controller: _currentPwController,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      obscureText: _showCurrentPwVisible,
+                      decoration: buildInputDecoration(
+                        label: "현재 비밀번호",
+                        suffixIcon: IconButton(
+                          onPressed: _toggleCurrentPwVisibility,
+                          icon: SvgPicture.asset(
+                            _showCurrentPwVisible
+                                ? 'images/icon/ic_invisible.svg'
+                                : 'images/icon/ic_visible.svg',
+                          ),
+                        ),
                       ),
+                      validator: (value) {
+                        if (_currentPwController.text.isEmpty) {
+                          return "비밀번호를 입력해주세요.";
+                        } else if (_currentPwController.text.length < 8) {
+                          return "비밀번호는 최소 8자 이상이어야 합니다.";
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  validator: (value) {
-                    if (_currentPwController.text.isEmpty) {
-                      return "비밀번호를 입력해주세요.";
-                    } else if (_currentPwController.text.length < 8) {
-                      return "비밀번호는 최소 8자 이상이어야 합니다.";
-                    }
-                    return null;
-                  },
-                ),
 
-                SizedBox(height: 16),
+                    SizedBox(height: 16),
 
-                TextFormField(
-                  controller: _pwController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
-                  obscureText: _showNewPwVisible,
-                  decoration: buildInputDecoration(
-                    label: "새 비밀번호",
-                    suffixIcon: IconButton(
-                      onPressed: _toggleNewPwVisibility,
-                      icon: SvgPicture.asset(
-                        _showNewPwVisible
-                            ? 'images/icon/ic_invisible.svg'
-                            : 'images/icon/ic_visible.svg',
+                    TextFormField(
+                      controller: _pwController,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      obscureText: _showNewPwVisible,
+                      decoration: buildInputDecoration(
+                        label: "새 비밀번호",
+                        suffixIcon: IconButton(
+                          onPressed: _toggleNewPwVisibility,
+                          icon: SvgPicture.asset(
+                            _showNewPwVisible
+                                ? 'images/icon/ic_invisible.svg'
+                                : 'images/icon/ic_visible.svg',
+                          ),
+                        ),
                       ),
+                      validator: (value) {
+                        if (_pwController.text.isEmpty) {
+                          return "새 비밀번호를 입력해주세요.";
+                        } else if (_pwController.text.length < 8) {
+                          return "새 비밀번호는 최소 8자 이상이어야 합니다.";
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  validator: (value) {
-                    if (_pwController.text.isEmpty) {
-                      return "새 비밀번호를 입력해주세요.";
-                    } else if (_pwController.text.length < 8) {
-                      return "새 비밀번호는 최소 8자 이상이어야 합니다.";
-                    }
-                    return null;
-                  },
-                ),
 
-                SizedBox(height: 16),
+                    SizedBox(height: 16),
 
-                TextFormField(
-                  controller: _confirmPwController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
-                  obscureText: true,
-                  decoration: buildInputDecoration(label: "새 비밀번호 확인"),
-                  validator: (value) {
-                    if (_confirmPwController.text.isEmpty) {
-                      return "비밀번호를 입력해주세요.";
-                    } else if (_pwController.text !=
-                        _confirmPwController.text) {
-                      return "입력한 비밀번호가 다릅니다.";
-                    } else
-                      return null;
-                  },
+                    TextFormField(
+                      controller: _confirmPwController,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      obscureText: true,
+                      decoration: buildInputDecoration(label: "새 비밀번호 확인"),
+                      validator: (value) {
+                        if (_confirmPwController.text.isEmpty) {
+                          return "비밀번호를 입력해주세요.";
+                        } else if (_pwController.text !=
+                            _confirmPwController.text) {
+                          return "입력한 비밀번호가 다릅니다.";
+                        } else
+                          return null;
+                      },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+          if (viewModel.isLoading)
+            Container(
+              color: Colors.black54, //배경 살짝 어두워진 상태로 인디케이터 돌아가게
+              child: Center(child: CustomCircleIndicator()),
+            ),
+        ],
       ),
     );
   }
