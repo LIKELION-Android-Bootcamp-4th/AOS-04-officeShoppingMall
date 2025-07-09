@@ -61,6 +61,7 @@ class _PwSettingState extends State<PwSetting> {
 
       if(response.success){
         showToast("비밀번호가 성공적으로 변경되었습니다.");
+        Navigator.pop(context);
       }else{
         if(response.error != null && response.error!.type != null){
           if(response.error!.type == "VALIDATION_ERROR" || response.error!.type == "BAD_REQUEST"){
