@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class UserInfoTab extends StatefulWidget {
-  UserInfoTab({super.key, required this.controller});
+  final User user;
+
+  UserInfoTab({super.key, required this.controller, required this.user});
 
   TabController controller;
 
@@ -17,15 +21,13 @@ class _UserInfoTabState extends State<UserInfoTab> {
   late TextEditingController _nameCtrl;
   late TextEditingController _numberCtrl;
   late TextEditingController _emailCtrl;
-  late TextEditingController _pwCtrl;
 
   @override
   void initState() {
     super.initState();
-    _nameCtrl = TextEditingController(text: '홍길동');
-    _numberCtrl = TextEditingController(text: '010-0000-0000');
-    _emailCtrl = TextEditingController(text: 'aaa@aaa.com');
-    _pwCtrl = TextEditingController();
+    _nameCtrl = TextEditingController(text: widget.user.nickName);
+    _numberCtrl = TextEditingController(text: widget.user.phone ?? '');
+    _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -34,7 +36,6 @@ class _UserInfoTabState extends State<UserInfoTab> {
     _nameCtrl.dispose();
     _numberCtrl.dispose();
     _emailCtrl.dispose();
-    _pwCtrl.dispose();
   }
 
   void _onSubmit() {
@@ -62,7 +63,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       radius: 32,
                     ),
                     const SizedBox(width: 12),
-                    Text('data', style: Theme.of(context).textTheme.titleMedium),
+                    Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium, ),
                     const Spacer(),
                     IconButton(
                       onPressed: () {},
@@ -133,21 +134,6 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 70,
-                        child: Text('비밀번호', style: Theme.of(context).textTheme.bodyMedium),
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _pwCtrl,
-                          obscureText: true,
-                          validator: (v) => v!.length < 6 ? '6자 이상 입력' : null,
-                        ),
-                      ),
-                    ],
-                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
