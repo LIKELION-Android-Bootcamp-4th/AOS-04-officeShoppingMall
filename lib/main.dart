@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
+import 'package:office_shopping_mall/feature/product/product_module.dart';
 import 'package:office_shopping_mall/feature/setting/setting_module.dart';
 import 'package:provider/provider.dart';
 import 'app_router.dart';
@@ -31,7 +32,8 @@ class WalkinApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ...mypageModule,
         ...authModule,
-        ...settingModule
+        ...settingModule,
+        ...productModule,
       ],
       child: MaterialApp(
         title: AppConst.appName,
