@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/theme/theme.dart';
+import '../viewmodel/setting_view_model.dart';
 
 class PwSetting extends StatefulWidget {
   const PwSetting({super.key});
@@ -38,10 +40,41 @@ class _PwSettingState extends State<PwSetting> {
     Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);
   }
 
-  void getNewPw(String newPW) {
-    print('새 비밀번호는: $newPW');
-    showToast("비밀번호가 변경되었습니다.");
-    //TODO: 비밀번호 변경 api 연결
+  void _changeAction() async{
+    if(_formKey.currentState!.validate()){
+      final viewModel = context.read<SettingViewModel>();
+      await viewModel.settingPassword(
+        currentPassword: _currentPwController.text,
+        newPassword: _pwController.text,
+        confirmPassword: _confirmPwController.text,
+      );
+    }
+  }
+
+  void _showResult(){
+    final viewModel = Provider.of<SettingViewModel>(context, listen: false);
+
+    if(viewModel.error != null){
+      showToast(viewModel.error!);
+    } else if (viewModel.passwordChangeResponse != null){
+      final response = viewModel.passwordChangeResponse!;
+
+      if(response.success){
+        showToast("비밀번호가 성공적으로 변경되었습니다.");
+      }else{
+        if(response.error != null && response.error!.type != null){
+          if(response.error!.type == "VALIDATION_ERROR" || response.error!.type == "BAD_REQUEST"){
+            // 오류코드가 400일 때
+            showToast("현재 비밀번호를 다시 확인해주세요");
+          }else{
+            //그 외의 오류 코드들에 대한 토스트
+            showToast("오류가 발생하였습니다. ${response.message}");
+          }
+        }else{
+          showToast("오류가 발생하였습니다. ${response.message}");
+        }
+      }
+    }
   }
 
   @override
@@ -55,17 +88,15 @@ class _PwSettingState extends State<PwSetting> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<SettingViewModel>();
     return Scaffold(
       appBar: CustomAppBar(title: "비밀번호 변경"),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              getNewPw(_confirmPwController.text);
-            }
-          },
-          child: Text("변경"),
+          onPressed: () { viewModel.isLoading ? null : _changeAction },
+          child: viewModel.isLoading ?
+          CustomCircleIndicator() : Text("변경"),
         ),
       ),
       body: Form(
@@ -122,9 +153,9 @@ class _PwSettingState extends State<PwSetting> {
                   ),
                   validator: (value) {
                     if (_pwController.text.isEmpty) {
-                      return "비밀번호를 입력해주세요.";
+                      return "새 비밀번호를 입력해주세요.";
                     } else if (_pwController.text.length < 8) {
-                      return "비밀번호는 최소 8자 이상이어야 합니다.";
+                      return "새 비밀번호는 최소 8자 이상이어야 합니다.";
                     }
                     return null;
                   },
@@ -155,34 +186,37 @@ class _PwSettingState extends State<PwSetting> {
       ),
     );
   }
+
+  InputDecoration buildInputDecoration({
+    required String label,
+    String? hint,
+    Widget? suffixIcon,
+  }) {
+    return InputDecoration(
+      filled: false,
+      labelText: label,
+      hintText: hint,
+      suffixIcon: suffixIcon,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      labelStyle: appTextTheme().bodyMedium,
+      floatingLabelStyle: appTextTheme().bodyMedium,
+      contentPadding: EdgeInsets.symmetric(vertical: 12),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: AppColors.gray200, width: 1),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: AppColors.gray400, width: 1.5),
+      ),
+      errorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: AppColors.red600, width: 1),
+      ),
+      focusedErrorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: appColorScheme().onError, width: 1.5),
+      ),
+    );
+  }
+
+
 }
 
 
-InputDecoration buildInputDecoration({
-  required String label,
-  String? hint,
-  Widget? suffixIcon,
-}) {
-  return InputDecoration(
-    filled: false,
-    labelText: label,
-    hintText: hint,
-    suffixIcon: suffixIcon,
-    floatingLabelBehavior: FloatingLabelBehavior.always,
-    labelStyle: appTextTheme().bodyMedium,
-    floatingLabelStyle: appTextTheme().bodyMedium,
-    contentPadding: EdgeInsets.symmetric(vertical: 12),
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: AppColors.gray200, width: 1),
-    ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: AppColors.gray400, width: 1.5),
-    ),
-    errorBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: AppColors.red600, width: 1),
-    ),
-    focusedErrorBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: appColorScheme().onError, width: 1.5),
-    ),
-  );
-}
