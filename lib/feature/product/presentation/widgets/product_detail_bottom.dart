@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/product/data/product.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
 
 class ProductDetailBottom extends StatefulWidget {
@@ -24,9 +23,6 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
   void _onCartPressed() {}
 
   void _onBuyPressed() {
-    final product = getSelectedProductData();
-    if (product == null) return;
-
     Navigator.pushNamed(context, AppRoutes.order);
   }
 

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
+
+import '../../../../core/constants/app_routes.dart';
+import '../../../product/presentation/viewmodel/product_list_provider.dart';
 
 class CategoryContentList extends StatelessWidget {
   @override
@@ -30,7 +34,10 @@ class CategoryContentList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return TextButton(
                       style: TextButton.styleFrom(alignment: Alignment.centerLeft),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<ProductListViewModel>().selectCategory("${section.title} / ${section.details[index]}");
+                        Navigator.pushNamed(context, AppRoutes.productList);
+                      },
                       child: Text(
                         section.details[index],
                         style: Theme.of(context).textTheme.bodyLarge,

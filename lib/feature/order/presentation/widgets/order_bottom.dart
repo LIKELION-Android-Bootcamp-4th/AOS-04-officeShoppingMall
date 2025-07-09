@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-
 import '../../../../core/constants/app_routes.dart';
-import '../../../product/data/product.dart';
 
 class OrderBottom extends StatefulWidget {
   const OrderBottom({super.key, required this.onSelected});

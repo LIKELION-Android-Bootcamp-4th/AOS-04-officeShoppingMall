@@ -13,9 +13,7 @@ class ProductListScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
 
-      appBar: CustomAppBar(
-        actions: appBarActionsDefault(),
-      ),
+      appBar: CustomAppBar(actions: appBarActionsDefault()),
 
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),

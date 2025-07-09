@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/product/data/product.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
+
+import '../../../../core/data/models/dto/product.dart';
+import '../../../product/data/product_viewmodel.dart';
 
 class OrderContent extends StatelessWidget {
   const OrderContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final product = getSelectedProductData();
+    final Product? product = context.select((ProductDataViewModel vm) => vm.selectedProduct) as Product?;
 
     if (product == null) {
       return Center(child: Text("상품 정보를 불러올 수 없습니다."));
@@ -23,8 +26,8 @@ class OrderContent extends StatelessWidget {
             Card(
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              child: product.imageUrl != null && product.imageUrl!.isNotEmpty
-                  ? Image.network(product.imageUrl!.first, fit: BoxFit.fill, width: 86, height: 86)
+              child: product.images != null && product.images!.isNotEmpty
+                  ? Image.network(product.images!.first, fit: BoxFit.fill, width: 86, height: 86)
                   : Container(
                       color: AppColors.gray200,
                       alignment: Alignment.center,
@@ -37,7 +40,7 @@ class OrderContent extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(product.productName, style: Theme.of(context).textTheme.titleLarge),
+                Text(product.name, style: Theme.of(context).textTheme.titleLarge),
                 SizedBox(height: 4),
                 Text('${product.price}원', style: Theme.of(context).textTheme.bodyLarge),
               ],
