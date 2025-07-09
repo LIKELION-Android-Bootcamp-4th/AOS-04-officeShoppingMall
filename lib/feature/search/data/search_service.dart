@@ -7,7 +7,7 @@ import 'package:office_shopping_mall/feature/search/data/popular/popular_respons
 class SearchService {
   final Dio _dio = ApiClient().dio;
 
-  Future<PopularDataDto> getPopularKeyword() async {
+  Future<PopularDataDto> fetchPopularKeyword() async {
     try {
       final response = await _dio.get(Api.keyword.getPopular());
 
