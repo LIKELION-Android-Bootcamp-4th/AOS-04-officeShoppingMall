@@ -30,7 +30,7 @@ class ReviewList extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => AddReviewScreen()), //리뷰 작성 페이지로 이동
+                  MaterialPageRoute(builder: (_) => AddReviewScreen()),
                 );
               },
               child: Align(

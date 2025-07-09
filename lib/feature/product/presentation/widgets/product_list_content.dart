@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/feature/product/data/product_list_viewmodel.dart';
-import 'package:office_shopping_mall/feature/product/ui/product_item.dart';
-import 'package:office_shopping_mall/feature/product/data/product.dart';
+import 'package:office_shopping_mall/feature/category/data/category_section.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_provider.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
 
-
-class ProductListContent extends StatelessWidget {
+class ProductListContent extends StatefulWidget {
   const ProductListContent({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    var categories = [
-      {"id": "0", "name": "td"},
-      {"id": "1", "name": "asd"},
-    ];
+  State<ProductListContent> createState() => _ProductListContentState();
+}
 
-    final viewModel = context.watch<ProductListProvider>();
+class _ProductListContentState extends State<ProductListContent> {
+  late ProductListViewModel vm;
+
+  @override
+  void initState() {
+    super.initState();
+    vm = context.read<ProductListViewModel>();
+    vm.loadProducts();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var categories = categorySections;
+
+
+    vm = context.watch<ProductListViewModel>();
+    final products = vm.products;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,11 +41,38 @@ class ProductListContent extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: TextButton(
-                  onPressed: () => viewModel.selectCategory(index, categories[index]['id']),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(categories[index].title),
+                            content: SizedBox(
+                              height: 200,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    for (var category in categories[index].details)
+                                      ListTile(
+                                        title: Text(category),
+                                        onTap: () {
+                                          vm.selectCategory("${categories[index].title} / $category");
+                                          Navigator.pop(context);
+                                          vm.loadProducts();
+                                          },
+                                      )
+                                  ]
+                                )
+                              )
+                            ),
+                          );
+                        }
+                    );
+                  },
                   child: Text(
-                    categories[index]['name']!,
+                    categories[index].title,
                     style: TextStyle(
-                      color: viewModel.selectCategoryIndex == index
+                      color: vm.category!.contains(categories[index].title)
                           ? Colors.black
                           : Colors.grey,
                       fontSize: 20,
@@ -46,25 +84,26 @@ class ProductListContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        if (viewModel.isLoading)
+        if (vm.isLoading)
           const Center(child: CircularProgressIndicator())
-        else if (viewModel.products.isEmpty)
-          const Center(child: Text('상품이 없습니다.'))
         else
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              childAspectRatio: 0.7,
+          if (products.isEmpty)
+            const Center(child: Text('상품이 없습니다.'))
+          else
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                childAspectRatio: 0.7,
+              ),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return ProductItem(product: product);
+              },
             ),
-            itemCount: viewModel.products.length,
-            itemBuilder: (context, index) {
-              final product = viewModel.products[index];
-              return ProductItem(product: product);
-            },
-          ),
       ],
     );
   }

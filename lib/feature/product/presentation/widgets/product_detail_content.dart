@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/product/data/models/product.dart';
-import 'package:office_shopping_mall/feature/product/ui/product_description_content.dart';
-import 'package:office_shopping_mall/feature/product/ui/product_review_content.dart';
-import 'package:office_shopping_mall/feature/product/ui/product_tab.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_provider.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_description_content.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_review_content.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_tab.dart';
 
-import '../data/product_viewmodel.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../data/product_viewmodel.dart';
 
 class ProductDetailContent extends StatefulWidget {
   const ProductDetailContent({super.key});
@@ -27,11 +28,12 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
+    final product = context
+        .watch<ProductDataViewModel>()
+        .selectedProduct;
 
-    final Product? _product = context.watch<ProductDataProvider>().selectedProduct as Product?;
 
-
-    if (_product == null) {
+    if (product == null) {
       return Center(child: Text("상품 데이터를 불러올 수 없습니다"));
     }
 
@@ -40,46 +42,62 @@ class _ProductDetailContent extends State<ProductDetailContent> {
       children: [
         SizedBox(
           height: 228,
-          child: _product.imageUrl == null
+          child: product.images.isEmpty
               ? Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.gray200,
-                  ),
-                  child: Center(
-                    child: Text('상품 이미지가 없습니다', style: Theme.of(context).textTheme.bodySmall),
-                  ),
-                )
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColors.gray200,
+            ),
+            child: Center(
+              child: Text('상품 이미지가 없습니다', style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodySmall),
+            ),
+          )
               : PageView.builder(
-                  itemCount: _product.imageUrl!.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: NetworkImage(_product.imageUrl![index]),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
+            itemCount: product.images.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(product.images[index]),
+                    fit: BoxFit.cover,
+                  ),
                 ),
+              );
+            },
+          ),
         ),
         SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(_product.name, style: Theme.of(context).textTheme.titleLarge),
-            Text('${_product.price}원', style: Theme.of(context).textTheme.titleLarge),
+            Text(product.name, style: Theme
+                .of(context)
+                .textTheme
+                .titleLarge),
+            Text('${product.price}원', style: Theme
+                .of(context)
+                .textTheme
+                .titleLarge),
           ],
         ),
         SizedBox(height: 4),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.productList);
+            context
+                .read<ProductListViewModel>().selectCategory(product.category);
+          },
           child: Text(
-            getCategoryInfo(_product.categoryId) ?? '',
-            style: Theme.of(context).textTheme.bodyMedium,
+            product.category,
+            style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium,
           ),
         ),
         SizedBox(height: 20),
@@ -96,8 +114,9 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         SizedBox(height: 20),
         if (_selectedTabIndex == 0)
           ProductDescriptionContent()
-        else if (_selectedTabIndex == 1)
-          ProductReviewContent(),
+        else
+          if (_selectedTabIndex == 1)
+            ProductReviewContent(),
       ],
     );
   }

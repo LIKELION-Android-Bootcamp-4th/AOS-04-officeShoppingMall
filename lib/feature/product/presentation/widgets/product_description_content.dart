@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/data/models/product.dart';
+import '../../data/product_viewmodel.dart';
 
 
 
@@ -9,7 +11,7 @@ class ProductDescriptionContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Product? _product = context.watch<ProductDataProvider>().selectedProduct as Product?;
+    final product = context.watch<ProductDataViewModel>().selectedProduct;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -17,7 +19,9 @@ class ProductDescriptionContent extends StatelessWidget {
         ProductContentContainer(
           width: double.infinity,
           constraints: BoxConstraints(minHeight: 200),
-          child: _product?.description == null ? Text("상품 데이터를 불러올 수 없습니다") : Text(_product!.description ?? ""),
+          child: product?.description == null
+              ? Text("상품 데이터를 불러올 수 없습니다")
+              : Text(product!.description ?? ""),
         ),
       ],
     );

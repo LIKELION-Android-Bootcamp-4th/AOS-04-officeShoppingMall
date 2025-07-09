@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:office_shopping_mall/app_router.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-
-import '../../../core/constants/app_routes.dart';
-import '../data/models/product.dart';
-import '../data/product_viewmodel.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../data/product.dart';
+import '../../../../core/data/models/product.dart';
+import '../../data/product_viewmodel.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
@@ -19,12 +16,7 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItem extends State<ProductItem> {
-
-  final ProductDataProvider productDataViewModel = ProductDataProvider();
-
   bool isFavorite = false;
-
-
 
   void _onFavoritePressed() {
     setState(() {
@@ -39,10 +31,10 @@ class _ProductItem extends State<ProductItem> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        productDataViewModel.setSelectedProduct(product.id);
         Navigator.pushNamed(context, AppRoutes.productDetail);
+        context.read<ProductDataViewModel>().setSelectedProduct(product);
       },
-      child: Container(
+      child: SizedBox(
         width: 180,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,10 +46,12 @@ class _ProductItem extends State<ProductItem> {
                 children: [
                   Card(
                     clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    child: product.imageUrl != null && product.imageUrl!.isNotEmpty
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: product.images.isNotEmpty
                         ? Image.network(
-                            product.imageUrl!.first,
+                            product.images.first,
                             fit: BoxFit.cover,
                             width: double.infinity,
                             height: double.infinity,
@@ -108,7 +102,10 @@ class _ProductItem extends State<ProductItem> {
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: Text('${product.price}원', style: Theme.of(context).textTheme.bodyLarge),
+                    child: Text(
+                      '${product.price}원',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
                 ],
               ),

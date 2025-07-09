@@ -1,4 +1,4 @@
-import '../data/models/product.dart';
+import '../../../../core/data/models/product.dart';
 
 abstract class ProductRepository {
 

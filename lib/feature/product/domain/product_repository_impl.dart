@@ -1,9 +1,12 @@
-import 'package:office_shopping_mall/feature/product/data/models/product.dart';
-import 'product_service.dart';
-import '../domain/i_product_repository.dart';
+import 'package:office_shopping_mall/core/data/models/product.dart';
+import '../data/product_service.dart';
+import 'repository/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
-  final ProductService _service = ProductService();
+
+  final ProductService _service;
+
+  ProductRepositoryImpl(this._service);
 
   @override
   Future<void> addProduct(Product product) {

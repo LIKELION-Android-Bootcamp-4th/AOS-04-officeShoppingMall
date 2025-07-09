@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/product/data/models/product.dart';
-import 'package:office_shopping_mall/feature/product/ui/product_detail_bottom.dart';
-import 'package:office_shopping_mall/feature/product/ui/product_detail_content.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_detail_bottom.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_detail_content.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../data/product_viewmodel.dart';
@@ -13,17 +13,21 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductDataProvider productDataViewModel = ProductDataProvider();
-    final Product? product = productDataViewModel.selectedProduct as Product?;
+    final product = context.watch<ProductDataViewModel>().selectedProduct;
 
     return Scaffold(
       extendBody: true,
       appBar: CustomAppBar(
         title: product?.name ?? '',
-        titleTextStyle: Theme.of(context).textTheme.titleLarge,
+        titleTextStyle: Theme
+            .of(context)
+            .textTheme
+            .titleLarge,
         actions: [
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
-          IconButton(onPressed: () {}, icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
+          IconButton(onPressed: () {},
+              icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
+          IconButton(onPressed: () {},
+              icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
         ],
       ),
 
@@ -33,7 +37,7 @@ class ProductDetailScreen extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [SizedBox(height: 20), ProductDetailContent()],
+              children: [SizedBox(height: 20), ProductDetailContent(), SizedBox(height: 20),],
             ),
           ],
         ),
