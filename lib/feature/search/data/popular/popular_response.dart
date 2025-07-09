@@ -3,6 +3,7 @@ import 'package:office_shopping_mall/feature/search/data/popular/popular_data_dt
 
 part 'popular_response.g.dart';
 
+// 네트워크의 응답(성공인지 실패인지)
 @JsonSerializable()
 class PopularResponse {
   final bool success;

@@ -4,6 +4,7 @@ import 'package:office_shopping_mall/feature/search/data/popular/popular_options
 
 part 'popular_data_dto.g.dart';
 
+// 성공했을 때, data에 담기는 것들(keyword, option, total)
 @JsonSerializable()
 class PopularDataDto{
   final List<PopularKeywordDto> keywords;
