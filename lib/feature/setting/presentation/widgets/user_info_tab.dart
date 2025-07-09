@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/core/data/models/dto/user_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/setting/domain/setting_address.dart';
+import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 
 class UserInfoTab extends StatefulWidget {
@@ -67,7 +66,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       radius: 32,
                     ),
                     const SizedBox(width: 12),
-                    Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium, ),
+                    Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium),
                     const Spacer(),
                     IconButton(
                       onPressed: () {},
@@ -163,7 +162,21 @@ class _UserInfoTabState extends State<UserInfoTab> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(addr.name, style: Theme.of(context).textTheme.bodyMedium, overflow: TextOverflow.fade,),
+                      Text(
+                        addr.name,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.fade,
+                      ),
+                      const SizedBox(width: 16),
+                      if (addr.isDefault)
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            color: appColorScheme().tertiary,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text('기본 배송지', style: Theme.of(context).textTheme.labelMedium),
+                        ),
                       Spacer(),
                       SizedBox(
                         width: 60,
@@ -204,8 +217,11 @@ class _UserInfoTabState extends State<UserInfoTab> {
               elevation: 0,
               child: InkWell(
                 onTap: () async {
-                  final result = await Navigator.pushNamed(context, AppRoutes.destSetting) as SettingAddress?;
-                  if (result != null) { context.read<SettingViewModel>().addAddress(result); }
+                  final result =
+                      await Navigator.pushNamed(context, AppRoutes.destSetting) as SettingAddress?;
+                  if (result != null) {
+                    context.read<SettingViewModel>().addAddress(result);
+                  }
                 },
                 child: Container(
                   width: double.infinity,

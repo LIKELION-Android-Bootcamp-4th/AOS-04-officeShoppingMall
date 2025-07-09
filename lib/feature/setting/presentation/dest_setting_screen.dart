@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/setting/domain/setting_address.dart';
+import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 
 class DestSettingScreen extends StatefulWidget {
   const DestSettingScreen({super.key});
