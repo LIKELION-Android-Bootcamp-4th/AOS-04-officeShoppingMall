@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
 import 'package:office_shopping_mall/feature/search/data/popular/popular_data_dto.dart';
-import 'package:office_shopping_mall/feature/search/data/popular/popular_keyword_dto.dart';
 import 'package:office_shopping_mall/feature/search/data/popular/popular_response.dart';
 
 class SearchService {
