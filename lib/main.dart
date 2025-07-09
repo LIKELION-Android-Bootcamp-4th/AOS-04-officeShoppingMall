@@ -29,7 +29,7 @@ class WalkinApp extends StatelessWidget {
         ...authModule,
       ],
       child: MaterialApp(
-        title: AppConstants.appName,
+        title: AppConst.appName,
         theme: appThemeData(),
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.login,

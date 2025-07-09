@@ -1,5 +1,9 @@
 class Api {
   static const baseUrl = 'http://git.hansul.kr:3004/';
+  static const xCompany = '6866fd325b230f5dc709bdf7';
+
+  static const accessToken = 'accessToken';
+  static const refreshToken = 'refreshToken';
 
   static const auth = _AuthEndpoints();
   static const cart = _CartEndpoints();
