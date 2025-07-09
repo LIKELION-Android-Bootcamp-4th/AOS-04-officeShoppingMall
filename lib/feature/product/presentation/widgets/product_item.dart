@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/data/models/product.dart';
+import '../../../../core/data/models/dto/product.dart';
 import '../../data/product_viewmodel.dart';
 
 class ProductItem extends StatefulWidget {

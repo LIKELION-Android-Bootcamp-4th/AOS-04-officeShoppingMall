@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../../core/data/models/product.dart';
+import '../../../core/data/models/dto/product.dart';
 import '../../../core/constants/api_endpoints.dart';
 
 class ProductService {
@@ -29,10 +29,7 @@ class ProductService {
     String? sort,
   }) async {
     final response = await _dio.get(
-      Api.product.getProducts(
-        categoryId: categoryId,
-        category: category,
-      ),
+      Api.product.getProducts(categoryId: categoryId, category: category),
     );
 
     if (response.statusCode == 200) {

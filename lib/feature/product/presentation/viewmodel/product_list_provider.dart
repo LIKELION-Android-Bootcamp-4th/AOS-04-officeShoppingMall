@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:office_shopping_mall/core/data/models/product.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product.dart';
 import '../../domain/repository/product_repository.dart';
 
 class ProductListViewModel extends ChangeNotifier {
@@ -21,11 +21,9 @@ class ProductListViewModel extends ChangeNotifier {
     try {
       final productList = await _repository.fetchProducts(category: category);
       products.addAll(productList);
-    }
-    catch (e) {
+    } catch (e) {
       print('Error loading products: $e');
-    }
-    finally {
+    } finally {
       isLoading = false;
       notifyListeners();
     }
@@ -39,5 +37,4 @@ class ProductListViewModel extends ChangeNotifier {
   void toggleFavorite(Product product) {
     notifyListeners();
   }
-
 }

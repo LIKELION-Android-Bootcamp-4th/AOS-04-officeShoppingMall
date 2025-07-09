@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class Product {
@@ -67,10 +66,7 @@ class Product {
       'description': description,
       'images': images,
       'category': category,
-      'attributes': jsonEncode({
-        'score': score ?? 0,
-        'reviews': reviews,
-      }),
+      'attributes': jsonEncode({'score': score ?? 0, 'reviews': reviews}),
     };
   }
 }

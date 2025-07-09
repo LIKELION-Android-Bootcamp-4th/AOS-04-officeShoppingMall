@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
-import '../../../../core/data/models/product.dart';
+import '../../../../core/data/models/dto/product.dart';
 import '../../../product/data/product_viewmodel.dart';
 
 class OrderContent extends StatelessWidget {

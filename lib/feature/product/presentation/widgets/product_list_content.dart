@@ -25,7 +25,6 @@ class _ProductListContentState extends State<ProductListContent> {
   Widget build(BuildContext context) {
     var categories = categorySections;
 
-
     vm = context.watch<ProductListViewModel>();
     final products = vm.products;
 
@@ -43,33 +42,33 @@ class _ProductListContentState extends State<ProductListContent> {
                 child: TextButton(
                   onPressed: () {
                     showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(categories[index].title),
-                            content: SizedBox(
-                                height: 200,
-                                child: SingleChildScrollView(
-                                    child: Column(
-                                        children: [
-                                          for (var category in categories[index]
-                                              .details)
-                                            ListTile(
-                                              title: Text(category),
-                                              onTap: () {
-                                                vm.selectCategory(
-                                                    "${categories[index]
-                                                        .title} / $category");
-                                                Navigator.pop(context);
-                                                vm.loadProducts();
-                                              },
-                                            )
-                                        ]
-                                    )
-                                )
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(categories[index].title),
+                          content: SizedBox(
+                            height: 200,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  for (var category
+                                      in categories[index].details)
+                                    ListTile(
+                                      title: Text(category),
+                                      onTap: () {
+                                        vm.selectCategory(
+                                          "${categories[index].title} / $category",
+                                        );
+                                        Navigator.pop(context);
+                                        vm.loadProducts();
+                                      },
+                                    ),
+                                ],
+                              ),
                             ),
-                          );
-                        }
+                          ),
+                        );
+                      },
                     );
                   },
                   child: Text(
@@ -89,24 +88,23 @@ class _ProductListContentState extends State<ProductListContent> {
         const SizedBox(height: 20),
         if (vm.isLoading)
           const Center(child: CircularProgressIndicator())
+        else if (products.isEmpty)
+          const Center(child: Text('상품이 없습니다.'))
         else
-          if (products.isEmpty)
-            const Center(child: Text('상품이 없습니다.'))
-          else
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final product = products[index];
-                return ProductItem(product: product);
-              },
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.7,
             ),
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              final product = products[index];
+              return ProductItem(product: product);
+            },
+          ),
       ],
     );
   }

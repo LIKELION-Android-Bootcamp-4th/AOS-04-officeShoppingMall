@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/data/models/product.dart';
+import '../../../../core/data/models/dto/product.dart';
 import '../../data/product_viewmodel.dart';
 
 

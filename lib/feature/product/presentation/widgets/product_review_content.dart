@@ -14,7 +14,12 @@ class ProductReviewContent extends StatelessWidget {
           child: ProductContentContainer(
             width: double.infinity,
             height: 120,
-            child: Center(child: Text('상품 후기글 보러가기', style: Theme.of(context).textTheme.bodyLarge)),
+            child: Center(
+              child: Text(
+                '상품 후기글 보러가기',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
           ),
         ),
       ],

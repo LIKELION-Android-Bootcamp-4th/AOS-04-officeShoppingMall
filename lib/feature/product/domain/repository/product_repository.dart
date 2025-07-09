@@ -1,7 +1,6 @@
-import '../../../../core/data/models/product.dart';
+import '../../../../core/data/models/dto/product.dart';
 
 abstract class ProductRepository {
-
   Future<void> addProduct(Product product);
 
   Future<List<Product>> fetchProducts({
@@ -16,5 +15,4 @@ abstract class ProductRepository {
   Future<void> updateProduct(Product product);
 
   Future<void> deleteProduct(String id);
-
 }

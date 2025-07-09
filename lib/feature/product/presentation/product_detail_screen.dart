@@ -19,15 +19,16 @@ class ProductDetailScreen extends StatelessWidget {
       extendBody: true,
       appBar: CustomAppBar(
         title: product?.name ?? '',
-        titleTextStyle: Theme
-            .of(context)
-            .textTheme
-            .titleLarge,
+        titleTextStyle: Theme.of(context).textTheme.titleLarge,
         actions: [
-          IconButton(onPressed: () {},
-              icon: SvgPicture.asset('images/icon/ic_appbar_search.svg')),
-          IconButton(onPressed: () {},
-              icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg')),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg'),
+          ),
         ],
       ),
 
@@ -37,7 +38,11 @@ class ProductDetailScreen extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [SizedBox(height: 20), ProductDetailContent(), SizedBox(height: 20),],
+              children: [
+                SizedBox(height: 20),
+                ProductDetailContent(),
+                SizedBox(height: 20),
+              ],
             ),
           ],
         ),

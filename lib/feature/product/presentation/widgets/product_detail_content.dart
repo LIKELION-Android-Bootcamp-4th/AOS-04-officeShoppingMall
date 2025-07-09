@@ -19,7 +19,6 @@ class ProductDetailContent extends StatefulWidget {
 class _ProductDetailContent extends State<ProductDetailContent> {
   int _selectedTabIndex = 0;
 
-
   void _selectTab(int index) {
     setState(() {
       _selectedTabIndex = index;
@@ -28,10 +27,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    final product = context
-        .watch<ProductDataViewModel>()
-        .selectedProduct;
-
+    final product = context.watch<ProductDataViewModel>().selectedProduct;
 
     if (product == null) {
       return Center(child: Text("상품 데이터를 불러올 수 없습니다"));
@@ -44,60 +40,55 @@ class _ProductDetailContent extends State<ProductDetailContent> {
           height: 228,
           child: product.images.isEmpty
               ? Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.gray200,
-            ),
-            child: Center(
-              child: Text('상품 이미지가 없습니다', style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodySmall),
-            ),
-          )
-              : PageView.builder(
-            itemCount: product.images.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(product.images[index]),
-                    fit: BoxFit.cover,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.gray200,
                   ),
+                  child: Center(
+                    child: Text(
+                      '상품 이미지가 없습니다',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                )
+              : PageView.builder(
+                  itemCount: product.images.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: NetworkImage(product.images[index]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
         SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(product.name, style: Theme
-                .of(context)
-                .textTheme
-                .titleLarge),
-            Text('${product.price}원', style: Theme
-                .of(context)
-                .textTheme
-                .titleLarge),
+            Text(product.name, style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              '${product.price}원',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ],
         ),
         SizedBox(height: 4),
         GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.productList);
-            context
-                .read<ProductListViewModel>().selectCategory(product.category);
+            context.read<ProductListViewModel>().selectCategory(
+              product.category,
+            );
           },
           child: Text(
             product.category,
-            style: Theme
-                .of(context)
-                .textTheme
-                .bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         SizedBox(height: 20),
@@ -114,9 +105,8 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         SizedBox(height: 20),
         if (_selectedTabIndex == 0)
           ProductDescriptionContent()
-        else
-          if (_selectedTabIndex == 1)
-            ProductReviewContent(),
+        else if (_selectedTabIndex == 1)
+          ProductReviewContent(),
       ],
     );
   }
