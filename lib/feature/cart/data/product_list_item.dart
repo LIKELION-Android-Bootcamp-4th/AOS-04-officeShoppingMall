@@ -21,12 +21,12 @@ class ProductListItem extends StatelessWidget {
         children: [
           product.productDeliveryIndex == 0
               ? //체크박스. 장바구니 탭에서만 활성화
-                Checkbox(
-                  value: false,
-                  onChanged: (bool? checked) {
-                    print("체크박스 클릭");
-                  },
-                )
+          Checkbox(
+            value: false,
+            onChanged: (bool? checked) {
+              print("체크박스 클릭");
+            },
+          )
               : SizedBox(width: MediaQuery.of(context).size.width * 0.04),
           Container(
             margin: EdgeInsets.only(bottom: 16),
@@ -43,13 +43,13 @@ class ProductListItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   product.productDeliveryIndex == 0
-                      // TODO: 추후 수정 필요
+                  // TODO: 추후 수정 필요
                       ? MaterialPageRoute(
-                          builder: (_) => OrderDetailScreen(),
-                        ) //장바구니에 담긴 상품은 상품 상세페이지로
+                    builder: (_) => OrderDetailScreen(),
+                  ) //장바구니에 담긴 상품은 상품 상세페이지로
                       : MaterialPageRoute(
-                          builder: (_) => OrderDetailScreen(),
-                        ), //결제 완료~배송 완료 상품은 주문 내역으로
+                    builder: (_) => OrderDetailScreen(),
+                  ), //결제 완료~배송 완료 상품은 주문 내역으로
                 );
               },
               // TODO: 전체 수정 필요
@@ -58,25 +58,25 @@ class ProductListItem extends StatelessWidget {
                   children: [
                     product.productDeliveryIndex == 0
                         ? //지우기 버튼. 장바구니 탭에서만 활성화
-                          Row(
-                            children: [
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                  onPressed: () {
-                                    Provider.of<ProductProvider>(
-                                      context,
-                                      listen: false,
-                                    ).deleteProduct(product);
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'images/icon/ic_close.svg',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
+                    Row(
+                      children: [
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: () {
+                              Provider.of<ProductProvider>(
+                                context,
+                                listen: false,
+                              ).deleteProduct(product);
+                            },
+                            icon: SvgPicture.asset(
+                              'images/icon/ic_close.svg',
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                         : SizedBox(height: 48),
 
                     Row(

@@ -1,33 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 
-class CartScreen extends StatefulWidget {
+class CartTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return CartScreenState();
+    return CartTabState();
   }
 }
 
-class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMixin {
+class CartTabState extends State<CartTab> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ProductList(
-              products: context
-                  .watch<ProductProvider>()
-                  .products
-                  .where((a) => a.productDeliveryIndex == 0)
-                  .toList(),
-            ),
-          ),
-        ],
+      body: Expanded(
+        child: ProductList(
+          products: context
+              .watch<ProductProvider>()
+              .products
+              .where((a) => a.productDeliveryIndex == 0)
+              .toList(),
+        ),
       ),
 
       //금액~결제 버튼
@@ -54,7 +48,10 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                       padding: EdgeInsets.only(top: 16),
                       child: Text(
                         "100,000",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(width: 7),
@@ -71,7 +68,10 @@ class CartScreenState extends State<CartScreen> with SingleTickerProviderStateMi
                     onPressed: () {
                       print("go to OrderScreen");
                     },
-                    child: Text("결제", style: TextStyle(fontSize: 20, color: Colors.white)),
+                    child: Text(
+                      "결제",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
