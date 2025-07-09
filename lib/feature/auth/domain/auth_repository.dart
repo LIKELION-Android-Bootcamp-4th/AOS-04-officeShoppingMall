@@ -9,7 +9,6 @@ class AuthRepository{
 
   AuthRepository(this._service);
 
-  @override
   Future<SignupResponse> signUp(SignupRequest request) async {
     try {
       final response = await _service.signupAction(requestData: request);
