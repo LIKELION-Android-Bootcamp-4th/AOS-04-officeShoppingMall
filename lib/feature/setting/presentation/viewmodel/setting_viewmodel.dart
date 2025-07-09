@@ -1,21 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/data/models/dto/user_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_request.dart';
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_response.dart';
-import 'package:office_shopping_mall/feature/setting/domain/setting_address.dart';
+import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 import 'package:office_shopping_mall/feature/setting/domain/setting_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingViewModel extends ChangeNotifier {
+  static const _prefsKey = 'save_addr';
+
   final SettingRepository _repository;
 
   User? _user;
   bool _isLoading = false;
   String? _error;
-  List<SettingAddress> _addresses = [];
+  final List<SettingAddress> _addresses = [];
   PasswordSettingResponse? _passwordSettingResponse;
 
   SettingViewModel(this._repository) {
+    _loadAddress();
     loadProfile();
   }
 
@@ -27,18 +33,50 @@ class SettingViewModel extends ChangeNotifier {
 
   List<SettingAddress> get addresses => List.unmodifiable(_addresses);
 
-  PasswordSettingResponse? get passwordChangeResponse =>
-      _passwordSettingResponse;
+  PasswordSettingResponse? get passwordChangeResponse => _passwordSettingResponse;
 
-  void addAddress(SettingAddress addr) {
+  Future<void> addAddress(SettingAddress addr) async {
+    // 현재 추가한 주소가 기본 배송지로 설정될 경우
+    if (addr.isDefault) {
+      for (var address in _addresses) {
+        address.isDefault = false;
+      }
+    }
     _addresses.add(addr);
+    await _saveAddress();
     notifyListeners();
   }
 
-  void removeAddress(SettingAddress addr) {
+  Future<void> removeAddress(SettingAddress addr) async {
     _addresses.remove(addr);
+    await _saveAddress();
     notifyListeners();
   }
+
+  Future<void> _loadAddress() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString(_prefsKey);
+    if (raw != null) {
+      try {
+        final list = jsonDecode(raw) as List<dynamic>;
+        _addresses
+          ..clear()
+          ..addAll(list.map((e) => SettingAddress.fromJson(e as Map<String, dynamic>)));
+      } catch (_) {
+        _addresses.clear();
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<void> _saveAddress() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = jsonEncode(_addresses.map((a) => a.toJson()).toList());
+    await prefs.setString(_prefsKey, raw);
+  }
+
+  // TODO: 주문시 기본 배송지 호출
+  SettingAddress? getDefaultAddress() => _addresses.firstWhere((addr) => addr.isDefault);
 
   Future<void> loadProfile() async {
     _isLoading = true;
@@ -81,13 +119,12 @@ class SettingViewModel extends ChangeNotifier {
     _passwordSettingResponse = null; // 이전 응답 초기화
     notifyListeners(); // UI에 로딩 상태 변경을 알림
     try {
-      final request = PasswordSettingRequest
-        (currentPassword: currentPassword,
-          newPassword: newPassword,
-          confirmPassword: confirmPassword
+      final request = PasswordSettingRequest(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword,
       );
-      _passwordSettingResponse =
-      await _repository.changePassword(requestData: request);
+      _passwordSettingResponse = await _repository.changePassword(requestData: request);
       _error = null;
     } catch (e) {
       _error = "viewModel: 비밀번호 실패 : $e";
