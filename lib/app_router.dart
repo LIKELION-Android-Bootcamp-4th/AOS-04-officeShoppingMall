@@ -66,10 +66,9 @@ class AppRouter {
       case AppRoutes.review:
         return MaterialPageRoute(builder: (_) => ReviewScreen());
 
-
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(body: Center(child: Text(AppConstants.pageNotFound))),
+          builder: (_) => Scaffold(body: Center(child: Text(AppConst.pageNotFound))),
         );
     }
   }
