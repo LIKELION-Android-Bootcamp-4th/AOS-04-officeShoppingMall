@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:office_shopping_mall/feature/auth/data/auth_service.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
 
 class SignUpForm extends StatefulWidget {
-  SignUpForm({super.key});
+  const SignUpForm({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -29,54 +30,54 @@ class SignUpFormState extends State<SignUpForm> {
     });
   }
 
-  Map<String, String> getFormData() {
+/*  Map<String, String> getFormData() {
     return {
       "nickName": _nameController.text,
       "email": _emailController.text,
       "password": _pwController.text,
     };
-  }
+  }*/
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final confirm = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("회원가입"),
-          content: Text("입력하신 정보로 가입을 하시겠습니까?"),
+          title: const Text("회원가입"),
+          content: const Text("입력하신 정보로 가입을 하시겠습니까?"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: Text("취소"),
+              child: const Text("취소"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: Text("확인"),
+              child: const Text("확인"),
             ),
           ],
         ),
       );
 
       if (confirm == true) {
-        final formData = getFormData();
-        print("$formData");
+        final authViewModel = context.read<AuthViewModel>();
 
-        try {
-          final authService = AuthService();
-          await authService.signupAction(
-            email: formData["email"]!,
-            password: formData["password"]!,
-            nickname: formData["nickName"]!,
-          );
+        await authViewModel.signUp(
+            email: _emailController.text,
+            password: _pwController.text,
+            nickName: _nameController.text
+        );
 
-          showToast("회원가입이 완료되었습니다.");
-          return Navigator.pop(context);
-        } catch (e) {
-          showToast(e.toString());
+        if(mounted){
+          if(authViewModel.error != null){
+            showToast("회원가입 실패: ${authViewModel.error}");
+          }else if(authViewModel.signupResponse != null){
+            showToast("회원가입이 완료되었습니다.");
+            Navigator.pop(context);
+          }
         }
       }
     }
@@ -93,6 +94,8 @@ class SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = context.watch<AuthViewModel>();
+
     return Form(
       //각 입력마다 유효성 검사를 위한 키
       key: _formKey,
@@ -196,7 +199,6 @@ class SignUpFormState extends State<SignUpForm> {
   }
 }
 
-
 InputDecoration buildInputDecoration({
   required String label,
   String? hint,
@@ -225,7 +227,6 @@ InputDecoration buildInputDecoration({
     ),
   );
 }
-
 
 void showToast(String msg) {
   Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);

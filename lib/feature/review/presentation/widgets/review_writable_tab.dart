@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
-import 'package:office_shopping_mall/feature/home/presentation/home_screen.dart';
 import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
 
-class ReviewList extends StatelessWidget {
+class ReviewWritableTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -27,16 +26,16 @@ class ReviewList extends StatelessWidget {
               borderRadius: BorderRadiusGeometry.circular(10),
             ),
             child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => AddReviewScreen()),
-                );
-              },
-              child: Align(
-                alignment: Alignment.center,
-                child: Text("리뷰 작성", style: TextStyle(fontSize: 20),),
-              )
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => AddReviewScreen()), //리뷰 작성 페이지로 이동
+                  );
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text("리뷰 작성", style: TextStyle(fontSize: 20),),
+                )
             ),
           ),
         ],

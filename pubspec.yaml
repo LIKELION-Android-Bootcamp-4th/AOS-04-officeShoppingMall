@@ -52,6 +52,9 @@ dependencies:
   intl: ^0.20.2
   flutter_rating_bar: ^4.0.1
   json_annotation: ^4.9.0
+  loading_indicator: ^3.1.1
+  badges: ^3.1.2
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_test:

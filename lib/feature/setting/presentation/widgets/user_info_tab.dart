@@ -151,7 +151,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {Navigator.pushNamed(context, AppRoutes.pwSetting);},
                       child: Text('비밀번호 변경', style: Theme.of(context).textTheme.bodySmall),
                     ),
                   ),

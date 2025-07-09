@@ -85,7 +85,7 @@ class _AddReviewContent extends State<AddReviewContent> {
       children: [
         SizedBox(height: 20),
 
-        Text("별점을 남겨주세요", style: Theme.of(context).textTheme.bodyMedium),
+        Text("별점을 남겨주세요.", style: Theme.of(context).textTheme.bodyMedium),
 
         SizedBox(height: 8),
 
@@ -104,7 +104,7 @@ class _AddReviewContent extends State<AddReviewContent> {
 
         SizedBox(height: 20),
 
-        Text("후기를 남겨주세요", style: Theme.of(context).textTheme.bodyMedium),
+        Text("후기를 남겨주세요. (최대 50자 이내)", style: Theme.of(context).textTheme.bodyMedium),
         SizedBox(height: 8),
         TextField(
           controller: _reviewController,

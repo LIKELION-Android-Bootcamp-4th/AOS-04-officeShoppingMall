@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/user_dto.dart';
 import 'package:office_shopping_mall/feature/mypage/domain/mypage_repository.dart';
+import '../../../../core/data/models/dto/user_dto.dart';
 
 class MypageViewModel extends ChangeNotifier {
   final MypageRepository _repository;
