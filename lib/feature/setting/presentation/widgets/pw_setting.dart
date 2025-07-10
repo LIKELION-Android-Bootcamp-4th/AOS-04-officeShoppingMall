@@ -69,10 +69,10 @@ class _PwSettingState extends State<PwSetting> {
             showToast("현재 비밀번호를 다시 확인해주세요");
           }else{
             //그 외의 오류 코드들에 대한 토스트
-            showToast("${response.message}");
+            showToast(response.message);
           }
         }else{
-          showToast("${response.message}");
+          showToast(response.message);
         }
       }
     }
