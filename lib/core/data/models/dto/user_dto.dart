@@ -105,5 +105,7 @@ class UserDTO {
     'isAdmin': isAdmin,
     'profile': profile.toJson(),
     'createdAt': createdAt.toIso8601String(),
+    'phone': phone,
+    'address': address?.toJson(),
   };
 }
