@@ -46,7 +46,7 @@ class Product {
     }
 
     return Product(
-      id: json['id'] as String? ?? '',
+      id: json['id'] ?? json['_id'] ?? '', //search에도 쓰기 위해 [_id]필드 추가함
       name: json['name'] as String? ?? '',
       price: json['price'] as int? ?? 0,
       description: json['description'] as String?,

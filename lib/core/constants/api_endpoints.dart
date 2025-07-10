@@ -464,9 +464,9 @@ class _SearchEndpoints {
     int reviewLimit = 3,
     int storeLimit = 2,
     bool includeProducts = true,
-    bool includeContents = true,
-    bool includeReviews = true,
-    bool includeStores = true,
+    bool includeContents = false,
+    bool includeReviews = false,
+    bool includeStores = false,
   }) {
     final query = <String, String>{};
     query['q'] = q;
