@@ -24,51 +24,52 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.home:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen(), settings: settings);
       case AppRoutes.signup:
-        return MaterialPageRoute(builder: (_) => SignupScreen());
+        return MaterialPageRoute(builder: (_) => SignupScreen(), settings: settings);
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(builder: (_) => LoginScreen(), settings: settings);
       case AppRoutes.preference:
-        return MaterialPageRoute(builder: (_) => PreferenceScreen());
+        return MaterialPageRoute(builder: (_) => PreferenceScreen(), settings: settings);
       case AppRoutes.category:
-        return MaterialPageRoute(builder: (_) => CategoryScreen());
+        return MaterialPageRoute(builder: (_) => CategoryScreen(), settings: settings);
       case AppRoutes.productList:
-        return MaterialPageRoute(builder: (_) => ProductListScreen());
+        return MaterialPageRoute(builder: (_) => ProductListScreen(), settings: settings);
       case AppRoutes.productDetail:
-        return MaterialPageRoute(builder: (_) => ProductDetailScreen());
+        return MaterialPageRoute(builder: (_) => ProductDetailScreen(), settings: settings);
       case AppRoutes.order:
-        return MaterialPageRoute(builder: (_) => OrderScreen());
+        return MaterialPageRoute(builder: (_) => OrderScreen(), settings: settings);
       case AppRoutes.orderComplete:
-        return MaterialPageRoute(builder: (_) => OrderCompleteScreen());
+        return MaterialPageRoute(builder: (_) => OrderCompleteScreen(), settings: settings);
       case AppRoutes.mypage:
-        return MaterialPageRoute(builder: (_) => MypageScreen());
+        return MaterialPageRoute(builder: (_) => MypageScreen(), settings: settings);
       case AppRoutes.setting:
-        return MaterialPageRoute(builder: (_) => SettingScreen());
+        return MaterialPageRoute(builder: (_) => SettingScreen(), settings: settings);
       case AppRoutes.notification:
-        return MaterialPageRoute(builder: (_) => NotificationScreen());
+        return MaterialPageRoute(builder: (_) => NotificationScreen(), settings: settings);
       case AppRoutes.cart:
-        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 0));
+        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 0), settings: settings);
       case AppRoutes.orderPaid:
-        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 1));
+        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 1), settings: settings);
       case AppRoutes.orderShipping:
-        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 2));
+        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 2), settings: settings);
       case AppRoutes.orderDelivered:
-        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 3));
+        return MaterialPageRoute(builder: (_) => CartMainScreen(tabIndex: 3), settings: settings);
       case AppRoutes.search:
-        return MaterialPageRoute(builder: (_) => SearchScreen());
+        return MaterialPageRoute(builder: (_) => SearchScreen(), settings: settings);
       case AppRoutes.pwSetting:
-        return MaterialPageRoute(builder: (_) => PwSetting());
+        return MaterialPageRoute(builder: (_) => PwSetting(), settings: settings);
       case AppRoutes.destSetting:
-        return MaterialPageRoute(builder: (_) => DestSettingScreen());
+        return MaterialPageRoute(builder: (_) => DestSettingScreen(), settings: settings);
       case AppRoutes.addReview:
-        return MaterialPageRoute(builder: (_) => AddReviewScreen());
+        return MaterialPageRoute(builder: (_) => AddReviewScreen(), settings: settings);
       case AppRoutes.review:
-        return MaterialPageRoute(builder: (_) => ReviewScreen());
+        return MaterialPageRoute(builder: (_) => ReviewScreen(), settings: settings);
 
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(body: Center(child: Text(AppConst.pageNotFound))),
+          settings: settings,
         );
     }
   }
