@@ -12,7 +12,6 @@ class BottomNavigation extends StatelessWidget {
     final nav = context.watch<BottomNavProvider>();
     final index = nav.currentIndex;
 
-    // TODO: 추후 모든 루트가 생성되면 null 제거
     Widget navItem(String icon, int tabIndex, String route) {
       final isSelected = index == tabIndex;
       return IconButton(
@@ -40,7 +39,6 @@ class BottomNavigation extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // TODO: 앱 루트 추가
               navItem('ic_nav_category', 0, AppRoutes.category),
               navItem('ic_nav_search', 1, AppRoutes.search),
               navItem('ic_nav_home', 2, AppRoutes.home),
