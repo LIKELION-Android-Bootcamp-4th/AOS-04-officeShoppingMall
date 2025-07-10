@@ -17,12 +17,18 @@ class CategoryContentList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (var section in categorySections) ...[
-                Row(
-                  children: [
-                    CircleAvatar(backgroundImage: AssetImage(section.image), radius: 20,),
-                    SizedBox(width: 12),
-                    Text(section.title, style: Theme.of(context).textTheme.titleLarge),
-                  ],
+                InkWell(
+                  onTap: () {
+                    context.read<ProductListViewModel>().selectCategory(section.title);
+                    Navigator.pushNamed(context, AppRoutes.productList);
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(backgroundImage: AssetImage(section.image), radius: 20),
+                      SizedBox(width: 12),
+                      Text(section.title, style: Theme.of(context).textTheme.titleLarge),
+                    ],
+                  ),
                 ),
 
                 Divider(height: 18, endIndent: 16),
