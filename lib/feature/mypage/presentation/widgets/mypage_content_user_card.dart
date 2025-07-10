@@ -33,7 +33,10 @@ class MypageContentUserCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(user.nickName, style: Theme.of(context).textTheme.titleMedium),
-                      Text('고객님, 안녕하세요!', style: Theme.of(context).textTheme.bodyMedium),
+                      Text(
+                        AppConst.gen.greetingMessage,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ],
                   ),
                   Spacer(),

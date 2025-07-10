@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
+import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/feature/auth/data/login_response.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
 import 'login_request.dart';
@@ -13,18 +15,18 @@ class AuthService {
   Future<String> refreshAccessToken() async {
     try {
       final refreshToken = await SecureStorage.loadRefreshToken();
-      if (refreshToken == null) throw Exception('Refresh Token 없음. 다시 로그인 필요.');
+      if (refreshToken == null) throw Exception(AppConst.err.sessionExpiration);
 
       final response = await _dio.post(
         Api.auth.refreshToken,
-        data: { Api.refreshToken: refreshToken},
+        data: {Api.refreshToken: refreshToken},
       );
 
       // 요청이 성공적이면 새 액세스 토큰 추출
       if (response.statusCode == 200) {
         final data = response.data as Map<String, dynamic>;
         final newAccessToken = data[Api.accessToken] as String?;
-        if (newAccessToken == null) throw Exception('토큰 만료. 다시 로그인 필요');
+        if (newAccessToken == null) throw Exception(AppConst.err.sessionExpiration);
 
         await SecureStorage.saveToken(accessToken: newAccessToken, refreshToken: refreshToken);
 
@@ -35,7 +37,7 @@ class AuthService {
     } on DioException catch (e) {
       // Refresh Token 이 유효하지 않으면 다시 로그인 시도 요청
       if (e.response?.statusCode == 401) {
-        throw Exception('Refresh Token 이 유효하지 않음. 다시 로그인 필요');
+        throw Exception(AppConst.err.noAuthority);
       }
       // 다시 로그인으로 연결
       rethrow;
@@ -59,9 +61,9 @@ class AuthService {
 
       return loginResponse;
     } else if (response.statusCode == 400) {
-      throw Exception("잘못된 요청");
+      throw Exception(AppConst.err.wrongRequest);
     } else {
-      throw Exception("인증 실패(이메일/비밀번호 불일치");
+      throw Exception(AppConst.err.accountMismatch);
     }
   }
 
@@ -84,9 +86,9 @@ class AuthService {
       print('가입 성공! ${signupResponse.message}');
       return signupResponse;
     } else if (response.statusCode == 400) {
-      throw Exception("요청 형식이 잘못되었거나 중복된 이메일입니다.");
+      throw Exception(AppConst.err.checkUpInput);
     } else if (response.statusCode == 409) {
-      throw Exception("이미 가입된 계정입니다.");
+      throw Exception(AppConst.err.alreadyAccounts);
     } else {
       throw Exception("회원가입 실패! ${response.statusCode}");
     }

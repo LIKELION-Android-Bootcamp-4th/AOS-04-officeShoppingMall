@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class ProductNavigation extends StatefulWidget {
   final List<String> tabs;
@@ -53,7 +55,7 @@ class _ProductNavigation extends State<ProductNavigation> {
                 style: TextButton.styleFrom(
                   minimumSize: const Size(65, 65),
                   backgroundColor: isSelected
-                      ? const Color(0x8270AEFF)
+                      ?  appColorScheme().tertiary
                       : const Color(0xFFf7f2fa),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),

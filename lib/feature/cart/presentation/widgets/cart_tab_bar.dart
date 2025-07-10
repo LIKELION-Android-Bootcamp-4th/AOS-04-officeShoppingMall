@@ -22,7 +22,7 @@ Widget CartTabBar({
         labelColor: Colors.black,
         unselectedLabelColor: Colors.black54,
         indicator: BoxDecoration(
-            color: Color(0x8270AEFF),
+            color: appColorScheme().tertiary,
             borderRadius: BorderRadius.circular(60)
         ),
         tabs: tabs,
