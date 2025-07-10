@@ -21,14 +21,14 @@ class UserInfoTab extends StatefulWidget {
 class _UserInfoTabState extends State<UserInfoTab> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameCtrl;
-  late TextEditingController _numberCtrl;
+  late TextEditingController _phoneCtrl;
   late TextEditingController _emailCtrl;
 
   @override
   void initState() {
     super.initState();
     _nameCtrl = TextEditingController(text: widget.user.nickName);
-    _numberCtrl = TextEditingController(text: widget.user.phone ?? '');
+    _phoneCtrl = TextEditingController(text: widget.user.phone ?? '');
     _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
@@ -36,13 +36,17 @@ class _UserInfoTabState extends State<UserInfoTab> {
   void dispose() {
     super.dispose();
     _nameCtrl.dispose();
-    _numberCtrl.dispose();
+    _phoneCtrl.dispose();
     _emailCtrl.dispose();
   }
 
   Future<void> _onSave() async {
     if (!_formKey.currentState!.validate()) return;
-    await context.read<SettingViewModel>().updateProfile(_nameCtrl.text, _nameCtrl.text, widget.user.address);
+    await context.read<SettingViewModel>().updateProfile(
+      _nameCtrl.text,
+      _phoneCtrl.text,
+      widget.user.address,
+    );
   }
 
   @override
@@ -114,7 +118,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          controller: _numberCtrl,
+                          controller: _phoneCtrl,
                           keyboardType: TextInputType.phone,
                           validator: (v) => v!.length < 9 ? '유효한 번호를 입력' : null,
                         ),
@@ -235,7 +239,12 @@ class _UserInfoTabState extends State<UserInfoTab> {
               ),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(onPressed: (){ _onSave(); }, child: Text('저장하기')),
+            ElevatedButton(
+              onPressed: () {
+                _onSave();
+              },
+              child: Text('저장하기'),
+            ),
             const SizedBox(height: 10),
           ],
         ),
