@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 
 class UserInfoTab extends StatefulWidget {
-  UserInfoTab({super.key, required this.controller});
+  final User user;
+
+  UserInfoTab({super.key, required this.controller, required this.user});
 
   TabController controller;
 
@@ -17,15 +23,13 @@ class _UserInfoTabState extends State<UserInfoTab> {
   late TextEditingController _nameCtrl;
   late TextEditingController _numberCtrl;
   late TextEditingController _emailCtrl;
-  late TextEditingController _pwCtrl;
 
   @override
   void initState() {
     super.initState();
-    _nameCtrl = TextEditingController(text: '홍길동');
-    _numberCtrl = TextEditingController(text: '010-0000-0000');
-    _emailCtrl = TextEditingController(text: 'aaa@aaa.com');
-    _pwCtrl = TextEditingController();
+    _nameCtrl = TextEditingController(text: widget.user.nickName);
+    _numberCtrl = TextEditingController(text: widget.user.phone ?? '');
+    _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -34,15 +38,16 @@ class _UserInfoTabState extends State<UserInfoTab> {
     _nameCtrl.dispose();
     _numberCtrl.dispose();
     _emailCtrl.dispose();
-    _pwCtrl.dispose();
   }
 
-  void _onSubmit() {
+  Future<void> _onSave() async {
     if (!_formKey.currentState!.validate()) return;
+    await context.read<SettingViewModel>().updateProfile(_nameCtrl.text, _nameCtrl.text, widget.user.address);
   }
 
   @override
   Widget build(BuildContext context) {
+    final vm = context.watch<SettingViewModel>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
@@ -62,7 +67,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       radius: 32,
                     ),
                     const SizedBox(width: 12),
-                    Text('data', style: Theme.of(context).textTheme.titleMedium),
+                    Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium),
                     const Spacer(),
                     IconButton(
                       onPressed: () {},
@@ -133,25 +138,12 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 70,
-                        child: Text('비밀번호', style: Theme.of(context).textTheme.bodyMedium),
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _pwCtrl,
-                          obscureText: true,
-                          validator: (v) => v!.length < 6 ? '6자 이상 입력' : null,
-                        ),
-                      ),
-                    ],
-                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {Navigator.pushNamed(context, AppRoutes.pwSetting);},
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.pwSetting);
+                      },
                       child: Text('비밀번호 변경', style: Theme.of(context).textTheme.bodySmall),
                     ),
                   ),
@@ -161,53 +153,76 @@ class _UserInfoTabState extends State<UserInfoTab> {
             Text('배송지 설정', style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 10),
 
-            // TODO 반복문을 통해 사이즈만큼 Card 생성
-            Card(
-              color: appColorScheme().surfaceContainerLow,
-              elevation: 0,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('data', style: Theme.of(context).textTheme.bodyMedium),
-                    Spacer(),
-                    SizedBox(
-                      width: 60,
-                      height: 30,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          backgroundColor: appColorScheme().surfaceContainer,
-                          foregroundColor: appColorScheme().onBackground,
-                          textStyle: Theme.of(context).textTheme.bodyLarge,
+            for (final addr in vm.addresses)
+              Card(
+                color: appColorScheme().surfaceContainerLow,
+                elevation: 0,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        addr.name,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.fade,
+                      ),
+                      const SizedBox(width: 16),
+                      if (addr.isDefault)
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            color: appColorScheme().tertiary,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text('기본 배송지', style: Theme.of(context).textTheme.labelMedium),
                         ),
-                        child: Text('삭제'),
+                      Spacer(),
+                      SizedBox(
+                        width: 60,
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.read<SettingViewModel>().removeAddress(addr);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            backgroundColor: appColorScheme().surfaceContainer,
+                            foregroundColor: appColorScheme().onBackground,
+                            textStyle: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          child: Text('삭제'),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    SizedBox(
-                      width: 60,
-                      height: 30,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
-                        child: Text('수정'),
+                      SizedBox(width: 10),
+                      SizedBox(
+                        width: 60,
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoutes.destSetting, arguments: addr);
+                          },
+                          style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
+                          child: Text('수정'),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+
             // 배송지 추가 카드
             Card(
               color: appColorScheme().surfaceContainerLow,
               elevation: 0,
               child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.destSetting);
+                onTap: () async {
+                  final result =
+                      await Navigator.pushNamed(context, AppRoutes.destSetting) as SettingAddress?;
+                  if (result != null) {
+                    context.read<SettingViewModel>().addAddress(result);
+                  }
                 },
                 child: Container(
                   width: double.infinity,
@@ -219,6 +234,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(onPressed: (){ _onSave(); }, child: Text('저장하기')),
+            const SizedBox(height: 10),
           ],
         ),
       ),
