@@ -22,14 +22,12 @@ class _UserInfoTabState extends State<UserInfoTab> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameCtrl;
   late TextEditingController _phoneCtrl;
-  late TextEditingController _emailCtrl;
 
   @override
   void initState() {
     super.initState();
     _nameCtrl = TextEditingController(text: widget.user.nickName);
     _phoneCtrl = TextEditingController(text: widget.user.phone ?? '');
-    _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -37,7 +35,6 @@ class _UserInfoTabState extends State<UserInfoTab> {
     super.dispose();
     _nameCtrl.dispose();
     _phoneCtrl.dispose();
-    _emailCtrl.dispose();
   }
 
   Future<void> _onSave() async {
@@ -73,16 +70,16 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     const SizedBox(width: 12),
                     Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(
-                        'images/icon/ic_edit.svg',
-                        colorFilter: ColorFilter.mode(
-                          appColorScheme().surfaceContainerHigh,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                    ),
+                    // IconButton(
+                    //   onPressed: () {},
+                    //   icon: SvgPicture.asset(
+                    //     'images/icon/ic_edit.svg',
+                    //     colorFilter: ColorFilter.mode(
+                    //       appColorScheme().surfaceContainerHigh,
+                    //       BlendMode.srcIn,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -132,13 +129,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                         width: 70,
                         child: Text('이메일', style: Theme.of(context).textTheme.bodyMedium),
                       ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _emailCtrl,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (v) => !v!.contains('@') ? '이메일 형식이 아닙니다' : null,
-                        ),
-                      ),
+                      Expanded(child: TextFormField(readOnly: true)),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -191,6 +182,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                             context.read<SettingViewModel>().removeAddress(addr);
                           },
                           style: ElevatedButton.styleFrom(
+                            elevation: 0,
                             padding: EdgeInsets.zero,
                             backgroundColor: appColorScheme().surfaceContainer,
                             foregroundColor: appColorScheme().onBackground,
@@ -207,7 +199,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                           onPressed: () {
                             Navigator.pushNamed(context, AppRoutes.destSetting, arguments: addr);
                           },
-                          style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
+                          style: ElevatedButton.styleFrom(padding: EdgeInsets.zero, elevation: 0),
                           child: Text('수정'),
                         ),
                       ),
