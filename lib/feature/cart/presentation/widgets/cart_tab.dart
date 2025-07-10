@@ -12,7 +12,7 @@ class CartTab extends StatefulWidget {
 class CartTabState extends State<CartTab> {
   @override
   Widget build(BuildContext context) {
-    final carts = context.watch()<CartProvider>().carts;
+    final carts = context.watch<CartProvider>().carts;
 
     return Scaffold(
       body: ListView.builder(
