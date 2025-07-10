@@ -5,6 +5,7 @@ import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
 import 'package:office_shopping_mall/feature/cart/data/order_provider.dart';
 import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
+import 'package:office_shopping_mall/feature/search/search_module.dart';
 import 'package:office_shopping_mall/feature/product/product_module.dart';
 import 'package:office_shopping_mall/feature/setting/setting_module.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ class WalkinApp extends StatelessWidget {
         ...mypageModule,
         ...authModule,
         ...settingModule,
+        ...searchModule,
         ...productModule,
       ],
       child: MaterialApp(
