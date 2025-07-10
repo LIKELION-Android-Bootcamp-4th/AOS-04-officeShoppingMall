@@ -49,6 +49,7 @@ class User {
     return User(
       id: id,
       email: email,
+      // TODO: 서버 롤백으로 500 에러 유지 중. 변경 후 name을 받는다면 바꾸기
       nickName: nickName ?? this.nickName,
       isAdmin: isAdmin,
       phone: phone ?? this.phone,
