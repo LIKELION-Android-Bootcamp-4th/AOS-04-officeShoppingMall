@@ -129,9 +129,7 @@ class SignUpFormState extends State<SignUpForm> {
                 if (_emailController.text.isEmpty) {
                   return "이메일을 입력해주세요.";
                 }
-                if (!RegExp(
-                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                ).hasMatch(value.toString())) {
+                if (!value.toString().isValidEmail()) {
                   return "이메일은 반드시 aaa@aaa.com 형태여야 합니다.";
                 }
                 return null;
