@@ -7,6 +7,14 @@ import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
 
+  static const _tabRoutes = [
+    AppRoutes.category,
+    AppRoutes.search,
+    AppRoutes.home,
+    AppRoutes.preference,
+    AppRoutes.mypage,
+  ];
+
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<BottomNavProvider>();
@@ -20,6 +28,15 @@ class BottomNavigation extends StatelessWidget {
           nav.changeIndex(tabIndex);
           if (route == AppRoutes.home) {
             Navigator.pushNamedAndRemoveUntil(context, route, (_) => false);
+            return;
+          }
+
+          final topName = ModalRoute.of(context)?.settings.name;
+
+          if (topName == AppRoutes.home) {
+            Navigator.pushNamed(context, route);
+          } else if (topName != null && _tabRoutes.contains(topName)) {
+            Navigator.pushReplacementNamed(context, route);
           } else {
             Navigator.pushNamed(context, route);
           }
