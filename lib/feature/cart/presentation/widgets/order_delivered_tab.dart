@@ -16,7 +16,7 @@ class OrderDeliveredTabState extends State<OrderDeliveredTab> with SingleTickerP
     return Scaffold(
       body: Expanded(
         child: OrderList(
-          products: context
+          orders: context
               .watch<OrderProvider>()
               .orders
               .where((a) => a.orderIndex == 3)
