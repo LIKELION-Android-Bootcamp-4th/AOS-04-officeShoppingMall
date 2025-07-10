@@ -156,37 +156,49 @@ class _CartEndpoints {
   /// - `memo` (string, optional): 배송 메모
   /// - `cartIds` (List<string>, optional): 주문할 장바구니 항목 ID 리스트
   final checkout = '/api/cart/checkout';
+
+  /// ## 장바구니 아이템 수량 변경 (PATCH)
+  /// ---
+  /// - `cartId`: 수량을 변경할 장바구니 항목의 고유 ID
+  /// #### 작성 필수 정보 (Request body)
+  /// - `quantity`: 변경할 수량 (0 이상 정수)
+  String updateCartQuantity(String cartId) {
+    return '/api/cart/$cartId';
+  }
 }
 
 // 카테고리
 class _CategoryEndpoints {
   const _CategoryEndpoints();
 
-  /// ## 카테고리 트리 조회 (GET)
-  /// - `includeProductCount`: 각 카테고리 별 상품 수 포함 여부
-  /// - `onlyWithProducts`: 상품이 있는 카테고리만 조회 (빈 카테고리 제외)
-  /// - `maxLevel`: 최대 레벨
-  String getCategoryTree({
-    bool includeProductCount = false,
-    bool onlyWithProducts = false,
-    int maxLevel = 3,
-  }) {
-    final query = <String, String>{};
-    if (includeProductCount) query['includeProductCount'] = includeProductCount.toString();
-    if (onlyWithProducts) query['onlyWithProducts'] = onlyWithProducts.toString();
-    if (maxLevel != 3) query['maxLevel'] = maxLevel.toString();
-
-    return Uri(
-      path: '/api/categories/tree',
-      queryParameters: query.isEmpty ? null : query,
-    ).toString();
-  }
+  // 현재 사라진 기능
+  // /// ## 카테고리 트리 조회 (GET)
+  // /// - `includeProductCount`: 각 카테고리 별 상품 수 포함 여부
+  // /// - `onlyWithProducts`: 상품이 있는 카테고리만 조회 (빈 카테고리 제외)
+  // /// - `maxLevel`: 최대 레벨
+  // String getCategoryTree({
+  //   bool includeProductCount = false,
+  //   bool onlyWithProducts = false,
+  //   int maxLevel = 3,
+  // }) {
+  //   final query = <String, String>{};
+  //   if (includeProductCount) query['includeProductCount'] = includeProductCount.toString();
+  //   if (onlyWithProducts) query['onlyWithProducts'] = onlyWithProducts.toString();
+  //   if (maxLevel != 3) query['maxLevel'] = maxLevel.toString();
+  //
+  //   return Uri(
+  //     path: '/api/categories/tree',
+  //     queryParameters: query.isEmpty ? null : query,
+  //   ).toString();
+  // }
 
   /// ## 특정 카테고리 조회 (GET)
+  /// 하위 카테고리 정보 제공, 상품 수 포함
+  /// ---
   /// - `categoryId`: 카테고리 ID
-  /// - `includeChildren`: 하위 카테고리 포함 여부
-  /// - `includeProductCount`: 상품 수 포함 여부
-  String getCategory(
+  /// - `includeChildren`: 하위 카테고리 포함 여부 (기본값: true)
+  /// - `includeProductCount`: 상품 수 포함 여부 (기본값: false)
+  String getCategoriesId(
     String categoryId, {
     bool includeChildren = true,
     bool includeProductCount = false,
@@ -199,6 +211,43 @@ class _CategoryEndpoints {
       path: '/api/categories/$categoryId',
       queryParameters: query.isEmpty ? null : query,
     ).toString();
+  }
+
+  /// ## 카테고리 목록 조회 (공개) (GET)
+  /// - 페이지네이션, 레벨별 필터링, 검색 기능, 정렬 옵션 제공
+  /// ---
+  /// - `page`: 페이지 번호 (기본값: 1)
+  /// - `limit`: 페이지당 항목 수 (기본값: 2-)
+  /// - `level`: 특정 레벨의 카테고리만 조회 (1, 2, 3)
+  /// - `parentId`: 특정 부모 카테고리 하위 조회
+  /// - `search`: 카테고리명 검색
+  /// - `sortBy`: 정렬 기준 (name, level, order, productCount, createdAt; 기본값: level, order)
+  /// - `sortOrder`: 정렬 순서 (asc, desc; 기본값: asc)
+  /// - `includeProductCount`: 상품 수 포함 여부 (기본값: false)
+  /// - `onlyWithProducts`: 상품이 있는 카테고리만 조회 (기본값: false)
+  String getCategories({
+    int page = 1,
+    int limit = 20,
+    int? level,
+    String? parentId,
+    String? search,
+    String? sortBy,
+    String sortOrder = 'asc',
+    bool includeProductCount = false,
+    bool onlyWithProducts = false,
+  }) {
+    final query = <String, String>{};
+    if (page != 1) query['page'] = page.toString();
+    if (limit != 20) query['limit'] = limit.toString();
+    if (level != null) query['level'] = level.toString();
+    if (parentId != null && parentId.isNotEmpty) query['parentId'] = parentId;
+    if (search != null && search.isNotEmpty) query['search'] = search;
+    if (sortBy != null && sortBy.isNotEmpty) query['sortBy'] = sortBy;
+    if (sortOrder != 'asc') query['sortOrder'] = sortOrder;
+    if (includeProductCount) query['includeProductCount'] = 'true';
+    if (onlyWithProducts) query['onlyWithProducts'] = 'true';
+
+    return Uri(path: '/api/categories', queryParameters: query.isEmpty ? null : query).toString();
   }
 }
 
@@ -232,10 +281,10 @@ class _MypageEndpoints {
   final updatePassword = '/api/mypage/change-password';
 
   /// ## 찜한 상품 목록 조회 (GET)
-  /// - `page`: 페이지 번호
-  /// - `limit`: 페이지당 항목 수
-  /// - `sort`: 정렬 기준 (createdAt, price, name)
-  /// - `order`: 순서 (asc, desc)
+  /// - `page`: 페이지 번호 (기본값: 1)
+  /// - `limit`: 페이지당 항목 수 (기본값: 20)
+  /// - `sort`: 정렬 기준 (createdAt, price, name; 기본값: createdAt)
+  /// - `order`: 순서 (asc, desc; 기본값: desc)
   String getFavorites({
     int page = 1,
     int limit = 20,
@@ -250,6 +299,26 @@ class _MypageEndpoints {
 
     return Uri(
       path: '/api/mypage/favorites',
+      queryParameters: query.isEmpty ? null : query,
+    ).toString();
+  }
+
+  /// ## 내가 작성한 리뷰 목록 조회 (GET)
+  /// - 페이지네이션 지원, 리뷰 대상 상품 정보, 리뷰 이미지, 리뷰 좋아요 수, 답글 수 포함
+  /// ---
+  /// - `page`: 페이지 번호 (기본값: 1)
+  /// - `limit`: 페이지당 항목 수 (기본값: 20)
+  /// - `rating`: 평점 필터
+  /// - `sort`: 정렬 기준 (createdAt, rating, likes; 기본값: createdAt)
+  String getMyReviews({int page = 1, int limit = 20, int? rating, String sort = 'createdAt'}) {
+    final query = <String, String>{};
+    if (page != 1) query['page'] = page.toString();
+    if (limit != 20) query['limit'] = limit.toString();
+    if (rating != null) query['rating'] = rating.toString();
+    if (sort != 'createdAt') query['sort'] = sort;
+
+    return Uri(
+      path: '/api/mypage/reviews',
       queryParameters: query.isEmpty ? null : query,
     ).toString();
   }
@@ -447,15 +516,16 @@ class _SearchEndpoints {
   /// ## 통합 검색 (상품, 콘텐츠, 리뷰, 스토어) (GET)
   /// - 검색어는 인기 검색어에 자동 기록
   /// - `q`: 검색어
-  /// - `limit`: 전체 결과 제한 (참고용)
-  /// - `productLimit`: 상품 결과 개수
-  /// - `contentLimit`: 콘텐츠 결과 개수
-  /// - `reviewLimit`: 리뷰 결과 개수
-  /// - `storeLimit`: 스토어 결과 개수
-  /// - `includeProducts`: 상품 검색 포함 여부
-  /// - `includeContents`: 콘텐츠 검색 포함 여부
-  /// - `includeReviews`: 리뷰 검색 포함 여부
-  /// - `includeStores`: 스토어 검색 포함 여부
+  /// - `limit`: 전체 결과 제한 (기본값: 10)
+  /// - `productLimit`: 상품 결과 개수  (기본값: 5)
+  /// - `contentLimit`: 콘텐츠 결과 개수 (기본값: 3)
+  /// - `reviewLimit`: 리뷰 결과 개수 (기본값: 3)
+  /// - `storeLimit`: 스토어 결과 개수 (기본값: 2)
+  /// - `includeProducts`: 상품 검색 포함 여부 (기본값: true)
+  /// - `includeContents`: 콘텐츠 검색 포함 여부 (기본값: true)
+  /// - `includeReviews`: 리뷰 검색 포함 여부 (기본값: true)
+  /// - `includeStores`: 스토어 검색 포함 여부 (기본값: true)
+  /// - `includePosts`: 포스트 검색 포함 여부 (기본값: true)
   String integrated(
     String q, {
     int limit = 10,
@@ -467,6 +537,7 @@ class _SearchEndpoints {
     bool includeContents = false,
     bool includeReviews = false,
     bool includeStores = false,
+    bool includePosts = true,
   }) {
     final query = <String, String>{};
     query['q'] = q;
@@ -479,6 +550,7 @@ class _SearchEndpoints {
     if (!includeContents) query['includeContents'] = includeContents.toString();
     if (!includeReviews) query['includeReviews'] = includeReviews.toString();
     if (!includeStores) query['includeStores'] = includeStores.toString();
+    if (!includePosts) query['includePosts'] = includePosts.toString();
 
     return Uri(path: '/api/search', queryParameters: query.isEmpty ? null : query).toString();
   }
@@ -518,9 +590,9 @@ class _KeywordsEndpoints {
   const _KeywordsEndpoints();
 
   /// ## 인기 검색어 조회 (GET)
-  /// - `limit`: 조회할 검색어 개수
+  /// - `limit`: 조회할 검색어 개수 (기본값: 10)
   /// - `timeRange`: 조회 기간 (`today`, `week`, `month`)
-  /// - `minCount`: 최소 검색 횟수
+  /// - `minCount`: 최소 검색 횟수 (기본값: 1)
   String getPopular({int limit = 10, String? timeRange, int minCount = 1}) {
     final query = <String, String>{};
     if (limit != 10) query['limit'] = limit.toString();
@@ -535,7 +607,7 @@ class _KeywordsEndpoints {
 
   /// ## 연관 검색어 조회 (GET)
   /// - `keyword`: 기준 검색어
-  /// - `limit`: 조회할 연관 검색어 개수
+  /// - `limit`: 조회할 연관 검색어 개수  (기본값: 5)
   String getRelated(String keyword, {int limit = 5}) {
     final query = <String, String>{};
     if (limit != 5) query['limit'] = limit.toString();
