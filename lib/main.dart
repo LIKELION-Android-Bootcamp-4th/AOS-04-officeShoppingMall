@@ -11,6 +11,7 @@ import 'core/data/network/api_client.dart';
 import 'core/theme/theme.dart';
 import 'feature/auth/auth_module.dart';
 import 'feature/mypage/mypage_module.dart';
+import 'feature/product/product_module.dart';
 
 // 앱 전체서 Navigator 에 접근할 수 있도록 함
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -31,7 +32,8 @@ class WalkinApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ...mypageModule,
         ...authModule,
-        ...settingModule
+        ...settingModule,
+        ...productModule,
       ],
       child: MaterialApp(
         title: AppConst.appName,

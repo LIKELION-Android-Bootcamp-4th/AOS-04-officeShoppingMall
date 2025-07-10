@@ -23,7 +23,7 @@ class _ProductListContentState extends State<ProductListContent> {
 
   @override
   Widget build(BuildContext context) {
-    var categories = categorySections;
+    var categories = null;
 
     vm = context.watch<ProductListViewModel>();
     final products = vm.products;
@@ -41,40 +41,12 @@ class _ProductListContentState extends State<ProductListContent> {
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: TextButton(
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(categories[index].title),
-                          content: SizedBox(
-                            height: 200,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  for (var category
-                                      in categories[index].details)
-                                    ListTile(
-                                      title: Text(category),
-                                      onTap: () {
-                                        vm.selectCategory(
-                                          "${categories[index].title} / $category",
-                                        );
-                                        Navigator.pop(context);
-                                        vm.loadProducts();
-                                      },
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
+
                   },
                   child: Text(
-                    categories[index].title,
+                    categories[index],
                     style: TextStyle(
-                      color: vm.category!.contains(categories[index].title)
+                      color: vm.category!.contains(categories[index])
                           ? Colors.black
                           : Colors.grey,
                       fontSize: 20,
