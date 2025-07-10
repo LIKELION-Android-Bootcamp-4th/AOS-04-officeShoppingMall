@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/cart/data/product.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
-import 'package:office_shopping_mall/feature/cart/presentation/order_detail_screen.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
+import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 
-class ProductListItem extends StatelessWidget {
-  final Product product;
+class CartListItem extends StatelessWidget {
+  final CartDTO cart;
 
-  const ProductListItem({super.key, required this.product});
+  CartListItem({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +18,15 @@ class ProductListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          product.productDeliveryIndex == 0
-              ? //체크박스. 장바구니 탭에서만 활성화
           Checkbox(
             value: false,
             onChanged: (bool? checked) {
               print("체크박스 클릭");
             },
-          )
-              : SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+          ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            width: product.productDeliveryIndex == 0
-                ? MediaQuery.of(context).size.width * 0.84
-                : MediaQuery.of(context).size.width * 0.92,
+            width: MediaQuery.of(context).size.width * 0.84,
             height: 190,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
@@ -42,22 +36,13 @@ class ProductListItem extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  product.productDeliveryIndex == 0
-                  // TODO: 추후 수정 필요
-                      ? MaterialPageRoute(
-                    builder: (_) => OrderDetailScreen(),
-                  ) //장바구니에 담긴 상품은 상품 상세페이지로
-                      : MaterialPageRoute(
-                    builder: (_) => OrderDetailScreen(),
-                  ), //결제 완료~배송 완료 상품은 주문 내역으로
+                  MaterialPageRoute(builder: (_) => ProductDetailScreen(),)
                 );
               },
               // TODO: 전체 수정 필요
               child: SizedBox(
                 child: Column(
                   children: [
-                    product.productDeliveryIndex == 0
-                        ? //지우기 버튼. 장바구니 탭에서만 활성화
                     Row(
                       children: [
                         SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
@@ -65,10 +50,10 @@ class ProductListItem extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: IconButton(
                             onPressed: () {
-                              Provider.of<ProductProvider>(
+                              Provider.of<CartProvider>(
                                 context,
                                 listen: false,
-                              ).deleteProduct(product);
+                              ).removeCart(cart);
                             },
                             icon: SvgPicture.asset(
                               'images/icon/ic_close.svg',
@@ -76,8 +61,7 @@ class ProductListItem extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
-                        : SizedBox(height: 48),
+                    ),
 
                     Row(
                       children: [
@@ -99,18 +83,13 @@ class ProductListItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              product.productName,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                cart.product.name,
+                                style: Theme.of(context).textTheme.titleSmall
                             ),
                             SizedBox(height: 3),
                             Text("2개", style: TextStyle(fontSize: 15)),
                             Container(
-                              width: product.productDeliveryIndex == 0
-                                  ? MediaQuery.of(context).size.width * 0.48
-                                  : MediaQuery.of(context).size.width * 0.56,
+                              width: MediaQuery.of(context).size.width * 0.48,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -118,14 +97,11 @@ class ProductListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                      "100,000",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                        "100,000",
+                                        style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),
-                                  Text("원", style: TextStyle(fontSize: 15)),
+                                  Text("원", style: Theme.of(context).textTheme.bodyMedium),
                                 ],
                               ),
                             ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
+import 'package:office_shopping_mall/feature/cart/data/order_provider.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab_bar.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/order_delivered_tab.dart';
@@ -35,7 +36,9 @@ class _CartMainScreenState extends State<CartMainScreen>
 
   @override
   Widget build(BuildContext context) {
-    final products = context.watch<ProductProvider>().products;
+    final carts = context.watch<CartProvider>().carts;
+    final orders = context.watch<OrderProvider>().orders;
+
     return Scaffold(
       appBar: CustomAppBar(
         title: widget.tabIndex == 0
@@ -52,7 +55,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${products.where((a) => a.productDeliveryIndex == 0).length}',
+                      '${carts.length}',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -68,7 +71,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${products.where((a) => a.productDeliveryIndex == 1).length}',
+                      '${orders.where((a) => a.orderIndex == 1).length}',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -83,7 +86,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${products.where((a) => a.productDeliveryIndex == 2).length}',
+                      '${orders.where((a) => a.orderIndex == 2).length}',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -98,7 +101,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${products.where((a) => a.productDeliveryIndex == 3).length}',
+                      '${orders.where((a) => a.orderIndex == 3).length}',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

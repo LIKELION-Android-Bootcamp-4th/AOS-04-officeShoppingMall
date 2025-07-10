@@ -3,8 +3,33 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
-class SearchContentSearchBar extends StatelessWidget {
+class SearchContentSearchBar extends StatefulWidget {
+  final Function(String)? onSearchSubmitted;
+
+  const SearchContentSearchBar({super.key, this.onSearchSubmitted});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SearchContentSearchBarState();
+  }
+}
+
+class _SearchContentSearchBarState extends State<SearchContentSearchBar> {
   final TextEditingController _searchController = TextEditingController();
+
+  void _handleSearch() {
+    final keyword = _searchController.text;
+    if (keyword.isNotEmpty) {
+      widget.onSearchSubmitted?.call(keyword);
+      _searchController.clear();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +53,11 @@ class SearchContentSearchBar extends StatelessWidget {
                     height: 40,
                     child: SearchBar(
                       controller: _searchController,
+                      onSubmitted: (value) => _handleSearch(),
                       trailing: [
                         IconButton(
                           onPressed: () {
-                            //TODO: 검색 이벤트 추가
-                            print('검색할 내용: ${_searchController.text}');
+                            _handleSearch();
                           },
                           icon: SvgPicture.asset(
                             'images/icon/ic_appbar_search.svg',

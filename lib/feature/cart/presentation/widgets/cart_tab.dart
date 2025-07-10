@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_list.dart';
-import 'package:office_shopping_mall/feature/cart/data/product_provider.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class CartTab extends StatefulWidget {
+
   @override
-  State<StatefulWidget> createState() {
-    return CartTabState();
-  }
+  State<CartTab> createState() => CartTabState();
 }
 
-class CartTabState extends State<CartTab> with SingleTickerProviderStateMixin {
+class CartTabState extends State<CartTab> {
   @override
   Widget build(BuildContext context) {
+    final carts = context.watch<CartProvider>().carts;
+
     return Scaffold(
-      body: Expanded(
-        child: ProductList(
-          products: context
-              .watch<ProductProvider>()
-              .products
-              .where((a) => a.productDeliveryIndex == 0)
-              .toList(),
-        ),
-      ),
+      body: ListView.builder(
+          itemCount: carts.length,
+          itemBuilder: (context, index){
+        return CartListItem(cart: carts[index]);
+      }),
 
       //금액~결제 버튼
       bottomNavigationBar: Padding(

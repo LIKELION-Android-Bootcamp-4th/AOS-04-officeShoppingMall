@@ -1,41 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/feature/product/data/product.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/feature/category/data/category_section.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_provider.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
 
 class ProductListContent extends StatefulWidget {
   const ProductListContent({super.key});
 
   @override
-  State<ProductListContent> createState() => _ProductListContent();
+  State<ProductListContent> createState() => _ProductListContentState();
 }
 
-class _ProductListContent extends State<ProductListContent> {
-  int _selectCategoryIndex = 0;
+class _ProductListContentState extends State<ProductListContent> {
+  late ProductListViewModel vm;
+
+  @override
+  void initState() {
+    super.initState();
+    vm = context.read<ProductListViewModel>();
+    vm.loadProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var categories = [
-      "td",
-      "asd",
-      "aijdoaisd",
-      "asoijdoiasd",
-      "aosijdoaisdj",
-      "aosijdoaijsdoiasjoid",
-    ];
+    var categories = categorySections;
 
-    var filteredProducts = products
-        .where((product) => product.category == _selectCategoryIndex)
-        .toList();
-
-    void selectCategory(int index) {
-      setState(() {
-        _selectCategoryIndex = index;
-      });
-    }
+    vm = context.watch<ProductListViewModel>();
+    final products = vm.products;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         SizedBox(
           height: 50,
@@ -47,12 +41,42 @@ class _ProductListContent extends State<ProductListContent> {
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: TextButton(
                   onPressed: () {
-                    selectCategory(index);
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(categories[index].title),
+                          content: SizedBox(
+                            height: 200,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  for (var category
+                                      in categories[index].details)
+                                    ListTile(
+                                      title: Text(category),
+                                      onTap: () {
+                                        vm.selectCategory(
+                                          "${categories[index].title} / $category",
+                                        );
+                                        Navigator.pop(context);
+                                        vm.loadProducts();
+                                      },
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Text(
-                    categories[index],
+                    categories[index].title,
                     style: TextStyle(
-                      color: _selectCategoryIndex == index ? Colors.black : Colors.grey,
+                      color: vm.category!.contains(categories[index].title)
+                          ? Colors.black
+                          : Colors.grey,
                       fontSize: 20,
                     ),
                   ),
@@ -61,23 +85,26 @@ class _ProductListContent extends State<ProductListContent> {
             },
           ),
         ),
-
-        SizedBox(height: 20),
-
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            childAspectRatio: 0.7,
+        const SizedBox(height: 20),
+        if (vm.isLoading)
+          const Center(child: CircularProgressIndicator())
+        else if (products.isEmpty)
+          const Center(child: Text('상품이 없습니다.'))
+        else
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              final product = products[index];
+              return ProductItem(product: product);
+            },
           ),
-          itemCount: products.length,
-          itemBuilder: (context, index) {
-            final product = filteredProducts[index];
-            return ProductItem(product: product);
-          },
-        ),
       ],
     );
   }
