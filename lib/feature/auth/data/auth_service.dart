@@ -65,6 +65,16 @@ class AuthService {
     }
   }
 
+  // 로그아웃
+  Future<bool> logoutAction() async {
+    final response = await _dio.post(Api.auth.logout);
+    if (response.statusCode == 200) {
+      debugPrint('로그아웃 성공!');
+      return true;
+    }
+    return false;
+  }
+
   // 회원가입
   Future<SignupResponse> signupAction({required SignupRequest requestData}) async {
     final response = await _dio.post(Api.auth.signUp, data: requestData.toJson());

@@ -4,7 +4,7 @@ import '../data/signup_request.dart';
 import '../data/signup_response.dart';
 import '../data/auth_service.dart';
 
-class AuthRepository{
+class AuthRepository {
   final AuthService _service;
 
   AuthRepository(this._service);
@@ -18,13 +18,14 @@ class AuthRepository{
     }
   }
 
-  Future<LoginResponse> logIn(LoginRequest request) async{
-    try{
+  Future<LoginResponse> logIn(LoginRequest request) async {
+    try {
       final response = await _service.loginAction(requestData: request);
       return response;
-    } catch (e){
+    } catch (e) {
       rethrow;
     }
   }
 
+  Future<bool> logOut() => _service.logoutAction();
 }
