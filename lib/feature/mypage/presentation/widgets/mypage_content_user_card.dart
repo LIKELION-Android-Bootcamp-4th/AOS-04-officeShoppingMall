@@ -11,7 +11,7 @@ class MypageContentUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((MypageViewModel vm) => vm.userDTO!);
+    final user = context.select((MypageViewModel vm) => vm.user!);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       child: Card(
