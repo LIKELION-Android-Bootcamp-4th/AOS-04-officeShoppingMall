@@ -45,8 +45,8 @@ class LoginFormState extends State<LoginForm> {
   }
 
   void loginAction() async {
-    final email = _emailController.text;
-    final pw = _pwController.text;
+    final email = _emailController.text.trim();
+    final pw = _pwController.text.trim();
     final authViewModel = context.read<AuthViewModel>();
 
     if (email.isEmpty || pw.isEmpty) {

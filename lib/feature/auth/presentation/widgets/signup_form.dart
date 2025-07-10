@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -30,7 +31,7 @@ class SignUpFormState extends State<SignUpForm> {
     });
   }
 
-/*  Map<String, String> getFormData() {
+  /*  Map<String, String> getFormData() {
     return {
       "nickName": _nameController.text,
       "email": _emailController.text,
@@ -66,15 +67,15 @@ class SignUpFormState extends State<SignUpForm> {
         final authViewModel = context.read<AuthViewModel>();
 
         await authViewModel.signUp(
-            email: _emailController.text,
-            password: _pwController.text,
-            nickName: _nameController.text
+          email: _emailController.text.trim(),
+          password: _pwController.text.trim(),
+          nickName: _nameController.text.trim(),
         );
 
-        if(mounted){
-          if(authViewModel.error != null){
+        if (mounted) {
+          if (authViewModel.error != null) {
             showToast("회원가입 실패: ${authViewModel.error}");
-          }else if(authViewModel.signupResponse != null){
+          } else if (authViewModel.signupResponse != null) {
             showToast("회원가입이 완료되었습니다.");
             Navigator.pop(context);
           }
