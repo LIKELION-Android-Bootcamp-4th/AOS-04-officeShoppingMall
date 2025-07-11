@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   @override
@@ -8,10 +10,11 @@ class OrderDetailScreen extends StatefulWidget {
   }
 }
 
-class OrderDetailScreenState extends State<OrderDetailScreen>
-    with SingleTickerProviderStateMixin {
+class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final orders = context.watch<OrderViewModel>();
+
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보',),
       body: Container(

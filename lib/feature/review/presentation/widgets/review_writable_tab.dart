@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/order/data/order_list.dart';
-import 'package:office_shopping_mall/feature/order/data/order_provider.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
 
 class ReviewWritableTab extends StatelessWidget {
@@ -13,7 +13,7 @@ class ReviewWritableTab extends StatelessWidget {
         children: [
           OrderList(
             orders: context
-                .watch<OrderProvider>()
+                .watch<OrderViewModel>()
                 .orders
                 .where((a) => a.orderIndex == 3)
                 .toList(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/order/data/order_list.dart';
-import 'package:office_shopping_mall/feature/order/data/order_provider.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 
 class OrderDeliveredTab extends StatefulWidget{
   @override
@@ -17,7 +17,7 @@ class OrderDeliveredTabState extends State<OrderDeliveredTab> with SingleTickerP
       body: Expanded(
         child: OrderList(
           orders: context
-              .watch<OrderProvider>()
+              .watch<OrderViewModel>()
               .orders
               .where((a) => a.orderIndex == 3)
               .toList(),
