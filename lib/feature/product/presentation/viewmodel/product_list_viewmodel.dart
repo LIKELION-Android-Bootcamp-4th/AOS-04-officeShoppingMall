@@ -11,16 +11,16 @@ class ProductListViewModel extends ChangeNotifier {
 
   ProductListViewModel(this._repository);
 
-  Future<void> loadProducts() async {
+  Future<void> loadProducts({String? category}) async {
     isLoading = true;
     products.clear();
     notifyListeners();
 
-    category ??= 'tmd';
-
     try {
-      final productList = await _repository.fetchProducts(category: category);
-      products.addAll(productList);
+      if (category != null) {
+        final productList = await _repository.fetchProducts(category: category);
+        products.addAll(productList);
+      }
     } catch (e) {
       print('Error loading products: $e');
     } finally {

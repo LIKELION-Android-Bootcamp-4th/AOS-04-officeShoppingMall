@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
-import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_provider.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
 
 class ProductListContent extends StatefulWidget {
@@ -18,12 +18,12 @@ class _ProductListContentState extends State<ProductListContent> {
   void initState() {
     super.initState();
     vm = context.read<ProductListViewModel>();
-    vm.loadProducts();
+    vm.loadProducts(category: vm.category);
   }
 
   @override
   Widget build(BuildContext context) {
-    var categories = null;
+    var categories = categorySections;
 
     vm = context.watch<ProductListViewModel>();
     final products = vm.products;
@@ -41,12 +41,40 @@ class _ProductListContentState extends State<ProductListContent> {
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: TextButton(
                   onPressed: () {
-
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(categories[index].title),
+                          content: SizedBox(
+                            height: 200,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  for (var category
+                                  in categories[index].details)
+                                    ListTile(
+                                      title: Text(category),
+                                      onTap: () {
+                                        vm.selectCategory(
+                                          "${categories[index].title} / $category",
+                                        );
+                                        Navigator.pop(context);
+                                        vm.loadProducts(category: vm.category);
+                                      },
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Text(
-                    categories[index],
+                    categories[index].title,
                     style: TextStyle(
-                      color: vm.category!.contains(categories[index])
+                      color: vm.category!.contains(categories[index].title)
                           ? Colors.black
                           : Colors.grey,
                       fontSize: 20,
@@ -69,7 +97,7 @@ class _ProductListContentState extends State<ProductListContent> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.7,
+              childAspectRatio: 0.5,
             ),
             itemCount: products.length,
             itemBuilder: (context, index) {
