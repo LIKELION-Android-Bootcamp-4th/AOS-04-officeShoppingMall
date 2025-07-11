@@ -4,6 +4,8 @@ import 'package:office_shopping_mall/feature/category/data/category_section.dart
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
 
+import '../../../../core/widgets/loading_indicator.dart';
+
 class ProductListContent extends StatefulWidget {
   const ProductListContent({super.key});
 
@@ -87,9 +89,9 @@ class _ProductListContentState extends State<ProductListContent> {
         ),
         const SizedBox(height: 20),
         if (vm.isLoading)
-          const Center(child: CircularProgressIndicator())
+          Center(child: CustomCircleIndicator())
         else if (products.isEmpty)
-          const Center(child: Text('상품이 없습니다.'))
+          Center(child: Text('상품이 없습니다'))
         else
           GridView.builder(
             shrinkWrap: true,
@@ -97,7 +99,7 @@ class _ProductListContentState extends State<ProductListContent> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.5,
+              childAspectRatio: 0.6,
             ),
             itemCount: products.length,
             itemBuilder: (context, index) {

@@ -49,7 +49,7 @@ class ProductDetailScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: Container(
-        height: 64,
+        height: 120,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

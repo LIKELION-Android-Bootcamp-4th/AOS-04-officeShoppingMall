@@ -29,7 +29,7 @@ class _OrderBottom extends State<OrderBottom> {
             margin: EdgeInsets.zero,
             child: ProductButton(
               text: '결제',
-              backgroundColor: AppColors.onPrimaryColor,
+              backgroundColor: AppColors.primaryColor,
               textColor: Colors.white,
               onPressed: () {
                 onSelected();
