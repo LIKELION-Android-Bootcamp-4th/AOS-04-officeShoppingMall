@@ -5,6 +5,7 @@ import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 
 class CartTab extends StatefulWidget {
+
   @override
   State<CartTab> createState() => CartTabState();
 }
