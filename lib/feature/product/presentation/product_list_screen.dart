@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_list_content.dart';
@@ -6,7 +7,9 @@ import 'package:office_shopping_mall/feature/product/presentation/widgets/produc
 import '../../../core/widgets/bottom_navigation.dart';
 
 class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({super.key});
+  final List<ProductDTO>? searchResults;
+
+  const ProductListScreen({super.key, this.searchResults});
 
   @override
   Widget build(BuildContext context) {

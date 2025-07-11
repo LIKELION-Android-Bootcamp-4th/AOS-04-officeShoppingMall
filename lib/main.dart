@@ -50,8 +50,7 @@ class WalkinApp extends StatelessWidget {
             title: AppConst.appName,
             theme: appThemeData(),
             debugShowCheckedModeBanner: false,
-            //TODO: 최후에 login으로 바꿀 것
-            initialRoute: AppRoutes.search,
+            initialRoute: AppRoutes.login,
             onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorKey: navigatorKey,
             navigatorObservers: [BottomNavObserver(nav)],
