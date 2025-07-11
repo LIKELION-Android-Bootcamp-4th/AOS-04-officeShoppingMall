@@ -50,7 +50,7 @@ class WalkinApp extends StatelessWidget {
             title: AppConst.appName,
             theme: appThemeData(),
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.home,
+            initialRoute: AppRoutes.login,
             onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorKey: navigatorKey,
             navigatorObservers: [BottomNavObserver(nav)],
