@@ -1,18 +1,18 @@
-import '../../../../core/data/models/dto/product.dart';
+import '../../../../core/data/models/dto/product_dto.dart';
 
 abstract class ProductRepository {
-  Future<void> addProduct(Product product);
+  Future<void> addProduct(ProductDTO product);
 
-  Future<List<Product>> fetchProducts({
+  Future<List<ProductDTO>> fetchProducts({
     String? q,
     String? categoryId,
     String? category,
     String? sort,
   });
 
-  Future<Product> fetchProductDetail(String id);
+  Future<ProductDTO> fetchProductDetail(String id);
 
-  Future<void> updateProduct(Product product);
+  Future<void> updateProduct(ProductDTO product);
 
   Future<void> deleteProduct(String id);
 }

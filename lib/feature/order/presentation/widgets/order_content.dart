@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
-import '../../../../core/data/models/dto/product.dart';
+import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../product/presentation/viewmodel/product_viewmodel.dart';
 
 class OrderContent extends StatelessWidget {
@@ -11,7 +11,7 @@ class OrderContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Product? product = context.select((ProductDataViewModel vm) => vm.selectedProduct) as Product?;
+    final ProductDTO? product = context.select((ProductDataViewModel vm) => vm.selectedProduct) as ProductDTO?;
 
     if (product == null) {
       return Center(child: Text("상품 정보를 불러올 수 없습니다."));

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/data/models/dto/product.dart';
 import '../viewmodel/product_viewmodel.dart';
 
 class ProductDescriptionContent extends StatelessWidget {

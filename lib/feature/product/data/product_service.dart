@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../../core/data/models/dto/product.dart';
+import '../../../core/data/models/dto/product_dto.dart';
 import '../../../core/constants/api_endpoints.dart';
 
 class ProductService {
@@ -7,7 +7,7 @@ class ProductService {
 
   ProductService(this._dio);
 
-  Future<void> createProduct(Product product) async {
+  Future<void> createProduct(ProductDTO product) async {
     final response = await _dio.post(
       Api.product.getProducts(),
       data: product.toJson(),
@@ -22,7 +22,7 @@ class ProductService {
     }
   }
 
-  Future<List<Product>> getProducts({
+  Future<List<ProductDTO>> getProducts({
     String? q,
     String? categoryId,
     String? category,
@@ -35,7 +35,7 @@ class ProductService {
     if (response.statusCode == 200) {
       final items = response.data['data']['items'] as List;
 
-      return items.map((item) => Product.fromJson(item)).toList();
+      return items.map((item) => ProductDTO.fromJson(item)).toList();
     } else {
       throw Exception(
         '상품 목록 조회 실패: ${response.statusCode}, message: ${response.data}',
@@ -43,7 +43,7 @@ class ProductService {
     }
   }
 
-  Future<Product> getProductDetail(String id) async {
+  Future<ProductDTO> getProductDetail(String id) async {
     final response = await _dio.get(Api.product.getProductDetail(id));
 
     if (response.statusCode == 200) {
@@ -51,7 +51,7 @@ class ProductService {
       if (data == null) {
         throw Exception('상품 데이터가 없습니다.');
       }
-      return Product.fromJson(data as Map<String, dynamic>);
+      return ProductDTO.fromJson(data as Map<String, dynamic>);
     } else {
       throw Exception(
         '상품 조회 실패: ${response.statusCode}, message: ${response.data}',
@@ -59,7 +59,7 @@ class ProductService {
     }
   }
 
-  Future<void> updateProduct(Product product) async {
+  Future<void> updateProduct(ProductDTO product) async {
     final response = await _dio.put(
       Api.product.getProductDetail(product.id),
       data: product.toJson(),
