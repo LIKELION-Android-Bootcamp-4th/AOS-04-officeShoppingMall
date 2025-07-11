@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
 
 import '../../../../core/constants/app_routes.dart';
-import '../../../product/presentation/viewmodel/product_list_provider.dart';
+import '../../../product/presentation/viewmodel/product_list_viewmodel.dart';
 
 class CategoryContentList extends StatelessWidget {
   @override
@@ -17,12 +17,18 @@ class CategoryContentList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (var section in categorySections) ...[
-                Row(
-                  children: [
-                    CircleAvatar(backgroundImage: AssetImage(section.image), radius: 20,),
-                    SizedBox(width: 12),
-                    Text(section.title, style: Theme.of(context).textTheme.titleLarge),
-                  ],
+                InkWell(
+                  onTap: () {
+                    context.read<ProductListViewModel>().selectCategory(section.title);
+                    Navigator.pushNamed(context, AppRoutes.productList);
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(backgroundImage: AssetImage(section.image), radius: 20),
+                      SizedBox(width: 12),
+                      Text(section.title, style: Theme.of(context).textTheme.titleLarge),
+                    ],
+                  ),
                 ),
 
                 Divider(height: 18, endIndent: 16),

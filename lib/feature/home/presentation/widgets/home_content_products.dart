@@ -37,8 +37,8 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     ),
                   ),
                   Positioned(
-                    bottom: 8,
-                    right: 8,
+                    bottom: 4,
+                    right: 4,
                     child: IconButton(
                       onPressed: () {
                         // TODO: 하트 변경 이벤트 및 좋아요 이벤트 필요
