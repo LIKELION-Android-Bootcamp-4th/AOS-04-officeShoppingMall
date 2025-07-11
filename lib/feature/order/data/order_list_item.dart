@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderDTO order;
+  final int index;
 
-  const OrderListItem({super.key, required this.order});
+  const OrderListItem({super.key, required this.order, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final orders = context.watch<OrderViewModel>();
+
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
@@ -29,7 +34,7 @@ class OrderListItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => OrderDetailScreen()
+                    builder: (_) => OrderDetailScreen(index: index)
                   ), //결제 완료~배송 완료 상품은 주문 내역으로
                 );
               },
@@ -62,7 +67,7 @@ class OrderListItem extends StatelessWidget {
                               style: Theme.of(context).textTheme.titleSmall
                             ),
                             SizedBox(height: 3),
-                            Text("2개", style: TextStyle(fontSize: 15)),
+                            Text("2개", style: Theme.of(context).textTheme.titleMedium),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.56,
                               child: Row(
@@ -72,7 +77,7 @@ class OrderListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                      '100원',
+                                        '${orders.orders[index].product.price}원',
                                       style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),

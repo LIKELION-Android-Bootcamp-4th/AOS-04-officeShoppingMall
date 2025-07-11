@@ -13,7 +13,7 @@ class OrderList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: orders.length,
       itemBuilder: (context, index) {
-        return OrderListItem(order: orders[index]);
+        return OrderListItem(order: orders[index], index: index);
       },
     );
   }

@@ -4,16 +4,19 @@ import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 
 class OrderDetailScreen extends StatefulWidget {
+  final int index;
+  OrderDetailScreen({super.key, required this.index});
+
   @override
-  State<StatefulWidget> createState() {
-    return OrderDetailScreenState();
-  }
+  State<OrderDetailScreen> createState() => OrderDetailScreenState();
 }
 
 class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final orders = context.watch<OrderViewModel>();
+    final viewModel = context.read<OrderViewModel>();
+    final orders = context.watch<OrderViewModel>().orders;
+    final order = orders[widget.index];
 
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보',),
@@ -43,7 +46,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                       child: Row(
                         children: [
                           Text(
-                            "상품명",
+                            '${order.product.name}',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -51,7 +54,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                           ),
                           Spacer(),
                           Text(
-                            "결제 완료",
+                            '${order.orderIndex}',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -61,7 +64,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                       ),
                     ),
                     SizedBox(height: 5),
-                    Text("800원", style: TextStyle(fontSize: 18)),
+                    Text('${order.product.price}', style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ),
               ],
@@ -72,7 +75,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 10, left: 24),
-                child: Text("결제 정보", style: TextStyle(fontSize: 18)),
+                child: Text("결제 정보", style: Theme.of(context).textTheme.titleLarge),
               ),
             ),
 
@@ -95,11 +98,11 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             width: MediaQuery.of(context).size.height * 0.4,
                             child: Row(
                               children: [
-                                Text("결제 방식", style: TextStyle(fontSize: 15)),
+                                Text("결제 방식", style: Theme.of(context).textTheme.titleMedium),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text("카드 결제", style: TextStyle(fontSize: 15),),
+                                  child: Text("카드 결제", style: Theme.of(context).textTheme.titleMedium,),
                                 ),
                               ],
                             ),
@@ -109,11 +112,11 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             width: MediaQuery.of(context).size.height * 0.4,
                             child: Row(
                               children: [
-                                Text("주문 번호", style: TextStyle(fontSize: 15)),
+                                Text("주문 번호", style: Theme.of(context).textTheme.titleLarge),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text("123456789", style: TextStyle(fontSize: 15),),
+                                  child: Text('${order.orderId}', style: Theme.of(context).textTheme.titleLarge,),
                                 ),
                               ],
                             ),
@@ -124,14 +127,14 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("주소", style: TextStyle(fontSize: 15)),
+                                Text("주소", style: Theme.of(context).textTheme.titleLarge),
                                 Spacer(),
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
                                       "주소입니다아아아아 길어지면 줄바꿈 됩니다아아아아",
-                                      style: TextStyle(fontSize: 15),
+                                      style: Theme.of(context).textTheme.titleLarge,
                                       textAlign: TextAlign.end,
                                       softWrap: true,
                                       overflow: TextOverflow.visible,
@@ -180,7 +183,9 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                           ),
                         ),
                         actions: [
-                          TextButton(onPressed: () {}, child: Text("네")),
+                          TextButton(
+                            onPressed: (){viewModel.cancelOrder(order.orderId);},
+                            child: Text("네"),),
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(),
                             child: Text("아니요"),

@@ -14,6 +14,8 @@ class CartListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<CartViewModel>();
+    final carts = context.watch<CartViewModel>();
+
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
@@ -50,12 +52,8 @@ class CartListItem extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: IconButton(
-                            onPressed: () {
-                              viewModel.deleteCart(cart.cartId);
-                            },
-                            icon: SvgPicture.asset(
-                              'images/icon/ic_close.svg',
-                            ),
+                            onPressed: () {viewModel.deleteCart(cart.cartId);},
+                            icon: SvgPicture.asset('images/icon/ic_close.svg',),
                           ),
                         ),
                       ],
@@ -95,7 +93,7 @@ class CartListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                        "100,000",
+                                        '${carts.carts[0].product.price}',
                                         style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/cart/presentation/cart_module.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab_bar.dart';
