@@ -1,15 +1,16 @@
 import 'package:office_shopping_mall/core/data/models/dto/product.dart';
-
+import '../data/product_service.dart';
 import 'repository/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
 
+  final ProductService _service;
 
-
+  ProductRepositoryImpl(this._service);
 
   @override
-  Future<void> addProduct(Product product) async {
-    "aoisjdoiasd";
+  Future<void> addProduct(Product product) {
+    return _service.createProduct(product);
   }
 
   @override
@@ -19,21 +20,26 @@ class ProductRepositoryImpl implements ProductRepository {
     String? category,
     String? sort,
   }) {
-    return fetchProducts();
+    return _service.getProducts(
+      q: q,
+      categoryId: categoryId,
+      category: category,
+      sort: sort,
+    );
   }
 
   @override
   Future<Product> fetchProductDetail(String id) {
-    return fetchProductDetail(id);
+    return _service.getProductDetail(id);
   }
 
   @override
   Future<void> updateProduct(Product product) {
-    return updateProduct(product);
+    return _service.updateProduct(product);
   }
 
   @override
   Future<void> deleteProduct(String id) {
-    return deleteProduct(id);
+    return _service.deleteProduct(id);
   }
 }
