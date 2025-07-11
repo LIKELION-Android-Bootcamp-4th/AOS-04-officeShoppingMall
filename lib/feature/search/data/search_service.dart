@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
 import 'package:office_shopping_mall/feature/search/data/popular/popular_data_dto.dart';
 import 'package:office_shopping_mall/feature/search/data/popular/popular_response.dart';
@@ -8,7 +8,7 @@ import 'package:office_shopping_mall/feature/search/data/popular/popular_respons
 class SearchService {
   final Dio _dio = ApiClient().dio;
 
-  Future<List<Product>> searchProducts(String query) async {
+  Future<List<ProductDTO>> searchProducts(String query) async {
     final url = Api.search.integrated(query);
 
     try {
@@ -22,7 +22,7 @@ class SearchService {
 
       final List<dynamic> items =
           response.data['data']?['products']?['items'] ?? [];
-      return items.map((e) => Product.fromJson(e)).toList();
+      return items.map((e) => ProductDTO.fromJson(e)).toList();
     } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
         final message = e.response?.data['message'] ?? '잘못된 요청입니다.';

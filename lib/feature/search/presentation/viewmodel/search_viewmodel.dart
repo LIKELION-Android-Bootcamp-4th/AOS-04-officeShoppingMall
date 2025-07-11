@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/feature/search/domain/search_repository.dart';
 
 import '../../data/popular/popular_data_dto.dart';
@@ -10,7 +10,7 @@ class SearchViewModel extends ChangeNotifier {
   PopularDataDto? popularDataDto;
   bool isLoading = false;
   String? error;
-  List<Product> searchResult = [];
+  List<ProductDTO> searchResult = [];
 
   SearchViewModel(this._repository);
 
