@@ -156,7 +156,9 @@ class _CartEndpoints {
   final getCount = '/api/cart/count';
 
   /// ## 장바구니 비우기 (DELETE)
-  final clearCart = '/api/cart/clear';
+  String clearCart() {
+    return 'api/cart/clear';
+  }
 
   /// ## 장바구니 상품으로 주문 생성 (POST)
   /// - `cartIds`가 제공되면 선택된 항목만 주문하며, 없으면 전체 장바구니 주문 처리.
@@ -336,50 +338,6 @@ class _MypageEndpoints {
     ).toString();
   }
 
-  /// ## 내 주문 목록 조회 (GET)
-  /// - `page`: 페이지 번호 (기본값: 1)
-  /// - `limit`: 페이지당 항목 수 (기본값: 20)
-  /// - `status`: 주문 상태 필터 (pending, confirmed, preparing, shipped, delivered, cancelled, refunded)
-  /// - `startDate`: 주문 시작 날짜 (YYYY-MM-DD)
-  /// - `endDate`: 주문 종료 날짜 (YYYY-MM-DD)
-  /// - `sort`: 정렬 기준 (createdAt, totalAmount, status; 기본값: createdAt)
-  /// - `order`: 정렬 순서 (asc, desc; 기본값: desc)
-  String getOrders({
-    int? page = 1,
-    int? limit = 20,
-    String? status,
-    String? startDate,
-    String? endDate,
-    String sort = 'createdAt',
-    String order = 'desc',
-  }) {
-    final query = <String, String>{};
-    if (page != null && page != 1) query['page'] = page.toString();
-    if (limit != null && limit != 20) query['limit'] = limit.toString();
-    if (status != null) query['status'] = status;
-    if (startDate != null) query['startDate'] = startDate;
-    if (endDate != null) query['endDate'] = endDate;
-    if (sort != 'createdAt') query['sort'] = sort;
-    if (order != 'desc') query['order'] = order;
-
-    return Uri(
-      path: '/api/mypage/orders',
-      queryParameters: query.isEmpty ? null : query,
-    ).toString();
-  }
-
-  /// ## 내 주문 상세 조회 (GET)
-  /// - `orderId`: 조회할 주문의 고유 ID
-  String getOrderDetail(String orderId) {
-    return '/api/mypage/orders/$orderId';
-  }
-
-  /// ## 내 주문 취소 (POST)
-  /// - `orderId`: 취소할 주문의 고유 ID
-  String cancelOrder(String orderId) {
-    return '/api/mypage/orders/$orderId/cancel';
-  }
-
   /// ## 최근 본 상품 조회 (GET)
   /// - `page`: 페이지 번호 (기본값: 1)
   /// - `limit`: 페이지당 항목 수 (기본값: 20)
@@ -399,35 +357,51 @@ class _MypageEndpoints {
 class _OrderEndpoints {
   const _OrderEndpoints();
 
-  /// ## 주문 생성 (POST)
-  /// #### 작성 필수 정보 (Request body)
-  /// - `items`: 주문할 상품 목록 (배열)
-  ///     - `product` (string): 상품 고유 ID
-  ///     - `quantity` (integer): 수량
-  ///     - `options` (object): 선택 옵션
-  ///       - `size` (string)
-  ///       - `color` (string)
-  ///     - `unitPrice` (number): 단가
-  /// - `shippingInfo`: 배송 정보 (object)
-  ///   - `recipient` (string): 수령인
-  ///   - `address` (string): 배송지 주소
-  ///   - `phone` (string): 연락처
-  /// - `memo`: 요청 사항 메모 (string)
-  final createOrder = '/api/orders';
-
   /// ## 내 주문 목록 조회 (GET)
-  final getOrders = '/api/orders';
+  /// - `page`: 페이지 번호 (기본값: 1)
+  /// - `limit`: 페이지당 항목 수 (기본값: 20)
+  /// - `status`: 주문 상태 필터 (pending, confirmed, preparing, shipped, delivered, cancelled, refunded)
+  /// - `startDate`: 주문 시작 날짜 (YYYY-MM-DD)
+  /// - `endDate`: 주문 종료 날짜 (YYYY-MM-DD)
+  /// - `sort`: 정렬 기준 (createdAt, totalAmount, status; 기본값: createdAt)
+  /// - `order`: 정렬 순서 (asc, desc; 기본값: desc)
+  String getOrders({
+    int? limit = 20,
+    int? orderIndex,
+    String order = 'desc',
+  }) {
+    final query = <String, String>{};
+    if (limit != null && limit != 20) query['limit'] = limit.toString();
+    if (orderIndex != null) query['status'] = orderIndex.toString();
+    if (order != 'desc') query['order'] = order;
 
-  /// ## 주문 상세 조회 (GET)
+    return Uri(
+      path: '/api/orders',
+      queryParameters: query.isEmpty ? null : query,
+    ).toString();
+  }
+
+  /// ## 내 주문 상세 조회 (GET)
   /// - `orderId`: 조회할 주문의 고유 ID
   String getOrderDetail(String orderId) {
     return '/api/orders/$orderId';
   }
 
-  /// ## 주문 취소 (PATCH)
+  /// ## 주문 생성 (POST)
+  String addOrder() {
+    return '/api/orders';
+  }
+
+  /// ## 내 주문 취소 (PATCH)
   /// - `orderId`: 취소할 주문의 고유 ID
   String cancelOrder(String orderId) {
     return '/api/orders/$orderId/cancel';
+  }
+
+  /// ## 주문 상태 변결 (PATCH)
+  /// - `orderId`: 변경할 주문의 고유 ID
+  String updateOrder(String orderId) {
+    return '/api/orders/$orderId/status';
   }
 }
 
