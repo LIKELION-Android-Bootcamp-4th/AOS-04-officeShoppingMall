@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
-import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 
 class CartTab extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class CartTab extends StatefulWidget {
 class CartTabState extends State<CartTab> {
   @override
   Widget build(BuildContext context) {
-    final carts = context.watch<CartProvider>().carts;
+    final carts = context.watch<CartViewModel>().carts;
 
     return Scaffold(
       body: ListView.builder(

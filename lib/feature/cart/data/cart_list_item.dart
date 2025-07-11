@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
+import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
-import 'package:provider/provider.dart';
 
 class CartListItem extends StatelessWidget {
   final CartDTO cart;
@@ -13,6 +13,7 @@ class CartListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<CartViewModel>();
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
@@ -50,10 +51,7 @@ class CartListItem extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: IconButton(
                             onPressed: () {
-                              Provider.of<CartProvider>(
-                                context,
-                                listen: false,
-                              ).removeCart(cart);
+                              viewModel.deleteCart(cart.cartId);
                             },
                             icon: SvgPicture.asset(
                               'images/icon/ic_close.svg',
