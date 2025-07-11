@@ -3,6 +3,7 @@ import '../data/product_service.dart';
 import 'repository/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
+
   final ProductService _service;
 
   ProductRepositoryImpl(this._service);

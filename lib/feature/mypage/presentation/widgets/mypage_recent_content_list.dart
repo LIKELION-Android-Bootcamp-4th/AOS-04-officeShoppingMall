@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
-class PreferenceContentList extends StatefulWidget {
-  const PreferenceContentList({super.key});
+class MypageRecentContentList extends StatefulWidget {
+  const MypageRecentContentList({super.key});
 
   @override
-  State<PreferenceContentList> createState() => _PreferenceContentListState();
+  State<MypageRecentContentList> createState() => _MypageRecentContentListState();
 }
 
-class _PreferenceContentListState extends State<PreferenceContentList> {
+class _MypageRecentContentListState extends State<MypageRecentContentList> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

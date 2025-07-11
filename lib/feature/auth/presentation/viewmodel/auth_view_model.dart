@@ -62,4 +62,20 @@ class AuthViewModel with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> logOut() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final success = await _authRepository.logOut();
+      if (!success) _error = "알 수 없는 오류";
+    } catch (e) {
+      _error = "알 수 없는 오류: $e";
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
 }

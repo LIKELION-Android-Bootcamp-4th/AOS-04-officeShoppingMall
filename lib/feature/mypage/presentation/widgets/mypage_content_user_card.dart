@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/viewmodel/mypage_viewmodel.dart';
@@ -26,14 +27,21 @@ class MypageContentUserCard extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: appColorScheme().surfaceContainerHigh,
                     radius: 32,
-                    // foregroundImage: AssetImage(user.profile.profileImage?:),
+                    foregroundImage: AssetImage(
+                      user.profile.profileImage != null
+                          ? 'images/default_profile.jpg'
+                          : user.profile.profileImage!,
+                    ),
                   ),
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(user.nickName, style: Theme.of(context).textTheme.titleMedium),
-                      Text('고객님, 안녕하세요!', style: Theme.of(context).textTheme.bodyMedium),
+                      Text(
+                        AppConst.gen.greetingMessage,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ],
                   ),
                   Spacer(),

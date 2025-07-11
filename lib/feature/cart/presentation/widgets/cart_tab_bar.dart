@@ -7,9 +7,9 @@ Widget CartTabBar({
   ValueChanged<int>? onTap,
 }) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     child: Container(
-      height: 90,
+      height: 72,
       decoration: BoxDecoration(
         color: appColorScheme().surface,
         borderRadius: BorderRadius.circular(60),
@@ -18,11 +18,11 @@ Widget CartTabBar({
       child: TabBar(
         controller: controller,
         indicatorPadding: EdgeInsets.all(2),
-        labelPadding: EdgeInsets.symmetric(vertical: 16),
-        labelColor: Colors.black,
-        unselectedLabelColor: Colors.black54,
+        // labelPadding: EdgeInsets.symmetric(vertical: 16),
+        // labelColor: Colors.black,
+        // unselectedLabelColor: Colors.black54,
         indicator: BoxDecoration(
-            color: Color(0x8270AEFF),
+            color: appColorScheme().tertiary,
             borderRadius: BorderRadius.circular(60)
         ),
         tabs: tabs,
