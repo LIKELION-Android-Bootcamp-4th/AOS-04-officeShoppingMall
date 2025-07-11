@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import '../../domain/repository/product_repository.dart';
 
 class ProductListViewModel extends ChangeNotifier {
   final ProductRepository _repository;
 
-  List<Product> products = [];
+  List<ProductDTO> products = [];
   bool isLoading = true;
   String? category;
 
@@ -34,7 +34,7 @@ class ProductListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleFavorite(Product product) {
+  void toggleFavorite(ProductDTO product) {
     notifyListeners();
   }
 }
