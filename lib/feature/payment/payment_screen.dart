@@ -14,7 +14,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ProductDTO? product = context.select((ProductDataViewModel vm) => vm.selectedProduct) as ProductDTO?;
+    final ProductDTO? product = context.select((ProductViewModel vm) => vm.selectedProduct) as ProductDTO?;
 
     return Scaffold(
       extendBody: true,
