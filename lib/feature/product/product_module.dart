@@ -17,6 +17,6 @@ List<SingleChildWidget> productModule = [
   ),
   ChangeNotifierProvider<ProductDataViewModel>(
     create: (context) =>
-        ProductDataViewModel(context.read<ProductRepository>()),
+        ProductDataViewModel(),
   ),
 ];
