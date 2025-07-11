@@ -22,8 +22,8 @@ List<SingleChildWidget> productModule = [
     create: (context) =>
         ProductListViewModel(context.read<ProductRepository>())..loadProducts(),
   ),
-  ChangeNotifierProvider<ProductDataViewModel>(
+  ChangeNotifierProvider<ProductViewModel>(
     create: (context) =>
-        ProductDataViewModel(),
+        ProductViewModel(),
   ),
 ];

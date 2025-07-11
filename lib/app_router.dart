@@ -4,12 +4,13 @@ import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/cart_main_screen.dart';
 import 'package:office_shopping_mall/feature/home/presentation/home_screen.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/mypage_screen.dart';
+import 'package:office_shopping_mall/feature/mypage/presentation/widgets/mypage_recent_products.dart';
 import 'package:office_shopping_mall/feature/notification/presentation/notification_screen.dart';
-import 'package:office_shopping_mall/feature/order/presentation/order_complete_screen.dart';
-import 'package:office_shopping_mall/feature/order/presentation/order_screen.dart';
+import 'package:office_shopping_mall/feature/payment/payment_complete_screen.dart';
+import 'package:office_shopping_mall/feature/payment/payment_screen.dart';
 import 'package:office_shopping_mall/feature/preference/presentation/preference_screen.dart';
 import 'package:office_shopping_mall/feature/review/presentation/review_screen.dart';
-import 'package:office_shopping_mall/feature/setting/presentation/dest_setting_screen.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/widgets/dest_setting.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/widgets/pw_setting.dart';
 import 'feature/category/presentation/category_screen.dart';
 import 'feature/product/presentation/product_detail_screen.dart';
@@ -65,10 +66,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => AddReviewScreen(), settings: settings);
       case AppRoutes.review:
         return MaterialPageRoute(builder: (_) => ReviewScreen(), settings: settings);
+      case AppRoutes.recentProd:
+        return MaterialPageRoute(builder: (_) => MypageRecentProducts(), settings: settings);
 
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(body: Center(child: Text(AppConst.pageNotFound))),
+          builder: (_) => Scaffold(body: Center(child: Text(AppConst.err.pageNotFound))),
           settings: settings,
         );
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
@@ -44,14 +45,14 @@ class LoginFormState extends State<LoginForm> {
   }
 
   void loginAction() async {
-    final email = _emailController.text;
-    final pw = _pwController.text;
+    final email = _emailController.text.trim();
+    final pw = _pwController.text.trim();
     final authViewModel = context.read<AuthViewModel>();
 
     if (email.isEmpty || pw.isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("이메일과 비밀번호를 입력해주세요")));
+      ).showSnackBar(SnackBar(content: Text(AppConst.err.inputId)));
       return;
     }
 
@@ -63,7 +64,7 @@ class LoginFormState extends State<LoginForm> {
       } else {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text("이메일 또는 비밀번호가 올바르지 않습니다.")));
+        ).showSnackBar(SnackBar(content: Text(AppConst.err.checkUpInput)));
       }
     } else if (authViewModel.loginResponse != null) {
       print('로그인 성공! 액세스 토큰: ${authViewModel.loginResponse!.data.accessToken}');

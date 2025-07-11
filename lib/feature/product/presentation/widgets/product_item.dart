@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/data/models/dto/product.dart';
+import '../../../../core/data/models/dto/product_dto.dart';
 import '../viewmodel/product_viewmodel.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
-  final Product product;
+  final ProductDTO product;
 
   @override
   State<ProductItem> createState() => _ProductItem();
@@ -32,7 +33,7 @@ class _ProductItem extends State<ProductItem> {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         Navigator.pushNamed(context, AppRoutes.productDetail);
-        context.read<ProductDataViewModel>().setSelectedProduct(product);
+        context.read<ProductViewModel>().setSelectedProduct(product);
       },
       child: SizedBox(
         width: 180,
@@ -103,8 +104,8 @@ class _ProductItem extends State<ProductItem> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      '${product.price}원',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                        product.price.toWon,
+                        style: Theme.of(context).textTheme.bodyLarge
                     ),
                   ),
                 ],

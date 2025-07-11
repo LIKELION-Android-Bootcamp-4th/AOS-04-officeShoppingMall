@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_description_content.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_review_content.dart';
@@ -27,7 +28,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<ProductDataViewModel>().selectedProduct;
+    final product = context.watch<ProductViewModel>().selectedProduct;
 
     if (product == null) {
       return Center(child: Text("상품 데이터를 불러올 수 없습니다"));
@@ -38,7 +39,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
       children: [
         SizedBox(
           height: 228,
-          child: product.images.isEmpty
+          child: product.thumbnailImage != null
               ? Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -73,7 +74,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
           children: [
             Text(product.name, style: Theme.of(context).textTheme.titleLarge),
             Text(
-              '${product.price}원',
+              product.price.toWon,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ],

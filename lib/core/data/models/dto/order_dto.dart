@@ -1,13 +1,13 @@
-import 'package:office_shopping_mall/core/data/models/dto/product.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 
 class OrderDTO {
-  final Product product;
+  final ProductDTO product;
   int orderIndex;
   OrderDTO({required this.product, this.orderIndex = 1});
 
   factory OrderDTO.fromJson(Map<String, dynamic> json) {
     return OrderDTO(
-      product: Product.fromJson(json['product']),
+      product: ProductDTO.fromJson(json['product']),
       orderIndex: json['orderIndex'] ?? 1,
     );
   }
