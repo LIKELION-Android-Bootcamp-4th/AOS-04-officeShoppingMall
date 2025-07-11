@@ -64,7 +64,9 @@ class _SearchScreenState extends State<SearchScreen> {
           SizedBox(height: 32),
           Divider(),
           SizedBox(height: 16),
-          SearchPopular(),
+          SearchPopular(
+            onKeywordSelected: _onKeywordSelected,
+          ),
         ],
       ),
     );
