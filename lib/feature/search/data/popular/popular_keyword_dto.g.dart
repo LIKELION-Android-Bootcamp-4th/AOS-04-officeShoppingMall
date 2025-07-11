@@ -8,7 +8,7 @@ part of 'popular_keyword_dto.dart';
 
 PopularKeywordDto _$PopularKeywordDtoFromJson(Map<String, dynamic> json) =>
     PopularKeywordDto(
-      id: json['_id'] as String,
+      id: json['id'] as String,
       keyword: json['keyword'] as String,
       count: (json['count'] as num).toInt(),
       rank: (json['rank'] as num).toInt(),
@@ -16,7 +16,7 @@ PopularKeywordDto _$PopularKeywordDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PopularKeywordDtoToJson(PopularKeywordDto instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      'id': instance.id,
       'keyword': instance.keyword,
       'count': instance.count,
       'rank': instance.rank,

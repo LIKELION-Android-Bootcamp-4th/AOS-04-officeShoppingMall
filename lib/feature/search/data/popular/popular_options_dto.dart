@@ -6,8 +6,10 @@ part 'popular_options_dto.g.dart';
 @JsonSerializable()
 class PopularOptionsDto {
   final int limit;
-  final String? timeRange;
   final int minCount;
+
+  @JsonKey(name: 'timeRange', includeIfNull: false)
+  final String? timeRange;
 
   PopularOptionsDto({
     required this.limit,

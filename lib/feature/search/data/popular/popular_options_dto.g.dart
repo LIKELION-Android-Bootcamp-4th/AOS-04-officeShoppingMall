@@ -16,6 +16,6 @@ PopularOptionsDto _$PopularOptionsDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$PopularOptionsDtoToJson(PopularOptionsDto instance) =>
     <String, dynamic>{
       'limit': instance.limit,
-      'timeRange': instance.timeRange,
       'minCount': instance.minCount,
+      if (instance.timeRange case final value?) 'timeRange': value,
     };
