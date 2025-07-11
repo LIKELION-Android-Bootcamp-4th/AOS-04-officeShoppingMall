@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 
 class HomeContentProducts extends StatefulWidget {
-  const HomeContentProducts({super.key});
+  final List<ProductDTO> products;
+
+  const HomeContentProducts({super.key, required this.products});
 
   @override
   State<HomeContentProducts> createState() => _HomeContentProductsState();
 }
 
 class _HomeContentProductsState extends State<HomeContentProducts> {
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,8 +27,9 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
         shrinkWrap: true,
         // 자체 스크롤 끄기
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 4,
+        itemCount: widget.products.length,
         itemBuilder: (context, index) {
+          final currentProd = widget.products[index];
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -28,8 +37,8 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                 children: [
                   InkWell(
                     onTap: () {
-                        // TODO 각 위치의 상품으로 이동하도록 변경 필요
-                        Navigator.pushNamed(context, AppRoutes.productDetail);
+                      context.read<ProductViewModel>().setSelectedProduct(currentProd);
+                      Navigator.pushNamed(context, AppRoutes.productDetail);
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -41,15 +50,20 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     right: 4,
                     child: IconButton(
                       onPressed: () {
-                        // TODO: 하트 변경 이벤트 및 좋아요 이벤트 필요
+                        isFavorite = currentProd.isFavorite;
                       },
-                      icon: Icon(Icons.favorite_border, color: appColorScheme().onSurface),
+                      icon: SvgPicture.asset(
+                        isFavorite
+                            ? 'images/icon/ic_heart_small_1.svg'
+                            : 'images/icon/ic_heart_small_0.svg',
+                      ),
+                      // icon: Icon(isFavorite ? Icons.favorite_border, color: appColorScheme().onSurface),
                     ),
                   ),
                 ],
               ),
-              Text('상품명', style: Theme.of(context).textTheme.titleSmall),
-              Text('100,000원', style: Theme.of(context).textTheme.bodyMedium),
+              Text(currentProd.name, style: Theme.of(context).textTheme.titleSmall),
+              Text(currentProd.price.toWon, style: Theme.of(context).textTheme.bodyMedium),
             ],
           );
         },
