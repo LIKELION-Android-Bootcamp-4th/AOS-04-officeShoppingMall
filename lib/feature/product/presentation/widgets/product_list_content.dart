@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
-
 import '../../../../core/widgets/loading_indicator.dart';
 
 class ProductListContent extends StatefulWidget {
