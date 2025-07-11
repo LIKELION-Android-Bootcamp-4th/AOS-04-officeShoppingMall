@@ -1,7 +1,7 @@
-import 'package:office_shopping_mall/core/data/models/dto/product.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 
 class CartDTO {
-  final Product product;
+  final ProductDTO product;
   final String cartId;
   final int quantity;
 
@@ -9,7 +9,7 @@ class CartDTO {
 
   factory CartDTO.fromJson(Map<String, dynamic> json) {
     return CartDTO(
-      product: Product.fromJson(json['product']),
+      product: ProductDTO.fromJson(json['product']),
       cartId: json['cartId'] ?? '',
       quantity: json['quantity'] ?? 0,
     );
