@@ -45,9 +45,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _onKeywordSelected(String keyword) {
-    //TODO: 검색기능 추가하기
     print('선택된 검색어: $keyword');
-    _recentKeywordKey.currentState?.addKeyword(keyword);
+    _onSearchSubmitted(keyword);
   }
 
   @override
