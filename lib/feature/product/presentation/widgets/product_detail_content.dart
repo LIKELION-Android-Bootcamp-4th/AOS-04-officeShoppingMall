@@ -28,7 +28,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<ProductDataViewModel>().selectedProduct;
+    final product = context.watch<ProductViewModel>().selectedProduct;
 
     if (product == null) {
       return Center(child: Text("상품 데이터를 불러올 수 없습니다"));

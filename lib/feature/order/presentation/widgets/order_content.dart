@@ -11,7 +11,7 @@ class OrderContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductDTO? product = context.select((ProductDataViewModel vm) => vm.selectedProduct) as ProductDTO?;
+    final ProductDTO? product = context.select((ProductViewModel vm) => vm.selectedProduct) as ProductDTO?;
 
     if (product == null) {
       return Center(child: Text("상품 정보를 불러올 수 없습니다."));

@@ -33,7 +33,7 @@ class _ProductItem extends State<ProductItem> {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         Navigator.pushNamed(context, AppRoutes.productDetail);
-        context.read<ProductDataViewModel>().setSelectedProduct(product);
+        context.read<ProductViewModel>().setSelectedProduct(product);
       },
       child: SizedBox(
         width: 180,
