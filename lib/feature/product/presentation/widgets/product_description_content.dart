@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../../core/data/models/dto/product.dart';
 import '../viewmodel/product_viewmodel.dart';
 
-
-
 class ProductDescriptionContent extends StatelessWidget {
   const ProductDescriptionContent({super.key});
 

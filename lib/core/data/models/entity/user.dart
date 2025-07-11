@@ -6,6 +6,7 @@ class User {
   final String nickName;
   final bool isAdmin;
   final String? phone;
+  final Profile profile;
   final Address? address;
 
   User({
@@ -14,6 +15,7 @@ class User {
     required this.nickName,
     required this.isAdmin,
     required this.phone,
+    required this.profile,
     required this.address,
   });
 
@@ -23,6 +25,7 @@ class User {
       email: dto.email,
       nickName: dto.nickName,
       isAdmin: dto.isAdmin,
+      profile: dto.profile,
       phone: dto.phone,
       address: dto.address,
     );
@@ -34,7 +37,7 @@ class User {
       email: email,
       nickName: nickName,
       isAdmin: isAdmin,
-      profile: Profile(name: '', birthDate: null, profileImage: null),
+      profile: profile,
       createdAt: DateTime.now(),
       phone: phone,
       address: address,
@@ -53,6 +56,7 @@ class User {
       nickName: nickName ?? this.nickName,
       isAdmin: isAdmin,
       phone: phone ?? this.phone,
+      profile: profile,
       address: address ?? this.address,
     );
   }

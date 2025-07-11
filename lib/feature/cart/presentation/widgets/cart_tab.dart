@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartTab extends StatefulWidget {
-
   @override
   State<CartTab> createState() => CartTabState();
 }
@@ -16,17 +16,18 @@ class CartTabState extends State<CartTab> {
 
     return Scaffold(
       body: ListView.builder(
-          itemCount: carts.length,
-          itemBuilder: (context, index){
-        return CartListItem(cart: carts[index]);
-      }),
+        itemCount: carts.length,
+        itemBuilder: (context, index) {
+          return CartListItem(cart: carts[index]);
+        },
+      ),
 
       //금액~결제 버튼
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16),
         child: Container(
           decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Color(0xFFD9D9D9), width: 1)),
+            border: Border(top: BorderSide(color: appColorScheme().surfaceContainer, width: 1)),
           ),
           child: Container(
             color: Colors.white,

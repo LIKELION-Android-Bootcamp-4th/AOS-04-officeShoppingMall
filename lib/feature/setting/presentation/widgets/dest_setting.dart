@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 
@@ -86,8 +87,7 @@ class _DestSettingScreenState extends State<DestSettingScreen> {
                         keyboardType: TextInputType.phone,
                         validator: (v) {
                           if (v == null || v.isEmpty) return '전화번호를 입력해주세요.';
-                          final reg = RegExp(r'^\d{2,3}-\d{3,4}-\d{4}$');
-                          if (!reg.hasMatch(v)) return '올바른 전화번호 형식이 아닙니다.';
+                          if (!v.isValidPhone()) return '올바른 전화번호 형식이 아닙니다.';
                           return null;
                         },
                       ),
