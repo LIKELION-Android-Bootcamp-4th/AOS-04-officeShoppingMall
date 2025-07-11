@@ -33,6 +33,7 @@ class ReviewItem extends StatelessWidget{
                   SizedBox(width: 20),
 
 
+
                 ]
             )
         )
