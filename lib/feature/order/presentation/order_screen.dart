@@ -4,7 +4,7 @@ import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import '../../../core/data/models/dto/product.dart';
-import '../../product/data/product_viewmodel.dart';
+import '../../product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_bottom.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_content.dart';
 
