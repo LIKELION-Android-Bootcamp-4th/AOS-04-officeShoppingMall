@@ -52,9 +52,9 @@ class SearchService {
         throw Exception('조회 실패(code != 200): ${response.statusCode}');
       }
     } on DioException catch (e) {
-      throw Exception('Dio Exception');
+      throw Exception('Dio Exception: ${e.message}');
     } catch (e) {
-      throw Exception('error');
+      throw Exception('error: ${e.toString()}');
     }
   }
 }
