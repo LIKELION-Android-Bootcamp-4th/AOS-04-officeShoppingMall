@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/order_complete_content.dart';
+import 'presentaion/widgets/payment_complete_content.dart';
 
 class OrderCompleteScreen extends StatelessWidget {
   const OrderCompleteScreen({super.key});

@@ -6,8 +6,8 @@ import 'package:office_shopping_mall/feature/home/presentation/home_screen.dart'
 import 'package:office_shopping_mall/feature/mypage/presentation/mypage_screen.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/widgets/mypage_recent_products.dart';
 import 'package:office_shopping_mall/feature/notification/presentation/notification_screen.dart';
-import 'package:office_shopping_mall/feature/order/presentation/order_complete_screen.dart';
-import 'package:office_shopping_mall/feature/order/presentation/order_screen.dart';
+import 'package:office_shopping_mall/feature/payment/payment_complete_screen.dart';
+import 'package:office_shopping_mall/feature/payment/payment_screen.dart';
 import 'package:office_shopping_mall/feature/preference/presentation/preference_screen.dart';
 import 'package:office_shopping_mall/feature/review/presentation/review_screen.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/widgets/dest_setting.dart';
