@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/bottom_navigation.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
+import 'package:office_shopping_mall/feature/home/domain/home_repository.dart';
+import 'package:office_shopping_mall/feature/home/presentation/viewmodel/home_viewmodel.dart';
 import 'package:office_shopping_mall/feature/home/presentation/widgets/home_content_banner.dart';
 import 'package:office_shopping_mall/feature/home/presentation/widgets/home_content_category.dart';
 import 'package:office_shopping_mall/feature/home/presentation/widgets/home_content_products.dart';
@@ -12,6 +15,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = context.watch<HomeViewModel>();
+
     return Scaffold(
       extendBody: true, // 바텀 내비 뒤까지 확장
       appBar: CustomAppBar(
@@ -26,14 +31,19 @@ class HomeScreen extends StatelessWidget {
 
           categoryText('카테고리'),
           const SizedBox(height: 10),
-
           HomeContentCategory(),
+
           const SizedBox(height: 20),
 
-          categoryText('추천 상품 목록'),
+          categoryText('현재 인기 상품'),
           const SizedBox(height: 10),
+          HomeContentProducts(products: vm.popularProducts),
+          const SizedBox(height: 20),
 
-          HomeContentProducts(),
+
+          // 새로운 추천 만들기
+          // HomeContentProducts(),
+          // HomeContentProducts(),
         ],
       ),
       bottomNavigationBar: BottomNavigation(),
