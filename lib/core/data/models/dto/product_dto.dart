@@ -4,7 +4,7 @@ class ProductDTO {
   final String id;
   final String name;
   final String? description;
-  final String? category;
+  final String category;
   final int price;
   final int stock;
   final String? thumbnailImage;
@@ -22,7 +22,7 @@ class ProductDTO {
     required this.id,
     required this.name,
     this.description,
-    this.category,
+    required this.category,
     required this.price,
     required this.stock,
     this.thumbnailImage,
@@ -66,7 +66,7 @@ class ProductDTO {
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       description: json['description'] as String?,
-      category: json['category'] as String?,
+      category: json['category'] as String,
       price: json['price'] ?? 0,
       stock: json['stock'] ?? 0,
       thumbnailImage: json['thumbnailImage'] as String?,
