@@ -4,9 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/theme.dart';
-import '../viewmodel/setting_view_model.dart';
 
 class PwSetting extends StatefulWidget {
   const PwSetting({super.key});

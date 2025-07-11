@@ -26,8 +26,8 @@ class _PreferenceContentListState extends State<PreferenceContentList> {
                   child: Image.asset('images/banner1.jpg', fit: BoxFit.fill),
                 ),
                 Positioned(
-                  bottom: 8,
-                  right: 8,
+                  bottom: 4,
+                  right: 4,
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.favorite_border, color: appColorScheme().onSurface),
