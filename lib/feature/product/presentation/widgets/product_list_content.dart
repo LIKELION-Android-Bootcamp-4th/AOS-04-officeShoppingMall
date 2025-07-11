@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
-import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_provider.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
+
+import '../../../../core/widgets/loading_indicator.dart';
 
 class ProductListContent extends StatefulWidget {
   const ProductListContent({super.key});
@@ -18,7 +20,7 @@ class _ProductListContentState extends State<ProductListContent> {
   void initState() {
     super.initState();
     vm = context.read<ProductListViewModel>();
-    vm.loadProducts();
+    vm.loadProducts(category: vm.category);
   }
 
   @override
@@ -52,7 +54,7 @@ class _ProductListContentState extends State<ProductListContent> {
                               child: Column(
                                 children: [
                                   for (var category
-                                      in categories[index].details)
+                                  in categories[index].details)
                                     ListTile(
                                       title: Text(category),
                                       onTap: () {
@@ -60,7 +62,7 @@ class _ProductListContentState extends State<ProductListContent> {
                                           "${categories[index].title} / $category",
                                         );
                                         Navigator.pop(context);
-                                        vm.loadProducts();
+                                        vm.loadProducts(category: vm.category);
                                       },
                                     ),
                                 ],
@@ -87,9 +89,9 @@ class _ProductListContentState extends State<ProductListContent> {
         ),
         const SizedBox(height: 20),
         if (vm.isLoading)
-          const Center(child: CircularProgressIndicator())
+          Center(child: CustomCircleIndicator())
         else if (products.isEmpty)
-          const Center(child: Text('상품이 없습니다.'))
+          Center(child: Text('상품이 없습니다'))
         else
           GridView.builder(
             shrinkWrap: true,
@@ -97,7 +99,7 @@ class _ProductListContentState extends State<ProductListContent> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.7,
+              childAspectRatio: 0.6,
             ),
             itemCount: products.length,
             itemBuilder: (context, index) {

@@ -5,7 +5,7 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/data/models/dto/product.dart';
-import '../../data/product_viewmodel.dart';
+import '../viewmodel/product_viewmodel.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});

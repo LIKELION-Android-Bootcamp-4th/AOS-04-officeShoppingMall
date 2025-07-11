@@ -6,7 +6,7 @@ import 'package:office_shopping_mall/feature/product/presentation/widgets/produc
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_detail_content.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../data/product_viewmodel.dart';
+import 'viewmodel/product_viewmodel.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -49,7 +49,7 @@ class ProductDetailScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: Container(
-        height: 64,
+        height: 120,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

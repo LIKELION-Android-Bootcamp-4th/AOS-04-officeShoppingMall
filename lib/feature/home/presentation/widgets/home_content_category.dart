@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/feature/home/data/home_category_item.dart';
-import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_provider.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 
 class HomeContentCategory extends StatelessWidget {
   const HomeContentCategory({super.key});
