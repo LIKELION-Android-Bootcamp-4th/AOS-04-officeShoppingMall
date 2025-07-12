@@ -4,10 +4,13 @@ import 'package:office_shopping_mall/feature/category/data/category_section.dart
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
 
+import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 
 class ProductListContent extends StatefulWidget {
-  const ProductListContent({super.key});
+  final List<ProductDTO>? searchResults;
+
+  const ProductListContent({super.key, this.searchResults});
 
   @override
   State<ProductListContent> createState() => _ProductListContentState();
@@ -20,75 +23,84 @@ class _ProductListContentState extends State<ProductListContent> {
   void initState() {
     super.initState();
     vm = context.read<ProductListViewModel>();
-    vm.loadProducts(category: vm.category);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      vm.loadProducts(category: vm.category);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var categories = categorySections;
+    final products =
+        widget.searchResults ?? context.watch<ProductListViewModel>().products;
 
-    vm = context.watch<ProductListViewModel>();
-    final products = vm.products;
+    final isLoading = widget.searchResults == null
+        ? context.watch<ProductListViewModel>().isLoading
+        : false;
+
+    var categories = categorySections;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 50,
-          child: ListView.builder(
-            itemCount: categories.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: TextButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(categories[index].title),
-                          content: SizedBox(
-                            height: 200,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  for (var category
-                                  in categories[index].details)
-                                    ListTile(
-                                      title: Text(category),
-                                      onTap: () {
-                                        vm.selectCategory(
-                                          "${categories[index].title} / $category",
-                                        );
-                                        Navigator.pop(context);
-                                        vm.loadProducts(category: vm.category);
-                                      },
-                                    ),
-                                ],
+        if (widget.searchResults == null)
+          SizedBox(
+            height: 50,
+            child: ListView.builder(
+              itemCount: categories.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(categories[index].title),
+                            content: SizedBox(
+                              height: 200,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    for (var category
+                                    in categories[index].details)
+                                      ListTile(
+                                        title: Text(category),
+                                        onTap: () {
+                                          vm.selectCategory(
+                                            "${categories[index].title} / $category",
+                                          );
+                                          Navigator.pop(context);
+                                          vm.loadProducts(category: vm.category);
+                                        },
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Text(
-                    categories[index].title,
-                    style: TextStyle(
-                      color: vm.category!.contains(categories[index].title)
-                          ? Colors.black
-                          : Colors.grey,
-                      fontSize: 20,
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      categories[index].title,
+                      style: TextStyle(
+                        color: (vm.category ?? '').contains(categories[index].title)
+                            ? Colors.black
+                            : Colors.grey,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
+
         const SizedBox(height: 20),
-        if (vm.isLoading)
+
+        if (isLoading)
           Center(child: CustomCircleIndicator())
         else if (products.isEmpty)
           Center(child: Text('상품이 없습니다'))

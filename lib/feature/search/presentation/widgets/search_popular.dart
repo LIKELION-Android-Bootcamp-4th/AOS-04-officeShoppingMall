@@ -5,6 +5,10 @@ import 'package:office_shopping_mall/feature/search/presentation/viewmodel/searc
 import '../../../../core/theme/theme.dart';
 
 class SearchPopular extends StatefulWidget {
+  final Function(String)? onKeywordSelected;
+
+  const SearchPopular({super.key, this.onKeywordSelected});
+
   @override
   State<StatefulWidget> createState() {
     return SearchPopularState();
@@ -76,6 +80,7 @@ class SearchPopularState extends State<SearchPopular> {
     return GestureDetector(
       onTap: () {
         print('지금의 인기 검색어: $keyword');
+        widget.onKeywordSelected?.call(keyword);
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
