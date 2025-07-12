@@ -32,15 +32,15 @@ class _SettingScreenState extends State<SettingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<SettingViewModel>();
-    if (vm.isLoading) return CustomCircleIndicator();
-    if (vm.error != null) print(vm.error);
-    // if (vm.user == null) return Center(child: Text('사용자 정보를 불러올 수 없습니다'));
 
     final user = vm.user!;
     return Scaffold(
       appBar: CustomAppBar(title: '설정'),
       body: Builder(
         builder: (context) {
+          if (vm.isLoading) return Center(child: CustomCircleIndicator());
+          if (vm.error != null) return Center(child: Text(vm.error.toString()));
+
           return Column(
             children: [
               customTabBar(
@@ -54,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> with SingleTickerProvider
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    UserInfoTab(controller: _tabController, user: user,),
+                    UserInfoTab(controller: _tabController, user: user),
                     NotiSettingTab(controller: _tabController),
                   ],
                 ),
