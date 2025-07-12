@@ -4,8 +4,10 @@ import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/utils/bottom_nav_observer.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/cart_module.dart';
-import 'package:office_shopping_mall/feature/order/data/order_provider.dart';
 import 'package:office_shopping_mall/feature/home/home_module.dart';
+import 'package:office_shopping_mall/feature/order/order_module.dart';
+import 'package:office_shopping_mall/feature/preference/preference_module.dart';
+import 'package:office_shopping_mall/feature/order/order_module.dart';
 import 'package:office_shopping_mall/feature/preference/preference_module.dart';
 import 'package:office_shopping_mall/feature/product/product_module.dart';
 import 'package:office_shopping_mall/feature/search/search_module.dart';
@@ -34,7 +36,7 @@ class WalkinApp extends StatelessWidget {
       providers: [
         Provider<Dio>(create: (_) => ApiClient().dio),
         ChangeNotifierProvider(create: (_) => BottomNavProvider()),
-        ChangeNotifierProvider(create: (_) => OrderProvider()),
+
         ...mypageModule,
         ...authModule,
         ...settingModule,
@@ -42,6 +44,7 @@ class WalkinApp extends StatelessWidget {
         ...productModule,
         ...homeModule,
         ...cartModule,
+        ...orderModule,
         ...preferenceModule,
 
       ],

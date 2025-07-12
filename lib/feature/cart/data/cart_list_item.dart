@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
@@ -8,12 +9,15 @@ import 'package:office_shopping_mall/feature/product/presentation/product_detail
 
 class CartListItem extends StatelessWidget {
   final CartDTO cart;
+  final int index;
 
-  CartListItem({super.key, required this.cart});
+  CartListItem({super.key, required this.cart, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<CartViewModel>();
+    final viewModel = context.watch<CartViewModel>();
+    final carts = context.watch<CartViewModel>().carts;
+
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
@@ -21,9 +25,7 @@ class CartListItem extends StatelessWidget {
         children: [
           Checkbox(
             value: false,
-            onChanged: (bool? checked) {
-              print("체크박스 클릭");
-            },
+            onChanged: (_) => viewModel.toggleCarts(cart.cartId)
           ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
@@ -50,12 +52,8 @@ class CartListItem extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: IconButton(
-                            onPressed: () {
-                              viewModel.deleteCart(cart.cartId);
-                            },
-                            icon: SvgPicture.asset(
-                              'images/icon/ic_close.svg',
-                            ),
+                            onPressed: () {viewModel.deleteCart(cart.cartId);},
+                            icon: SvgPicture.asset('images/icon/ic_close.svg',),
                           ),
                         ),
                       ],
@@ -85,7 +83,7 @@ class CartListItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall
                             ),
                             SizedBox(height: 3),
-                            Text("2개", style: TextStyle(fontSize: 15)),
+                            Text('${carts[index].quantity}개', style: Theme.of(context).textTheme.bodyMedium),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.48,
                               child: Row(
@@ -95,7 +93,7 @@ class CartListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                        "100,000",
+                                        '${NumberFormat('#,###').format(carts[index].product.price)}',
                                         style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),

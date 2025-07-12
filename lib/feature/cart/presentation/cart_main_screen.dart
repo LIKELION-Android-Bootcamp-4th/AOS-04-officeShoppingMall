@@ -4,7 +4,7 @@ import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab_bar.dart';
-import 'package:office_shopping_mall/feature/order/data/order_provider.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_delivered_tab.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_paid_tab.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_shipping_tab.dart';
@@ -36,8 +36,8 @@ class _CartMainScreenState extends State<CartMainScreen>
 
   @override
   Widget build(BuildContext context) {
-    final carts = context.watch<CartViewModel>().carts;
-    final orders = context.watch<OrderProvider>().orders;
+    final cartsLength = context.watch<CartViewModel>().carts.length;
+    final orders = context.watch<OrderViewModel>().orders;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -55,7 +55,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${carts.length}',
+                      '$cartsLength',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('장바구니', style: TextStyle(fontSize: 10)),
