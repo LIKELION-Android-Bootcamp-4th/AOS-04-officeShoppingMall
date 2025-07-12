@@ -10,5 +10,5 @@ extension StringExtension on String {
 extension IntExtension on int {
   String get toWon => '${NumberFormat('#,###').format(this)}원';
 
-  String get toAmount => NumberFormat('#,###').format(this);
+  String get toNumber => NumberFormat('#,###').format(this);
 }

@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
 
 import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../../core/data/models/entity/user.dart';
-import '../../../product/presentation/viewmodel/product_viewmodel.dart';
 import '../viewmodel/review_model.dart';
 
 class AddReviewContent extends StatefulWidget {
@@ -66,7 +66,7 @@ class _AddReviewContent extends State<AddReviewContent> {
     super.initState();
     vm = context.read<ReviewModel>();
     user = context.read<User>();
-    product = context.read<ProductDataViewModel>().selectedProduct;
+    product = context.read<ProductViewModel>().selectedProduct;
   }
 
   @override

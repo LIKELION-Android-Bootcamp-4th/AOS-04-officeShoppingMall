@@ -8,7 +8,7 @@ class ProductDescriptionContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<ProductDataViewModel>().selectedProduct;
+    final product = context.watch<ProductViewModel>().selectedProduct;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

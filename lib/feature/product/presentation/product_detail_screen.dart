@@ -13,7 +13,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<ProductDataViewModel>().selectedProduct;
+    final product = context.watch<ProductViewModel>().selectedProduct;
 
     return Scaffold(
       extendBody: true,
@@ -49,7 +49,7 @@ class ProductDetailScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: Container(
-        height: 120,
+        height: 60,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

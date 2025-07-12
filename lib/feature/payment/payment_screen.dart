@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
+import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_content.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import '../../../core/data/models/dto/product_dto.dart';
-import '../../product/presentation/viewmodel/product_viewmodel.dart';
-import 'package:office_shopping_mall/feature/order/presentation/widgets/order_bottom.dart';
-import 'package:office_shopping_mall/feature/order/presentation/widgets/order_content.dart';
+import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_bottom.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -14,7 +14,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ProductDTO? product = context.select((ProductDataViewModel vm) => vm.selectedProduct) as ProductDTO?;
+    final ProductDTO? product = context.select((ProductViewModel vm) => vm.selectedProduct) as ProductDTO?;
 
     return Scaffold(
       extendBody: true,

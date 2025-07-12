@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/cart/presentation/order_detail_screen.dart';
+import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderDTO order;

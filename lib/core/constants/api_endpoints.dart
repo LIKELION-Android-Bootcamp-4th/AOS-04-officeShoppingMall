@@ -123,7 +123,9 @@ class _CartEndpoints {
   const _CartEndpoints();
 
   /// ## 내 장바구니 조회 (GET)
-  final getAll = '/api/cart';
+  String getCart(){
+    return 'api/cart';
+  }
 
   /// ## 장바구니에 상품 추가 (POST)
   /// #### 작성 필수 정보 (Request body)
@@ -132,12 +134,23 @@ class _CartEndpoints {
   /// - `options` (object, optional): 상품 옵션 정보
   ///    - `color` (string, optional): 색상
   ///    - `storage` (string, optional): 저장 용량
-  final addCart = '/api/cart';
+  String addCart() {
+    return 'api/cart/';
+  }
 
   /// ## 장바구니에서 선택된 상품 제거 (DELETE)
   /// #### 작성 필수 정보 (Request body)
-  /// - `cartIds` (List<string>): 제거할 장바구니 항목들의 ID 리스트
-  final deleteCart = '/api/cart';
+  /// - `cartId` (List<string>): 제거할 장바구니 항목들의 ID 리스트
+  String deleteCart(String cartId) {
+    return '/api/cart/$cartId';
+  }
+
+  /// ## 장바구니 업데이트 (수량 변경)
+  /// #### 작성 필수 정보 (Request body)
+  /// - `cartId` (List<string>): 변경할 장바구니 항목들의 ID 리스트
+  String updateCart(String cartId) {
+    return 'api/cart/$cartId';
+  }
 
   /// ## 장바구니 개수 조회 (GET)
   final getCount = '/api/cart/count';
@@ -534,9 +547,9 @@ class _SearchEndpoints {
     int reviewLimit = 3,
     int storeLimit = 2,
     bool includeProducts = true,
-    bool includeContents = true,
-    bool includeReviews = true,
-    bool includeStores = true,
+    bool includeContents = false,
+    bool includeReviews = false,
+    bool includeStores = false,
     bool includePosts = true,
   }) {
     final query = <String, String>{};
