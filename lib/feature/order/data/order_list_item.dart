@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
@@ -77,8 +78,8 @@ class OrderListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                        '${orders[index].product.price}원',
-                                      style: Theme.of(context).textTheme.titleSmall
+                                        '${NumberFormat('#,###').format(orders[index].product.price)}원',
+                                        style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),
                                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
@@ -14,7 +15,7 @@ class CartListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<CartViewModel>();
+    final viewModel = context.watch<CartViewModel>();
     final carts = context.watch<CartViewModel>().carts;
 
     return Align(
@@ -24,9 +25,7 @@ class CartListItem extends StatelessWidget {
         children: [
           Checkbox(
             value: false,
-            onChanged: (bool? checked) {
-              print("체크박스 클릭");
-            },
+            onChanged: (_) => viewModel.toggleCarts(cart.cartId)
           ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
@@ -94,7 +93,7 @@ class CartListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                        '${carts[index].product.price}',
+                                        '${NumberFormat('#,###').format(carts[index].product.price)}',
                                         style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),

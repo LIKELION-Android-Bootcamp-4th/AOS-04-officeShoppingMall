@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
@@ -58,7 +59,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                       ),
                     ),
                     SizedBox(height: 5),
-                    Text('${order.product.price}', style: Theme.of(context).textTheme.titleLarge),
+                    Text('${NumberFormat('#,###').format(order.product.price)}원', style: Theme.of(context).textTheme.titleSmall),
                   ],
                 ),
               ],
@@ -69,7 +70,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 10, left: 24),
-                child: Text("결제 정보", style: Theme.of(context).textTheme.titleLarge),
+                child: Text("결제 정보", style: Theme.of(context).textTheme.bodyLarge),
               ),
             ),
 
@@ -92,11 +93,11 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             width: MediaQuery.of(context).size.height * 0.4,
                             child: Row(
                               children: [
-                                Text("결제 방식", style: Theme.of(context).textTheme.titleMedium),
+                                Text("결제 방식", style: Theme.of(context).textTheme.bodyMedium),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text("카드 결제", style: Theme.of(context).textTheme.titleMedium,),
+                                  child: Text("카드 결제", style: Theme.of(context).textTheme.bodyMedium,),
                                 ),
                               ],
                             ),
@@ -106,11 +107,11 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             width: MediaQuery.of(context).size.height * 0.4,
                             child: Row(
                               children: [
-                                Text("주문 번호", style: Theme.of(context).textTheme.titleLarge),
+                                Text("주문 번호", style: Theme.of(context).textTheme.bodyMedium),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
-                                  child: Text('${order.orderId}', style: Theme.of(context).textTheme.titleLarge,),
+                                  child: Text(order.orderId, style: Theme.of(context).textTheme.bodyMedium,),
                                 ),
                               ],
                             ),
@@ -121,14 +122,14 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("주소", style: Theme.of(context).textTheme.titleLarge),
+                                Text("주소", style: Theme.of(context).textTheme.bodyMedium),
                                 Spacer(),
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
                                       "주소입니다아아아아 길어지면 줄바꿈 됩니다아아아아",
-                                      style: Theme.of(context).textTheme.titleLarge,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                       textAlign: TextAlign.end,
                                       softWrap: true,
                                       overflow: TextOverflow.visible,
@@ -171,7 +172,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                                 padding: EdgeInsets.all(16),
                                 child: Text(
                                   "주문을 취소 하시겠습니까?",
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ),
                             ],
