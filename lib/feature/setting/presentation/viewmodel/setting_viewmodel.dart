@@ -92,14 +92,19 @@ class SettingViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> updateProfile(String? nickName, String? phone, Address? addr) async {
+  Future<void> updateProfile({
+    required String? name,
+    required String? phone,
+    required String? addr,
+    required String? profileImage,
+  }) async {
     if (_user == null) return;
     _isLoading = true;
     notifyListeners();
 
     try {
       _user = await _repository.saveProfile(
-        _user!.copyWith(nickName: nickName, phone: phone, address: addr),
+        _user!.copyWith(name: name, phone: phone, addr: addr, profileImage: profileImage),
       );
     } catch (e) {
       _error = '$e';
