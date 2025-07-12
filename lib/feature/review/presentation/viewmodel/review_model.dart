@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
 import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../../core/data/models/entity/user.dart';
-import '../../../product/presentation/viewmodel/product_viewmodel.dart';
 import '../../data/review_repository.dart';
 
 class ReviewModel extends ChangeNotifier{
@@ -14,6 +13,7 @@ class ReviewModel extends ChangeNotifier{
   final List<XFile?> images = [];
   final ImagePicker _picker = ImagePicker();
   final int visibleCount = 3;
+  List<ReviewDTO> reviews = [];
 
   final ReviewRepository _reviewRepository;
 
@@ -71,7 +71,17 @@ class ReviewModel extends ChangeNotifier{
     await _reviewRepository.addReview(reviewDTO, reviewDTO.productId);
   }
 
-  Future<ReviewDTO> getReviews(String productId) async {
-    return await _reviewRepository.getReviews(productId);
+  Future<void> getReviews(String productId) async {
+    reviews.clear();
+    notifyListeners();
+
+    try {
+      final reviewList = await _reviewRepository.getReviews(productId);
+      reviews.addAll(reviewList);
+    }
+    catch (e) {
+      print('Error loading reviews: $e');
+    }
+    notifyListeners();
   }
 }

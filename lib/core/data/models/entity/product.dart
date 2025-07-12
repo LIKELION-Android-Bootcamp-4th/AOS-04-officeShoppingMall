@@ -6,6 +6,7 @@ class Product{
   final String? description;
   final String category;
   final int price;
+  final String? thumbnailImage;
   final List<String> images;
   final double? score;
 
@@ -15,6 +16,7 @@ class Product{
     this.description,
     required this.category,
     required this.price,
+    this.thumbnailImage,
     this.images = const [],
     this.score,
   });
@@ -26,6 +28,7 @@ class Product{
       description: dto.description,
       category: dto.category,
       price: dto.price,
+      thumbnailImage: dto.thumbnailImage,
       images: dto.images,
       score: dto.score,
     );
@@ -39,7 +42,7 @@ class Product{
       category: category,
       price: price,
       stock: 0,
-      thumbnailImage: "",
+      thumbnailImage: thumbnailImage,
       images: images,
       favoriteCount: 0,
       viewCount: 0,
@@ -50,24 +53,26 @@ class Product{
       isFavorite: false,
     );
   }
-}
 
-Product copyWith({
-  required String id,
-  required String name,
-  String? description,
-  required String category,
-  required price,
-  List<String> images = const [],
-  double? score,
-}) {
-  return Product(
-    id: id,
-    name: name,
-    description: description,
-    category: category,
-    price: price,
-    images: images,
-    score: score,
-  );
+  Product copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? category,
+    int? price,
+    String? thumbnailImage,
+    List<String>? images,
+    double? score,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      price: price ?? this.price,
+      thumbnailImage: thumbnailImage ?? this.thumbnailImage,
+      images: images ?? this.images,
+      score: score ?? this.score,
+    );
+  }
 }
