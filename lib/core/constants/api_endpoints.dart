@@ -124,7 +124,7 @@ class _CartEndpoints {
 
   /// ## 내 장바구니 조회 (GET)
   String getCart(){
-    return 'api/cart';
+    return '/api/cart';
   }
 
   /// ## 장바구니에 상품 추가 (POST)
@@ -135,7 +135,7 @@ class _CartEndpoints {
   ///    - `color` (string, optional): 색상
   ///    - `storage` (string, optional): 저장 용량
   String addCart() {
-    return 'api/cart/';
+    return '/api/cart/';
   }
 
   /// ## 장바구니에서 선택된 상품 제거 (DELETE)
@@ -156,9 +156,7 @@ class _CartEndpoints {
   final getCount = '/api/cart/count';
 
   /// ## 장바구니 비우기 (DELETE)
-  String clearCart() {
-    return 'api/cart/clear';
-  }
+  final clearCart = '/api/cart/clear';
 
   /// ## 장바구니 상품으로 주문 생성 (POST)
   /// - `cartIds`가 제공되면 선택된 항목만 주문하며, 없으면 전체 장바구니 주문 처리.

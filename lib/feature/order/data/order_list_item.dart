@@ -13,7 +13,7 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = context.watch<OrderViewModel>();
+    final orders = context.watch<OrderViewModel>().orders;
 
     return Align(
       alignment: Alignment.topCenter,
@@ -77,7 +77,7 @@ class OrderListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                        '${orders.orders[index].product.price}원',
+                                        '${orders[index].product.price}원',
                                       style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),

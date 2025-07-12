@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class CartTabState extends State<CartTab> {
       body: ListView.builder(
           itemCount: carts.length,
           itemBuilder: (context, index){
-        return CartListItem(cart: carts[index]);
+        return CartListItem(cart: carts[index], index: index);
       }),
 
       //금액~결제 버튼
@@ -26,7 +27,7 @@ class CartTabState extends State<CartTab> {
         padding: EdgeInsets.all(16),
         child: Container(
           decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Color(0xFFD9D9D9), width: 1)),
+            border: Border(top: BorderSide(color: appColorScheme().surfaceContainer, width: 1)),
           ),
           child: Container(
             color: Colors.white,
@@ -38,23 +39,20 @@ class CartTabState extends State<CartTab> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 16),
-                      child: Text("결제 금액", style: TextStyle(fontSize: 20)),
+                      child: Text("결제 금액", style: Theme.of(context).textTheme.bodyLarge),
                     ),
                     Spacer(),
                     Padding(
                       padding: EdgeInsets.only(top: 16),
                       child: Text(
-                        "100,000",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        '100,000',
+                        style: Theme.of(context).textTheme.titleSmall
                       ),
                     ),
                     SizedBox(width: 7),
                     Padding(
                       padding: EdgeInsets.only(top: 16, right: 16),
-                      child: Text("원", style: TextStyle(fontSize: 15)),
+                      child: Text("원", style:Theme.of(context).textTheme.bodyMedium),
                     ),
                   ],
                 ),

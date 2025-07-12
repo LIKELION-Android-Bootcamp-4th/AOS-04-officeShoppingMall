@@ -8,13 +8,14 @@ import 'package:office_shopping_mall/feature/product/presentation/product_detail
 
 class CartListItem extends StatelessWidget {
   final CartDTO cart;
+  final int index;
 
-  CartListItem({super.key, required this.cart});
+  CartListItem({super.key, required this.cart, required this.index});
 
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<CartViewModel>();
-    final carts = context.watch<CartViewModel>();
+    final carts = context.watch<CartViewModel>().carts;
 
     return Align(
       alignment: Alignment.topCenter,
@@ -83,7 +84,7 @@ class CartListItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall
                             ),
                             SizedBox(height: 3),
-                            Text("2개", style: TextStyle(fontSize: 15)),
+                            Text('${carts[index].quantity}개', style: Theme.of(context).textTheme.bodyMedium),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.48,
                               child: Row(
@@ -93,7 +94,7 @@ class CartListItem extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(right: 3),
                                     child: Text(
-                                        '${carts.carts[0].product.price}',
+                                        '${carts[index].product.price}',
                                         style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ),

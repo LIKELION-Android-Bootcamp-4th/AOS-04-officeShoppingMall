@@ -36,8 +36,8 @@ class _CartMainScreenState extends State<CartMainScreen>
 
   @override
   Widget build(BuildContext context) {
-    final carts = context.watch<CartViewModel>();
-    final orders = context.watch<OrderViewModel>();
+    final cartsLength = context.watch<CartViewModel>().carts.length;
+    final orders = context.watch<OrderViewModel>().orders;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -55,7 +55,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${carts.carts.length}',
+                      '$cartsLength',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('장바구니', style: TextStyle(fontSize: 10)),
@@ -68,7 +68,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${orders.orders.where((a) => a.orderIndex == 1).length}',
+                      '${orders.where((a) => a.orderIndex == 1).length}',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('결제 완료', style: TextStyle(fontSize: 10)),
@@ -80,7 +80,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${orders.orders.where((a) => a.orderIndex == 2).length}',
+                      '${orders.where((a) => a.orderIndex == 2).length}',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('배송 중', style: TextStyle(fontSize: 10)),
@@ -92,7 +92,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${orders.orders.where((a) => a.orderIndex == 3).length}',
+                      '${orders.where((a) => a.orderIndex == 3).length}',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('배송 완료', style: TextStyle(fontSize: 10)),
