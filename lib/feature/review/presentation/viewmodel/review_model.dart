@@ -9,7 +9,7 @@ import '../../data/review_repository.dart';
 class ReviewModel extends ChangeNotifier{
   final TextEditingController reviewController = TextEditingController();
   final List<SvgPicture?> score = List.generate(5, (index) => SvgPicture.asset(""));
-  int scoreValue = 0;
+  int scoreValue = 5;
   final List<XFile?> images = [];
   final ImagePicker _picker = ImagePicker();
   final int visibleCount = 3;
@@ -56,8 +56,8 @@ class ReviewModel extends ChangeNotifier{
       comment: reviewController.text,
       images: images.map((e) => ReviewImageDTO(
         id: "",
-        originalName: "",
-        url: "",
+        originalName: e!.name,
+        url: e.path,
         mimeType: "",
         size: 0,
       )).toList(),
