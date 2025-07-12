@@ -15,7 +15,6 @@ class ProductDTO {
   final int reviewCount;
   final ReviewStats reviewStats;
   final double? score;
-  final List<String> reviews;
   final bool isFavorite;
 
   ProductDTO({
@@ -33,13 +32,11 @@ class ProductDTO {
     required this.reviewCount,
     required this.reviewStats,
     this.score,
-    this.reviews = const [],
     required this.isFavorite,
   });
 
   factory ProductDTO.fromJson(Map<String, dynamic> json) {
     double? parsedScore;
-    List<String> parsedReviews = [];
 
     final attr = json['attributes'];
     if (attr != null && attr is String && attr.isNotEmpty) {
@@ -52,11 +49,6 @@ class ProductDTO {
           parsedScore = (scoreVal as num).toDouble();
         }
 
-
-        final reviewList = parsed['reviews'];
-        if (reviewList != null && reviewList is List) {
-          parsedReviews = reviewList.map((e) => e.toString()).toList();
-        }
       } catch (e) {
         print('Error parsing attributes: $e');
       }
@@ -80,7 +72,6 @@ class ProductDTO {
       reviewStats: ReviewStats.fromJson(json['reviewStats'] ?? {}),
       isFavorite: json['isFavorite'] ?? false,
       score: parsedScore,
-      reviews: parsedReviews,
     );
   }
 
@@ -93,7 +84,7 @@ class ProductDTO {
       'stock': stock,
       'thumbnailImage': thumbnailImage,
       'images': images,
-      'attributes': jsonEncode({'score': score ?? 0, 'reviews': reviews}),
+      'attributes': jsonEncode({'score': score ?? 0}),
       'favoriteCount': favoriteCount,
       'viewCount': viewCount,
       'orderCount': orderCount,
