@@ -54,6 +54,13 @@ class ReviewModel extends ChangeNotifier{
       userId: user.id,
       rating: scoreValue,
       comment: reviewController.text,
+      images: images.map((e) => ReviewImageDTO(
+        id: "",
+        originalName: "",
+        url: "",
+        mimeType: "",
+        size: 0,
+      )).toList(),
       createdAt: DateTime.now(),
     );
 
