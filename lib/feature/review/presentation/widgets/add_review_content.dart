@@ -1,10 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
+
+import '../../../../core/data/models/dto/product_dto.dart';
+import '../../../../core/data/models/entity/user.dart';
+import '../../../product/presentation/viewmodel/product_viewmodel.dart';
+import '../viewmodel/review_model.dart';
 
 class AddReviewContent extends StatefulWidget {
   const AddReviewContent({super.key});
@@ -14,44 +20,17 @@ class AddReviewContent extends StatefulWidget {
 }
 
 class _AddReviewContent extends State<AddReviewContent> {
-  final TextEditingController _reviewController = TextEditingController();
-  final List<SvgPicture?> _score = List.generate(5, (index) => SvgPicture.asset(""));
-  final List<XFile?> _images = [];
-  final ImagePicker _picker = ImagePicker();
-  final int visibleCount = 3;
+  late ReviewModel vm;
 
-  void _onScoreSelected(int index) {
-    setState(() {
-      for(int i = 0; i < _score.length; i++) {
-        if(i <= index) {
-          _score[index] = SvgPicture.asset("");
-        }
-        else{
-          _score[index] = SvgPicture.asset("");
-        }
-      }
-    });
-  }
+  User? user;
 
-  Future<void> _pickImage(int index) async {
-    final XFile? pickedFile = await _picker.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      if (index < _images.length) {
-        _images[index] = pickedFile;
-      } else {
-        _images.add(pickedFile);
-      }
-      setState(() {});
-    }
-  }
+  ProductDTO? product;
 
   Widget _buildImageSlot(int index) {
-    bool isFilled = index < _images.length && _images[index] != null;
+    bool isFilled = index < vm.images.length && vm.images[index] != null;
 
     return GestureDetector(
-      onTap: () => _pickImage(index),
+      onTap: () => vm.pickImage(index),
       child: Container(
         width: 74,
         height: 74,
@@ -63,7 +42,7 @@ class _AddReviewContent extends State<AddReviewContent> {
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(60),
                 child: Image.file(
-                  File(_images[index]!.path),
+                  File(vm.images[index]!.path),
                   fit: BoxFit.cover,
                 ),
               )
@@ -76,7 +55,19 @@ class _AddReviewContent extends State<AddReviewContent> {
     Navigator.pop(context);
   }
 
-  void _onSubmit() {}
+  void _onSubmit() {
+    final reviewDTO = vm.createReview(product: product!, user: user!);
+    vm.addReview(reviewDTO);
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    vm = context.read<ReviewModel>();
+    user = context.read<User>();
+    product = context.read<ProductDataViewModel>().selectedProduct;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +91,8 @@ class _AddReviewContent extends State<AddReviewContent> {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: GestureDetector(
-                    onTap: () => _onScoreSelected(index),
-                    child: _score[index],
+                    onTap: () => vm.onScoreSelected(index),
+                    child: vm.score[index],
                   ),
                 ),
           ),
@@ -115,7 +106,7 @@ class _AddReviewContent extends State<AddReviewContent> {
             .bodyMedium),
         SizedBox(height: 8),
         TextField(
-          controller: _reviewController,
+          controller: vm.reviewController,
           decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.gray100,
@@ -143,7 +134,7 @@ class _AddReviewContent extends State<AddReviewContent> {
 
         Row(
           children: List.generate(
-            visibleCount,
+            vm.visibleCount,
                 (index) =>
                 Padding(
                   padding: EdgeInsets.only(right: 8),
