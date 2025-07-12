@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 
@@ -33,9 +34,8 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                   height: 86,
                   margin: EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
-                    color: Color(0xFFD9D9D9),
+                    color: appColorScheme().surfaceContainer,
                     borderRadius: BorderRadiusGeometry.circular(10),
-                    border: Border.all(color: Colors.black),
                   ),
                 ),
                 Column(
@@ -46,19 +46,13 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                       child: Row(
                         children: [
                           Text(
-                            '${order.product.name}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            order.product.name,
+                            style: Theme.of(context).textTheme.titleSmall
                           ),
                           Spacer(),
                           Text(
                             '${order.orderIndex}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.titleSmall
                           ),
                         ],
                       ),
@@ -83,7 +77,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
               width: MediaQuery.of(context).size.width * 0.86,
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
-                color: Color(0x4DD9D9D9),
+                color: appColorScheme().surfaceContainer,
                 borderRadius: BorderRadiusGeometry.circular(10),
               ),
               child: Column(
@@ -154,7 +148,8 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
             ),
             SizedBox(height: 20),
 
-            //주문 취소버튼. 결제 완료 상태에서만 보여야 됨(예정)
+            //주문 취소버튼. 결제 완료 상태에서만 보여야 됨
+            order.orderIndex == 1 ?
             Container(
               width: MediaQuery.of(context).size.width * 0.86,
               height: MediaQuery.of(context).size.height * 0.06,
@@ -176,7 +171,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                                 padding: EdgeInsets.all(16),
                                 child: Text(
                                   "주문을 취소 하시겠습니까?",
-                                  style: TextStyle(fontSize: 20),
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
                             ],
@@ -184,12 +179,12 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                         ),
                         actions: [
                           TextButton(
-                            onPressed: (){viewModel.cancelOrder(order.orderId);},
-                            child: Text("네"),),
-                          TextButton(
                             onPressed: () => Navigator.of(context).pop(),
                             child: Text("아니요"),
                           ),
+                          TextButton(
+                            onPressed: (){viewModel.cancelOrder(order.orderId);},
+                            child: Text("네"),),
                         ],
                       );
                     },
@@ -197,10 +192,11 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                 },
                 child: Align(
                   alignment: Alignment.center,
-                  child: Text("주문 취소", style: TextStyle(fontSize: 20)),
+                  child: Text("주문 취소", style: Theme.of(context).textTheme.bodyLarge),
                 ),
               ),
-            ),
+            )
+            : SizedBox(height: 10)
           ],
         ),
       ),

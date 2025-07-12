@@ -123,7 +123,9 @@ class _CartEndpoints {
   const _CartEndpoints();
 
   /// ## 내 장바구니 조회 (GET)
-  final getCart = '/api/cart';
+  String getCart(){
+    return 'api/cart';
+  }
 
   /// ## 장바구니에 상품 추가 (POST)
   /// #### 작성 필수 정보 (Request body)
@@ -132,7 +134,9 @@ class _CartEndpoints {
   /// - `options` (object, optional): 상품 옵션 정보
   ///    - `color` (string, optional): 색상
   ///    - `storage` (string, optional): 저장 용량
-  final addCart = '/api/cart/';
+  String addCart() {
+    return 'api/cart/';
+  }
 
   /// ## 장바구니에서 선택된 상품 제거 (DELETE)
   /// #### 작성 필수 정보 (Request body)
