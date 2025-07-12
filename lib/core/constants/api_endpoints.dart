@@ -500,7 +500,6 @@ class _ProductEndpoints {
   }
 
   /// ## 상품 찜 토글 (추가 또는 삭제) (POST)
-  /// #### 작성 필수 정보 (Request body)
   /// - `productId` (string): 찜 상태를 변경할 상품의 고유 ID
   String toggleFavorite(String productId) {
     return '/api/products/$productId/toggle-favorites';
@@ -547,9 +546,9 @@ class _SearchEndpoints {
     int reviewLimit = 3,
     int storeLimit = 2,
     bool includeProducts = true,
-    bool includeContents = true,
-    bool includeReviews = true,
-    bool includeStores = true,
+    bool includeContents = false,
+    bool includeReviews = false,
+    bool includeStores = false,
     bool includePosts = true,
   }) {
     final query = <String, String>{};

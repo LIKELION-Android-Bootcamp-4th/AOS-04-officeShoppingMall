@@ -18,7 +18,7 @@ class MypageScreen extends StatelessWidget {
       appBar: CustomAppBar(title: '마이페이지', actions: appBarActionsMypage()),
       body: Builder(
         builder: (context) {
-          if (vm.isLoading) return CustomCircleIndicator();
+          if (vm.isLoading) return Center(child: CustomCircleIndicator());
           if (vm.error != null) return Center(child: Text('에러:${vm.error.toString()}'));
 
           return ListView(
