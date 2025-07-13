@@ -96,7 +96,7 @@ class SettingViewModel extends ChangeNotifier {
     required String? name,
     required String? phone,
     required String? addr,
-    required String? profileImage,
+    String? profileImage,
   }) async {
     if (_user == null) return;
     _isLoading = true;
@@ -104,7 +104,8 @@ class SettingViewModel extends ChangeNotifier {
 
     try {
       _user = await _repository.saveProfile(
-        _user!.copyWith(name: name, phone: phone, addr: addr, profileImage: profileImage),
+        _user!.copyWith(name: name, phone: phone, addr: addr, profileImage: null),
+        profileImagePath: profileImage,
       );
     } catch (e) {
       _error = '$e';
