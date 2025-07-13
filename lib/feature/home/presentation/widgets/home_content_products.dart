@@ -42,7 +42,7 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
-                      child: Image.asset('images/banner1.jpg', fit: BoxFit.fill),
+                      child: Image.network(currentProd.thumbnailImage!, fit: BoxFit.fill),
                     ),
                   ),
                   Positioned(
@@ -57,7 +57,6 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                             ? 'images/icon/ic_heart_small_1.svg'
                             : 'images/icon/ic_heart_small_0.svg',
                       ),
-                      // icon: Icon(isFavorite ? Icons.favorite_border, color: appColorScheme().onSurface),
                     ),
                   ),
                 ],
