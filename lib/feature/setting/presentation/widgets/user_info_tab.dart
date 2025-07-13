@@ -32,6 +32,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
     super.initState();
     _nameCtrl = TextEditingController(text: widget.user.nickName);
     _phoneCtrl = TextEditingController(text: widget.user.phone ?? '');
+    profileImagePath = null;
   }
 
   @override
@@ -71,6 +72,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     InkWell(
                       onTap: showImagePickerDialog,
                       child: CircleAvatar(
+                        // foregroundImage: Image.network(widget.user.profile.profileImage),
                         backgroundColor: appColorScheme().surfaceContainerHigh,
                         radius: 32,
                       ),

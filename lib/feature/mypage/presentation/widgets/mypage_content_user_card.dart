@@ -27,12 +27,11 @@ class MypageContentUserCard extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: appColorScheme().surfaceContainerHigh,
                     radius: 32,
-                    foregroundImage: AssetImage(
-                      user.profile.profileImage != null
-                          ? 'images/default_profile.jpg'
-                          : user.profile.profileImage!,
-                    ),
+                    // foregroundImage: user.profile.profileImage == null
+                    //     ? Image.asset('images/default_profile.jpg')
+                    //     : Image.network(user.profile.profileImage!),
                   ),
+
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
