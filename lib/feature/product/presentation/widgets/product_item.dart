@@ -50,21 +50,24 @@ class _ProductItem extends State<ProductItem> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: product.images.isNotEmpty
+                    child: product.thumbnailImage != null
                         ? Image.network(
-                            product.images.first,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          )
+                      product.thumbnailImage!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )
                         : Container(
-                            color: AppColors.gray200,
-                            alignment: Alignment.center,
-                            child: Text(
-                              '상품 이미지가 없습니다',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ),
+                      color: AppColors.gray200,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '상품 이미지가 없습니다',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodySmall,
+                      ),
+                    ),
                   ),
                   Positioned(
                     right: 12,
@@ -96,7 +99,10 @@ class _ProductItem extends State<ProductItem> {
                       alignment: Alignment.topLeft,
                       child: Text(
                         product.name,
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleMedium,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -105,7 +111,10 @@ class _ProductItem extends State<ProductItem> {
                     alignment: Alignment.bottomRight,
                     child: Text(
                         product.price.toWon,
-                        style: Theme.of(context).textTheme.bodyLarge
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge
                     ),
                   ),
                 ],

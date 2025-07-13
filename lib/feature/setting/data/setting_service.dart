@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/user_dto.dart';
@@ -67,8 +70,23 @@ class SettingService {
     return UserDTO.fromJson(response.data['data']);
   }
 
-  Future<UserDTO> updateProfile(UserDTO dto) async {
-    final response = await _dio.patch(Api.mypage.updateProfile, data: dto.toJson());
+  Future<UserDTO> updateProfile(UserDTO dto, {String? profileImagePath}) async {
+    Response response;
+
+    if (profileImagePath != null) {
+      final file = await MultipartFile.fromFile(
+        profileImagePath,
+        filename: profileImagePath.split('/').last,
+      );
+      final form = FormData.fromMap({
+        ...dto.toJson()..remove('profileImage'),
+        'profileImage': file,
+      });
+      response = await _dio.patch(Api.mypage.updateProfile, data: form);
+    } else {
+      response = await _dio.patch(Api.mypage.updateProfile, data: dto.toJson());
+    }
+
     return UserDTO.fromJson(response.data['data']);
   }
 }

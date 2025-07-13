@@ -20,7 +20,9 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
     });
   }
 
-  void _onCartPressed() {}
+  void _onCartPressed() {
+
+  }
 
   void _onBuyPressed() {
     Navigator.pushNamed(context, AppRoutes.order);

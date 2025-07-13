@@ -24,8 +24,8 @@ class SettingRepository {
     return User.fromDTO(dto);
   }
 
-  Future<User> saveProfile(User user) async {
-    final dto = await _service.updateProfile(user.toDTO());
+  Future<User> saveProfile(User user, {String? profileImagePath}) async {
+    final dto = await _service.updateProfile(user.toDTO(), profileImagePath: profileImagePath);
     return User.fromDTO(dto);
   }
 }

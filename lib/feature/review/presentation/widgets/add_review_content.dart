@@ -1,9 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
+
+import '../../../../core/data/models/dto/product_dto.dart';
+import '../../../../core/data/models/entity/user.dart';
+import '../viewmodel/review_model.dart';
 
 class AddReviewContent extends StatefulWidget {
   const AddReviewContent({super.key});
@@ -13,44 +20,17 @@ class AddReviewContent extends StatefulWidget {
 }
 
 class _AddReviewContent extends State<AddReviewContent> {
-  final TextEditingController _reviewController = TextEditingController();
-  final List<SvgPicture?> _score = List.generate(5, (index) => SvgPicture.asset(""));
-  final List<XFile?> _images = [];
-  final ImagePicker _picker = ImagePicker();
-  final int visibleCount = 3;
+  late ReviewModel vm;
 
-  void _onScoreSelected(int index) {
-    setState(() {
-      for(int i = 0; i < _score.length; i++) {
-        if(i <= index) {
-          _score[index] = SvgPicture.asset("");
-        }
-        else{
-          _score[index] = SvgPicture.asset("");
-        }
-      }
-    });
-  }
+  User? user;
 
-  Future<void> _pickImage(int index) async {
-    final XFile? pickedFile = await _picker.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      if (index < _images.length) {
-        _images[index] = pickedFile;
-      } else {
-        _images.add(pickedFile);
-      }
-      setState(() {});
-    }
-  }
+  ProductDTO? product;
 
   Widget _buildImageSlot(int index) {
-    bool isFilled = index < _images.length && _images[index] != null;
+    bool isFilled = index < vm.images.length && vm.images[index] != null;
 
     return GestureDetector(
-      onTap: () => _pickImage(index),
+      onTap: () => vm.pickImage(index),
       child: Container(
         width: 74,
         height: 74,
@@ -62,7 +42,7 @@ class _AddReviewContent extends State<AddReviewContent> {
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(60),
                 child: Image.file(
-                  File(_images[index]!.path),
+                  File(vm.images[index]!.path),
                   fit: BoxFit.cover,
                 ),
               )
@@ -75,7 +55,19 @@ class _AddReviewContent extends State<AddReviewContent> {
     Navigator.pop(context);
   }
 
-  void _onSubmit() {}
+  void _onSubmit() {
+    final reviewDTO = vm.createReview(product: product!, user: user!);
+    vm.addReview(reviewDTO);
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    vm = context.read<ReviewModel>();
+    user = context.read<User>();
+    product = context.read<ProductViewModel>().selectedProduct;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,29 +77,36 @@ class _AddReviewContent extends State<AddReviewContent> {
       children: [
         SizedBox(height: 20),
 
-        Text("별점을 남겨주세요.", style: Theme.of(context).textTheme.bodyMedium),
+        Text("별점을 남겨주세요.", style: Theme
+            .of(context)
+            .textTheme
+            .bodyMedium),
 
         SizedBox(height: 8),
 
         Row(
           children: List.generate(
             5,
-            (index) => Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: GestureDetector(
-                onTap: () => _onScoreSelected(index),
-                child: _score[index],
-              ),
-            ),
+                (index) =>
+                Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: GestureDetector(
+                    onTap: () => vm.onScoreSelected(index),
+                    child: vm.score[index],
+                  ),
+                ),
           ),
         ),
 
         SizedBox(height: 20),
 
-        Text("후기를 남겨주세요. (최대 50자 이내)", style: Theme.of(context).textTheme.bodyMedium),
+        Text("후기를 남겨주세요. (최대 50자 이내)", style: Theme
+            .of(context)
+            .textTheme
+            .bodyMedium),
         SizedBox(height: 8),
         TextField(
-          controller: _reviewController,
+          controller: vm.reviewController,
           decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.gray100,
@@ -125,18 +124,22 @@ class _AddReviewContent extends State<AddReviewContent> {
 
         Text(
           "사진을 업로드 해 주세요. (선택)",
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme
+              .of(context)
+              .textTheme
+              .bodyMedium,
         ),
 
         SizedBox(height: 8),
 
         Row(
           children: List.generate(
-            visibleCount,
-            (index) => Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: _buildImageSlot(index),
-            ),
+            vm.visibleCount,
+                (index) =>
+                Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: _buildImageSlot(index),
+                ),
           ),
         ),
 
@@ -144,34 +147,20 @@ class _AddReviewContent extends State<AddReviewContent> {
 
         Row(
           children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: _onCancel,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.gray100,
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60),
-                  ),
-                  minimumSize: Size.fromHeight(48),
-                ),
-                child: Text("취소"),
-              ),
+            ProductButton(
+              text: "취소",
+              backgroundColor: AppColors.gray100,
+              textColor: Colors.black,
+              onPressed: _onCancel,
+              isExpanded: true,
             ),
             SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: _onSubmit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60),
-                  ),
-                  minimumSize: Size.fromHeight(48),
-                ),
-                child: Text("등록"),
-              ),
+            ProductButton(
+              text: "등록",
+              backgroundColor: AppColors.primaryColor,
+              textColor: Colors.white,
+              onPressed: _onSubmit,
+              isExpanded: true,
             ),
           ],
         ),
