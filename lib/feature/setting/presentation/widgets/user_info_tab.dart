@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,13 +50,25 @@ class _UserInfoTabState extends State<UserInfoTab> {
       name: _nameCtrl.text,
       phone: _phoneCtrl.text,
       addr: addr,
-      profileImage: profileImagePath,
+      profileImagePath: profileImagePath,
     );
+    setState(() {
+      profileImagePath = null;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<SettingViewModel>();
+    final serverUrl = vm.uploadImageUrl ?? vm.user?.profile.profileImage;
+    ImageProvider? imageProvider;
+
+    if (profileImagePath != null) {
+      imageProvider = FileImage(File(profileImagePath!));
+    } else if (serverUrl != null && serverUrl.isNotEmpty) {
+      imageProvider = NetworkImage(serverUrl);
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
@@ -72,9 +86,12 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     InkWell(
                       onTap: showImagePickerDialog,
                       child: CircleAvatar(
-                        // foregroundImage: Image.network(widget.user.profile.profileImage),
-                        backgroundColor: appColorScheme().surfaceContainerHigh,
                         radius: 32,
+                        backgroundImage: imageProvider,
+                        backgroundColor: appColorScheme().surfaceContainerHigh,
+                        child: imageProvider == null
+                            ? SvgPicture.asset('images/icon/ic_user.svg')
+                            : null,
                       ),
                     ),
                     const SizedBox(width: 12),

@@ -47,7 +47,6 @@ class User {
     required String? name,
     required String? phone,
     String? addr,
-    String? profileImage,
   }) {
     return User(
       id: id,
@@ -57,7 +56,7 @@ class User {
       phone: phone ?? this.phone,
       profile: Profile(
         name: name ?? profile.name,
-        profileImage: profileImage ?? profile.profileImage,
+        profileImage: profile.profileImage,
       ),
       address: Address(
         zipCode: address?.zipCode ?? '',
