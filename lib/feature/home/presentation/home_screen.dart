@@ -4,7 +4,7 @@ import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/bottom_navigation.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/home/domain/home_repository.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/home/presentation/viewmodel/home_viewmodel.dart';
 import 'package:office_shopping_mall/feature/home/presentation/widgets/home_content_banner.dart';
 import 'package:office_shopping_mall/feature/home/presentation/widgets/home_content_category.dart';
@@ -24,27 +24,34 @@ class HomeScreen extends StatelessWidget {
         titleTextStyle: Theme.of(context).textTheme.headlineLarge,
         isLeading: false,
       ),
-      body: ListView(
-        children: [
-          HomeContentBanner(),
-          const SizedBox(height: 20),
+      body: Builder(
+        builder: (context) {
+          if (vm.isLoading) return Center(child: CustomCircleIndicator());
+          if (vm.error != null) return Center(child: Text(vm.error.toString()));
 
-          categoryText('카테고리'),
-          const SizedBox(height: 10),
-          HomeContentCategory(),
+          return ListView(
+            children: [
+              HomeContentBanner(),
+              const SizedBox(height: 20),
 
-          const SizedBox(height: 20),
+              categoryText('카테고리'),
+              const SizedBox(height: 10),
+              HomeContentCategory(),
 
-          categoryText('현재 인기 상품'),
-          const SizedBox(height: 10),
-          HomeContentProducts(products: vm.popularProducts),
-          const SizedBox(height: 20),
+              const SizedBox(height: 20),
+
+              categoryText('현재 인기 상품'),
+              const SizedBox(height: 10),
+              HomeContentProducts(products: vm.popularProducts),
+              const SizedBox(height: 20),
 
 
-          // 새로운 추천 만들기
-          // HomeContentProducts(),
-          // HomeContentProducts(),
-        ],
+              // 새로운 추천 만들기
+              // HomeContentProducts(),
+              // HomeContentProducts(),
+            ],
+          );
+        }
       ),
       bottomNavigationBar: BottomNavigation(),
     );
