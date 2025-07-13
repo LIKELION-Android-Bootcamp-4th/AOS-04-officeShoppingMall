@@ -45,19 +45,27 @@ class User {
   }
 
   User copyWith({
-    String? nickName,
-    String? phone,
-    Address? address,
+    required String? name,
+    required String? phone,
+    String? addr,
+    String? profileImage,
   }) {
     return User(
       id: id,
       email: email,
-      // TODO: 서버 롤백으로 500 에러 유지 중. 변경 후 name을 받는다면 바꾸기
-      nickName: nickName ?? this.nickName,
+      nickName: nickName,
       isAdmin: isAdmin,
       phone: phone ?? this.phone,
-      profile: profile,
-      address: address ?? this.address,
+      profile: Profile(
+        name: name ?? profile.name,
+        birthDate: profile.birthDate,
+        profileImage: profileImage ?? profile.profileImage,
+      ),
+      address: Address(
+        zipCode: address?.zipCode ?? '',
+        address1: addr ?? address?.address1 ?? '',
+        address2: address?.address2 ?? '',
+      ),
     );
   }
 }

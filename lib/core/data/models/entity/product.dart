@@ -1,14 +1,22 @@
-import '../dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 
-class Product{
+class Product {
   final String id;
   final String name;
   final String? description;
   final String category;
   final int price;
+  final int stock;
   final String? thumbnailImage;
   final List<String> images;
+  final int favoriteCount;
+  final int viewCount;
+  final int orderCount;
+  final int reviewCount;
+  final ReviewStats reviewStats;
   final double? score;
+  final List<String> reviews;
+  final bool isFavorite;
 
   Product({
     required this.id,
@@ -16,63 +24,64 @@ class Product{
     this.description,
     required this.category,
     required this.price,
+    required this.stock,
     this.thumbnailImage,
     this.images = const [],
+    required this.favoriteCount,
+    required this.viewCount,
+    required this.orderCount,
+    required this.reviewCount,
+    required this.reviewStats,
     this.score,
+    this.reviews = const [],
+    required this.isFavorite,
   });
 
-  factory Product.fromDTO(ProductDTO dto){
+  factory Product.fromDTO(ProductDTO dto) {
     return Product(
       id: dto.id,
       name: dto.name,
-      description: dto.description,
       category: dto.category,
       price: dto.price,
-      thumbnailImage: dto.thumbnailImage,
-      images: dto.images,
-      score: dto.score,
+      stock: dto.stock,
+      favoriteCount: dto.favoriteCount,
+      viewCount: dto.viewCount,
+      orderCount: dto.orderCount,
+      reviewCount: dto.reviewCount,
+      reviewStats: dto.reviewStats,
+      isFavorite: dto.isFavorite,
     );
   }
 
-  ProductDTO toDTO(){
-    return ProductDTO(
+  Product toDTO() {
+    return Product(
       id: id,
       name: name,
-      description: description,
       category: category,
       price: price,
-      stock: 0,
-      thumbnailImage: thumbnailImage,
-      images: images,
-      favoriteCount: 0,
-      viewCount: 0,
-      orderCount: 0,
-      reviewCount: 0,
-      reviewStats: ReviewStats( averageRating: 0.0, totalReviews: 0, ratingDistribution: RatingDistribution(r1: 0, r2: 0, r3: 0, r4: 0, r5: 0)),
-      score: score,
-      isFavorite: false,
+      stock: stock,
+      favoriteCount: favoriteCount,
+      viewCount: viewCount,
+      orderCount: orderCount,
+      reviewCount: reviewCount,
+      reviewStats: reviewStats,
+      isFavorite: isFavorite,
     );
   }
 
-  Product copyWith({
-    String? id,
-    String? name,
-    String? description,
-    String? category,
-    int? price,
-    String? thumbnailImage,
-    List<String>? images,
-    double? score,
-  }) {
+  Product copyWith({bool? isFavorite}) {
     return Product(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      description: description ?? this.description,
-      category: category ?? this.category,
-      price: price ?? this.price,
-      thumbnailImage: thumbnailImage ?? this.thumbnailImage,
-      images: images ?? this.images,
-      score: score ?? this.score,
+      id: id,
+      name: name,
+      category: category,
+      price: price,
+      stock: stock,
+      favoriteCount: favoriteCount,
+      viewCount: viewCount,
+      orderCount: orderCount,
+      reviewCount: reviewCount,
+      reviewStats: reviewStats,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 }

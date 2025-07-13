@@ -4,7 +4,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class LoggingInterceptor extends PrettyDioLogger {
   LoggingInterceptor()
     : super(
-        requestHeader: true,
+        requestHeader: false,
         requestBody: true,
         responseHeader: true,
         responseBody: true,

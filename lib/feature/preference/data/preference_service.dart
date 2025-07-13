@@ -17,13 +17,23 @@ class PreferenceService {
         page: page ?? 1,
         limit: limit ?? 20,
         sort: sort ?? 'createdAt',
-        order: order ??'desc',
+        order: order ?? 'desc',
       ),
     );
 
     if (response.statusCode == 200) {
       final items = response.data['data']['items'] as List;
       return items.map((item) => ProductDTO.fromJson(item)).toList();
+    } else {
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<bool> toggleFavorite(String productId) async {
+    final response = await _dio.post(Api.product.toggleFavorite(productId));
+
+    if (response.statusCode == 200) {
+      return response.data['isFavorite'] as bool;
     } else {
       throw Exception(response.statusCode);
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
@@ -22,6 +23,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameCtrl;
   late TextEditingController _phoneCtrl;
+  ImagePicker picker = ImagePicker();
+  String? addr;
+  String? profileImagePath;
 
   @override
   void initState() {
@@ -40,9 +44,10 @@ class _UserInfoTabState extends State<UserInfoTab> {
   Future<void> _onSave() async {
     if (!_formKey.currentState!.validate()) return;
     await context.read<SettingViewModel>().updateProfile(
-      _nameCtrl.text,
-      _phoneCtrl.text,
-      widget.user.address,
+      name: _nameCtrl.text,
+      phone: _phoneCtrl.text,
+      addr: addr,
+      profileImage: profileImagePath,
     );
   }
 
@@ -63,23 +68,26 @@ class _UserInfoTabState extends State<UserInfoTab> {
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: appColorScheme().surfaceContainerHigh,
-                      radius: 32,
+                    InkWell(
+                      onTap: showImagePickerDialog,
+                      child: CircleAvatar(
+                        backgroundColor: appColorScheme().surfaceContainerHigh,
+                        radius: 32,
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium),
                     const Spacer(),
-                    // IconButton(
-                    //   onPressed: () {},
-                    //   icon: SvgPicture.asset(
-                    //     'images/icon/ic_edit.svg',
-                    //     colorFilter: ColorFilter.mode(
-                    //       appColorScheme().surfaceContainerHigh,
-                    //       BlendMode.srcIn,
-                    //     ),
-                    //   ),
-                    // ),
+                    IconButton(
+                      onPressed: showImagePickerDialog,
+                      icon: SvgPicture.asset(
+                        'images/icon/ic_edit.svg',
+                        colorFilter: ColorFilter.mode(
+                          appColorScheme().surfaceContainerHigh,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -129,7 +137,9 @@ class _UserInfoTabState extends State<UserInfoTab> {
                         width: 70,
                         child: Text('이메일', style: Theme.of(context).textTheme.bodyMedium),
                       ),
-                      Expanded(child: TextFormField(readOnly: true)),
+                      Expanded(
+                        child: TextFormField(readOnly: true, initialValue: widget.user.email),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -148,7 +158,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
             Text('배송지 설정', style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 10),
 
-            for (final addr in vm.addresses)
+            for (final address in vm.addresses)
               Card(
                 color: appColorScheme().surfaceContainerLow,
                 elevation: 0,
@@ -159,12 +169,12 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        addr.name,
+                        address.name,
                         style: Theme.of(context).textTheme.bodyMedium,
                         overflow: TextOverflow.fade,
                       ),
                       const SizedBox(width: 16),
-                      if (addr.isDefault)
+                      if (address.isDefault)
                         Container(
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
@@ -179,7 +189,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                         height: 30,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.read<SettingViewModel>().removeAddress(addr);
+                            context.read<SettingViewModel>().removeAddress(address);
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
@@ -197,7 +207,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                         height: 30,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.destSetting, arguments: addr);
+                            Navigator.pushNamed(context, AppRoutes.destSetting, arguments: address);
                           },
                           style: ElevatedButton.styleFrom(padding: EdgeInsets.zero, elevation: 0),
                           child: Text('수정'),
@@ -218,6 +228,8 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       await Navigator.pushNamed(context, AppRoutes.destSetting) as SettingAddress?;
                   if (result != null) {
                     context.read<SettingViewModel>().addAddress(result);
+                    if (vm.addresses.length == 1) result.isDefault = true;
+                    if (result.isDefault) addr = result.addr;
                   }
                 },
                 child: Container(
@@ -242,5 +254,51 @@ class _UserInfoTabState extends State<UserInfoTab> {
         ),
       ),
     );
+  }
+
+  void showImagePickerDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('프로필 사진 선택'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera),
+                title: Text('카메라로 촬영'),
+                onTap: () {
+                  Navigator.pop(context); // dialog close
+                  pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('갤러리에서 선택'),
+                onTap: () {
+                  Navigator.pop(context); // dialog close
+                  pickImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    try {
+      XFile? image = await picker.pickImage(source: source);
+      if (image != null) {
+        setState(() {
+          profileImagePath = image.path;
+        });
+      }
+      _onSave();
+    } catch (e) {
+      print(e);
+    }
   }
 }

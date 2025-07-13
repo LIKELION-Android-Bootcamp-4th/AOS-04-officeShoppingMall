@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/preference/presentation/viewmodel/preference_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-class PreferenceContentList extends StatefulWidget {
+class PreferenceContentList extends StatelessWidget {
   const PreferenceContentList({super.key});
 
   @override
-  State<PreferenceContentList> createState() => _PreferenceContentListState();
-}
-
-class _PreferenceContentListState extends State<PreferenceContentList> {
-  bool isFavorite = false;
-
-  @override
   Widget build(BuildContext context) {
-    final favorites = context.select((PreferenceViewModel vm) => vm.favorites);
+    final vm = context.watch<PreferenceViewModel>();
+    final favorites = vm.favorites;
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -32,17 +26,20 @@ class _PreferenceContentListState extends State<PreferenceContentList> {
                 Card(
                   clipBehavior: Clip.antiAlias,
                   // TODO: 현재 상품 이미지가 없어 임시로 null 가능 적용
-                  child: Image.asset(currentProd.thumbnailImage ?? 'images/banner1.jpg', fit: BoxFit.fill),
+                  child: Image.asset(
+                    currentProd.thumbnailImage ?? 'images/banner1.jpg',
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Positioned(
                   bottom: 4,
                   right: 4,
                   child: IconButton(
                     onPressed: () {
-                      isFavorite = currentProd.isFavorite;
+                      vm.toggleFavorite(currentProd);
                     },
                     icon: SvgPicture.asset(
-                      isFavorite
+                      currentProd.isFavorite
                           ? 'images/icon/ic_heart_small_1.svg'
                           : 'images/icon/ic_heart_small_0.svg',
                     ),
