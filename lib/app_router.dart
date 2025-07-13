@@ -20,6 +20,7 @@ import 'package:office_shopping_mall/feature/search/presentation/search_screen.d
 import 'feature/auth/presentation/login_screen.dart';
 import 'feature/auth/presentation/signup_screen.dart';
 import 'feature/review/presentation/add_review_screen.dart';
+import 'feature/review/presentation/review_detail_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -66,6 +67,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => AddReviewScreen(), settings: settings);
       case AppRoutes.review:
         return MaterialPageRoute(builder: (_) => ReviewScreen(), settings: settings);
+      case AppRoutes.reviewDetail:
+        return MaterialPageRoute(builder: (_) => ReviewDetailScreen(), settings: settings);
       case AppRoutes.recentProd:
         return MaterialPageRoute(builder: (_) => MypageRecentProducts(), settings: settings);
 

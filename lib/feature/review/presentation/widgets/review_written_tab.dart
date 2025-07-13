@@ -1,84 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
+import 'package:office_shopping_mall/feature/review/presentation/widgets/review_written_item.dart';
 
-class ReviewWrittenTab extends StatelessWidget {
+import '../../../../core/constants/app_routes.dart';
+import '../viewmodel/review_model.dart';
+
+class ReviewWrittenTab extends StatefulWidget{
+  const ReviewWrittenTab({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ReviewWrittenTab();
+}
+
+class _ReviewWrittenTab extends State<ReviewWrittenTab> {
+
+  late ReviewModel vm;
+  late List<ReviewDTO> review;
+
+  @override
+  void initState() {
+    super.initState();
+    vm = context.read<ReviewModel>();
+    vm.getMyReview();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // 예시 데이터 리스트
+    final items = [
+      {'title': '리뷰 작성 완료 상품 A', 'count': 2, 'price': 100000},
+      {'title': '리뷰 작성 완료 상품 B', 'count': 1, 'price': 50000},
+      {'title': '리뷰 작성 완료 상품 C', 'count': 3, 'price': 150000},
+      // 계속 추가 가능
+    ];
+
     return Align(
       alignment: Alignment.center,
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 190,
-            decoration: BoxDecoration(
-              color: AppColors.gray100,
-              borderRadius: BorderRadiusGeometry.circular(10),
-            ),
-            child: InkWell(
+      child: ListView.builder(
+        shrinkWrap: true, // Column 안에 있을 때 필요
+        physics: NeverScrollableScrollPhysics(), // 상위 스크롤에 영향 안 주도록
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: ReviewWrittenItem(
+              title: item['title'] as String,
+              count: item['count'] as int,
+              price: item['price'] as int,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => ReviewDetailScreen()),
-                );
+                Navigator.pushNamed(context, AppRoutes.reviewDetail);
               },
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 16, right: 16),
-                    child: Container(
-                      width: 86,
-                      height: 86,
-                      margin: EdgeInsets.only(top: 6, left: 5),
-                      decoration: BoxDecoration(
-                        color: appColorScheme().surfaceContainer,
-                        borderRadius: BorderRadiusGeometry.circular(10),
-                        border: Border.all(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "리뷰 작성 완료 상품",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 3),
-                      Text("2개", style: TextStyle(fontSize: 15)),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.56,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Spacer(),
-                            Padding(
-                              padding: EdgeInsets.only(right: 3),
-                              child: Text(
-                                "100,000",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Text("원", style: TextStyle(fontSize: 15)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
