@@ -1,8 +1,7 @@
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
 import 'package:office_shopping_mall/feature/review/data/review_service.dart';
 
-class ReviewRepository{
-
+class ReviewRepository {
   final ReviewService _service;
 
   ReviewRepository(this._service);

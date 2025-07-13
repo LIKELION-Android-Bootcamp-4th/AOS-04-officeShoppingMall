@@ -6,9 +6,12 @@ import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../../core/data/models/entity/user.dart';
 import '../../data/review_repository.dart';
 
-class ReviewModel extends ChangeNotifier{
+class ReviewModel extends ChangeNotifier {
   final TextEditingController reviewController = TextEditingController();
-  final List<SvgPicture?> score = List.generate(5, (index) => SvgPicture.asset(""));
+  final List<SvgPicture?> score = List.generate(
+    5,
+    (index) => SvgPicture.asset(""),
+  );
   int scoreValue = 5;
   final List<XFile?> images = [];
   final ImagePicker _picker = ImagePicker();
@@ -21,11 +24,10 @@ class ReviewModel extends ChangeNotifier{
   ReviewModel(this._reviewRepository);
 
   void onScoreSelected(int index) {
-    for(int i = 0; i < score.length; i++) {
+    for (int i = 0; i < score.length; i++) {
       if (i <= index) {
         score[index] = SvgPicture.asset("");
-      }
-      else {
+      } else {
         score[index] = SvgPicture.asset("");
       }
     }
@@ -43,7 +45,6 @@ class ReviewModel extends ChangeNotifier{
       } else {
         images.add(pickedFile);
       }
-
     }
     notifyListeners();
   }
@@ -55,13 +56,17 @@ class ReviewModel extends ChangeNotifier{
       userId: user.id,
       rating: scoreValue,
       comment: reviewController.text,
-      images: images.map((e) => ReviewImageDTO(
-        id: "",
-        originalName: e!.name,
-        url: e.path,
-        mimeType: "",
-        size: 0,
-      )).toList(),
+      images: images
+          .map(
+            (e) => ReviewImageDTO(
+              id: "",
+              originalName: e!.name,
+              url: e.path,
+              mimeType: "",
+              size: 0,
+            ),
+          )
+          .toList(),
       createdAt: DateTime.now(),
     );
 
@@ -78,8 +83,7 @@ class ReviewModel extends ChangeNotifier{
     try {
       final reviewList = await _reviewRepository.getReviews(productId);
       reviews.addAll(reviewList);
-    }
-    catch (e) {
+    } catch (e) {
       print('Error loading reviews: $e');
     }
     notifyListeners();
@@ -91,8 +95,7 @@ class ReviewModel extends ChangeNotifier{
     try {
       final reviewList = await _reviewRepository.getMyReviews();
       reviews.addAll(reviewList);
-    }
-    catch (e) {
+    } catch (e) {
       print('Error loading reviews: $e');
     }
     notifyListeners();

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import '../../../core/constants/api_endpoints.dart';
 import '../../../core/data/models/dto/review_dto.dart';
 
-class ReviewService{
+class ReviewService {
   final Dio _dio;
 
   ReviewService(this._dio);
@@ -26,7 +26,9 @@ class ReviewService{
 
       if (items is List) {
         return items
-            .map<ReviewDTO>((json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)))
+            .map<ReviewDTO>(
+              (json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)),
+            )
             .toList();
       } else {
         throw Exception("리뷰 데이터 형식이 올바르지 않습니다: items가 List가 아닙니다");
@@ -42,18 +44,15 @@ class ReviewService{
       final items = response.data['data']['items'];
       if (items is List) {
         return items
-            .map<ReviewDTO>((json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)))
+            .map<ReviewDTO>(
+              (json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)),
+            )
             .toList();
       } else {
         throw Exception("리뷰 데이터 형식이 올바르지 않습니다: items가 List가 아닙니다");
       }
     } else {
       throw Exception("리뷰 목록을 불러오는 데 실패했습니다: ${response.statusCode}");
-
-      }
+    }
   }
-
-
-
-
 }
