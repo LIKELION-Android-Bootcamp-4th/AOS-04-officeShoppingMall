@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/dto/user_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_request.dart';
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_response.dart';
@@ -17,6 +16,7 @@ class SettingViewModel extends ChangeNotifier {
   User? _user;
   bool _isLoading = false;
   String? _error;
+  String? _uploadImageUrl;
   final List<SettingAddress> _addresses = [];
   PasswordSettingResponse? _passwordSettingResponse;
 
@@ -30,6 +30,8 @@ class SettingViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   String? get error => _error;
+
+  String ? get uploadImageUrl => _uploadImageUrl;
 
   List<SettingAddress> get addresses => List.unmodifiable(_addresses);
 
@@ -96,7 +98,7 @@ class SettingViewModel extends ChangeNotifier {
     required String? name,
     required String? phone,
     required String? addr,
-    required String? profileImage,
+    String? profileImagePath,
   }) async {
     if (_user == null) return;
     _isLoading = true;
@@ -104,8 +106,10 @@ class SettingViewModel extends ChangeNotifier {
 
     try {
       _user = await _repository.saveProfile(
-        _user!.copyWith(name: name, phone: phone, addr: addr, profileImage: profileImage),
+        _user!.copyWith(name: name, phone: phone, addr: addr),
+        profileImagePath: profileImagePath,
       );
+      if (profileImagePath != null) _uploadImageUrl = _user?.profile.profileImage;
     } catch (e) {
       _error = '$e';
     } finally {
