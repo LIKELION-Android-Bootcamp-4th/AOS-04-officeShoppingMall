@@ -39,7 +39,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
       children: [
         SizedBox(
           height: 228,
-          child: product.thumbnailImage != null
+          child: product.contentImage == null
               ? Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -52,21 +52,15 @@ class _ProductDetailContent extends State<ProductDetailContent> {
                     ),
                   ),
                 )
-              : PageView.builder(
-                  itemCount: product.images.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: NetworkImage(product.images[index]),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                ),
+              : Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(product.contentImage!),
+                      fit: BoxFit.cover,
+                    ),
+                  )
+          )
         ),
         SizedBox(height: 20),
         Row(

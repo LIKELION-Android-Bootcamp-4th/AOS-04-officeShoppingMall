@@ -1,5 +1,13 @@
 import 'dart:convert';
 
+String fixImagePath(String path) {
+  if (path.startsWith('/uploads/')) {
+    return 'http://git.hansul.kr:3004$path';
+  }
+  // 로컬 경로나 잘못된 경로는 빈 문자열 반환
+  return '';
+}
+
 class ProductDTO {
   final String id;
   final String name;
@@ -8,6 +16,7 @@ class ProductDTO {
   final int price;
   final int stock;
   final String? thumbnailImage;
+  final String? contentImage;
   final List<String> images;
   final int favoriteCount;
   final int viewCount;
@@ -25,6 +34,7 @@ class ProductDTO {
     required this.price,
     required this.stock,
     this.thumbnailImage,
+    this.contentImage,
     this.images = const [],
     required this.favoriteCount,
     required this.viewCount,
@@ -37,20 +47,46 @@ class ProductDTO {
 
   factory ProductDTO.fromJson(Map<String, dynamic> json) {
     double? parsedScore;
+    List<String> images = [];
+    final imagesData = json['images'];
+
+    if (imagesData is List) {
+      images = imagesData
+          .map((e) => fixImagePath(e.toString()))
+          .where((e) => e.isNotEmpty)
+          .toList();
+    } else if (imagesData is String && imagesData.isNotEmpty) {
+      try {
+        final fixed = imagesData.replaceAll('{', '[').replaceAll('}', ']');
+        final parsedList = jsonDecode(fixed) as List<dynamic>;
+        images = parsedList
+            .map((e) => fixImagePath(e.toString()))
+            .where((e) => e.isNotEmpty)
+            .toList();
+      } catch (e) {
+        print('Error parsing images string: $e');
+        images = [];
+      }
+    }
 
     final attr = json['attributes'];
-    if (attr != null && attr is String && attr.isNotEmpty) {
-      try {
-        final fixedAttr = attr.replaceAll("'", '"');
-        final parsed = jsonDecode(fixedAttr);
-
-        final scoreVal = parsed['score'];
+    if (attr != null) {
+      if (attr is String && attr.isNotEmpty) {
+        try {
+          final fixedAttr = attr.replaceAll("'", '"');
+          final parsed = jsonDecode(fixedAttr);
+          final scoreVal = parsed['score'];
+          if (scoreVal != null) {
+            parsedScore = (scoreVal as num).toDouble();
+          }
+        } catch (e) {
+          print('Error parsing attributes string: $e');
+        }
+      } else if (attr is Map<String, dynamic>) {
+        final scoreVal = attr['score'];
         if (scoreVal != null) {
           parsedScore = (scoreVal as num).toDouble();
         }
-
-      } catch (e) {
-        print('Error parsing attributes: $e');
       }
     }
 
@@ -58,13 +94,14 @@ class ProductDTO {
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       description: json['description'] as String?,
-      category: json['category'] as String,
+      category: json['category'] ?? '',
       price: json['price'] ?? 0,
       stock: json['stock'] ?? 0,
-      thumbnailImage: json['thumbnailImage'] as String?,
-      images: (json['images'] is List)
-          ? (json['images'] as List<dynamic>).map((e) => e.toString()).toList()
-          : [],
+      thumbnailImage: json['thumbnailImage']?['url'] as String?
+          ?? json['thumbnailImageUrl'] as String?,
+      contentImage: json['contentImage']?['url'] as String?
+          ?? json['contentImageUrl'] as String?,
+      images: images,
       favoriteCount: json['favoriteCount'] ?? 0,
       viewCount: json['viewCount'] ?? 0,
       orderCount: json['orderCount'] ?? 0,
@@ -83,6 +120,7 @@ class ProductDTO {
       'price': price,
       'stock': stock,
       'thumbnailImage': thumbnailImage,
+      'contentImage': contentImage,
       'images': images,
       'attributes': jsonEncode({'score': score ?? 0}),
       'favoriteCount': favoriteCount,
