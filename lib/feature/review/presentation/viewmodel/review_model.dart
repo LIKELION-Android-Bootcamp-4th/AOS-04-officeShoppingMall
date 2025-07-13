@@ -14,6 +14,7 @@ class ReviewModel extends ChangeNotifier{
   final ImagePicker _picker = ImagePicker();
   final int visibleCount = 3;
   List<ReviewDTO> reviews = [];
+  ReviewDTO? selectedReview;
 
   final ReviewRepository _reviewRepository;
 
@@ -73,10 +74,22 @@ class ReviewModel extends ChangeNotifier{
 
   Future<void> getReviews(String productId) async {
     reviews.clear();
-    notifyListeners();
 
     try {
       final reviewList = await _reviewRepository.getReviews(productId);
+      reviews.addAll(reviewList);
+    }
+    catch (e) {
+      print('Error loading reviews: $e');
+    }
+    notifyListeners();
+  }
+
+  Future<void> getMyReview() async {
+    reviews.clear();
+
+    try {
+      final reviewList = await _reviewRepository.getMyReviews();
       reviews.addAll(reviewList);
     }
     catch (e) {

@@ -15,4 +15,7 @@ class ReviewRepository{
     return await _service.getReviews(productId);
   }
 
+  Future<List<ReviewDTO>> getMyReviews() async {
+    return await _service.getMyReviews();
+  }
 }

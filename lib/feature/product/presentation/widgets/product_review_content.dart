@@ -13,28 +13,27 @@ class ProductReviewContent extends StatefulWidget {
   const ProductReviewContent({super.key});
 
   @override
-  State<ProductReviewContent> createState() => _ProductReviewContent();
-
+  State<ProductReviewContent> createState() => _ProductReviewContentState();
 }
 
-class _ProductReviewContent extends State<ProductReviewContent> {
-  late ReviewModel vm;
+class _ProductReviewContentState extends State<ProductReviewContent> {
+  late ReviewModel reviewModel;
   late ProductDTO? product;
-  late User? user;
 
   @override
   void initState() {
     super.initState();
-    vm = context.read<ReviewModel>();
+    reviewModel = context.read<ReviewModel>();
     product = context.read<ProductViewModel>().selectedProduct;
-    user = context.read<MypageViewModel>().user;
+
     if (product != null) {
-      vm.getReviews(product!.id);
+      reviewModel.getReviews(product!.id);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final vm = context.watch<ReviewModel>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,18 +42,21 @@ class _ProductReviewContent extends State<ProductReviewContent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: vm.reviews.length,
-                itemBuilder: (context, index) {
-                  final review = vm.reviews[index];
-                  return ReviewItem(review: review, user: user!);
-                }
-              )
-            ]
-          )
-        )
+              if (vm.reviews.isEmpty)
+                Center(child: Text("리뷰가 없습니다."))
+              else
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: vm.reviews.length,
+                  itemBuilder: (context, index) {
+                    final review = vm.reviews[index];
+                    return ReviewItem(review: review);
+                  },
+                ),
+            ],
+          ),
+        ),
       ],
     );
   }

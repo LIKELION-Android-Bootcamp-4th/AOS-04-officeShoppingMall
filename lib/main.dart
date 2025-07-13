@@ -17,6 +17,7 @@ import 'core/data/network/api_client.dart';
 import 'core/theme/theme.dart';
 import 'feature/auth/auth_module.dart';
 import 'feature/mypage/mypage_module.dart';
+import 'feature/review/review_module.dart';
 
 // 앱 전체서 Navigator 에 접근할 수 있도록 함
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -43,6 +44,7 @@ class WalkinApp extends StatelessWidget {
         ...homeModule,
         ...cartModule,
         ...preferenceModule,
+        ...reviewModule,
 
       ],
       child: Consumer<BottomNavProvider>(
@@ -51,7 +53,7 @@ class WalkinApp extends StatelessWidget {
             title: AppConst.appName,
             theme: appThemeData(),
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.login,
+            initialRoute: AppRoutes.review,
             onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorKey: navigatorKey,
             navigatorObservers: [BottomNavObserver(nav)],
