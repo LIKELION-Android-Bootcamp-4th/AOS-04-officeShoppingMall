@@ -38,7 +38,6 @@ class User {
       nickName: nickName,
       isAdmin: isAdmin,
       profile: profile,
-      createdAt: DateTime.now(),
       phone: phone,
       address: address,
     );
@@ -58,7 +57,6 @@ class User {
       phone: phone ?? this.phone,
       profile: Profile(
         name: name ?? profile.name,
-        birthDate: profile.birthDate,
         profileImage: profileImage ?? profile.profileImage,
       ),
       address: Address(
