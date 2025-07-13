@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
-
 import '../../../../core/widgets/loading_indicator.dart';
 
 class ProductListContent extends StatefulWidget {
@@ -20,74 +19,93 @@ class _ProductListContentState extends State<ProductListContent> {
   void initState() {
     super.initState();
     vm = context.read<ProductListViewModel>();
-    vm.loadProducts(category: vm.category);
+    //카테고리를 통해 접근했을 때
+    if (vm.category != null) {
+      vm.loadProducts(category: vm.category);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     var categories = categorySections;
-
     vm = context.watch<ProductListViewModel>();
     final products = vm.products;
+
+    //검색 결과가 아닐 때만
+    if (!vm.isSearchResult &&
+        !vm.isLoading &&
+        vm.products.isEmpty &&
+        vm.category != null) {
+      vm.loadProducts(category: vm.category);
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 50,
-          child: ListView.builder(
-            itemCount: categories.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: TextButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(categories[index].title),
-                          content: SizedBox(
-                            height: 200,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  for (var category
-                                  in categories[index].details)
-                                    ListTile(
-                                      title: Text(category),
-                                      onTap: () {
-                                        vm.selectCategory(
-                                          "${categories[index].title} / $category",
-                                        );
-                                        Navigator.pop(context);
-                                        vm.loadProducts(category: vm.category);
-                                      },
-                                    ),
-                                ],
+        //검색 결과가 아닐 때만 카테고리 표시
+        if (!vm.isSearchResult) ...[
+          SizedBox(
+            height: 50,
+            child: ListView.builder(
+              itemCount: categories.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(categories[index].title),
+                            content: SizedBox(
+                              height: 200,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    for (var category
+                                        in categories[index].details)
+                                      ListTile(
+                                        title: Text(category),
+                                        onTap: () {
+                                          vm.selectCategory(
+                                            "${categories[index].title} / $category",
+                                          );
+                                          Navigator.pop(context);
+                                          vm.loadProducts(
+                                            category: vm.category,
+                                          );
+                                        },
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Text(
-                    categories[index].title,
-                    style: TextStyle(
-                      color: vm.category!.contains(categories[index].title)
-                          ? Colors.black
-                          : Colors.grey,
-                      fontSize: 20,
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      categories[index].title,
+                      style: TextStyle(
+                        color:
+                            vm.category != null &&
+                                vm.category!.contains(categories[index].title)
+                            ? Colors.black
+                            : Colors.grey,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
-        const SizedBox(height: 20),
+          const SizedBox(height: 20),
+        ],
+        if (vm.isSearchResult) const SizedBox(height: 20),
+
         if (vm.isLoading)
           Center(child: CustomCircleIndicator())
         else if (products.isEmpty)
