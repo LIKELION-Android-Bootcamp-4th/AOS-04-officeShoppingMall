@@ -3,8 +3,12 @@ import 'package:office_shopping_mall/feature/search/presentation/viewmodel/searc
 import 'package:office_shopping_mall/feature/search/presentation/widgets/search_content_searchbar.dart';
 import 'package:office_shopping_mall/feature/search/presentation/widgets/search_popular.dart';
 import 'package:office_shopping_mall/feature/search/presentation/widgets/search_recent_keyword.dart';
-
+import 'package:provider/provider.dart';
+import '../../../core/data/network/api_client.dart';
+import '../../product/data/product_service.dart';
+import '../../product/domain/product_repository_impl.dart';
 import '../../product/presentation/product_list_screen.dart';
+import '../../product/presentation/viewmodel/product_list_viewmodel.dart';
 import '../data/search_service.dart';
 import '../domain/search_repository.dart';
 
@@ -29,17 +33,33 @@ class _SearchScreenState extends State<SearchScreen> {
 
       if (!context.mounted) return;
 
+      if (results.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("상품이 없습니다.")));
+        return;
+      }
+
+      final productListViewModel = ProductListViewModel(
+        ProductRepositoryImpl(ProductService(ApiClient().dio)),
+      );
+      productListViewModel.setProductsFromSearch(results);
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ProductListScreen(searchResults: results),
+          builder: (_) => ChangeNotifierProvider<ProductListViewModel>.value(
+            value: productListViewModel,
+            child: ProductListScreen(),
+          ),
         ),
       );
     } catch (e) {
+      print('검색 에러: $e');
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("검색 실패: $e")),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("검색 실패: $e")));
       }
     }
   }
@@ -64,9 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
           SizedBox(height: 32),
           Divider(),
           SizedBox(height: 16),
-          SearchPopular(
-            onKeywordSelected: _onKeywordSelected,
-          ),
+          SearchPopular(onKeywordSelected: _onKeywordSelected),
         ],
       ),
     );
