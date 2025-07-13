@@ -88,6 +88,8 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   return '배송 중';
                                 case 3:
                                   return '배송 완료';
+                                case 4:
+                                  return '배송 완료';
                                 default:
                                   return '오류';
                               }
