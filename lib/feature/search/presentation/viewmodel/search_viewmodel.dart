@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/feature/search/domain/search_repository.dart';
-
 import '../../data/popular/popular_data_dto.dart';
 
 class SearchViewModel extends ChangeNotifier {
@@ -15,13 +14,15 @@ class SearchViewModel extends ChangeNotifier {
   SearchViewModel(this._repository);
 
   Future<void> searchProducts(String query) async {
+    print('SearchViewModel.searchProducts 호출: $query');
     isLoading = true;
     error = null;
     searchResult = [];
     notifyListeners();
 
     try {
-      searchResult = await _repository.searchProducts(query);
+      final result = await _repository.searchProducts(query);
+      searchResult = result;
     } catch (e) {
       error = "상품 검색 실패 $e";
     } finally {
@@ -42,7 +43,6 @@ class SearchViewModel extends ChangeNotifier {
     } finally {
       isLoading = false;
       notifyListeners();
-      ;
     }
   }
 }

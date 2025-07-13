@@ -9,6 +9,7 @@ class ProductListViewModel extends ChangeNotifier {
   List<Product> products = [];
   bool isLoading = true;
   String? category;
+  bool isSearchResult = false;
 
   ProductListViewModel(this._repository);
 
@@ -32,10 +33,20 @@ class ProductListViewModel extends ChangeNotifier {
 
   selectCategory(String categoryName) {
     category = categoryName;
+    isSearchResult = false;
     notifyListeners();
   }
 
   void toggleFavorite(ProductDTO product) {
+    notifyListeners();
+  }
+
+  //검색 결과로 불러올 경우를 위함
+  void setProductsFromSearch(List<ProductDTO> searchResults){
+    products = searchResults;
+    isLoading = false;
+    category = null;
+    isSearchResult = true;
     notifyListeners();
   }
 }

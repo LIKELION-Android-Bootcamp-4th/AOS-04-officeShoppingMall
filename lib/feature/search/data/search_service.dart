@@ -19,9 +19,7 @@ class SearchService {
         final message = response.data['message'] ?? '검색에 실패했습니다.';
         throw Exception(message);
       }
-
-      final List<dynamic> items =
-          response.data['data']?['products']?['items'] ?? [];
+      final List<dynamic> items = response.data['data']?['products'] ?? [];
       return items.map((e) => ProductDTO.fromJson(e)).toList();
     } on DioException catch (e) {
       if (e.response?.statusCode == 400) {

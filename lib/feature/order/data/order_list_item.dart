@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
@@ -19,13 +20,13 @@ class OrderListItem extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(width: MediaQuery.of(context).size.width * 0.04),
           Container(
             margin: EdgeInsets.only(bottom: 16),
             width: MediaQuery.of(context).size.width * 0.92,
-            height: 190,
+            height: 156,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
               borderRadius: BorderRadiusGeometry.circular(10),
@@ -35,59 +36,76 @@ class OrderListItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => OrderDetailScreen(index: index)
-                  ), //결제 완료~배송 완료 상품은 주문 내역으로
+                    builder: (_) => OrderDetailScreen(index: index),
+                  ),
                 );
               },
-              // TODO: 전체 수정 필요
-              child: SizedBox(
-                child: Column(
+
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
                   children: [
-                    SizedBox(height: 48),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 16, right: 16),
-                          child: Container(
-                            width: 86,
-                            height: 86,
-                            margin: EdgeInsets.only(top: 6, left: 5),
-                            decoration: BoxDecoration(
-                              color: appColorScheme().surfaceContainer,
-                              borderRadius: BorderRadiusGeometry.circular(10),
-                              border: Border.all(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              order.product.name,
-                              style: Theme.of(context).textTheme.titleSmall
-                            ),
-                            SizedBox(height: 3),
-                            Text("2개", style: Theme.of(context).textTheme.titleMedium),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.56,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 3),
-                                    child: Text(
-                                        '${NumberFormat('#,###').format(orders[index].product.price)}원',
-                                        style: Theme.of(context).textTheme.titleSmall
+                    SizedBox(
+                      height: 130,
+                      child: order.product.thumbnailImage == null
+                          ? Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColors.gray200,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '상품 이미지가 없습니다',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                            )
+                          : PageView.builder(
+                              itemCount: order.product.images.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        order.product.images[index],
+                                      ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                ],
-                              ),
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                      ],
+                    ),
+
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            order.product.name,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          SizedBox(height: 3),
+                          Text(
+                            "2개",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Row(
+                            children: [
+                              Spacer(),
+                              Text(
+                                '${NumberFormat('#,###').format(orders[index].product.price)}원',
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
