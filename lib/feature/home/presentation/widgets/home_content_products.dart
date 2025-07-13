@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 
 class HomeContentProducts extends StatefulWidget {
-  final List<ProductDTO> products;
+  final List<Product> products;
 
   const HomeContentProducts({super.key, required this.products});
 

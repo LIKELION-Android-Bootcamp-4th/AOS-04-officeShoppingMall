@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/feature/home/domain/home_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final HomeRepository _repo;
 
-  List<ProductDTO> _popularProducts = [];
+  List<Product> _popularProducts = [];
+  List<Product> _favorites = [];
   bool _isLoading = false;
   String? _error;
 
@@ -13,7 +14,9 @@ class HomeViewModel extends ChangeNotifier {
     getPopularProducts(limit: 4);
   }
 
-  List<ProductDTO> get popularProducts => _popularProducts;
+  List<Product> get popularProducts => _popularProducts;
+
+  List<Product> get favorites => _favorites;
 
   bool get isLoading => _isLoading;
 

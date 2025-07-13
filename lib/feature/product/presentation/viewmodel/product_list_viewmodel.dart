@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import '../../domain/repository/product_repository.dart';
 
 class ProductListViewModel extends ChangeNotifier {
   final ProductRepository _repository;
 
-  List<ProductDTO> products = [];
+  List<Product> products = [];
   bool isLoading = true;
   String? category;
 
