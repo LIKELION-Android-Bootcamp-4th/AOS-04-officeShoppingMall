@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
 import '../../../product/presentation/viewmodel/product_viewmodel.dart';
@@ -41,7 +43,7 @@ class OrderContent extends StatelessWidget {
               children: [
                 Text(product.name, style: Theme.of(context).textTheme.titleLarge),
                 SizedBox(height: 4),
-                Text('${product.price}원', style: Theme.of(context).textTheme.bodyLarge),
+                Text(product.price.toWon, style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
           ],

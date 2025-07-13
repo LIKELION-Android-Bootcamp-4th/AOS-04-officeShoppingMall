@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 
@@ -59,7 +59,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> with SingleTickerP
                       ),
                     ),
                     SizedBox(height: 5),
-                    Text('${NumberFormat('#,###').format(order.product.price)}원', style: Theme.of(context).textTheme.titleSmall),
+                    Text(order.product.price.toWon, style: Theme.of(context).textTheme.titleSmall),
                   ],
                 ),
               ],
