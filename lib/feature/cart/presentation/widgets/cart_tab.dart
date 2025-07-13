@@ -15,6 +15,12 @@ class CartTab extends StatefulWidget {
 
 class CartTabState extends State<CartTab> {
   @override
+  void initState() {
+    super.initState();
+    context.read<CartViewModel>().loadCarts();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<CartViewModel>();
 
