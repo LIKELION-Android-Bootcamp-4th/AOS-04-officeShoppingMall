@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/order/data/order_list.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
 import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
@@ -22,7 +23,7 @@ class ReviewWritableTab extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.92,
             height: MediaQuery.of(context).size.height * 0.06,
             decoration: BoxDecoration(
-              color: Color(0x4DD9D9D9),
+              color: AppColors.surfaceContainerColor,
               borderRadius: BorderRadiusGeometry.circular(10),
             ),
             child: InkWell(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
@@ -24,13 +25,13 @@ class CartListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Checkbox(
-            value: false,
-            onChanged: (_) => viewModel.toggleCarts(cart.cartId)
+            value: viewModel.isSelected(cart.cartId),
+            onChanged: (bool? checked) => viewModel.toggleCarts(cart.cartId),
           ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
             width: MediaQuery.of(context).size.width * 0.84,
-            height: 190,
+            height: 200,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
               borderRadius: BorderRadiusGeometry.circular(10),
@@ -39,74 +40,100 @@ class CartListItem extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => ProductDetailScreen(),)
+                  MaterialPageRoute(builder: (_) => ProductDetailScreen()),
                 );
               },
-              // TODO: 전체 수정 필요
-              child: SizedBox(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.7,),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            onPressed: () {viewModel.deleteCart(cart.cartId);},
-                            icon: SvgPicture.asset('images/icon/ic_close.svg',),
-                          ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.7),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () {viewModel.deleteCart(cart.cartId);},
+                          icon: SvgPicture.asset('images/icon/ic_close.svg'),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
 
-                    Row(
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16),
+                    child: Row(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 16, right: 16),
-                          child: Container(
-                            width: 86,
-                            height: 86,
-                            margin: EdgeInsets.only(top: 6, left: 5),
-                            decoration: BoxDecoration(
-                              color: appColorScheme().surfaceContainer,
-                              borderRadius: BorderRadiusGeometry.circular(10),
-                              border: Border.all(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                cart.product.name,
-                                style: Theme.of(context).textTheme.titleSmall
-                            ),
-                            SizedBox(height: 3),
-                            Text('${carts[index].quantity}개', style: Theme.of(context).textTheme.bodyMedium),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.48,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 3),
+                        SizedBox(
+                          height: 130,
+                          child: cart.product.thumbnailImage == null
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.gray200,
+                                  ),
+                                  child: Center(
                                     child: Text(
-                                        '${NumberFormat('#,###').format(carts[index].product.price)}',
-                                        style: Theme.of(context).textTheme.titleSmall
+                                      '상품 이미지가 없습니다',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
                                     ),
                                   ),
-                                  Text("원", style: Theme.of(context).textTheme.bodyMedium),
+                                )
+                              : PageView.builder(
+                                  itemCount: cart.product.images.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            cart.product.images[index],
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                        ),
+
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.04,
+                        ),
+
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                cart.product.name,
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              SizedBox(height: 3),
+                              Text(
+                                "2개",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              Row(
+                                children: [
+                                  Spacer(),
+                                  Text(
+                                    '${NumberFormat('#,###').format(carts[index].product.price)}원',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleSmall,
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

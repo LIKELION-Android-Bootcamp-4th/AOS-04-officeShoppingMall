@@ -12,6 +12,11 @@ class OrderShippingTab extends StatefulWidget{
 
 class OrderShippingTabState extends State<OrderShippingTab> with SingleTickerProviderStateMixin{
   @override
+  void initState() {
+    super.initState();
+    context.read<OrderViewModel>().loadOrders();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Expanded(
