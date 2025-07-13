@@ -8,7 +8,12 @@ class SearchRepository {
   SearchRepository(this._service);
 
   Future<List<ProductDTO>> searchProducts(String query) async {
-    return await _service.searchProducts(query);
+    try {
+      final result = await _service.searchProducts(query);
+      return result;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<PopularDataDto> getPopularKeyword() => _service.fetchPopularKeyword();

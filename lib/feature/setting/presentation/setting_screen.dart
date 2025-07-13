@@ -33,13 +33,14 @@ class _SettingScreenState extends State<SettingScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     final vm = context.watch<SettingViewModel>();
 
-    final user = vm.user!;
     return Scaffold(
       appBar: CustomAppBar(title: '설정'),
       body: Builder(
         builder: (context) {
-          if (vm.isLoading) return Center(child: CustomCircleIndicator());
-          if (vm.error != null) return Center(child: Text(vm.error.toString()));
+          if (vm.isLoading) return const Center(child: CustomCircleIndicator());
+          if (vm.error != null) return Center(child: Text(vm.error!));
+
+          final user = vm.user!;
 
           return Column(
             children: [

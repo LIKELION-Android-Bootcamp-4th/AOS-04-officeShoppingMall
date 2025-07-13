@@ -10,10 +10,9 @@ class Image {
 
 class Profile {
   final String? name;
-  final DateTime? birthDate;
   final String? profileImage;
 
-  Profile({required this.name, required this.birthDate, required this.profileImage});
+  Profile({required this.name, required this.profileImage});
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     final dynamic imageJson = json['profileImage'];
@@ -32,14 +31,12 @@ class Profile {
 
     return Profile(
       name: json['name'] ?? '',
-      birthDate: json['birthDate'],
       profileImage: parsedImage?.url,
     );
   }
 
   Map<String, dynamic> toJson() => {
     'name': name,
-    'birthDate': birthDate?.toIso8601String(),
     'profileImage': profileImage,
   };
 }
@@ -70,7 +67,6 @@ class UserDTO {
   final String nickName;
   final bool isAdmin;
   final Profile profile;
-  final DateTime createdAt;
   final String? phone;
   final Address? address;
 
@@ -80,7 +76,6 @@ class UserDTO {
     required this.nickName,
     required this.isAdmin,
     required this.profile,
-    required this.createdAt,
     required this.phone,
     required this.address,
   });
@@ -92,7 +87,6 @@ class UserDTO {
       nickName: json['nickName'] ?? '',
       isAdmin: json['isAdmin'] ?? false,
       profile: Profile.fromJson(json['profile'] ?? {}),
-      createdAt: DateTime.parse(json['createdAt'] ?? ''),
       phone: json['phone'] ?? '',
       address: Address.fromJson(json['address'] ?? {}),
     );
@@ -104,7 +98,6 @@ class UserDTO {
     'nickName': nickName,
     'isAdmin': isAdmin,
     'profile': profile.toJson(),
-    'createdAt': createdAt.toIso8601String(),
     'phone': phone,
     'address': address?.toJson(),
   };

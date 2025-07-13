@@ -3,14 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/category/data/category_section.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_item.dart';
-
-import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 
 class ProductListContent extends StatefulWidget {
-  final List<ProductDTO>? searchResults;
-
-  const ProductListContent({super.key, this.searchResults});
+  const ProductListContent({super.key});
 
   @override
   State<ProductListContent> createState() => _ProductListContentState();
@@ -23,26 +19,31 @@ class _ProductListContentState extends State<ProductListContent> {
   void initState() {
     super.initState();
     vm = context.read<ProductListViewModel>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    //카테고리를 통해 접근했을 때
+    if (vm.category != null) {
       vm.loadProducts(category: vm.category);
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final products =
-        widget.searchResults ?? context.watch<ProductListViewModel>().products;
-
-    final isLoading = widget.searchResults == null
-        ? context.watch<ProductListViewModel>().isLoading
-        : false;
-
     var categories = categorySections;
+    vm = context.watch<ProductListViewModel>();
+    final products = vm.products;
+
+    //검색 결과가 아닐 때만
+    if (!vm.isSearchResult &&
+        !vm.isLoading &&
+        vm.products.isEmpty &&
+        vm.category != null) {
+      vm.loadProducts(category: vm.category);
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.searchResults == null)
+        //검색 결과가 아닐 때만 카테고리 표시
+        if (!vm.isSearchResult) ...[
           SizedBox(
             height: 50,
             child: ListView.builder(
@@ -64,7 +65,7 @@ class _ProductListContentState extends State<ProductListContent> {
                                 child: Column(
                                   children: [
                                     for (var category
-                                    in categories[index].details)
+                                        in categories[index].details)
                                       ListTile(
                                         title: Text(category),
                                         onTap: () {
@@ -72,7 +73,9 @@ class _ProductListContentState extends State<ProductListContent> {
                                             "${categories[index].title} / $category",
                                           );
                                           Navigator.pop(context);
-                                          vm.loadProducts(category: vm.category);
+                                          vm.loadProducts(
+                                            category: vm.category,
+                                          );
                                         },
                                       ),
                                   ],
@@ -86,7 +89,9 @@ class _ProductListContentState extends State<ProductListContent> {
                     child: Text(
                       categories[index].title,
                       style: TextStyle(
-                        color: (vm.category ?? '').contains(categories[index].title)
+                        color:
+                            vm.category != null &&
+                                vm.category!.contains(categories[index].title)
                             ? Colors.black
                             : Colors.grey,
                         fontSize: 20,
@@ -97,10 +102,11 @@ class _ProductListContentState extends State<ProductListContent> {
               },
             ),
           ),
+          const SizedBox(height: 20),
+        ],
+        if (vm.isSearchResult) const SizedBox(height: 20),
 
-        const SizedBox(height: 20),
-
-        if (isLoading)
+        if (vm.isLoading)
           Center(child: CustomCircleIndicator())
         else if (products.isEmpty)
           Center(child: Text('상품이 없습니다'))
