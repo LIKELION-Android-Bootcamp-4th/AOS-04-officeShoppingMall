@@ -42,7 +42,7 @@ class ProductListViewModel extends ChangeNotifier {
   }
 
   //검색 결과로 불러올 경우를 위함
-  void setProductsFromSearch(List<ProductDTO> searchResults){
+  void setProductsFromSearch(List<Product> searchResults){
     products = searchResults;
     isLoading = false;
     category = null;
