@@ -5,6 +5,7 @@ import 'package:office_shopping_mall/feature/search/presentation/widgets/search_
 import 'package:office_shopping_mall/feature/search/presentation/widgets/search_recent_keyword.dart';
 import 'package:provider/provider.dart';
 import '../../../core/data/network/api_client.dart';
+import '../../../core/widgets/loading_indicator.dart';
 import '../../product/data/product_service.dart';
 import '../../product/domain/product_repository_impl.dart';
 import '../../product/presentation/product_list_screen.dart';
@@ -21,11 +22,15 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final GlobalKey<SearchRecentKeywordState> _recentKeywordKey = GlobalKey();
+  final viewModel = SearchViewModel(SearchRepository(SearchService()));
+  bool _isSearching = false;
 
   void _onSearchSubmitted(String keyword) async {
-    _recentKeywordKey.currentState?.addKeyword(keyword);
+    setState(() {
+      _isSearching = true;
+    });
 
-    final viewModel = SearchViewModel(SearchRepository(SearchService()));
+    _recentKeywordKey.currentState?.addKeyword(keyword);
 
     try {
       await viewModel.searchProducts(keyword);
@@ -61,6 +66,12 @@ class _SearchScreenState extends State<SearchScreen> {
           context,
         ).showSnackBar(SnackBar(content: Text("검색 실패: $e")));
       }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSearching = false;
+        });
+      }
     }
   }
 
@@ -73,18 +84,27 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
+      body: Stack(
         children: [
-          SearchContentSearchBar(onSearchSubmitted: _onSearchSubmitted),
-          SizedBox(height: 16),
-          SearchRecentKeyword(
-            key: _recentKeywordKey,
-            onKeywordSelected: _onKeywordSelected,
+          Column(
+            children: [
+              SearchContentSearchBar(onSearchSubmitted: _onSearchSubmitted),
+              SizedBox(height: 16),
+              SearchRecentKeyword(
+                key: _recentKeywordKey,
+                onKeywordSelected: _onKeywordSelected,
+              ),
+              SizedBox(height: 32),
+              Divider(),
+              SizedBox(height: 16),
+              SearchPopular(onKeywordSelected: _onKeywordSelected),
+            ],
           ),
-          SizedBox(height: 32),
-          Divider(),
-          SizedBox(height: 16),
-          SearchPopular(onKeywordSelected: _onKeywordSelected),
+          if (_isSearching)
+            Container(
+              color: Colors.black54,
+              child: Center(child: CustomCircleIndicator()),
+            ),
         ],
       ),
     );
