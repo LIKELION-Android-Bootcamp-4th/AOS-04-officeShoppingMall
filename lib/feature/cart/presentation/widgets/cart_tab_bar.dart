@@ -18,7 +18,6 @@ Widget CartTabBar({
       child: TabBar(
         controller: controller,
         indicatorPadding: EdgeInsets.all(2),
-        // labelPadding: EdgeInsets.symmetric(vertical: 16),
         labelColor: Colors.black,
         unselectedLabelColor: Colors.black54,
         indicator: BoxDecoration(

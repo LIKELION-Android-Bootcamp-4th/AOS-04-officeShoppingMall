@@ -63,7 +63,7 @@ class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
                     ),
                     child: product?.thumbnailImage != null
                         ? Image.network(
-                      product!.thumbnailImage!,
+                      product!.thumbnailImage!.url,
                       fit: BoxFit.fill,
                       width: 86,
                       height: 86,

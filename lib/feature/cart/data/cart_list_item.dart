@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
 
 class CartListItem extends StatelessWidget {
-  final CartDTO cart;
+  final CartItemResponse cart;
   final int index;
 
   CartListItem({super.key, required this.cart, required this.index});
@@ -24,8 +25,8 @@ class CartListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Checkbox(
-            value: viewModel.isSelected(cart.cartId),
-            onChanged: (bool? checked) => viewModel.toggleCarts(cart.cartId),
+            value: viewModel.isSelected(cart.id),
+            onChanged: (bool? checked) => viewModel.toggleCarts(cart.id),
           ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
@@ -37,10 +38,7 @@ class CartListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => ProductDetailScreen()),
-                );
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailScreen()));
               },
               child: Column(
                 children: [
@@ -50,7 +48,9 @@ class CartListItem extends StatelessWidget {
                       Align(
                         alignment: Alignment.topRight,
                         child: IconButton(
-                          onPressed: () {viewModel.deleteCart(cart.cartId);},
+                          onPressed: () {
+                            viewModel.deleteCart(cart.id);
+                          },
                           icon: SvgPicture.asset('images/icon/ic_close.svg'),
                         ),
                       ),
@@ -72,9 +72,7 @@ class CartListItem extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       '상품 이미지가 없습니다',
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodySmall,
+                                      style: Theme.of(context).textTheme.bodySmall,
                                     ),
                                   ),
                                 )
@@ -86,9 +84,7 @@ class CartListItem extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         image: DecorationImage(
-                                          image: NetworkImage(
-                                            cart.product.images[index],
-                                          ),
+                                          image: NetworkImage(cart.product.images[index]),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -97,9 +93,7 @@ class CartListItem extends StatelessWidget {
                                 ),
                         ),
 
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.04,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.04),
 
                         Expanded(
                           child: Column(
@@ -111,18 +105,13 @@ class CartListItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               SizedBox(height: 3),
-                              Text(
-                                "2개",
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
+                              Text("2개", style: Theme.of(context).textTheme.bodyMedium),
                               Row(
                                 children: [
                                   Spacer(),
                                   Text(
-                                    '${NumberFormat('#,###').format(cart.product.price)}원',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleSmall,
+                                    cart.product.price.toWon,
+                                    style: Theme.of(context).textTheme.titleSmall,
                                   ),
                                 ],
                               ),

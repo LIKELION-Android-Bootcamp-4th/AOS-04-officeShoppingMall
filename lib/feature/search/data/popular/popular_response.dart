@@ -8,8 +8,7 @@ part 'popular_response.g.dart';
 class PopularResponse {
   final bool success;
   final String message;
-  final DateTime timestamp;
-
+  final String timestamp;
   final PopularDataDto? data;
 
   PopularResponse({

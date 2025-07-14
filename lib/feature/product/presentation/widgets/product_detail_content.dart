@@ -57,7 +57,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: NetworkImage(product.thumbnailImage!),
+                      image: NetworkImage(product.thumbnailImage!.url),
                       fit: BoxFit.cover,
                     ),
                   )

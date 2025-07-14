@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
-import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
 
 class PreferenceService {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_detail_bottom.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_detail_content.dart';
@@ -20,16 +21,7 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: product?.name ?? '',
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset('images/icon/ic_appbar_search.svg'),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset('images/icon/ic_appbar_cart.svg'),
-          ),
-        ],
+        actions: appBarActionsNoBell(),
       ),
 
       body: Container(

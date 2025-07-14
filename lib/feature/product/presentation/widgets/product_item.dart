@@ -50,9 +50,9 @@ class _ProductItem extends State<ProductItem> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: product.thumbnailImage != null
+                    child: product.thumbnailImage?.url != null
                         ? Image.network(
-                      product.thumbnailImage!,
+                      product.thumbnailImage!.url,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
