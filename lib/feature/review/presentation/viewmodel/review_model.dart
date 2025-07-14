@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
-import '../../../../core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import '../../../../core/data/models/entity/user.dart';
 import '../../data/review_repository.dart';
 
@@ -49,7 +49,7 @@ class ReviewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  ReviewDTO createReview({required ProductDTO product, required User user}) {
+  ReviewDTO createReview({required Product product, required User user}) {
     final reviewDTO = ReviewDTO(
       id: "",
       productId: product.id,

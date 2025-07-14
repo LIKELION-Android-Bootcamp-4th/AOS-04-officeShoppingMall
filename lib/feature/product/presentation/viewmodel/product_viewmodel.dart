@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 
 class ProductViewModel extends ChangeNotifier {
-  ProductDTO? selectedProduct;
+  Product? selectedProduct;
 
-  Future<void> setSelectedProduct(ProductDTO product) async {
+  Future<void> setSelectedProduct(Product product) async {
     selectedProduct = product;
     notifyListeners();
   }
