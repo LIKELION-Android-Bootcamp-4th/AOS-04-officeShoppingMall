@@ -82,7 +82,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
             );
           },
           child: Text(
-            product.category,
+            product.category ?? '카테고리 없음',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
