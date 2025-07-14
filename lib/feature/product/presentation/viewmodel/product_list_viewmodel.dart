@@ -31,7 +31,7 @@ class ProductListViewModel extends ChangeNotifier {
     }
   }
 
-  selectCategory(String categoryName) {
+  selectCategory(String? categoryName) {
     category = categoryName;
     isSearchResult = false;
     notifyListeners();

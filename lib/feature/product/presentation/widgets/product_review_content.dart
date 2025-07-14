@@ -58,6 +58,7 @@ class _ProductReviewContentState extends State<ProductReviewContent> {
             ],
           ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }
