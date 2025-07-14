@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
-import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
 import 'package:office_shopping_mall/feature/review/presentation/widgets/review_written_item.dart';
 
 import '../../../../core/constants/app_routes.dart';
