@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
 
@@ -120,7 +121,7 @@ class CartListItem extends StatelessWidget {
                                 children: [
                                   Spacer(),
                                   Text(
-                                    '${NumberFormat('#,###').format(carts[index].product.price)}원',
+                                    carts[index].product.price.toWon,
                                     style: Theme.of(
                                       context,
                                     ).textTheme.titleSmall,
