@@ -13,13 +13,12 @@ class PreferenceContentCountText extends StatefulWidget {
 class _PreferenceContentCountTextState extends State<PreferenceContentCountText> {
   @override
   Widget build(BuildContext context) {
-    final favorites = context.select((PreferenceViewModel vm) => vm.favorites);
     return RichText(
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(text: '총 ', style: Theme.of(context).textTheme.titleLarge),
           TextSpan(
-            text: favorites.length.toString(),
+            text: context.read<PreferenceViewModel>().likeCount.toString(),
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(color: appColorScheme().primary),
