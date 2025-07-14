@@ -57,7 +57,7 @@ class CartService {
       final response = await _dio.post(Api.cart.checkout,
       data: request.toJson());
 
-      if(response.statusCode == 200){
+      if(response.statusCode == 201){
         return CartOrderResponseDTO.fromJson(response.data);
       }else{
         throw Exception("장바구니에서 주문 생성 실패: ${response.statusCode} \n ${response.data}");

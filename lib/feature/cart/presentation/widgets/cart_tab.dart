@@ -118,9 +118,30 @@ class CartTabState extends State<CartTab> {
               Align(
                 alignment: Alignment.center,
                 child: ProductButton(
-                  onPressed: ()  {
-                    //TODO
-                    Navigator.pushNamed(context, AppRoutes.order);
+                  onPressed: () async {
+                    if (viewModel.selectedCarts.isEmpty) return;
+
+                    final cartIds = viewModel.selectedCarts.map((e) => e.id).toList();
+                    final settingAddr = context.read<SettingViewModel>().getDefaultAddress();
+
+                    final orderResponse = await viewModel.orderFromCart(
+                      cartIds: cartIds,
+                      recipient: settingAddr.recipient,
+                      address: settingAddr.addr,
+                      phone: settingAddr.phone,
+                    );
+
+                    if (orderResponse != null) {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.order,
+                        arguments: orderResponse.data,
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('주문에 실패했습니다. 다시 시도해주세요.')),
+                      );
+                    }
                   },
                   text: '결제',
                   backgroundColor: AppColors.primaryColor,

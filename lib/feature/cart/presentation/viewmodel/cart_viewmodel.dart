@@ -144,7 +144,7 @@ class CartViewModel extends ChangeNotifier {
 
     try {
       final request = CartOrderRequestDTO(
-          cartIds: _selectedCartIds.toList(),
+          cartIds: cartIds,
           shippingInfo: ShippingInfo(
               recipient: recipient,
               address: address,

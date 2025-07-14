@@ -12,7 +12,7 @@ class CartOrderRequestDTO {
   Map<String, dynamic> toJson() {
     return {
       'shippingInfo': shippingInfo.toJson(),
-      'memo': memo,
+      'memo': memo ?? '',
       'cartIds': cartIds,
     };
   }
@@ -36,7 +36,7 @@ class ShippingInfo {
       'recipient': recipient,
       'address': address,
       'phone': phone,
-      'zipCode': zipCode,
+      'zipCode': zipCode ?? '',
     };
   }
 }
