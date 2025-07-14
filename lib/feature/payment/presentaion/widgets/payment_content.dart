@@ -10,17 +10,17 @@ import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/sett
 
 import '../../../product/presentation/viewmodel/product_viewmodel.dart';
 
-class OrderContent extends StatefulWidget {
+class PaymentContent extends StatefulWidget {
   final Product product;
   final ValueChanged<OrderInfo> onChanged;
 
-  const OrderContent({super.key, required this.product, required this.onChanged});
+  const PaymentContent({super.key, required this.product, required this.onChanged});
 
   @override
-  State<OrderContent> createState() => _OrderContentState();
+  State<PaymentContent> createState() => _PaymentContentState();
 }
 
-class _OrderContentState extends State<OrderContent> {
+class _PaymentContentState extends State<PaymentContent> {
   String _payment = '';
   String _address = '';
   int _quantity = 1;

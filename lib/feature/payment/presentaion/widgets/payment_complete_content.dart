@@ -5,9 +5,9 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
-class OrderCompleteContent extends StatelessWidget {
+class PaymentCompleteContent extends StatelessWidget {
   final OrderInfo? info;
-  const OrderCompleteContent({super.key, required this.info});
+  const PaymentCompleteContent({super.key, required this.info});
 
   @override
   Widget build(BuildContext context) {

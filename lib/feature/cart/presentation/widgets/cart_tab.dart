@@ -76,7 +76,7 @@ class CartTabState extends State<CartTab> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrderScreen()),
+                        MaterialPageRoute(builder: (context) => PaymentScreen()),
                       );
                     },
                     text: '결제',

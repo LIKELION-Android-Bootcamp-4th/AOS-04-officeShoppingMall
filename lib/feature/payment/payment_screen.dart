@@ -11,14 +11,14 @@ import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_bottom.dart';
 
-class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+class PaymentScreen extends StatefulWidget {
+  const PaymentScreen({super.key});
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
+  State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _PaymentScreenState extends State<PaymentScreen> {
   OrderInfo? _orderInfo;
 
   @override
@@ -32,7 +32,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: OrderContent(
+        child: PaymentContent(
           product: product,
           onChanged: (info) => setState(() => _orderInfo = info),
         ),
@@ -70,7 +70,7 @@ class _OrderScreenState extends State<OrderScreen> {
               ),
             ),
 
-            OrderBottom(
+            PaymentBottom(
               onSelected: () async {
                 final confirm = await showDialog<bool>(
                   context: context,
