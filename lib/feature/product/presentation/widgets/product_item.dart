@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/data/models/dto/product_dto.dart';
 import '../viewmodel/product_viewmodel.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
-  final ProductDTO product;
+  final Product product;
 
   @override
   State<ProductItem> createState() => _ProductItem();

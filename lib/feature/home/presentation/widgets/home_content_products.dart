@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/feature/home/presentation/viewmodel/home_viewmodel.dart';
+import 'package:office_shopping_mall/feature/preference/presentation/viewmodel/preference_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 
 class HomeContentProducts extends StatefulWidget {
-  final List<ProductDTO> products;
+  final List<Product> products;
 
   const HomeContentProducts({super.key, required this.products});
 
@@ -16,8 +18,6 @@ class HomeContentProducts extends StatefulWidget {
 }
 
 class _HomeContentProductsState extends State<HomeContentProducts> {
-  bool isFavorite = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,7 +42,9 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
-                      child: Image.network(currentProd.thumbnailImage!, fit: BoxFit.fill),
+                      child: currentProd.thumbnailImage != null
+                          ? Image.network(currentProd.thumbnailImage!, fit: BoxFit.fill)
+                          : Image.asset('images/banner1.jpg', fit: BoxFit.fill),
                     ),
                   ),
                   Positioned(
@@ -50,10 +52,11 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     right: 4,
                     child: IconButton(
                       onPressed: () {
-                        isFavorite = currentProd.isFavorite;
+                        context.read<HomeViewModel>().toggleFavorite(currentProd);
+                        context.read<PreferenceViewModel>().loadFavorites();
                       },
                       icon: SvgPicture.asset(
-                        isFavorite
+                        currentProd.isFavorite
                             ? 'images/icon/ic_heart_small_1.svg'
                             : 'images/icon/ic_heart_small_0.svg',
                       ),
@@ -61,7 +64,7 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                   ),
                 ],
               ),
-              Text(currentProd.name, style: Theme.of(context).textTheme.titleSmall),
+              Text(currentProd.name, style: Theme.of(context).textTheme.bodyLarge),
               Text(currentProd.price.toWon, style: Theme.of(context).textTheme.bodyMedium),
             ],
           );
