@@ -2,16 +2,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
-class OrderCompleteContent extends StatelessWidget {
-  const OrderCompleteContent({super.key});
+class PaymentCompleteContent extends StatelessWidget {
+  final OrderInfo? info;
+  const PaymentCompleteContent({super.key, required this.info});
 
   @override
   Widget build(BuildContext context) {
-    final num = 100000 + Random().nextInt(900000);
     DateTime now = DateTime.now();
-    final orderNum = '${now.year}${now.month}${now.day}${num.toString()}';
+    final orderNum = '${now.year}${now.month}${now.day}${now.minute}${now.second}${now.millisecond}';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +62,7 @@ class OrderCompleteContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
                   ),
                   Text(
-                    '카드 결제',
+                    info!.paymentMethod,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
                   ),
                 ],
@@ -93,7 +94,7 @@ class OrderCompleteContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
                   ),
                   Text(
-                    '주소주소',
+                    info!.address,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
                   ),
                 ],

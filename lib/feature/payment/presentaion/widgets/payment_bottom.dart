@@ -4,16 +4,16 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../product/presentation/widgets/product_button.dart';
 
-class OrderBottom extends StatefulWidget {
-  const OrderBottom({super.key, required this.onSelected});
+class PaymentBottom extends StatefulWidget {
+  const PaymentBottom({super.key, required this.onSelected});
 
   final Function onSelected;
 
   @override
-  State<OrderBottom> createState() => _OrderBottom();
+  State<PaymentBottom> createState() => _OrderBottom();
 }
 
-class _OrderBottom extends State<OrderBottom> {
+class _OrderBottom extends State<PaymentBottom> {
   onSelected() {
     widget.onSelected();
   }
