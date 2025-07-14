@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
-import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_detail_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderDTO order;
-  final int index;
 
-  const OrderListItem({super.key, required this.order, required this.index});
+  const OrderListItem({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
-    final orders = context.watch<OrderViewModel>().orders;
 
     return Align(
       alignment: Alignment.topCenter,
@@ -33,12 +33,14 @@ class OrderListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => OrderDetailScreen(index: index),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (_) => OrderDetailScreen(orderId: order.orderId),
+                //   ),
+                // );
+                Navigator.pushNamed(context, AppRoutes.orderDetail);
+                context.read<OrderDetailViewModel>().loadOrderId(order.orderId);
               },
 
               child: Padding(
@@ -46,8 +48,9 @@ class OrderListItem extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(
+                      width: 130,
                       height: 130,
-                      child: order.product.thumbnailImage == null
+                      child: order.items[0].thumbnailImageUrl == null
                           ? Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -61,7 +64,7 @@ class OrderListItem extends StatelessWidget {
                               ),
                             )
                           : PageView.builder(
-                              itemCount: order.product.images.length,
+                              itemCount: order.items.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return Container(
@@ -69,7 +72,7 @@ class OrderListItem extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        order.product.images[index],
+                                        order.items[0].thumbnailImageUrl,
                                       ),
                                       fit: BoxFit.cover,
                                     ),
@@ -87,7 +90,7 @@ class OrderListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            order.product.name,
+                            order.items[0].productName,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           SizedBox(height: 3),
@@ -99,7 +102,7 @@ class OrderListItem extends StatelessWidget {
                             children: [
                               Spacer(),
                               Text(
-                                '${NumberFormat('#,###').format(orders[index].product.price)}원',
+                                '${NumberFormat('#,###').format(order.items[0].unitPrice)}원',
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],

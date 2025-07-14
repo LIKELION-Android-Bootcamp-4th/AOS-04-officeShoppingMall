@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/order/data/order_list.dart';
-import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/order_list_screen.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
 
 class ReviewWritableTab extends StatelessWidget {
@@ -12,11 +12,11 @@ class ReviewWritableTab extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Column(
         children: [
-          OrderList(
+          OrderListScreen(
             orders: context
-                .watch<OrderViewModel>()
+                .watch<OrderListViewModel>()
                 .orders
-                .where((a) => a.orderIndex == 3)
+                .where((a) => a.status == 'delivered')
                 .toList(),
           ),
           Container(

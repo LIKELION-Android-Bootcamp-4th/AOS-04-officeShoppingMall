@@ -7,8 +7,8 @@ class OrderRepositoryImpl implements OrderRepository {
   OrderRepositoryImpl(this._service);
 
   @override
-  Future<List<OrderDTO>> getOrder() {
-    return _service.getOrder();
+  Future<List<OrderDTO>> getOrders() {
+    return _service.getOrders();
   }
 
   @override
