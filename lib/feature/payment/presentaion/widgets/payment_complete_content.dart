@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
@@ -8,12 +9,16 @@ class OrderCompleteContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final num = 100000 + Random().nextInt(900000);
+    DateTime now = DateTime.now();
+    final orderNum = '${now.year}${now.month}${now.day}${num.toString()}';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(child: Text('주문 완료', style: Theme.of(context).textTheme.titleLarge)),
 
-        SizedBox(height: 14),
+        SizedBox(height: 16),
 
         Center(
           child: Container(
@@ -23,13 +28,13 @@ class OrderCompleteContent extends StatelessWidget {
             child: Center(
               child: SvgPicture.asset(
                 'images/icon/ic_check.svg',
-                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(AppColors.onPrimaryColor, BlendMode.srcIn),
               ),
             ),
           ),
         ),
 
-        SizedBox(height: 20),
+        SizedBox(height: 32),
 
         Center(
           child: Text(
@@ -72,7 +77,7 @@ class OrderCompleteContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
                   ),
                   Text(
-                    '123456789',
+                    orderNum,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
                   ),
                 ],
@@ -100,22 +105,16 @@ class OrderCompleteContent extends StatelessWidget {
         SizedBox(height: 32),
 
         SizedBox(
-          width: double.infinity,
-          height: 56,
           child: ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-            ),
-            child: Text('확인', style: TextStyle(fontSize: 16, color: Colors.white)),
+            child: Text('확인'),
           ),
         ),
 
-        SizedBox(height: 20),
+        SizedBox(height: 16),
       ],
     );
   }
