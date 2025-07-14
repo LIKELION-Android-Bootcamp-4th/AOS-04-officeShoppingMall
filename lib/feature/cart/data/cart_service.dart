@@ -34,7 +34,13 @@ class CartService {
   }
 
   Future<void> deleteCart(String id) async {
-    final response = await _dio.delete(Api.cart.deleteCart(id));
+    final response = await _dio.delete(
+      Api.cart.deleteCart,
+      data: {
+        "cartIds": [id],
+      },
+    );
+
     if (response.statusCode == 200) {
       print('장바구니 상품 삭제 성공!');
     } else {
