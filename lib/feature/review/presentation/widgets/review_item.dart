@@ -27,7 +27,11 @@ class ReviewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ProductContentContainer(
+      width: double.infinity,
+
+      color: AppColors.gray200,
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 별점
@@ -63,23 +67,8 @@ class ReviewItem extends StatelessWidget {
               ],
             ),
           )
-        else
-          Row(
-            children: [
-              for (int i = 0; i < 3; i++) ...[
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                const SizedBox(width: 2),
-              ],
-            ],
-          ),
       ],
+      ),
     );
   }
 }

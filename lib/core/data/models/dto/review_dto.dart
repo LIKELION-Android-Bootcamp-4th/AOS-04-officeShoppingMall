@@ -42,6 +42,26 @@ class ReviewDTO {
       'createdAt': createdAt?.toIso8601String(),
     };
   }
+
+  ReviewDTO copyWith({
+    String? id,
+    String? productId,
+    String? userId,
+    int? rating,
+    String? comment,
+    List<ReviewImageDTO>? images,
+    DateTime? createdAt,
+  }) {
+    return ReviewDTO(
+      id: id ?? this.id,
+      productId: productId ?? this.productId,
+      userId: userId ?? this.userId,
+      rating: rating ?? this.rating,
+      comment: comment ?? this.comment,
+      images: images ?? this.images,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
 
 class ReviewImageDTO {
