@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
@@ -38,7 +39,10 @@ class CartListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ProductDetailScreen()),
+                );
               },
               child: Column(
                 children: [
@@ -64,44 +68,45 @@ class CartListItem extends StatelessWidget {
                         SizedBox(
                           width: 130,
                           height: 130,
-                          child: (cart.product.thumbnailImage?.url == null || cart.product.thumbnailImage!.url.isEmpty)
+                          child:
+                              (cart.product.thumbnailImage?.url == null ||
+                                  cart.product.thumbnailImage!.url.isEmpty)
                               ? Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColors.gray200,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '상품 이미지가 없습니다',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ),
-                          )
-                              : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Image.network(
-                              cart.product.thumbnailImage!.url,
-                              fit: BoxFit.cover,
-                              loadingBuilder: (context, child, loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes != null
-                                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                        : null,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.gray200,
                                   ),
-                                );
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                return Center(child: Icon(Icons.broken_image, size: 50, color: Colors.grey));
-                              },
-                            ),
-                          ),
+                                  child: Center(
+                                    child: Text(
+                                      '상품 이미지가 없습니다',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.network(
+                                    cart.product.thumbnailImage!.url,
+                                    fit: BoxFit.cover,
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                          if (loadingProgress == null)
+                                            return child;
+                                          return Center(
+                                            child: CustomCircleIndicator(),
+                                          );
+                                        },
+                                  ),
+                                ),
                         ),
 
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.04,
+                        ),
 
                         Expanded(
                           child: Column(
@@ -113,13 +118,18 @@ class CartListItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               SizedBox(height: 3),
-                              Text("${cart.quantity} 개", style: Theme.of(context).textTheme.bodyMedium),
+                              Text(
+                                "${cart.quantity} 개",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
                               Row(
                                 children: [
                                   Spacer(),
                                   Text(
                                     cart.totalPrice.toWon,
-                                    style: Theme.of(context).textTheme.titleSmall,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleSmall,
                                   ),
                                 ],
                               ),
