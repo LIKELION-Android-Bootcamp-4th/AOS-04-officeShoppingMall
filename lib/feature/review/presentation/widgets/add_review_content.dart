@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
 
 import '../../../../core/data/models/entity/user.dart';
+import '../../../mypage/presentation/viewmodel/mypage_viewmodel.dart';
 import '../viewmodel/review_model.dart';
 
 class AddReviewContent extends StatefulWidget {
@@ -22,7 +24,7 @@ class _AddReviewContent extends State<AddReviewContent> {
 
   User? user;
 
-  Product? product;
+  ProductDTO? product;
 
   Widget _buildImageSlot(int index) {
     bool isFilled = index < vm.images.length && vm.images[index] != null;
@@ -55,7 +57,7 @@ class _AddReviewContent extends State<AddReviewContent> {
 
   void _onSubmit() {
     final reviewDTO = vm.createReview(product: product!, user: user!);
-    vm.addReview(reviewDTO);
+    vm.addReviewAndUpdateScore(reviewDTO, product!);
     Navigator.pop(context);
   }
 
@@ -63,8 +65,8 @@ class _AddReviewContent extends State<AddReviewContent> {
   void initState() {
     super.initState();
     vm = context.read<ReviewModel>();
-    user = context.read<User>();
-    product = context.read<ProductViewModel>().selectedProduct;
+    user = context.select((MypageViewModel vm) => vm.user!);
+    product = context.read<ReviewModel>().selectedProduct;
   }
 
   @override

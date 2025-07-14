@@ -1,3 +1,4 @@
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 
 abstract class ProductRepository {
@@ -12,7 +13,9 @@ abstract class ProductRepository {
 
   Future<Product> fetchProductDetail(String id);
 
-  // Future<void> updateProduct(Product product);
+  Future<void> updateProduct(ProductDTO product);
+
+  Future<void> updateProductScore(String productId, double score);
 
   // Future<void> deleteProduct(String id);
 }
