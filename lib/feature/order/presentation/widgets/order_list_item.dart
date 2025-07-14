@@ -39,8 +39,8 @@ class OrderListItem extends StatelessWidget {
                 //     builder: (_) => OrderDetailScreen(orderId: order.orderId),
                 //   ),
                 // );
+                context.read<OrderDetailViewModel>().setCurrentOrder(order.orderId);
                 Navigator.pushNamed(context, AppRoutes.orderDetail);
-                context.read<OrderDetailViewModel>().loadOrderId(order.orderId);
               },
 
               child: Padding(

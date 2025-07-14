@@ -5,14 +5,15 @@ import 'package:office_shopping_mall/feature/order/domain/repository/order_repos
 
 class OrderDetailViewModel extends ChangeNotifier {
   final OrderRepository _repository;
-  final OrderService _service;
 
-  OrderDetailViewModel(this._repository, this._service);
+  OrderDetailViewModel(this._repository);
 
   OrderDTO? order = null;
   bool _isLoading = false;
+  String orderId = "";
 
-  Future<void> loadOrderId(String orderId) async {
+  Future<void> loadOrderDetail() async {
+    print('loadOrderDetail: $orderId');
     _isLoading = true;
     order = null;
     notifyListeners();
@@ -30,6 +31,10 @@ class OrderDetailViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> setCurrentOrder(String orderId) async {
+    this.orderId = orderId;
   }
 
 //   Future<void> cancelOrder(String orderId) async {

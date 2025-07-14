@@ -24,7 +24,7 @@ class OrderService {
   
   Future<OrderDTO> getOrderDetail(String id) async {
     final response = await _dio.get(Api.order.getOrderDetail(id));
-    final data = response.data;
+    final data = response.data['data'];
     return OrderDTO.fromJson(data);
   }
   

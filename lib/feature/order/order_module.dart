@@ -17,9 +17,9 @@ List<SingleChildWidget> orderModule = [
   ChangeNotifierProvider<OrderListViewModel>(
     create: (context) =>
     OrderListViewModel(context.read<OrderRepository>(), context.read<OrderService>())..loadOrders(),
-  )
+  ),
   ChangeNotifierProvider<OrderDetailViewModel>(
     create: (context) =>
-        OrderDetailViewModel(context.read<OrderRepository>(), context.read<OrderService>())
+        OrderDetailViewModel(context.read<OrderRepository>())
   )
 ];

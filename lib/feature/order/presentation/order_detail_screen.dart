@@ -9,8 +9,7 @@ import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  String orderId;
-  OrderDetailScreen({super.key, required this.orderId});
+  OrderDetailScreen({super.key});
 
   @override
   State<OrderDetailScreen> createState() => OrderDetailScreenState();
@@ -19,9 +18,19 @@ class OrderDetailScreen extends StatefulWidget {
 class OrderDetailScreenState extends State<OrderDetailScreen>
     with SingleTickerProviderStateMixin {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel = context.read<OrderDetailViewModel>();
+
+      viewModel.loadOrderDetail();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<OrderDetailViewModel>();
     final order = context.watch<OrderDetailViewModel>().order;
+    print(order);
 
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보'),
@@ -34,6 +43,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
+                  width: 130,
                   height: 130,
                   child: order?.items[0].thumbnailImageUrl == null
                       ? Container(
@@ -98,7 +108,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '${NumberFormat('#,###').format(order?.items[0].unitPrice ?? '')}원',
+                        '${NumberFormat('#,###').format(order?.items[0].unitPrice ?? 0)}원',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
@@ -236,7 +246,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                       padding: EdgeInsets.all(16),
                                       child: Text(
                                         "주문을 취소 하시겠습니까?",
-                                        style: Theme.of(context,).textTheme.bodyMedium,
+                                        style: Theme.of(context).textTheme.bodyMedium,
                                       ),
                                     ),
                                   ],
