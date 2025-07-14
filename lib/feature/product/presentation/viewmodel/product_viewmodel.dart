@@ -15,11 +15,6 @@ class ProductViewModel extends ChangeNotifier {
 
   Product? selectedProduct;
   String? selectedProductId;
-  bool isLoading = true;
-
-  final ProductRepository _repository;
-
-  ProductViewModel(this._repository);
 
   bool get isLoading => _isLoading;
 
@@ -31,15 +26,15 @@ class ProductViewModel extends ChangeNotifier {
   }
 
   Future<void> getProductById(String productId) async {
-    isLoading = true;
+    _isLoading = true;
     notifyListeners();
     try {
-      final product = await _repository.fetchProductDetail(productId);
+      final product = await _repo.fetchProductDetail(productId);
       selectedProduct = product;
     } catch (e) {
       print('Error fetching product: $e');
     } finally {
-      isLoading = false;
+      _isLoading = false;
       notifyListeners();
     }
   }
