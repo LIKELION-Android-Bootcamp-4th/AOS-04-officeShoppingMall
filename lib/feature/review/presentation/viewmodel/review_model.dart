@@ -20,7 +20,7 @@ class ReviewModel extends ChangeNotifier {
   List<ReviewDTO> reviews = [];
   ReviewDTO? selectedReview;
   ProductDTO? selectedProduct;
-  bool setReview = false;
+  bool isLoading = false;
 
   final ReviewRepository _reviewRepository;
   final ReviewService _reviewService;
@@ -89,6 +89,8 @@ class ReviewModel extends ChangeNotifier {
 
   Future<void> getReviews(String productId) async {
     reviews.clear();
+    isLoading = true;
+    notifyListeners();
 
     try {
       final reviewList = await _reviewRepository.getReviews(productId);
@@ -96,6 +98,7 @@ class ReviewModel extends ChangeNotifier {
     } catch (e) {
       print('Error loading reviews: $e');
     }
+    isLoading = false;
     notifyListeners();
   }
 
