@@ -31,9 +31,9 @@ class _ProductItem extends State<ProductItem> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
+      onTap: () async{
+        await context.read<ProductViewModel>().setSelectedProduct(product);
         Navigator.pushNamed(context, AppRoutes.productDetail);
-        context.read<ProductViewModel>().setSelectedProduct(product);
       },
       child: SizedBox(
         width: 180,
@@ -50,7 +50,7 @@ class _ProductItem extends State<ProductItem> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: product.thumbnailImage != null
+                    child: product.thumbnailImage?.url != null
                         ? Image.network(
                       product.thumbnailImage!.url,
                       fit: BoxFit.cover,

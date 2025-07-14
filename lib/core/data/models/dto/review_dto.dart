@@ -1,3 +1,5 @@
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+
 class ReviewDTO {
   final String id;
   final String productId;
@@ -6,6 +8,7 @@ class ReviewDTO {
   final String comment;
   final List<ReviewImageDTO>? images;
   final DateTime? createdAt;
+  final ProductDTO? product;
 
   ReviewDTO({
     required this.id,
@@ -15,6 +18,7 @@ class ReviewDTO {
     required this.comment,
     this.images,
     this.createdAt,
+    this.product,
   });
 
   factory ReviewDTO.fromJson(Map<String, dynamic> json) {
@@ -28,6 +32,7 @@ class ReviewDTO {
           ? (json['images'] as List<dynamic>).map((e) => ReviewImageDTO.fromJson(e)).toList()
           : [],
       createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      product: json['product'] != null ? ProductDTO.fromJson(json['product']) : null,
     );
   }
 
@@ -40,7 +45,30 @@ class ReviewDTO {
       'comment': comment,
       'images': images?.map((e) => e.toJson()).toList(),
       'createdAt': createdAt?.toIso8601String(),
+      'product': product?.toJson(),
     };
+  }
+
+  ReviewDTO copyWith({
+    String? id,
+    String? productId,
+    String? userId,
+    int? rating,
+    String? comment,
+    List<ReviewImageDTO>? images,
+    DateTime? createdAt,
+    ProductDTO? product,
+  }) {
+    return ReviewDTO(
+      id: id ?? this.id,
+      productId: productId ?? this.productId,
+      userId: userId ?? this.userId,
+      rating: rating ?? this.rating,
+      comment: comment ?? this.comment,
+      images: images ?? this.images,
+      createdAt: createdAt ?? this.createdAt,
+      product: product ?? this.product,
+    );
   }
 }
 
