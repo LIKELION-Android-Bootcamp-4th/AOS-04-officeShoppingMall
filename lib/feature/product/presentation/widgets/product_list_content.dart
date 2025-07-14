@@ -31,14 +31,6 @@ class _ProductListContentState extends State<ProductListContent> {
     vm = context.watch<ProductListViewModel>();
     final products = vm.products;
 
-    //검색 결과가 아닐 때만
-    if (!vm.isSearchResult &&
-        !vm.isLoading &&
-        vm.products.isEmpty &&
-        vm.category != null) {
-      vm.loadProducts(category: vm.category);
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
