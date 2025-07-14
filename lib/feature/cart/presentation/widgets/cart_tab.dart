@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
@@ -6,13 +7,15 @@ import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_list
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/payment_screen.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
+import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
+import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/widgets/loading_indicator.dart';
 
 class CartTab extends StatefulWidget {
-@override
-State<CartTab> createState() => CartTabState();
+  @override
+  State<CartTab> createState() => CartTabState();
 }
 
 class CartTabState extends State<CartTab> {
@@ -81,7 +84,7 @@ class CartTabState extends State<CartTab> {
           ),
         ),
         child: Container(
-          color: Colors.white,
+          color: AppColors.backgroundColor,
           height: 130,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -92,7 +95,10 @@ class CartTabState extends State<CartTab> {
                     padding: EdgeInsets.only(top: 16),
                     child: Text(
                       "결제 금액",
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge,
                     ),
                   ),
                   Spacer(),
@@ -100,7 +106,10 @@ class CartTabState extends State<CartTab> {
                     padding: EdgeInsets.only(top: 16, right: 16),
                     child: Text(
                       viewModel.getSelectedTotalPrice.toWon,
-                      style: Theme.of(context).textTheme.titleSmall,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleSmall,
                     ),
                   ),
                 ],
@@ -109,13 +118,9 @@ class CartTabState extends State<CartTab> {
               Align(
                 alignment: Alignment.center,
                 child: ProductButton(
-                  onPressed: () {
-                    if (viewModel.selectedCarts.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PaymentScreen()),
-                      );
-                    }
+                  onPressed: ()  {
+                    //TODO
+                    Navigator.pushNamed(context, AppRoutes.order);
                   },
                   text: '결제',
                   backgroundColor: AppColors.primaryColor,

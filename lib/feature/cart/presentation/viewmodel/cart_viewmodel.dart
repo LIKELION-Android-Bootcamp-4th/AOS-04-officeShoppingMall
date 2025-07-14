@@ -133,11 +133,10 @@ class CartViewModel extends ChangeNotifier {
   }
 
   Future<CartOrderResponseDTO?> orderFromCart({
+    required List<String> cartIds,
     required String recipient,
     required String address,
     required String phone,
-    required String zipCode,
-    required String memo,
   }) async {
     _isLoading = true;
     _error = null;
@@ -146,12 +145,10 @@ class CartViewModel extends ChangeNotifier {
     try {
       final request = CartOrderRequestDTO(
           cartIds: _selectedCartIds.toList(),
-          memo: memo,
           shippingInfo: ShippingInfo(
               recipient: recipient,
               address: address,
               phone: phone,
-              zipCode: zipCode
           ),
       );
 

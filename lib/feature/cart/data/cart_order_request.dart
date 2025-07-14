@@ -1,11 +1,11 @@
 class CartOrderRequestDTO {
   final ShippingInfo shippingInfo;
-  final String memo;
+  final String? memo;
   final List<String> cartIds;
 
   CartOrderRequestDTO({
     required this.shippingInfo,
-    required this.memo,
+    this.memo,
     required this.cartIds,
   });
 
@@ -22,13 +22,13 @@ class ShippingInfo {
   final String recipient;
   final String address;
   final String phone;
-  final String zipCode;
+  final String? zipCode;
 
   ShippingInfo({
     required this.recipient,
     required this.address,
     required this.phone,
-    required this.zipCode,
+    this.zipCode,
   });
 
   Map<String, dynamic> toJson() {
