@@ -9,21 +9,16 @@ import 'presentation/viewmodel/product_viewmodel.dart';
 import 'domain/product_repository_impl.dart';
 
 List<SingleChildWidget> productModule = [
-
-  Provider<ProductService>(
-    create: (context) => ProductService(context.read<Dio>()),
-  ),
+  Provider<ProductService>(create: (context) => ProductService(context.read<Dio>())),
 
   Provider<ProductRepository>(
     create: (context) => ProductRepositoryImpl(context.read<ProductService>()),
   ),
 
   ChangeNotifierProvider<ProductListViewModel>(
-    create: (context) =>
-        ProductListViewModel(context.read<ProductRepository>())..loadProducts(),
+    create: (context) => ProductListViewModel(context.read<ProductRepository>())..loadProducts(),
   ),
   ChangeNotifierProvider<ProductViewModel>(
-    create: (context) =>
-        ProductViewModel(),
+    create: (context) => ProductViewModel(context.read<ProductRepository>()),
   ),
 ];
