@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
-import 'package:office_shopping_mall/feature/notification/data/app_notification_list.dart';
+import 'package:office_shopping_mall/feature/notification/data/notification_item.dart';
+import 'package:office_shopping_mall/feature/notification/presentation/viewmodel/notification_viewmodel.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -29,6 +31,7 @@ class NotificationScreenState extends State<NotificationScreen>
 
   @override
   Widget build(BuildContext context) {
+    final notice = context.watch<NotificationViewModel>();
     return Scaffold(
       appBar: CustomAppBar(title: '알림', actions: appBarActionsNoBell()),
       body: Column(
@@ -49,31 +52,34 @@ class NotificationScreenState extends State<NotificationScreen>
               children: [
                 //전체 알림
                 ListView.builder(
-                  itemCount: notiList.length,
+                  itemCount: notice.noti.length,
                   itemBuilder: (context, index) {
-                    return AppNotificationList(notification: notiList[index]);
+                    return NotificationItem(noti: notice.noti[index]);
                   },
                 ),
                 //공지사항 알림
-                ListView(
-                  children: notiList
-                      .where((e) => e.notiIndex == 1)
-                      .map((e) => AppNotificationList(notification: e))
-                      .toList(),
+                ListView.builder(
+                  itemCount: notice.noti.where((e) => e.category == 'notice').length,
+                  itemBuilder: (context, index){
+                    final list = notice.noti.where((e) => e.category == 'notice').toList();
+                    return NotificationItem(noti: list[index]);
+                  }
                 ),
                 //배송 알림
-                ListView(
-                  children: notiList
-                      .where((e) => e.notiIndex == 2)
-                      .map((e) => AppNotificationList(notification: e))
-                      .toList(),
+                ListView.builder(
+                    itemCount: notice.noti.where((e) => e.category == 'delivery').length,
+                    itemBuilder: (context, index){
+                      final list = notice.noti.where((e) => e.category == 'delivery').toList();
+                      return NotificationItem(noti: list[index]);
+                    }
                 ),
                 //광고 알림
-                ListView(
-                  children: notiList
-                      .where((e) => e.notiIndex == 3)
-                      .map((e) => AppNotificationList(notification: e))
-                      .toList(),
+                ListView.builder(
+                    itemCount: notice.noti.where((e) => e.category == 'ad').length,
+                    itemBuilder: (context, index){
+                      final list = notice.noti.where((e) => e.category == 'ad').toList();
+                      return NotificationItem(noti: list[index]);
+                    }
                 ),
               ],
             ),

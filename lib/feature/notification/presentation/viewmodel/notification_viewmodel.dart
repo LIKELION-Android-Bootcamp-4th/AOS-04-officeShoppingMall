@@ -5,8 +5,7 @@ import 'package:office_shopping_mall/feature/notification/data/notification_serv
 
 class NotificationViewModel extends ChangeNotifier {
   final NotificationRepository _repository;
-  final NotificationService _service;
-  NotificationViewModel(this._repository, this._service);
+  NotificationViewModel(this._repository);
 
   List<NotificationDTO> noti = [];
 

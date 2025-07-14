@@ -6,7 +6,7 @@ class NotificationDTO {
   factory NotificationDTO.fromJson(Map<String, dynamic> json) {
     return NotificationDTO(
       content: json['content'] ?? '',
-      category: json['category'] ?? '');
+      category: json['category'] ?? 'notice');
   }
 
   Map<String, dynamic> toJson() => {
