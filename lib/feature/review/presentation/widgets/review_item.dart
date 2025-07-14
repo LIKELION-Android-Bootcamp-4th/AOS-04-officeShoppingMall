@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
 import '../../../../core/data/models/dto/review_dto.dart';
 import '../../../../core/data/models/entity/user.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../mypage/presentation/viewmodel/mypage_viewmodel.dart';
+import '../viewmodel/review_model.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
+
+import '../../../../core/data/models/dto/review_dto.dart';
 import '../viewmodel/review_model.dart';
 
 class ReviewItem extends StatelessWidget {
@@ -17,50 +27,59 @@ class ReviewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var vm = context.read<ReviewModel>();
-
-    return GestureDetector(
-      onTap: () {
-        vm.selectedReview = review;
-        Navigator.pushNamed(context, AppRoutes.reviewDetail);
-      },
-      child: ProductContentContainer(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SvgPicture.asset(""),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          review.userId,
-                          style: Theme.of(context).textTheme.titleLarge,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        review.rating.toString(),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    review.comment.isEmpty ? "내용이 없습니다." : review.comment,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 별점
+        Text(
+          "${review.rating}점",
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-      ),
+        const SizedBox(height: 4),
+        // 후기 내용
+        Text(
+          review.comment.isEmpty ? "내용이 없습니다." : review.comment,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 8),
+        // 이미지
+        if (review.images != null && review.images!.isNotEmpty)
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (var image in review.images!) ...[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      image.url,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 2),
+                ],
+              ],
+            ),
+          )
+        else
+          Row(
+            children: [
+              for (int i = 0; i < 3; i++) ...[
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                const SizedBox(width: 2),
+              ],
+            ],
+          ),
+      ],
     );
   }
 }
