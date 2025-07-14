@@ -78,7 +78,6 @@ class LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authViewModel = context.watch<AuthViewModel>();
     return Form(
       child: Column(
         children: [
