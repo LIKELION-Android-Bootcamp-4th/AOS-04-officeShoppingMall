@@ -23,7 +23,8 @@ class MypageContentMenuList extends StatelessWidget {
           Navigator.pushNamed(context, AppRoutes.orderPaid);
         },
       ),
-      MenuItem('images/icon/ic_comment.svg', '내가 작성한 리뷰'),
+      MenuItem('images/icon/ic_comment.svg', '내가 작성한 리뷰',
+          onTap: () {Navigator.pushNamed(context, AppRoutes.review);}),
       MenuItem('images/icon/ic_inquiry.svg', '문의 내역'),
       MenuItem(
         'images/icon/ic_logout.svg',
