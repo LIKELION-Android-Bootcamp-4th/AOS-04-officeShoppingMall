@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_order_request.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_order_response.dart';
 import 'package:office_shopping_mall/feature/cart/domain/repository/cart_repository.dart';
 
 class CartViewModel extends ChangeNotifier {
@@ -24,7 +26,8 @@ class CartViewModel extends ChangeNotifier {
 
   bool isSelected(String cartId) => _selectedCartIds.contains(cartId);
 
-  int get getSelectedTotalPrice => selectedCarts.fold(0, (sum, item) => sum + item.totalPrice);
+  int get getSelectedTotalPrice =>
+      selectedCarts.fold(0, (sum, item) => sum + item.totalPrice);
 
   Future<void> loadCarts() async {
     _isLoading = true;
@@ -84,7 +87,8 @@ class CartViewModel extends ChangeNotifier {
       final idx = carts.indexWhere((c) => c.id == cartItemId);
       if (idx != -1) {
         final old = carts[idx];
-        carts[idx] = old.copyWith(quantity: quantity, totalPrice: old.unitPrice * quantity);
+        carts[idx] = old.copyWith(
+            quantity: quantity, totalPrice: old.unitPrice * quantity);
       }
     } catch (e) {
       _error = e.toString();
@@ -123,6 +127,44 @@ class CartViewModel extends ChangeNotifier {
     } catch (e) {
       _error = e.toString();
     } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<CartOrderResponseDTO?> orderFromCart({
+    required String recipient,
+    required String address,
+    required String phone,
+    required String zipCode,
+    required String memo,
+  }) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final request = CartOrderRequestDTO(
+          cartIds: _selectedCartIds.toList(),
+          memo: memo,
+          shippingInfo: ShippingInfo(
+              recipient: recipient,
+              address: address,
+              phone: phone,
+              zipCode: zipCode
+          ),
+      );
+
+      final response = await _repository.orderFromCart(request);
+
+      _selectedCartIds.clear(); //주문 생성 성공 시 선택을 초기화시킴
+      notifyListeners();
+
+      return response;
+    }catch (e){
+      _error = e.toString();
+      print('vm장바구니에서 주문 생성 중 오류 발생 $_error');
+    }finally{
       _isLoading = false;
       notifyListeners();
     }

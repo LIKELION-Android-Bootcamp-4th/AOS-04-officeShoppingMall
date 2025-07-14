@@ -3,6 +3,8 @@ import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_order_request.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_order_response.dart';
 
 class CartService {
   final Dio _dio;
@@ -49,6 +51,23 @@ class CartService {
       );
     }
   }
+
+  Future<CartOrderResponseDTO> orderFromCart(CartOrderRequestDTO request) async{
+    try{
+      final response = await _dio.post(Api.cart.checkout,
+      data: request.toJson());
+
+      if(response.statusCode == 200){
+        return CartOrderResponseDTO.fromJson(response.data);
+      }else{
+        throw Exception("장바구니에서 주문 생성 실패: ${response.statusCode} \n ${response.data}");
+      }
+    }catch (e){
+      throw Exception("장바구니에서 주문 생성 중 문제 발생: $e");
+    }
+  }
+
+
 
   Future<void> updateCart(String id, int quantity) async {
     final response = await _dio.patch(

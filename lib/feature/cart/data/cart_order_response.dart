@@ -80,11 +80,7 @@ class ProductInfo {
   final String name;
   final int price;
 
-  ProductInfo({
-    required this.id,
-    required this.name,
-    required this.price,
-  });
+  ProductInfo({required this.id, required this.name, required this.price});
 
   factory ProductInfo.fromJson(Map<String, dynamic> json) {
     return ProductInfo(
