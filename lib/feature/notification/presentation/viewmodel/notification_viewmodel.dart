@@ -10,5 +10,15 @@ class NotificationViewModel extends ChangeNotifier {
 
   List<NotificationDTO> noti = [];
 
-
+  Future<void> loadNoti() async {
+    noti.clear();
+    notifyListeners();
+    try {
+      final notiList = await _repository.getNoti();
+      noti.addAll(notiList);
+      notifyListeners();
+    } catch(e) {
+      print("불러오기 실패: $e");
+    }
+  }
 }

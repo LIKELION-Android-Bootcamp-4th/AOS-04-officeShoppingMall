@@ -16,10 +16,10 @@ class OrderRepositoryImpl implements OrderRepository {
     return _service.getOrderDetail(id);
   }
 
-  // @override
-  // Future<void> addOrder(OrderDTO order) {
-  //   return _service.addOrder(order);
-  // }
+  @override
+  Future<void> addOrder(OrderDTO order) {
+    return _service.addOrder(order);
+  }
 
   @override
   Future<void> cancelOrder(String id) {

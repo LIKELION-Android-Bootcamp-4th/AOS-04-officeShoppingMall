@@ -18,16 +18,16 @@ class OrderService {
     return OrderDTO.fromJson(data);
   }
   
-  // Future<void> addOrder(OrderDTO order) async {
-  //   final response = await _dio.post(Api.mypage.addOrder());
-  //   if (response.statusCode == 200) {
-  //     print('주문 추가 성공!');
-  //   } else {
-  //     throw Exception(
-  //       '주문 추가 실패: ${response.statusCode}, message: ${response.data}',
-  //     );
-  //   }
-  // }
+  Future<void> addOrder(OrderDTO order) async {
+    final response = await _dio.post(Api.order.createOrder);
+    if (response.statusCode == 200) {
+      print('주문 추가 성공!');
+    } else {
+      throw Exception(
+        '주문 추가 실패: ${response.statusCode}, message: ${response.data}',
+      );
+    }
+  }
 
   Future<void> cancelOrder(String id) async {
     final response = await _dio.patch(Api.mypage.cancelOrder(id));
