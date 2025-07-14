@@ -6,16 +6,23 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
+import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_content.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_bottom.dart';
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<OrderScreen> createState() => _OrderScreenState();
+}
 
+class _OrderScreenState extends State<OrderScreen> {
+  OrderInfo? _orderInfo;
+
+  @override
+  Widget build(BuildContext context) {
     final Product product = context.select((ProductViewModel vm) => vm.selectedProduct!);
 
     return Scaffold(
@@ -23,16 +30,11 @@ class OrderScreen extends StatelessWidget {
 
       appBar: CustomAppBar(title: "결제", titleTextStyle: Theme.of(context).textTheme.titleLarge),
 
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [SizedBox(height: 20), OrderContent()],
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: OrderContent(
+          product: product,
+          onChanged: (info) => setState(() => _orderInfo = info),
         ),
       ),
 
@@ -70,41 +72,52 @@ class OrderScreen extends StatelessWidget {
 
             OrderBottom(
               onSelected: () async {
-                if (product == null) return;
-
                 final confirm = await showDialog<bool>(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text("결제"),
-                    content: Text("결제 하시겠습니까?"),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Text("취소"),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(true);
-                        },
-                        child: Text("확인"),
-                      ),
-                    ],
-                  ),
+                  builder: (context) {
+                    if (_orderInfo?.paymentMethod == null) {
+                      return AlertDialog(
+                        content: Text("결제 방식을 선택해 주세요."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            child: Text("확인"),
+                          ),
+                        ],
+                      );
+                    }
+                    return AlertDialog(
+                      title: Text("결제"),
+                      content: Text("결제 하시겠습니까?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text("취소"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text("확인"),
+                        ),
+                      ],
+                    );
+                  }
                 );
 
                 if (confirm == true) {
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (context) => const Center(
-                      child: CustomCircleIndicator(),
-                    ),
+                    builder: (context) => const Center(child: CustomCircleIndicator()),
                   );
-                  await Future.delayed(Duration(seconds: 1));
+                  await Future.delayed(Duration(seconds: 2));
                   Navigator.of(context).pop();
-                  Navigator.pushNamed(context, AppRoutes.orderComplete);
+                  Navigator.pushNamed(context, AppRoutes.orderComplete, arguments: _orderInfo);
                 }
               },
             ),
