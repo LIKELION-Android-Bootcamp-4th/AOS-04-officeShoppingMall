@@ -33,7 +33,7 @@ class PreferenceContentList extends StatelessWidget {
                   child: Card(
                     clipBehavior: Clip.antiAlias,
                     child: currentProd.thumbnailImage != null
-                        ? Image.network(currentProd.thumbnailImage!)
+                        ? Image.network(currentProd.thumbnailImage!.url)
                         : Image.asset('images/banner1.jpg', fit: BoxFit.fill),
                   ),
                 ),

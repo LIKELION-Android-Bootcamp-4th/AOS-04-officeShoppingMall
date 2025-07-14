@@ -1,6 +1,8 @@
 import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_service.dart';
-import 'package:office_shopping_mall/feature/cart/domian/repository/cart_repository.dart';
+import 'package:office_shopping_mall/feature/cart/domain/repository/cart_repository.dart';
 
 class CartRepositoryImpl implements CartRepository {
   final CartService _service;
@@ -12,8 +14,8 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<void> addCart(CartDTO cart) {
-    return _service.addCart(cart);
+  Future<CartItemResponse> addCart(CartItemRequest request) {
+    return _service.addCart(request);
   }
 
   @override
