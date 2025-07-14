@@ -1,4 +1,4 @@
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/feature/preference/data/preference_service.dart';
 
@@ -12,5 +12,5 @@ class PreferenceRepository {
     return responses.map((response) => Product.fromDTO(response)).toList();
   }
 
-  Future<bool> toggleFavorite(String id) => _service.toggleFavorite(id);
+  Future<ToggleFavoriteResponse> toggleFavorite(String id) => _service.toggleFavorite(id);
 }

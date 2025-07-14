@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 
 class Product {

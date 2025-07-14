@@ -5,6 +5,7 @@ import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_content.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_bottom.dart';
@@ -94,6 +95,15 @@ class OrderScreen extends StatelessWidget {
                 );
 
                 if (confirm == true) {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => const Center(
+                      child: CustomCircleIndicator(),
+                    ),
+                  );
+                  await Future.delayed(Duration(seconds: 1));
+                  Navigator.of(context).pop();
                   Navigator.pushNamed(context, AppRoutes.orderComplete);
                 }
               },
