@@ -33,9 +33,10 @@ class CartViewModel extends ChangeNotifier {
 
     try {
       final dtos = await _repository.getCart();
-      carts = dtos.map((dto) => CartItemResponse.fromJson(dto.toJson())).toList();
+      carts = dtos;
     } catch (e) {
       _error = e.toString();
+      print('Cart loading error: $e');
     } finally {
       _isLoading = false;
       notifyListeners();

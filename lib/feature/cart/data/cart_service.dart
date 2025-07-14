@@ -9,20 +9,27 @@ class CartService {
 
   CartService(this._dio);
 
-  Future<List<CartDTO>> getCart() async {
+  Future<List<CartItemResponse>> getCart() async {
     final response = await _dio.get(Api.cart.getCart());
-    final data = response.data as List;
-    return data.map((e) => CartDTO.fromJson(e)).toList();
+    print('서버 응답 전체: ${response.data}');
+
+    final items = response.data['data']['items'] as List;
+
+    return items.map((e) => CartItemResponse.fromJson(e)).toList();
   }
 
   Future<CartItemResponse> addCart(CartItemRequest req) async {
     final response = await _dio.post(Api.cart.addCart(), data: req.toJson());
 
     if (response.statusCode == 200) {
-      final cartAdd = CartAddResponse.fromJson(response.data as Map<String, dynamic>);
+      final cartAdd = CartAddResponse.fromJson(
+        response.data as Map<String, dynamic>,
+      );
       return cartAdd.data.item;
     } else {
-      throw Exception('장바구니 추가 실패: ${response.statusCode}, message: ${response.data}');
+      throw Exception(
+        '장바구니 추가 실패: ${response.statusCode}, message: ${response.data}',
+      );
     }
   }
 
@@ -31,17 +38,24 @@ class CartService {
     if (response.statusCode == 200) {
       print('장바구니 상품 삭제 성공!');
     } else {
-      throw Exception('장바구니 삭제 실패: ${response.statusCode}, message: ${response.data}');
+      throw Exception(
+        '장바구니 삭제 실패: ${response.statusCode}, message: ${response.data}',
+      );
     }
   }
 
   Future<void> updateCart(String id, int quantity) async {
-    final response = await _dio.patch(Api.cart.updateCart(id), data: {'quantity': quantity});
+    final response = await _dio.patch(
+      Api.cart.updateCart(id),
+      data: {'quantity': quantity},
+    );
 
     if (response.statusCode == 200) {
       print('장바구니 상품 수정 성공!');
     } else {
-      throw Exception('장바구니 상품 수정 실패: ${response.statusCode}, message: ${response.data}');
+      throw Exception(
+        '장바구니 상품 수정 실패: ${response.statusCode}, message: ${response.data}',
+      );
     }
   }
 }
