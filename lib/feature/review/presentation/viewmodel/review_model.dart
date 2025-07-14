@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
-import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import '../../../../core/data/models/entity/user.dart';
 import '../../data/review_repository.dart';
 import '../../data/review_service.dart';

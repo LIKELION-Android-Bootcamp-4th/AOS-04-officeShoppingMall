@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import '../../../core/constants/api_endpoints.dart';
 import '../../../core/data/models/dto/review_dto.dart';
-import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import '../../product/domain/repository/product_repository.dart';
 
 class ReviewService {
