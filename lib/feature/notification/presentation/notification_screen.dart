@@ -21,6 +21,9 @@ class NotificationScreenState extends State<NotificationScreen>
   void initState() {
     super.initState();
     _controller = TabController(length: 4, vsync: this);
+    Future.microtask(() {
+      context.read<NotificationViewModel>().loadNoti();
+    });
   }
 
   @override
@@ -59,25 +62,25 @@ class NotificationScreenState extends State<NotificationScreen>
                 ),
                 //공지사항 알림
                 ListView.builder(
-                  itemCount: notice.noti.where((e) => e.category == 'notice').length,
+                  itemCount: notice.noti.where((e) => e.category == 'system').length,
                   itemBuilder: (context, index){
-                    final list = notice.noti.where((e) => e.category == 'notice').toList();
+                    final list = notice.noti.where((e) => e.category == 'system').toList();
                     return NotificationItem(noti: list[index]);
                   }
                 ),
                 //배송 알림
                 ListView.builder(
-                    itemCount: notice.noti.where((e) => e.category == 'delivery').length,
+                    itemCount: notice.noti.where((e) => e.category == 'general').length,
                     itemBuilder: (context, index){
-                      final list = notice.noti.where((e) => e.category == 'delivery').toList();
+                      final list = notice.noti.where((e) => e.category == 'general').toList();
                       return NotificationItem(noti: list[index]);
                     }
                 ),
                 //광고 알림
                 ListView.builder(
-                    itemCount: notice.noti.where((e) => e.category == 'ad').length,
+                    itemCount: notice.noti.where((e) => e.category == 'event').length,
                     itemBuilder: (context, index){
-                      final list = notice.noti.where((e) => e.category == 'ad').toList();
+                      final list = notice.noti.where((e) => e.category == 'event').toList();
                       return NotificationItem(noti: list[index]);
                     }
                 ),

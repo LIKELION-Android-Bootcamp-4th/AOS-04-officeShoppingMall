@@ -7,8 +7,16 @@ class NotificationService {
   NotificationService(this._dio);
 
   Future<List<NotificationDTO>> getNoti() async {
-    final response = await _dio.get(Api.notice.getNotices());
-    final data = response.data as List;
-    return data.map((e) => NotificationDTO.fromJson(e)).toList();
+    final response = await _dio.get(
+      Api.notice.getNotices(),
+      options: Options(headers: {'X-Company-Code': '6866fd325b230f5dc709bdf7'}),
+    );
+
+    print('[API 요청] ${response.requestOptions.uri}');
+    print('[요청 헤더] ${response.requestOptions.headers}');
+
+    final items = response.data['data']['items'] as List;
+
+    return items.map((e) => NotificationDTO.fromJson(e)).toList();
   }
 }
