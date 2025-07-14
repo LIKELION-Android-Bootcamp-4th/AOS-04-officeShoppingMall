@@ -39,7 +39,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
       children: [
         SizedBox(
           height: 228,
-          child: product.contentImage == null
+          child: product.thumbnailImage == null
               ? Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -56,7 +56,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: NetworkImage(product.contentImage!),
+                      image: NetworkImage(product.thumbnailImage!),
                       fit: BoxFit.cover,
                     ),
                   )

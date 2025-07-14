@@ -1,18 +1,18 @@
-import '../../../../core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 
 abstract class ProductRepository {
-  Future<void> addProduct(ProductDTO product);
+  // Future<void> addProduct(Product product);
 
-  Future<List<ProductDTO>> fetchProducts({
+  Future<List<Product>> fetchProducts({
     String? q,
     String? categoryId,
     String? category,
     String? sort,
   });
 
-  Future<ProductDTO> fetchProductDetail(String id);
+  Future<Product> fetchProductDetail(String id);
 
-  Future<void> updateProduct(ProductDTO product);
+  // Future<void> updateProduct(Product product);
 
-  Future<void> deleteProduct(String id);
+  // Future<void> deleteProduct(String id);
 }
