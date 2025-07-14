@@ -17,7 +17,6 @@ class CartListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<CartViewModel>();
-    final carts = context.watch<CartViewModel>().carts;
 
     return Align(
       alignment: Alignment.topCenter,
@@ -120,7 +119,7 @@ class CartListItem extends StatelessWidget {
                                 children: [
                                   Spacer(),
                                   Text(
-                                    '${NumberFormat('#,###').format(carts[index].product.price)}원',
+                                    '${NumberFormat('#,###').format(cart.product.price)}원',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.titleSmall,
