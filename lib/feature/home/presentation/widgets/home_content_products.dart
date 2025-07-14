@@ -53,7 +53,7 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     child: IconButton(
                       onPressed: () {
                         context.read<HomeViewModel>().toggleFavorite(currentProd);
-                        context.read<PreferenceViewModel>().loadFavorites();
+                        // context.read<PreferenceViewModel>().loadFavorites();
                       },
                       icon: SvgPicture.asset(
                         currentProd.isFavorite
@@ -64,7 +64,7 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                   ),
                 ],
               ),
-              Text(currentProd.name, style: Theme.of(context).textTheme.bodyLarge),
+              Text(currentProd.name, style: Theme.of(context).textTheme.bodyLarge, overflow: TextOverflow.ellipsis),
               Text(currentProd.price.toWon, style: Theme.of(context).textTheme.bodyMedium),
             ],
           );
