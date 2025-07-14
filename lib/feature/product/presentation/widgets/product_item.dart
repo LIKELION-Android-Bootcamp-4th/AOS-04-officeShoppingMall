@@ -52,7 +52,7 @@ class _ProductItem extends State<ProductItem> {
                     ),
                     child: product.thumbnailImage != null
                         ? Image.network(
-                      product.thumbnailImage!,
+                      product.thumbnailImage!.url,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,

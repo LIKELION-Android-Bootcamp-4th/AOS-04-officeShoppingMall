@@ -28,7 +28,7 @@ class OrderContent extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               child: product.thumbnailImage != null
-                  ? Image.network(product.thumbnailImage!, fit: BoxFit.fill, width: 86, height: 86)
+                  ? Image.network(product.thumbnailImage!.url, fit: BoxFit.fill, width: 86, height: 86)
                   : Container(
                       color: AppColors.gray200,
                       alignment: Alignment.center,

@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/data/models/dto/cart_dto.dart';
-import 'package:office_shopping_mall/feature/cart/data/cart_service.dart';
-import 'package:office_shopping_mall/feature/cart/domian/repository/cart_repository.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
+import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
+import 'package:office_shopping_mall/feature/cart/domain/repository/cart_repository.dart';
 
 class CartViewModel extends ChangeNotifier {
   final CartRepository _repository;
   final CartService _service;
 
-  List<CartDTO> carts = [];
+  List<CartItemResponse> carts = [];
   bool _isLoading = false;
   final Set<String> _selectedCartIds = {};
 
   CartViewModel(this._repository, this._service);
 
-  List<CartDTO> get selectedCarts => carts.where((carts) => _selectedCartIds.contains(carts.cartId)).toList();
+  String? get error => _error;
+
+  List<CartItemResponse> get selectedCarts =>
+      carts.where((carts) => _selectedCartIds.contains(carts.id)).toList();
+
   bool isSelected(String cartId) => _selectedCartIds.contains(cartId);
 
   Future<void> loadCarts() async {

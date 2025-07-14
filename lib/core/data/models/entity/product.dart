@@ -7,7 +7,7 @@ class Product {
   final String category;
   final int price;
   final int stock;
-  final String? thumbnailImage;
+  final ThumbnailImage? thumbnailImage;
   final String? contentImage;
   final List<String> images;
   final int favoriteCount;

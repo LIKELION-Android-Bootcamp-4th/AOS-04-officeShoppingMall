@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_list_item.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/payment_screen.dart';
@@ -63,7 +63,7 @@ class CartTabState extends State<CartTab> {
                     Padding(
                       padding: EdgeInsets.only(top: 16, right: 16),
                       child: Text(
-                        '${NumberFormat('#,###').format(viewModel.selectedTotalPrice)}원',
+                        viewModel.getSelectedTotalPrice.toWon,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
