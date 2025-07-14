@@ -31,9 +31,9 @@ class _ProductItem extends State<ProductItem> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
+      onTap: () async{
+        await context.read<ProductViewModel>().setSelectedProduct(product);
         Navigator.pushNamed(context, AppRoutes.productDetail);
-        context.read<ProductViewModel>().setSelectedProduct(product);
       },
       child: SizedBox(
         width: 180,
