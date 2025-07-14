@@ -6,6 +6,7 @@ import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
+import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderDTO order;
@@ -15,8 +16,6 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = context.watch<OrderViewModel>().orders;
-
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
@@ -99,7 +98,7 @@ class OrderListItem extends StatelessWidget {
                             children: [
                               Spacer(),
                               Text(
-                                '${NumberFormat('#,###').format(orders[index].product.price)}원',
+                                '${NumberFormat('#,###').format(order.product.price)}원',
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],

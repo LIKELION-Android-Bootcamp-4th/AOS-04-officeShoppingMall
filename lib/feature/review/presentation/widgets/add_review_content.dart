@@ -2,13 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
 
-import '../../../../core/data/models/dto/product_dto.dart';
 import '../../../../core/data/models/entity/user.dart';
 import '../viewmodel/review_model.dart';
 
@@ -24,7 +22,7 @@ class _AddReviewContent extends State<AddReviewContent> {
 
   User? user;
 
-  ProductDTO? product;
+  Product? product;
 
   Widget _buildImageSlot(int index) {
     bool isFilled = index < vm.images.length && vm.images[index] != null;

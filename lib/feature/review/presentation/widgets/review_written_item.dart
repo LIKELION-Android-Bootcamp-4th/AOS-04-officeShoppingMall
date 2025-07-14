@@ -50,14 +50,11 @@ class ReviewWrittenItem extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: 3),
-                  Text("$count개", style: TextStyle(fontSize: 15)),
+                  Text("$count개", style: Theme.of(context).textTheme.bodyMedium),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -66,13 +63,10 @@ class ReviewWrittenItem extends StatelessWidget {
                         padding: EdgeInsets.only(right: 3),
                         child: Text(
                           price.toString(),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
                         ),
                       ),
-                      Text("원", style: TextStyle(fontSize: 15)),
+                      Text("원", style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   ),
                 ],

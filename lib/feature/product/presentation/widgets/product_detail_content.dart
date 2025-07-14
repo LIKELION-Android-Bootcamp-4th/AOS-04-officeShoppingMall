@@ -21,7 +21,6 @@ class ProductDetailContent extends StatefulWidget {
 class _ProductDetailContent extends State<ProductDetailContent> {
   int _selectedTabIndex = 0;
 
-
   void _selectTab(int index) {
     setState(() {
       _selectedTabIndex = index;
@@ -30,9 +29,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    final product = context
-        .watch<ProductViewModel>()
-        .selectedProduct;
+    final product = context.watch<ProductViewModel>().selectedProduct;
 
     if (product == null) {
       return Center(child: Text("상품 데이터를 불러올 수 없습니다"));
@@ -42,32 +39,29 @@ class _ProductDetailContent extends State<ProductDetailContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-            height: 228,
-            child: product.contentImage == null
-                ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.gray200,
-              ),
-              child: Center(
-                child: Text(
-                  '상품 이미지가 없습니다',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
-                ),
-              ),
-            )
-                : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(product.contentImage!),
-                    fit: BoxFit.cover,
+          height: 228,
+          child: product.thumbnailImage == null
+              ? Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.gray200,
+                  ),
+                  child: Center(
+                    child: Text(
+                      '상품 이미지가 없습니다',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 )
-            )
+              : Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(product.thumbnailImage!),
+                      fit: BoxFit.cover,
+                    ),
+                  )
+          )
         ),
         SizedBox(height: 20),
         Row(
@@ -114,9 +108,8 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         SizedBox(height: 20),
         if (_selectedTabIndex == 0)
           ProductDescriptionContent()
-        else
-          if (_selectedTabIndex == 1)
-            ProductReviewContent(),
+        else if (_selectedTabIndex == 1)
+          ProductReviewContent(),
       ],
     );
   }
