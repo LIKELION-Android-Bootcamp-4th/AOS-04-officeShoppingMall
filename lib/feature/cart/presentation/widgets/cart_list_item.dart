@@ -62,35 +62,43 @@ class CartListItem extends StatelessWidget {
                     child: Row(
                       children: [
                         SizedBox(
+                          width: 130,
                           height: 130,
-                          child: cart.product.thumbnailImage == null
+                          child: (cart.product.thumbnailImage?.url == null || cart.product.thumbnailImage!.url.isEmpty)
                               ? Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColors.gray200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors.gray200,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '상품 이미지가 없습니다',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                          )
+                              : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Image.network(
+                              cart.product.thumbnailImage!.url,
+                              fit: BoxFit.cover,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                        : null,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      '상품 이미지가 없습니다',
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                )
-                              : PageView.builder(
-                                  itemCount: cart.product.images.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: NetworkImage(cart.product.images[index]),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Center(child: Icon(Icons.broken_image, size: 50, color: Colors.grey));
+                              },
+                            ),
+                          ),
                         ),
 
                         SizedBox(width: MediaQuery.of(context).size.width * 0.04),
@@ -105,12 +113,12 @@ class CartListItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               SizedBox(height: 3),
-                              Text("2개", style: Theme.of(context).textTheme.bodyMedium),
+                              Text("${cart.quantity} 개", style: Theme.of(context).textTheme.bodyMedium),
                               Row(
                                 children: [
                                   Spacer(),
                                   Text(
-                                    cart.product.price.toWon,
+                                    cart.totalPrice.toWon,
                                     style: Theme.of(context).textTheme.titleSmall,
                                   ),
                                 ],
