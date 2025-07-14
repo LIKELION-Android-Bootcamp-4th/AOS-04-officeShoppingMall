@@ -11,6 +11,6 @@ List<SingleChildWidget> mypageModule = [
   Provider<MypageRepository>(create: (ctx) => MypageRepository(ctx.read<MypageService>())),
 
   ChangeNotifierProvider<MypageViewModel>(
-    create: (ctx) => MypageViewModel(ctx.read<MypageRepository>())..getUser(),
+    create: (ctx) => MypageViewModel(ctx.read<MypageRepository>()),
   ),
 ];

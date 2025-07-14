@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
 import '../../../core/data/models/dto/product_dto.dart';
 import '../../../core/constants/api_endpoints.dart';
@@ -92,4 +93,12 @@ class ProductService {
     }
   }
 
+  Future<ToggleFavoriteResponse> toggleFavorite(String productId) async {
+    final response = await _dio.post(Api.product.toggleFavorite(productId));
+
+    if (response.statusCode == 200) {
+      return ToggleFavoriteResponse.fromJson(response.data);
+    }
+    throw Exception(response.statusCode);
+  }
 }

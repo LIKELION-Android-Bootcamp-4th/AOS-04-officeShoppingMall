@@ -10,7 +10,7 @@ class MypageRecentProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: CustomAppBar(title: '최근 본 상품',),
+      appBar: CustomAppBar(title: '최근 본 상품'),
       body: ListView(
         children: [
           Padding(
