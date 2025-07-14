@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
-import 'package:office_shopping_mall/feature/mypage/data/menu_item.dart';
+import 'package:office_shopping_mall/feature/mypage/domain/menu_item.dart';
 
 class MypageContentMenuList extends StatelessWidget {
   @override

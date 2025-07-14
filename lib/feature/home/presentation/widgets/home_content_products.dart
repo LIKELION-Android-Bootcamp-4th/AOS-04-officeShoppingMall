@@ -53,7 +53,6 @@ class _HomeContentProductsState extends State<HomeContentProducts> {
                     child: IconButton(
                       onPressed: () {
                         context.read<HomeViewModel>().toggleFavorite(currentProd);
-                        // context.read<PreferenceViewModel>().loadFavorites();
                       },
                       icon: SvgPicture.asset(
                         currentProd.isFavorite
