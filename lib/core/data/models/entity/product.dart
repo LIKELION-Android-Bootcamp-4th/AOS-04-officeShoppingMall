@@ -4,7 +4,7 @@ class Product {
   final String id;
   final String name;
   final String? description;
-  final String category;
+  final String? category;
   final int price;
   final int stock;
   final String? thumbnailImage;
@@ -22,7 +22,7 @@ class Product {
     required this.id,
     required this.name,
     this.description,
-    required this.category,
+    this.category,
     required this.price,
     required this.stock,
     this.thumbnailImage,
