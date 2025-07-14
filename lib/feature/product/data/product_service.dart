@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import '../../../core/data/models/dto/product_dto.dart';
 import '../../../core/constants/api_endpoints.dart';
+import '../../../core/data/models/entity/product.dart';
 
 class ProductService {
   final Dio _dio;
@@ -70,6 +71,23 @@ class ProductService {
     } else {
       throw Exception(
         '상품 수정 실패: ${response.statusCode}, message: ${response.data}',
+      );
+    }
+  }
+
+  Future<void> updateProductScore(String productId, double score) async {
+    final response = await _dio.patch(
+      Api.product.getProductDetail(productId),
+      data: {
+        'score': score,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print('상품 score 수정 성공!');
+    } else {
+      throw Exception(
+        '상품 score 수정 실패: ${response.statusCode}, message: ${response.data}',
       );
     }
   }
