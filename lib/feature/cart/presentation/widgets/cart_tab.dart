@@ -135,7 +135,7 @@ class CartTabState extends State<CartTab> {
                       Navigator.pushNamed(
                         context,
                         AppRoutes.order,
-                        arguments: orderResponse.data,
+                        arguments: orderResponse.orders,
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

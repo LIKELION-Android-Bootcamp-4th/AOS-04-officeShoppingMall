@@ -1,28 +1,28 @@
 class CartOrderResponseDTO {
   final bool success;
   final String message;
-  final OrderData data;
+  final List<OrderData> orders;
 
   CartOrderResponseDTO({
     required this.success,
     required this.message,
-    required this.data,
+    required this.orders,
   });
 
   factory CartOrderResponseDTO.fromJson(Map<String, dynamic> json) {
     print('CartOrderResponseDTO json: $json');
-    final orders = json['data']['orders'] as List<dynamic>?;
+    final ordersJson = json['data']['orders'] as List<dynamic>?;
 
-    if (orders == null || orders.isEmpty) {
+    if (ordersJson == null || ordersJson.isEmpty) {
       throw Exception('orders 데이터가 없습니다.');
     }
 
-    print('첫 번째 order: ${orders[0]}');  // 첫 주문 객체 확인
+    final orders = ordersJson.map((orderJson) => OrderData.fromJson(orderJson)).toList();
 
     return CartOrderResponseDTO(
       success: json['success'],
       message: json['message'],
-      data: OrderData.fromJson(orders[0]),
+      orders: orders,
     );
   }
 }
