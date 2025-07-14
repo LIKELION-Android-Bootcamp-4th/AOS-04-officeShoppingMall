@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
@@ -15,14 +16,6 @@ class ProductDetailBottom extends StatefulWidget {
 }
 
 class _ProductDetailBottom extends State<ProductDetailBottom> {
-  bool isFavorite = false;
-
-  void _onFavoritePressed() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-  }
-
   void _onCartPressed({required String productId, required int? quantity, required int unitPrice}) {
     context.read<CartViewModel>().addToCart(
       productId: productId,
@@ -47,11 +40,13 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
           children: [
             InkWell(
               borderRadius: BorderRadius.circular(32),
-              onTap: _onFavoritePressed,
+              onTap: () {
+                context.read<ProductViewModel>().toggleFavorite(product!);
+              },
               child: SizedBox(
                 height: double.infinity,
                 child: SvgPicture.asset(
-                  isFavorite
+                  product!.isFavorite
                       ? 'images/icon/ic_heart_large_1.svg'
                       : 'images/icon/ic_heart_large_0.svg',
                 ),
