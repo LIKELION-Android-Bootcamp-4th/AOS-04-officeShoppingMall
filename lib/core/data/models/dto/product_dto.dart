@@ -108,7 +108,7 @@ class ProductDTO {
       reviewCount: json['reviewCount'] ?? 0,
       reviewStats: ReviewStats.fromJson(json['reviewStats'] ?? {}),
       isFavorite: json['isFavorite'] ?? false,
-      score: parsedScore,
+      score: parsedScore ?? 0,
     );
   }
 
