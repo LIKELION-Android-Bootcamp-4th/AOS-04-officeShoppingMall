@@ -17,8 +17,13 @@ class PopularOptionsDto {
     required this.minCount,
   });
 
-  factory PopularOptionsDto.fromJson(Map<String, dynamic> json) =>
-      _$PopularOptionsDtoFromJson(json);
+  factory PopularOptionsDto.fromJson(Map<String, dynamic> json) {
+    return PopularOptionsDto(
+      limit: json['limit'] as int,
+      minCount: json['minCount'] as int,
+      timeRange: json['timeRange'] as String?,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$PopularOptionsDtoToJson(this);
 }
