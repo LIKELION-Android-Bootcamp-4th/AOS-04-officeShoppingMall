@@ -3,7 +3,7 @@ class ShippingInfoDTO {
   final String address;
   final String phone;
   final String zipCode;
-  final deliveryOption;
+  final String deliveryOption;
   ShippingInfoDTO({required this.recipient, required this.address, required this.phone,
   required this.zipCode, required this.deliveryOption});
 
@@ -16,4 +16,12 @@ class ShippingInfoDTO {
         deliveryOption: json['deliveryOption'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    "recipient": this.recipient,
+    "address": this.address,
+    "phone": this.phone,
+    "zipCode": this.zipCode,
+    "deliveryOption": this.deliveryOption
+  };
 }

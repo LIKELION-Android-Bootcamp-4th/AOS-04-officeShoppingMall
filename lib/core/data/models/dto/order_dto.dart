@@ -1,5 +1,6 @@
 import 'package:office_shopping_mall/core/data/models/dto/shipping_info_dto.dart';
 import 'package:office_shopping_mall/feature/order/data/order_product_dto.dart';
+import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 
 class OrderDTO {
   final String orderId;
@@ -28,7 +29,7 @@ class OrderDTO {
         updatedAt: json['updatedAt'],
         orderNumber: json['orderNumber'],
         items: (json['items'] as List).map((item) => OrderProductDTO.fromJson(item)).toList(),
-        shippingInfo: json['shoppingInfo'] == null ? null : ShippingInfoDTO.fromJson(json['shoppingInfo'])
+        shippingInfo: json['shippingInfo'] == null ? null : ShippingInfoDTO.fromJson(json['shippingInfo']),
     );
   }
 }
