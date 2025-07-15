@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/data/models/dto/shipping_info_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
+import 'package:office_shopping_mall/feature/order/data/order_add_requset.dart';
+import 'package:office_shopping_mall/feature/order/data/order_product_dto.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/cart_payment_content.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_content.dart';
@@ -27,14 +31,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
-    final Product product = context.select(
-      (ProductViewModel vm) => vm.selectedProduct!,
-    );
+    final Product product = context.select((ProductViewModel vm) => vm.selectedProduct!);
 
     final bool isCartOrder = args is List<OrderData>;
-    final List<OrderData>? cartOrders = isCartOrder
-        ? args as List<OrderData>
-        : null;
+    final List<OrderData>? cartOrders = isCartOrder ? args as List<OrderData> : null;
     final Product? singleProduct = !isCartOrder
         ? context.select((ProductViewModel vm) => vm.selectedProduct)
         : null;
@@ -42,10 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Scaffold(
       extendBody: true,
 
-      appBar: CustomAppBar(
-        title: "결제",
-        titleTextStyle: Theme.of(context).textTheme.titleLarge,
-      ),
+      appBar: CustomAppBar(title: "결제", titleTextStyle: Theme.of(context).textTheme.titleLarge),
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -89,11 +86,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Text('결제 금액', style: Theme.of(context).textTheme.titleMedium),
                   Text(
                     isCartOrder
-                        ? cartOrders!
-                              .fold(0, (sum, order) => sum + order.totalAmount)
-                              .toWon
-                        : (singleProduct!.price * (_orderInfo?.quantity ?? 1))
-                              .toWon,
+                        ? cartOrders!.fold(0, (sum, order) => sum + order.totalAmount).toWon
+                        : (singleProduct!.price * (_orderInfo?.quantity ?? 1)).toWon,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
@@ -143,16 +137,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (context) =>
-                        const Center(child: CustomCircleIndicator()),
+                    builder: (context) => const Center(child: CustomCircleIndicator()),
                   );
+                  OrderAddRequest request = OrderAddRequest(
+                    items: [
+                      OrderProductDTO(
+                        productName: product.name,
+                        quantity: _orderInfo!.quantity,
+                        unitPrice: product.price,
+                        totalPrice: _orderInfo!.quantity * product.price,
+                        thumbnailImageUrl: product.thumbnailImage!.url,
+                        productId: product.id,
+                      ),
+                    ],
+                    shippingInfo: ShippingInfoDTO(
+                      recipient: _orderInfo!.recipient,
+                      address: _orderInfo!.address,
+                      phone: _orderInfo!.phone,
+                    ),
+                    payment: _orderInfo!.paymentMethod,
+                    memo: '',
+                  );
+                  await context.read<OrderListViewModel>().addOrder(request);
                   await Future.delayed(Duration(seconds: 2));
+
                   Navigator.of(context).pop();
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.orderComplete,
-                    arguments: _orderInfo,
-                  );
+                  Navigator.pushNamed(context, AppRoutes.orderComplete, arguments: _orderInfo);
                 }
               },
             ),
