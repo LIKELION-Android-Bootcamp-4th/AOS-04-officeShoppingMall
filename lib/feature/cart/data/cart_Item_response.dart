@@ -68,26 +68,27 @@ class CartItemResponse {
   });
 
   factory CartItemResponse.fromJson(Map<String, dynamic> json) {
-    final productJson = json['productId'] as Map<String, dynamic>? ?? {};
-
+    final productJson = json['product'] as Map<String, dynamic>? ?? {};
     final opts =
         (json['options'] as Map<String, dynamic>?)?.map((k, v) => MapEntry(k, v.toString())) ?? {};
+
+    final String? createdAtString = json['createdAt'] as String?;
 
     return CartItemResponse(
       id: json['id'] as String? ?? '',
       product: ProductDTO.fromJson(productJson),
       quantity: json['quantity'] ?? 0,
-      unitPrice: json['unitPrice'] ?? 0,
+      unitPrice: productJson['unitPrice'] ?? 0,
       totalPrice: json['totalPrice'] ?? 0,
       options: opts,
-      addedAt: DateTime.parse(json['addedAt'] as String),
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      addedAt: DateTime.now(),
+      createdAt: createdAtString != null ? DateTime.parse(createdAtString) : DateTime.now(),
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'productId': product.toJson(),
+    'product': product.toJson(),
     'quantity': quantity,
     'unitPrice': unitPrice,
     'totalPrice': totalPrice,
