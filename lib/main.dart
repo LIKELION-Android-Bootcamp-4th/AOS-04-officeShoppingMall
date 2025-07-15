@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/utils/bottom_nav_observer.dart';
 import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
-import 'package:office_shopping_mall/feature/cart/presentation/cart_module.dart';
+import 'package:office_shopping_mall/feature/cart/cart_module.dart';
 import 'package:office_shopping_mall/feature/home/home_module.dart';
 import 'package:office_shopping_mall/feature/notification/notification_module.dart';
 import 'package:office_shopping_mall/feature/order/order_module.dart';
