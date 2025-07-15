@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
+import 'package:office_shopping_mall/feature/order/data/order_add_requset.dart';
 import 'package:office_shopping_mall/feature/order/data/order_cancel_request.dart';
 
 class OrderService {
@@ -26,8 +27,8 @@ class OrderService {
     return OrderDTO.fromJson(data);
   }
   
-  Future<void> addOrder(String id) async {
-    final response = await _dio.post(Api.order.createOrder);
+  Future<void> addOrder(OrderAddRequest request) async {
+    final response = await _dio.post(Api.order.createOrder, data: request.toJson());
     if (response.statusCode == 200) {
       print('주문 추가 성공!');
     } else {

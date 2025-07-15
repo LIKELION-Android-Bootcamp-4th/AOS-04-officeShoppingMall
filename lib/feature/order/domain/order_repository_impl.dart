@@ -1,4 +1,5 @@
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
+import 'package:office_shopping_mall/feature/order/data/order_add_requset.dart';
 import 'package:office_shopping_mall/feature/order/data/order_service.dart';
 import 'package:office_shopping_mall/feature/order/domain/repository/order_repository.dart';
 
@@ -17,8 +18,8 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<void> addOrder(String id) {
-    return _service.addOrder(id);
+  Future<void> addOrder(OrderAddRequest request) {
+    return _service.addOrder(request);
   }
 
   @override
