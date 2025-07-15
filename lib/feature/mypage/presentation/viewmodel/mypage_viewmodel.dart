@@ -67,7 +67,7 @@ class MypageViewModel extends ChangeNotifier {
       Fluttertoast.showToast(msg: response.message);
 
       if (!response.isLiked) {
-        _recentProd[index] = previous;
+        _recentProd[index] = toggled;
         notifyListeners();
       }
     } catch (e) {
