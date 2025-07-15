@@ -46,12 +46,12 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
             InkWell(
               borderRadius: BorderRadius.circular(32),
               onTap: () {
-                context.read<ProductViewModel>().toggleFavorite(product!);
+                context.read<ProductViewModel>().toggleFavorite(product);
               },
               child: SizedBox(
                 height: double.infinity,
                 child: SvgPicture.asset(
-                  product!.isFavorite
+                  product.isFavorite
                       ? 'images/icon/ic_heart_large_1.svg'
                       : 'images/icon/ic_heart_large_0.svg',
                 ),
@@ -67,7 +67,7 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
               backgroundColor: AppColors.gray100,
               textColor: Colors.black,
               onPressed: () {
-                _onCartPressed(productId: product!.id, quantity: 1, unitPrice: product.price);
+                _onCartPressed(productId: product.id, quantity: 1, unitPrice: product.price);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('상품을 장바구니에 추가했습니다.'),
