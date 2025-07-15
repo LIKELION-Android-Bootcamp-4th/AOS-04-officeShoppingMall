@@ -30,19 +30,39 @@ class MypageContentMenuList extends StatelessWidget {
           Navigator.pushNamed(context, AppRoutes.review);
         },
       ),
-      MenuItem('images/icon/ic_inquiry.svg', '문의 내역'),
+      // MenuItem('images/icon/ic_inquiry.svg', '문의 내역'),
       MenuItem(
         'images/icon/ic_logout.svg',
         '로그아웃',
         onTap: () async {
-          await context.read<AuthViewModel>().logOut();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.login,
-            // 홈만 남기고 삭제. 테스트 용
-            (route) => route.settings.name == AppRoutes.home,
-            // (route) => false,
+          final confirmed = await showDialog<bool>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('로그아웃'),
+              content: const Text('로그아웃 하시겠습니까?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('취소'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('확인'),
+                ),
+              ],
+            ),
           );
+
+          if (confirmed == true) {
+            await context.read<AuthViewModel>().logOut();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.login,
+              // 홈만 남기고 삭제. 테스트 용
+              (route) => route.settings.name == AppRoutes.home,
+              // (route) => false,
+            );
+          }
         },
       ),
     ];
