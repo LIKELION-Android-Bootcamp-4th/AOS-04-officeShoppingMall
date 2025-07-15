@@ -49,12 +49,12 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
             InkWell(
               borderRadius: BorderRadius.circular(32),
               onTap: () {
-                context.read<ProductViewModel>().toggleFavorite(product!);
+                context.read<ProductViewModel>().toggleFavorite(product);
               },
               child: SizedBox(
                 height: double.infinity,
                 child: SvgPicture.asset(
-                  product!.isFavorite
+                  product.isFavorite
                       ? 'images/icon/ic_heart_large_1.svg'
                       : 'images/icon/ic_heart_large_0.svg',
                 ),
