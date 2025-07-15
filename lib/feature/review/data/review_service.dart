@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import '../../../core/constants/api_endpoints.dart';
 import '../../../core/data/models/dto/review_dto.dart';
+import '../../../core/data/models/entity/product.dart';
 import '../../product/domain/repository/product_repository.dart';
 
 class ReviewService {
@@ -10,15 +12,43 @@ class ReviewService {
 
   ReviewService(this._dio, this._productRepository);
 
-  Future<void> addReview(ReviewDTO reviewDTO, String productId) async {
+  Future<void> addReview(
+      ReviewCreateDTO reviewDTO,
+      List<XFile?> images,
+      String productId,
+      ) async {
+    final formData = await buildReviewFormData(reviewDTO, images);
+
     final response = await _dio.post(
       Api.product.writeReview(productId),
-      data: reviewDTO.toJson(),
+      data: formData,
+      options: Options(contentType: 'multipart/form-data'),
     );
 
     if (response.statusCode != 201) {
       throw Exception("리뷰 작성에 실패했습니다: ${response.statusCode}");
     }
+  }
+
+  Future<FormData> buildReviewFormData(
+      ReviewCreateDTO dto,
+      List<XFile?> images,
+      ) async {
+    final List<MultipartFile> imageFiles = [];
+
+    for (final image in images.where((e) => e != null)) {
+      imageFiles.add(await MultipartFile.fromFile(
+        image!.path,
+        filename: image.name,
+      ));
+    }
+
+    final formData = FormData.fromMap({
+      ...dto.toJson(),
+      "images": imageFiles,
+    });
+
+    return formData;
   }
 
   Future<List<ReviewDTO>> getReviews(String productId) async {
@@ -29,9 +59,7 @@ class ReviewService {
 
       if (items is List) {
         return items
-            .map<ReviewDTO>(
-              (json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)),
-        )
+            .map<ReviewDTO>((json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)))
             .toList();
       } else {
         throw Exception("리뷰 데이터 형식이 올바르지 않습니다: items가 List가 아닙니다");
@@ -47,9 +75,7 @@ class ReviewService {
       final items = response.data['data']['items'];
       if (items is List) {
         return items
-            .map<ReviewDTO>(
-              (json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)),
-        )
+            .map<ReviewDTO>((json) => ReviewDTO.fromJson(Map<String, dynamic>.from(json)))
             .toList();
       } else {
         throw Exception("리뷰 데이터 형식이 올바르지 않습니다: items가 List가 아닙니다");
@@ -57,19 +83,5 @@ class ReviewService {
     } else {
       throw Exception("리뷰 목록을 불러오는 데 실패했습니다: ${response.statusCode}");
     }
-  }
-
-  Future<void> addReviewAndUpdateScore(ReviewDTO reviewDTO, ProductDTO product) async {
-    // 1. 리뷰 작성
-    await addReview(reviewDTO, reviewDTO.productId);
-
-    // 2. 리뷰 목록 다시 불러와서 평균 score 계산
-    final reviews = await getReviews(product.id);
-    final newScore = reviews.isNotEmpty
-        ? reviews.map((e) => e.rating).reduce((a, b) => a + b) / reviews.length
-        : reviewDTO.rating.toDouble();
-
-    // 3. 상품 score 업데이트
-    await _productRepository.updateProductScore(product.id, newScore);
   }
 }

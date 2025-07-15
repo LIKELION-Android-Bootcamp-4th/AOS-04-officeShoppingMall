@@ -21,10 +21,9 @@ class AddReviewContent extends StatefulWidget {
 
 class _AddReviewContent extends State<AddReviewContent> {
   late ReviewModel vm;
+  late MypageViewModel viewModel;
 
-  User? user;
-
-  ProductDTO? product;
+  Product? product;
 
   Widget _buildImageSlot(int index) {
     bool isFilled = index < vm.images.length && vm.images[index] != null;
@@ -55,18 +54,28 @@ class _AddReviewContent extends State<AddReviewContent> {
     Navigator.pop(context);
   }
 
-  void _onSubmit() {
-    final reviewDTO = vm.createReview(product: product!, user: user!);
-    vm.addReviewAndUpdateScore(reviewDTO, product!);
-    Navigator.pop(context);
+  void _onSubmit() async {
+    try {
+      final reviewDTO = vm.createReview(product: product!);
+
+      await vm.addReview(reviewDTO);
+
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('리뷰 등록에 실패했습니다: $e')),
+      );
+    }
   }
 
   @override
   void initState() {
     super.initState();
     vm = context.read<ReviewModel>();
-    user = context.select((MypageViewModel vm) => vm.user!);
+    viewModel = context.read<MypageViewModel>();
     product = context.read<ReviewModel>().selectedProduct;
+    vm.images.clear();
+    vm.reviewController.clear();
   }
 
   @override

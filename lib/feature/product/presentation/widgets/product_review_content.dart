@@ -30,10 +30,6 @@ class _ProductReviewContentState extends State<ProductReviewContent> {
     super.initState();
     reviewModel = context.read<ReviewModel>();
     product = context.read<ProductViewModel>().selectedProduct;
-
-    if (product != null) {
-      reviewModel.getReviews(product!.id);
-    }
   }
 
   @override

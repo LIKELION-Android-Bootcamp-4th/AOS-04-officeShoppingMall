@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
+import '../../../../core/data/models/entity/product.dart';
 import '../../../../core/data/models/entity/user.dart';
 import '../../data/review_repository.dart';
 import '../../data/review_service.dart';
@@ -11,7 +12,7 @@ class ReviewModel extends ChangeNotifier {
   final TextEditingController reviewController = TextEditingController();
   final List<SvgPicture?> score = List.generate(
     5,
-    (index) => SvgPicture.asset(""),
+    (index) => SvgPicture.asset("images/icon/ic_star_large_1.svg"),
   );
   int scoreValue = 5;
   final List<XFile?> images = [];
@@ -19,20 +20,20 @@ class ReviewModel extends ChangeNotifier {
   final int visibleCount = 3;
   List<ReviewDTO> reviews = [];
   ReviewDTO? selectedReview;
-  ProductDTO? selectedProduct;
+  Product? selectedProduct;
+  double? productScore;
   bool isLoading = false;
 
   final ReviewRepository _reviewRepository;
-  final ReviewService _reviewService;
 
-  ReviewModel(this._reviewRepository, this._reviewService);
+  ReviewModel(this._reviewRepository);
 
   void onScoreSelected(int index) {
     for (int i = 0; i < score.length; i++) {
       if (i <= index) {
-        score[index] = SvgPicture.asset("");
+        score[index] = SvgPicture.asset("images/icon/ic_star_large_1.svg");
       } else {
-        score[index] = SvgPicture.asset("");
+        score[index] = SvgPicture.asset("images/icon/ic_star_large_0.svg");
       }
     }
     scoreValue = index + 1;
@@ -53,50 +54,40 @@ class ReviewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  ReviewDTO createReview({required ProductDTO product, required User user}) {
-    final reviewDTO = ReviewDTO(
-      id: "",
+  ReviewCreateDTO createReview({required Product product}) {
+    return ReviewCreateDTO(
       productId: product.id,
-      userId: user.id,
+      orderId: null,
       rating: scoreValue,
       comment: reviewController.text,
-      images: images
-          .map(
-            (e) => ReviewImageDTO(
-              id: "",
-              originalName: e!.name,
-              url: e.path,
-              mimeType: "",
-              size: 0,
-            ),
-          )
-          .toList(),
-      createdAt: DateTime.now(),
     );
-
-    return reviewDTO;
   }
 
-  Future<void> addReview(ReviewDTO reviewDTO) async {
-    await _reviewRepository.addReview(reviewDTO, reviewDTO.productId);
-  }
-
-  Future<void> addReviewAndUpdateScore(ReviewDTO reviewDTO, ProductDTO productDTO) async {
-    await _reviewService.addReviewAndUpdateScore(reviewDTO, productDTO);
-    await getReviews(productDTO.id);
-    notifyListeners();
+  Future<void> addReview(ReviewCreateDTO reviewDTO) async {
+    await _reviewRepository.addReview(reviewDTO, images, reviewDTO.productId);
   }
 
   Future<void> getReviews(String productId) async {
     reviews.clear();
+    productScore = 0.0;
     isLoading = true;
     notifyListeners();
 
     try {
       final reviewList = await _reviewRepository.getReviews(productId);
       reviews.addAll(reviewList);
+
+      double score = 0.0;
+      if (reviewList.isNotEmpty) {
+        for (final review in reviewList) {
+          score += review.rating;
+        }
+        score = score / reviewList.length;
+      }
+      productScore = score;
     } catch (e) {
       print('Error loading reviews: $e');
+      productScore = 0.0;
     }
     isLoading = false;
     notifyListeners();

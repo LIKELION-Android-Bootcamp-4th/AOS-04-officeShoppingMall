@@ -17,6 +17,6 @@ List<SingleChildWidget> reviewModule = [
   ),
 
   ChangeNotifierProvider(
-    create: (context) => ReviewModel(context.read<ReviewRepository>(), context.read<ReviewService>()),
+    create: (context) => ReviewModel(context.read<ReviewRepository>()),
   ),
 ];

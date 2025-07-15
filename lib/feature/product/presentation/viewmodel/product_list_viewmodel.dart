@@ -22,6 +22,7 @@ class ProductListViewModel extends ChangeNotifier {
       if (category != null) {
         final productList = await _repository.fetchProducts(category: category);
         products.addAll(productList);
+
       }
     } catch (e) {
       print('Error loading products: $e');

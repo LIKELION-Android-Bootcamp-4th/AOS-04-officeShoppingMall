@@ -14,9 +14,6 @@ abstract class ProductRepository {
 
   Future<Product> fetchProductDetail(String id);
 
-  Future<void> updateProduct(ProductDTO product);
-
-  Future<void> updateProductScore(String productId, double score);
 
   // Future<void> deleteProduct(String id);
 
