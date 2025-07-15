@@ -8,12 +8,11 @@ import 'package:office_shopping_mall/feature/product/domain/repository/product_r
 
 class ProductViewModel extends ChangeNotifier {
   final ProductRepository _repo;
-  final ReviewModel reviewModel;
 
   bool _isLoading = false;
   String? _error;
 
-  ProductViewModel(this._repo, this.reviewModel);
+  ProductViewModel(this._repo);
 
   Product? selectedProduct;
   String? selectedProductId;
@@ -33,7 +32,6 @@ class ProductViewModel extends ChangeNotifier {
     try {
       final product = await _repo.fetchProductDetail(productId);
       selectedProduct = product;
-      reviewModel.getReviews(productId);
     } catch (e) {
       print('Error fetching product: $e');
     } finally {

@@ -36,11 +36,22 @@ class _ProductDetailContent extends State<ProductDetailContent> {
     super.initState();
     vm = context.read<ProductViewModel>();
     reviewModel = context.read<ReviewModel>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final productId = vm.selectedProductId;
+      if (productId != null) {
+        await reviewModel.getReviews(productId);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<ProductViewModel>().selectedProduct;
+    final product = context
+        .watch<ProductViewModel>()
+        .selectedProduct;
+    reviewModel = context.watch<ReviewModel>();
+
 
     if (vm.isLoading) {
       return Center(child: CustomCircleIndicator());
@@ -66,7 +77,10 @@ class _ProductDetailContent extends State<ProductDetailContent> {
             child: Center(
               child: Text(
                 '상품 이미지가 없습니다',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodySmall,
               ),
             ),
           )
@@ -84,10 +98,16 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(product.name, style: Theme.of(context).textTheme.titleLarge),
+            Text(product.name, style: Theme
+                .of(context)
+                .textTheme
+                .titleLarge),
             Text(
               product.price.toWon,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleLarge,
             ),
           ],
         ),
@@ -96,9 +116,14 @@ class _ProductDetailContent extends State<ProductDetailContent> {
           children: [
             SvgPicture.asset("images/icon/ic_star_small_1.svg"),
             SizedBox(width: 4),
-            Text(
-              "${reviewModel.productScore}",
-              style: Theme.of(context).textTheme.bodyLarge,
+            reviewModel.isLoading
+                ? Text("평점 로딩 중...")
+                : Text(
+              "${reviewModel.productScore ?? 0.0}",
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyLarge,
             ),
           ],
         ),
@@ -116,8 +141,9 @@ class _ProductDetailContent extends State<ProductDetailContent> {
         SizedBox(height: 20),
         if (_selectedTabIndex == 0)
           ProductDescriptionContent()
-        else if (_selectedTabIndex == 1)
-          ProductReviewContent(),
+        else
+          if (_selectedTabIndex == 1)
+            ProductReviewContent(),
 
       ],
     );

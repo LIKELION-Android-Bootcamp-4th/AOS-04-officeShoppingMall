@@ -70,7 +70,7 @@ class ReviewModel extends ChangeNotifier {
 
   Future<void> getReviews(String productId) async {
     reviews.clear();
-    productScore = 0.0;
+    productScore = null;
     isLoading = true;
     notifyListeners();
 
@@ -84,8 +84,8 @@ class ReviewModel extends ChangeNotifier {
           score += review.rating;
         }
         score = score / reviewList.length;
+        productScore = score;
       }
-      productScore = score;
     } catch (e) {
       print('Error loading reviews: $e');
       productScore = 0.0;
@@ -96,6 +96,7 @@ class ReviewModel extends ChangeNotifier {
 
   Future<void> getMyReview() async {
     reviews.clear();
+    notifyListeners();
 
     try {
       final reviewList = await _reviewRepository.getMyReviews();

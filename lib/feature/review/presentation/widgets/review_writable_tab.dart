@@ -5,6 +5,8 @@ import 'package:office_shopping_mall/feature/order/presentation/order_list_scree
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
 
+import '../../../product/presentation/widgets/product_content_container.dart';
+
 class ReviewWritableTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,45 +16,70 @@ class ReviewWritableTab extends StatelessWidget {
         .where((a) => a.status == 'delivered')
         .toList();
 
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          if (orderDelivered.isNotEmpty) ...[
-            OrderListScreen(orders: orderDelivered),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.92,
-              height: MediaQuery.of(context).size.height * 0.06,
-              decoration: BoxDecoration(
-                color: AppColors.surfaceContainerColor,
-                borderRadius: BorderRadiusGeometry.circular(10),
-              ),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => AddReviewScreen()),
-                  );
-                },
-                child: Align(
+    if (orderDelivered.isEmpty) {
+      return Center(child: Text('작성할 수 있는 리뷰가 없습니다.'));
+    }
+
+    return ListView.builder(
+      itemCount: orderDelivered.length,
+      itemBuilder: (context, index) {
+        final order = orderDelivered[index];
+        final product = null;
+
+        return ProductContentContainer(
+          width: double.infinity,
+          child: Row(
+            children: [
+              // 이미지 카드
+              Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: product?.thumbnailImage != null
+                    ? Image.network(
+                  product!.thumbnailImage!.url,
+                  fit: BoxFit.fill,
+                  width: 86,
+                  height: 86,
+                )
+                    : Container(
+                  color: AppColors.gray200,
                   alignment: Alignment.center,
+                  width: 86,
+                  height: 86,
                   child: Text(
-                    '리뷰 작성',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    '상품 이미지가 없습니다',
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20)
-          ] else
-            Center(
-              child: Text(
-                '작성 가능한 리뷰가 없습니다.',
-                style: Theme.of(context).textTheme.bodyLarge,
+
+              const SizedBox(width: 12),
+
+              // 상품 정보
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product?.name ?? '',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      product?.price.toWon ?? '',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
               ),
-            ),
-        ],
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
