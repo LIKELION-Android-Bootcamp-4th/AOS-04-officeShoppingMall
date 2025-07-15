@@ -29,4 +29,21 @@ class OrderListViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> cancelOrder(String id) async {
+    _isLoading = true;
+    orders.clear();
+    notifyListeners();
+
+    try {
+      await _repository.cancelOrder(id);
+      orders.removeWhere((order) => order.orderId == id);
+    } catch (e, stack) {
+      print('불러오기 실패: $e');
+      print('불러오기 실패: $stack');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }

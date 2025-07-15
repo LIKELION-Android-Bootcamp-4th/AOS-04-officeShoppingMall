@@ -19,7 +19,6 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final viewModel = context.read<OrderDetailViewModel>();
@@ -30,6 +29,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
   @override
   Widget build(BuildContext context) {
     final order = context.watch<OrderDetailViewModel>().order;
+    final viewModel = context.watch<OrderListViewModel>();
 
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보'),
@@ -199,7 +199,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
-                                      '주소',
+                                      order?.shippingInfo?.address ?? '주소',
                                       style: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium,
@@ -257,9 +257,10 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   child: Text("아니요"),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    // order.cancelOrder(widget.order.orderId);
-                                    // Navigator.pop(context);
+                                  onPressed: () async {
+                                    Navigator.of(context).pop();
+                                    await viewModel.cancelOrder(order!.orderId);
+                                    if (mounted) Navigator.of(this.context).pop();
                                   },
                                   child: Text("네"),
                                 ),

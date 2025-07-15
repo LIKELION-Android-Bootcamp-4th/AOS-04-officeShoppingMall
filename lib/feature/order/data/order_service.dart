@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
+import 'package:office_shopping_mall/feature/order/data/order_cancel_request.dart';
 
 class OrderService {
   final Dio _dio;
@@ -37,7 +38,8 @@ class OrderService {
   // }
 
   Future<void> cancelOrder(String id) async {
-    final response = await _dio.patch(Api.mypage.cancelOrder(id));
+    final orderCancelDTO = OrderCancelRequest(detailReason: '사용자 취소', reason: '취소');
+    final response = await _dio.post(Api.mypage.cancelOrder(id), data: orderCancelDTO.toJson());
     if (response.statusCode == 200) {
       print('주문 취소 성공!');
     } else {
