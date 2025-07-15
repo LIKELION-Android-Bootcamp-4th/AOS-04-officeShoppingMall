@@ -15,6 +15,7 @@ class Api {
   static const product = _ProductEndpoints();
   static const search = _SearchEndpoints();
   static const keyword = _KeywordsEndpoints();
+  static const notice = _NoticeEndpoints();
 }
 
 // 인증 관련
