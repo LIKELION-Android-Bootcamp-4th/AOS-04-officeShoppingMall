@@ -90,15 +90,6 @@ class ProductDTO {
       }
     }
 
-    final thumbObj = json['thumbnailImage'] as Map<String, dynamic>?;
-    final rawThumb = thumbObj?['url'] as String? ?? json['thumbnailImageUrl'] as String?;
-    final thumbUrl = rawThumb != null ? fixImagePath(rawThumb) : null;
-
-    final rawContent =
-        (json['contentImage'] as Map<String, dynamic>?)?['url'] as String? ??
-        json['contentImageUrl'] as String?;
-    final contentUrl = rawContent != null ? fixImagePath(rawContent) : null;
-
     return ProductDTO(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
@@ -107,7 +98,8 @@ class ProductDTO {
       price: json['price'] ?? 0,
       stock: json['stock'] ?? 0,
       thumbnailImage: ThumbnailImage.fromJson(json['thumbnailImage'] ?? {}),
-      contentImage: json['contentImage']?['url'] as String? ?? json['contentImageUrl'] as String?,
+      contentImage:
+          json['contentImage']?['url'] as String? ?? json['contentImageUrl'] as String?,
       images: images,
       favoriteCount: json['favoriteCount'] ?? 0,
       viewCount: json['viewCount'] ?? 0,

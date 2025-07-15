@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/feature/order/data/order_add_requset.dart';
-import 'package:office_shopping_mall/feature/order/data/order_service.dart';
 import 'package:office_shopping_mall/feature/order/domain/repository/order_repository.dart';
 
 class OrderListViewModel extends ChangeNotifier {
   final OrderRepository _repository;
-  final OrderService _service;
 
-  OrderListViewModel(this._repository, this._service);
+  OrderListViewModel(this._repository);
 
   List<OrderDTO> orders = [];
   bool _isLoading = false;

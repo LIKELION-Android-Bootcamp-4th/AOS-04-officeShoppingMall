@@ -5,7 +5,6 @@ import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/home/presentation/viewmodel/home_viewmodel.dart';
-import 'package:office_shopping_mall/feature/preference/presentation/viewmodel/preference_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 
 class HomeContentProducts extends StatefulWidget {

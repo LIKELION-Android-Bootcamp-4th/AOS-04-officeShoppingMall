@@ -26,9 +26,4 @@ class OrderRepositoryImpl implements OrderRepository {
   Future<void> cancelOrder(String id) {
     return _service.cancelOrder(id);
   }
-
-  // @override
-  // Future<void> updateOrder(String id) {
-  //   return _service.updateOrder(id);
-  // }
 }

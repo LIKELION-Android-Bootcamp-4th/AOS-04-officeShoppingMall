@@ -12,25 +12,18 @@ class MypageContentMenuList extends StatelessWidget {
       MenuItem(
         'images/icon/ic_history.svg',
         '최근 본 상품',
-        onTap: () {
-          Navigator.pushNamed(context, AppRoutes.recentProd);
-        },
+        onTap: () => Navigator.pushNamed(context, AppRoutes.recentProd),
       ),
       MenuItem(
         'images/icon/ic_cart.svg',
         '주문 내역',
-        onTap: () {
-          Navigator.pushNamed(context, AppRoutes.orderPaid);
-        },
+        onTap: () => Navigator.pushNamed(context, AppRoutes.orderPaid),
       ),
       MenuItem(
         'images/icon/ic_comment.svg',
         '내가 작성한 리뷰',
-        onTap: () {
-          Navigator.pushNamed(context, AppRoutes.review);
-        },
+        onTap: () => Navigator.pushNamed(context, AppRoutes.review),
       ),
-      // MenuItem('images/icon/ic_inquiry.svg', '문의 내역'),
       MenuItem(
         'images/icon/ic_logout.svg',
         '로그아웃',
@@ -55,13 +48,7 @@ class MypageContentMenuList extends StatelessWidget {
 
           if (confirmed == true) {
             await context.read<AuthViewModel>().logOut();
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutes.login,
-              // 홈만 남기고 삭제. 테스트 용
-              (route) => route.settings.name == AppRoutes.home,
-              // (route) => false,
-            );
+            Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
           }
         },
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_detail_viewmodel.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
@@ -24,6 +24,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
       viewModel.loadOrderDetail();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final order = context.watch<OrderDetailViewModel>().order;
@@ -106,7 +107,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '${NumberFormat('#,###').format(order?.items[0].unitPrice ?? 0)}원',
+                        order?.items[0].unitPrice.toWon ?? (0).toWon,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
@@ -155,9 +156,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
                                     info?.paymentMethod ?? '',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium,
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
                               ],
@@ -177,7 +176,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
                                     order?.orderId ?? '',
-                                    style: Theme.of(context,).textTheme.bodyMedium,
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
                               ],
@@ -189,19 +188,14 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "주소",
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
+                                Text("주소", style: Theme.of(context).textTheme.bodyMedium),
                                 Spacer(),
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
                                       order?.shippingInfo?.address ?? '주소',
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodyMedium,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                       textAlign: TextAlign.end,
                                       softWrap: true,
                                       overflow: TextOverflow.visible,

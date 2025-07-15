@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import '../../domain/repository/product_repository.dart';
-import 'package:office_shopping_mall/feature/product/domain/repository/product_repository.dart';
 
 class ProductViewModel extends ChangeNotifier {
   final ProductRepository _repo;

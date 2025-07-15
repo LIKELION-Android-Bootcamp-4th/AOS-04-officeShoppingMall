@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
-import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
 
 import '../../../../core/data/models/entity/user.dart';

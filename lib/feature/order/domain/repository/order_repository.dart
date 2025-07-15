@@ -7,5 +7,4 @@ abstract class OrderRepository {
   Future<OrderDTO> getOrderDetail(String id);
   Future<void> addOrder(OrderAddRequest request);
   Future<void> cancelOrder(String id);
-  // Future<void> updateOrder(String id);
 }

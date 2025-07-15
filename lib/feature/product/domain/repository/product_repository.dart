@@ -3,8 +3,6 @@ import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_respon
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 
 abstract class ProductRepository {
-  // Future<void> addProduct(Product product);
-
   Future<List<Product>> fetchProducts({
     String? q,
     String? categoryId,
@@ -17,8 +15,6 @@ abstract class ProductRepository {
   Future<void> updateProduct(ProductDTO product);
 
   Future<void> updateProductScore(String productId, double score);
-
-  // Future<void> deleteProduct(String id);
 
   Future<ToggleFavoriteResponse> toggleFavorite(String id);
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_detail_viewmodel.dart';
 
 class OrderListItem extends StatelessWidget {
@@ -94,7 +94,7 @@ class OrderListItem extends StatelessWidget {
                             children: [
                               Spacer(),
                               Text(
-                                '${NumberFormat('#,###').format(order.items[0].unitPrice)}원',
+                                order.items[0].unitPrice.toWon,
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],

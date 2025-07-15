@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class SearchContentSearchBar extends StatefulWidget {
   final Function(String)? onSearchSubmitted;

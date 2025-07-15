@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
@@ -20,7 +19,7 @@ class SecureStorage {
   static Future<String?> loadRefreshToken() async {
     return await _storage.read(key: Api.refreshToken);
   }
-  // TODO: 미사용 중 로그아웃 생긴다면 넣을 것
+
   static Future<void> clearTokens() async {
     _storage.delete(key: Api.accessToken);
     _storage.delete(key: Api.refreshToken);

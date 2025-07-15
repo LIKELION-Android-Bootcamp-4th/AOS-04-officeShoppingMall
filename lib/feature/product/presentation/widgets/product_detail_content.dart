@@ -8,7 +8,6 @@ import 'package:office_shopping_mall/feature/product/presentation/widgets/produc
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_review_content.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_tab.dart';
 
-import '../../../../core/data/models/entity/product.dart';
 import '../viewmodel/product_viewmodel.dart';
 
 class ProductDetailContent extends StatefulWidget {
