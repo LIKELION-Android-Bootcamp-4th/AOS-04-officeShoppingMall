@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 import 'package:office_shopping_mall/feature/review/presentation/widgets/review_item.dart';
+
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../viewmodel/review_model.dart';
 
@@ -90,9 +93,8 @@ class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 8),
-                        SvgPicture.asset(""),
                         Text(
-                          "${product?.score}",
+                          product?.price.toWon ?? '',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],

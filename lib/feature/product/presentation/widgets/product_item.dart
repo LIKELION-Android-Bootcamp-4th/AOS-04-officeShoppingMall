@@ -31,7 +31,7 @@ class _ProductItem extends State<ProductItem> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () async{
+      onTap: () async {
         await context.read<ProductViewModel>().setSelectedProduct(product);
         Navigator.pushNamed(context, AppRoutes.productDetail);
       },
@@ -90,33 +90,30 @@ class _ProductItem extends State<ProductItem> {
             SizedBox(height: 8),
             SizedBox(
               height: 60,
-              child: Row(
+
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        product.name,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleMedium,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+
+                  Text(
+                    product.name,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                        product.price.toWon,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge
-                    ),
+
+
+                  Text(
+                      product.price.toWon,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge
                   ),
+
                 ],
               ),
             ),

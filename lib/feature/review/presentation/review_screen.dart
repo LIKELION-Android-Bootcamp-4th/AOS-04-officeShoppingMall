@@ -31,7 +31,10 @@ class _ReviewScreenState extends State<ReviewScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: '리뷰'),
-      body: Column(
+      body: Container(
+        margin: EdgeInsets.only(left: 16, right: 16),
+
+        child: Column(
         children: [
           customTabBar(
             controller: _tabController,
@@ -51,6 +54,7 @@ class _ReviewScreenState extends State<ReviewScreen>
           ),
         ],
       ),
+    ),
     );
   }
 }

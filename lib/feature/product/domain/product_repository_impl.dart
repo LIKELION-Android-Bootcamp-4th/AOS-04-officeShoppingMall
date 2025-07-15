@@ -30,15 +30,7 @@ class ProductRepositoryImpl implements ProductRepository {
     return Product.fromDTO(await _service.getProductDetail(id));
   }
 
-  @override
-  Future<void> updateProduct(ProductDTO product) {
-     return _service.updateProduct(product);
-  }
 
-  @override
-  Future<void> updateProductScore(String productId, double score) {
-    return _service.updateProductScore(productId, score);
-  }
 
   @override
   Future<ToggleFavoriteResponse> toggleFavorite(String id) => _service.toggleFavorite(id);

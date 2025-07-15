@@ -8,8 +8,7 @@ class ProductButton extends StatelessWidget {
   final double height;
   final double? width;
   final double borderRadius;
-  final bool isExpanded;
-  final int flex;
+
 
   const ProductButton({
     super.key,
@@ -20,13 +19,12 @@ class ProductButton extends StatelessWidget {
     this.height = 48,
     this.width,
     this.borderRadius = 28,
-    this.isExpanded = true,
-    this.flex = 1,
+
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget button = SizedBox(
+    return Container(
       height: height,
       width: width,
       child: ElevatedButton(
@@ -41,10 +39,6 @@ class ProductButton extends StatelessWidget {
       ),
     );
 
-    if (isExpanded) {
-      return Expanded(flex: flex, child: button);
-    } else {
-      return button;
-    }
+
   }
 }

@@ -10,12 +10,12 @@ class OrderProductDTO{
 
   factory OrderProductDTO.fromJson(Map<String, dynamic> json) {
     return OrderProductDTO(
-      productName: json['productName'],
-      quantity: json['quantity'],
-      unitPrice: json['unitPrice'],
-      totalPrice: json['totalPrice'],
-      thumbnailImageUrl: json['thumbnailImageUrl'],
-      productId: json['id']
+      productName: json['productName'] ?? '',
+      quantity: json['quantity'] ?? 0,
+      unitPrice: json['unitPrice'] ?? 0,
+      totalPrice: json['totalPrice'] ?? 0,
+      thumbnailImageUrl: json['thumbnailImageUrl'] ?? '',
+      productId: json['id'] ?? '',
     );
   }
   Map<String, dynamic> toJson() =>{

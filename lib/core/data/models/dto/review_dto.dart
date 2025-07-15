@@ -107,3 +107,35 @@ class ReviewImageDTO {
     };
   }
 }
+
+class ReviewCreateDTO {
+  final String productId;
+  final String? orderId;
+  final int rating;
+  final String comment;
+
+  ReviewCreateDTO({
+    required this.productId,
+    this.orderId,
+    required this.rating,
+    required this.comment,
+  });
+
+  factory ReviewCreateDTO.fromJson(Map<String, dynamic> json) {
+    return ReviewCreateDTO(
+      productId: json['productId'] ?? '',
+      orderId: json['orderId'] ?? '',
+      rating: json['rating'] ?? 0,
+      comment: json['comment'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "productId": productId,
+      "orderId": orderId,
+      "rating": rating,
+      "comment": comment,
+    };
+  }
+}

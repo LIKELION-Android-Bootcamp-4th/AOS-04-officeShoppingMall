@@ -64,23 +64,6 @@ class ProductService {
     }
   }
 
-  Future<void> updateProductScore(String productId, double score) async {
-    final response = await _dio.patch(
-      Api.product.getProductDetail(productId),
-      data: {
-        'score': score,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      print('상품 score 수정 성공!');
-    } else {
-      throw Exception(
-        '상품 score 수정 실패: ${response.statusCode}, message: ${response.data}',
-      );
-    }
-  }
-
   Future<void> deleteProduct(String id) async {
     final response = await _dio.delete(Api.product.getProductDetail(id));
 
