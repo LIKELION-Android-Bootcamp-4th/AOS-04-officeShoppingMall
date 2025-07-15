@@ -161,7 +161,6 @@ class _AddReviewContent extends State<AddReviewContent> {
               backgroundColor: AppColors.gray100,
               textColor: Colors.black,
               onPressed: _onCancel,
-              isExpanded: true,
             ),
             SizedBox(width: 12),
             ProductButton(
@@ -169,7 +168,6 @@ class _AddReviewContent extends State<AddReviewContent> {
               backgroundColor: AppColors.primaryColor,
               textColor: Colors.white,
               onPressed: _onSubmit,
-              isExpanded: true,
             ),
           ],
         ),

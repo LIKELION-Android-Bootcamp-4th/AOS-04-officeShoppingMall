@@ -37,6 +37,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
     if(vm.selectedProduct != null) {
       context.read<ReviewModel>().getReviews(vm.selectedProduct!.id);
     }
+
   }
 
   @override

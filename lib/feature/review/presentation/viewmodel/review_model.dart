@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
 import '../../../../core/data/models/entity/product.dart';
@@ -21,6 +22,7 @@ class ReviewModel extends ChangeNotifier {
   List<ReviewDTO> reviews = [];
   ReviewDTO? selectedReview;
   Product? selectedProduct;
+  OrderDTO? order;
   double? productScore;
   bool isLoading = false;
 

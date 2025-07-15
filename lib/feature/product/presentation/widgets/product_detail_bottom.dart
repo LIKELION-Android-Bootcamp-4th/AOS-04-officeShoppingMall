@@ -31,7 +31,9 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<ProductViewModel>().selectedProduct;
+    final product = context
+        .watch<ProductViewModel>()
+        .selectedProduct;
     if (product == null) {
       return const SizedBox(height: 60);
     }
@@ -39,9 +41,10 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
-        width: double.infinity,
+        height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
               borderRadius: BorderRadius.circular(32),
@@ -60,44 +63,44 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
 
             SizedBox(width: 12),
 
-            ProductButton(
-              width: 128,
-              height: 48,
-              text: '장바구니',
-              backgroundColor: AppColors.gray100,
-              textColor: Colors.black,
-              onPressed: () {
-                _onCartPressed(productId: product!.id, quantity: 1, unitPrice: product.price);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text('상품을 장바구니에 추가했습니다.'),
-                    action: SnackBarAction(
-                      label: '보러가기',
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.cart);
-                      },
+            Expanded(
+              child: ProductButton(
+                text: '장바구니',
+                backgroundColor: AppColors.gray100,
+                textColor: Colors.black,
+                onPressed: () {
+                  _onCartPressed(productId: product!.id,
+                      quantity: 1,
+                      unitPrice: product.price);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('상품을 장바구니에 추가했습니다.'),
+                      action: SnackBarAction(
+                        label: '보러가기',
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.cart);
+                        },
+                      ),
                     ),
-                  ),
-                );
-              },
-              borderRadius: 60,
-              isExpanded: true,
-              flex: 1,
+                  );
+                },
+                borderRadius: 60,
+              ),
             ),
+
 
             SizedBox(width: 8),
 
-            ProductButton(
-              width: 200,
-              height: 48,
-              text: '구매하기',
-              backgroundColor: AppColors.primaryColor,
-              textColor: Colors.white,
-              onPressed: _onBuyPressed,
-              borderRadius: 60,
-              isExpanded: true,
-              flex: 1,
+            Expanded(
+              child: ProductButton(
+                text: '구매하기',
+                backgroundColor: AppColors.primaryColor,
+                textColor: Colors.white,
+                onPressed: _onBuyPressed,
+                borderRadius: 60,
+              ),
             ),
+
           ],
         ),
       ),
