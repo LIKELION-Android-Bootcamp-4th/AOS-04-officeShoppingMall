@@ -36,6 +36,8 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
         address: _address,
         quantity: 1,
         unitPrice: widget.orders.fold(0, (sum, order) => sum + order.totalAmount),
+        recipient: '',
+        phone: '',
       ),
     );
   }
