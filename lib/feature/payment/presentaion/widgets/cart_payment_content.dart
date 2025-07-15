@@ -12,7 +12,11 @@ class CartPaymentContent extends StatefulWidget {
   final List<OrderData> orders;
   final ValueChanged<OrderInfo> onChanged;
 
-  const CartPaymentContent({super.key, required this.orders, required this.onChanged});
+  const CartPaymentContent({
+    super.key,
+    required this.orders,
+    required this.onChanged,
+  });
 
   @override
   State<CartPaymentContent> createState() => _CartPaymentContentState();
@@ -35,7 +39,12 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
         paymentMethod: _payment,
         address: _address,
         quantity: 1,
-        unitPrice: widget.orders.fold(0, (sum, order) => sum + order.totalAmount),
+        unitPrice: widget.orders.fold(
+          0,
+          (sum, order) => sum + order.totalAmount,
+        ),
+        recipient: '',
+        phone: '',
       ),
     );
   }
@@ -56,7 +65,9 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 20),
-        ProductContentContainer(
+        Text('주문 상품', style: Theme.of(context).textTheme.titleMedium),
+        SizedBox(height: 12),
+        Container(
           constraints: BoxConstraints(maxHeight: 150),
           child: ListView.builder(
             shrinkWrap: true,
@@ -66,49 +77,71 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('주문 상품', style: Theme.of(context).textTheme.titleMedium),
-                  SizedBox(height: 12),
-                  ...order.items.map((item) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      children: [
-                        Card(
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          child: item.productImage != null
-                              ? Image.network(
-                            item.productImage!,
-                            fit: BoxFit.cover,
-                            width: 60,
-                            height: 60,
-                          )
-                              : Container(
-                            color: AppColors.gray200,
-                            alignment: Alignment.center,
-                            width: 60,
-                            height: 60,
-                            child: Icon(Icons.image, color: AppColors.gray400),
-                          ),
-                        ),
-                        SizedBox(width: 12),
-
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  ...order.items
+                      .map(
+                        (item) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
                             children: [
-                              Text(item.productName,
-                                  style: Theme.of(context).textTheme.bodyMedium),
-                              SizedBox(height: 4),
-                              Text('${item.quantity}개 × ${item.unitPrice.toWon}',
-                                  style: Theme.of(context).textTheme.bodySmall),
-                              Text('${item.totalPrice.toWon}',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
+                              Card(
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: item.productImage != null
+                                    ? Image.network(
+                                        item.productImage!,
+                                        fit: BoxFit.cover,
+                                        width: 60,
+                                        height: 60,
+                                      )
+                                    : Container(
+                                        color: AppColors.gray200,
+                                        alignment: Alignment.center,
+                                        width: 60,
+                                        height: 60,
+                                        child: Icon(
+                                          Icons.image,
+                                          color: AppColors.gray400,
+                                        ),
+                                      ),
+                              ),
+                              SizedBox(width: 12),
+
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.productName,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      '${item.quantity}개 × ${item.unitPrice.toWon}',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                    Text(
+                                      '${item.totalPrice.toWon}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  )).toList(),
+                      )
+                      .toList(),
                   if (orderIndex < widget.orders.length - 1) Divider(),
                 ],
               );
@@ -131,10 +164,15 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       minimumSize: Size(60, 30),
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
                       backgroundColor: AppColors.gray200,
                       foregroundColor: AppColors.onBackgroundColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
                     ),
                     onPressed: () {},
                     child: Text('수정'),
@@ -190,7 +228,10 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                 value: '무통장 입금',
                 groupValue: _payment,
                 onChanged: (value) => _onChanged(value!),
-                title: Text('무통장 입금', style: Theme.of(context).textTheme.bodyMedium),
+                title: Text(
+                  '무통장 입금',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 contentPadding: EdgeInsets.all(0),
                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
               ),
@@ -198,7 +239,10 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                 value: '실시간 계좌이체',
                 groupValue: _payment,
                 onChanged: (value) => _onChanged(value!),
-                title: Text('실시간 계좌이체', style: Theme.of(context).textTheme.bodyMedium),
+                title: Text(
+                  '실시간 계좌이체',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 contentPadding: EdgeInsets.all(0),
                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
               ),
@@ -206,7 +250,10 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                 value: '카드 결제',
                 groupValue: _payment,
                 onChanged: (value) => _onChanged(value!),
-                title: Text('카드 결제', style: Theme.of(context).textTheme.bodyMedium),
+                title: Text(
+                  '카드 결제',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 contentPadding: EdgeInsets.all(0),
                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
               ),
