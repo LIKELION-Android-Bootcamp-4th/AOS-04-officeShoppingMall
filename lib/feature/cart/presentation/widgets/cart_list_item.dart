@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
@@ -38,7 +38,10 @@ class CartListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ProductDetailScreen()),
+                );
               },
               child: Column(
                 children: [
@@ -62,8 +65,11 @@ class CartListItem extends StatelessWidget {
                     child: Row(
                       children: [
                         SizedBox(
+                          width: 130,
                           height: 130,
-                          child: cart.product.thumbnailImage == null
+                          child:
+                              (cart.product.thumbnailImage?.url == null ||
+                                  cart.product.thumbnailImage!.url.isEmpty)
                               ? Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
@@ -72,28 +78,34 @@ class CartListItem extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       '상품 이미지가 없습니다',
-                                      style: Theme.of(context).textTheme.bodySmall,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
                                     ),
                                   ),
                                 )
-                              : PageView.builder(
-                                  itemCount: cart.product.images.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: NetworkImage(cart.product.images[index]),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.network(
+                                    cart.product.thumbnailImage!.url,
+                                    fit: BoxFit.cover,
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                          if (loadingProgress == null)
+                                            return child;
+                                          return Center(
+                                            child: CustomCircleIndicator(),
+                                          );
+                                        },
+                                  ),
                                 ),
                         ),
 
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.04,
+                        ),
 
                         Expanded(
                           child: Column(
@@ -105,13 +117,18 @@ class CartListItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               SizedBox(height: 3),
-                              Text("2개", style: Theme.of(context).textTheme.bodyMedium),
+                              Text(
+                                "${cart.quantity} 개",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
                               Row(
                                 children: [
                                   Spacer(),
                                   Text(
-                                    cart.product.price.toWon,
-                                    style: Theme.of(context).textTheme.titleSmall,
+                                    cart.totalPrice.toWon,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleSmall,
                                   ),
                                 ],
                               ),

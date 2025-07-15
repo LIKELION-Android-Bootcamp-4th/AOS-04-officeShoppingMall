@@ -56,7 +56,7 @@ class HomeViewModel extends ChangeNotifier {
       Fluttertoast.showToast(msg: response.message);
 
       if (!response.isLiked) {
-        _popularProducts[index] = previous;
+        _popularProducts[index] = toggled;
         notifyListeners();
       }
     } catch (e) {

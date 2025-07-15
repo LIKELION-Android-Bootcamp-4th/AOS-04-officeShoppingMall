@@ -64,11 +64,10 @@ class MypageViewModel extends ChangeNotifier {
 
     try {
       final response = await _repository.toggleFavorite(product.id);
-
       Fluttertoast.showToast(msg: response.message);
 
       if (!response.isLiked) {
-        _recentProd[index] = previous;
+        _recentProd[index] = toggled;
         notifyListeners();
       }
     } catch (e) {

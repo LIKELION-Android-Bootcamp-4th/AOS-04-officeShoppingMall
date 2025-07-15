@@ -142,10 +142,8 @@ class _CartEndpoints {
 
   /// ## 장바구니에서 선택된 상품 제거 (DELETE)
   /// #### 작성 필수 정보 (Request body)
-  /// - `cartId` (List<string>): 제거할 장바구니 항목들의 ID 리스트
-  String deleteCart(String cartId) {
-    return '/api/cart/$cartId';
-  }
+  /// - `cartIds` (List<string>): 제거할 장바구니 항목들의 ID 리스트
+  final deleteCart = '/api/cart';
 
   /// ## 장바구니 업데이트 (수량 변경)
   /// #### 작성 필수 정보 (Request body)
