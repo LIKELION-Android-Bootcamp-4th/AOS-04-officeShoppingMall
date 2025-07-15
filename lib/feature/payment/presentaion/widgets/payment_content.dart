@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
@@ -23,6 +24,8 @@ class PaymentContent extends StatefulWidget {
 class _PaymentContentState extends State<PaymentContent> {
   String _payment = '';
   String _address = '';
+  String _recipient = '';
+  String _phone = '';
   int _quantity = 1;
 
   void _onChanged(String value) {
@@ -39,6 +42,8 @@ class _PaymentContentState extends State<PaymentContent> {
         address: _address,
         quantity: _quantity,
         unitPrice: widget.product.price,
+        recipient: _recipient,
+        phone: _phone,
       ),
     );
   }
@@ -52,6 +57,8 @@ class _PaymentContentState extends State<PaymentContent> {
     try {
       settingAddr = settingVm.getDefaultAddress();
       _address = settingAddr.addr;
+      _recipient = settingAddr.recipient;
+      _phone = settingAddr.phone;
     } catch (e) {
       settingAddr = null;
     }
@@ -112,7 +119,9 @@ class _PaymentContentState extends State<PaymentContent> {
                       foregroundColor: AppColors.onBackgroundColor,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.setting);
+                    },
                     child: Text('수정'),
                   ),
                 ],

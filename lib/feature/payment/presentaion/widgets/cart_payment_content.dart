@@ -36,6 +36,8 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
         address: _address,
         quantity: 1,
         unitPrice: widget.orders.fold(0, (sum, order) => sum + order.totalAmount),
+        recipient: '',
+        phone: '',
       ),
     );
   }
@@ -101,7 +103,7 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                               SizedBox(height: 4),
                               Text('${item.quantity}개 × ${item.unitPrice.toWon}',
                                   style: Theme.of(context).textTheme.bodySmall),
-                              Text('${item.totalPrice.toWon}',
+                              Text(item.totalPrice.toWon,
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
                             ],
                           ),
