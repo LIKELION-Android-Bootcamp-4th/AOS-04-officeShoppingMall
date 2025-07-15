@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +16,6 @@ class MypageContentUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.select((MypageViewModel vm) => vm.user!);
     final imgUrl = context.select((SettingViewModel vm) => vm.uploadImageUrl);
-    final orders = context.select((OrderListViewModel vm) => vm.orders);
     ImageProvider? imageProvider;
     String? initImage = user.profile.profileImage;
 
@@ -45,7 +42,6 @@ class MypageContentUserCard extends StatelessWidget {
                     radius: 32,
                     backgroundImage: imageProvider,
                   ),
-
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,33 +72,9 @@ class MypageContentUserCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, AppRoutes.orderPaid),
-                    child: Column(
-                      children: [
-                        Text('${orders.where((a) => a.status == 'pending').length}', style: Theme.of(context).textTheme.headlineMedium),
-                        Text('결제 완료', style: Theme.of(context).textTheme.bodyLarge),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, AppRoutes.orderShipping),
-                    child: Column(
-                      children: [
-                        Text('${orders.where((a) => a.status == 'shipped').length}', style: Theme.of(context).textTheme.headlineMedium),
-                        Text('배송 중', style: Theme.of(context).textTheme.bodyLarge),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, AppRoutes.orderDelivered),
-                    child: Column(
-                      children: [
-                        Text('${orders.where((a) => a.status == 'delivered').length}', style: Theme.of(context).textTheme.headlineMedium),
-                        Text('배송 완료', style: Theme.of(context).textTheme.bodyLarge),
-                      ],
-                    ),
-                  ),
+                  orderInfo(context: context, state: 'pending', title: '결제 완료'),
+                  orderInfo(context: context, state: 'shipped', title: '배송 중'),
+                  orderInfo(context: context, state: 'delivered', title: '배송 완료'),
                 ],
               ),
             ],
@@ -111,4 +83,24 @@ class MypageContentUserCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget orderInfo({
+  required BuildContext context,
+  required String state,
+  required String title,
+}) {
+  final orders = context.select((OrderListViewModel vm) => vm.orders);
+  return InkWell(
+    onTap: () => Navigator.pushNamed(context, AppRoutes.orderPaid),
+    child: Column(
+      children: [
+        Text(
+          '${orders.where((a) => a.status == state).length}',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        Text(title, style: Theme.of(context).textTheme.bodyLarge),
+      ],
+    ),
+  );
 }
