@@ -1,6 +1,5 @@
 import 'package:office_shopping_mall/core/data/models/dto/shipping_info_dto.dart';
 import 'package:office_shopping_mall/feature/order/data/order_product_dto.dart';
-import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 
 class OrderDTO {
   final String orderId;

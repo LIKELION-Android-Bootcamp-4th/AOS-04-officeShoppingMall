@@ -14,7 +14,6 @@ class HomeRepository {
     String? search,
     String? sortBy,
   }) async {
-
     final responses = await _service.getProducts(
       page: page,
       limit: limit,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class ProductNavigation extends StatefulWidget {
@@ -55,11 +54,9 @@ class _ProductNavigation extends State<ProductNavigation> {
                 style: TextButton.styleFrom(
                   minimumSize: const Size(65, 65),
                   backgroundColor: isSelected
-                      ?  appColorScheme().tertiary
-                      : const Color(0xFFf7f2fa),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60),
-                  ),
+                      ? appColorScheme().tertiary
+                      : appColorScheme().surface,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
                   padding: EdgeInsets.zero,
                 ),
                 child: Text(

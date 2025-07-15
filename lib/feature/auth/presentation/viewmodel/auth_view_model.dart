@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:office_shopping_mall/core/data/network/secure_storage.dart';
 import 'package:office_shopping_mall/feature/auth/data/login_request.dart';
 import 'package:office_shopping_mall/feature/auth/data/login_response.dart';
 import 'package:office_shopping_mall/feature/auth/data/signup_request.dart';
@@ -71,6 +72,7 @@ class AuthViewModel with ChangeNotifier {
     try {
       final success = await _authRepository.logOut();
       if (!success) _error = "알 수 없는 오류";
+      SecureStorage.clearTokens();
     } catch (e) {
       _error = "알 수 없는 오류: $e";
     }

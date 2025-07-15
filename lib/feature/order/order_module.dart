@@ -8,18 +8,18 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> orderModule = [
-  Provider<OrderService> (
-    create: (context) => OrderService(context.read<Dio>()),
-  ),
+  Provider<OrderService>(create: (context) => OrderService(context.read<Dio>())),
+
   Provider<OrderRepository>(
     create: (context) => OrderRepositoryImpl(context.read<OrderService>()),
   ),
+
   ChangeNotifierProvider<OrderListViewModel>(
     create: (context) =>
-    OrderListViewModel(context.read<OrderRepository>(), context.read<OrderService>())..loadOrders(),
+        OrderListViewModel(context.read<OrderRepository>())..loadOrders(),
   ),
+
   ChangeNotifierProvider<OrderDetailViewModel>(
-    create: (context) =>
-        OrderDetailViewModel(context.read<OrderRepository>())
-  )
+    create: (context) => OrderDetailViewModel(context.read<OrderRepository>()),
+  ),
 ];

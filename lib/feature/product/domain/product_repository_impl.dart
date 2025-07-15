@@ -9,11 +9,6 @@ class ProductRepositoryImpl implements ProductRepository {
 
   ProductRepositoryImpl(this._service);
 
-  // @override
-  // Future<void> addProduct(Product product) {
-  //   return _service.createProduct(product);
-  // }
-
   @override
   Future<List<Product>> fetchProducts({
     String? q,
@@ -36,11 +31,6 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
 
-
-  // @override
-  // Future<void> deleteProduct(String id) {
-  //   return _service.deleteProduct(id);
-  // }
 
   @override
   Future<ToggleFavoriteResponse> toggleFavorite(String id) => _service.toggleFavorite(id);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_detail_bottom.dart';
