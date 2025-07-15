@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
@@ -9,7 +8,6 @@ import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_Item_response.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/product_detail_screen.dart';
-import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 
 class CartListItem extends StatelessWidget {
   final CartItemResponse cart;
@@ -20,7 +18,6 @@ class CartListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<CartViewModel>();
-    final vm = context.read<ProductViewModel>();
 
     return Align(
       alignment: Alignment.topCenter,
@@ -41,7 +38,10 @@ class CartListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (_) => ProductDetailScreen()),
+                  // );
               },
               child: Column(
                 children: [
