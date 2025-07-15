@@ -14,7 +14,7 @@ class NotificationService {
       return items.map((item) => NotificationDTO.fromJson(item)).toList();
     } else {
       throw Exception(
-        '상품 목록 조회 실패: ${response.statusCode}, message: ${response.data}',
+        '공지 목록 조회 실패: ${response.statusCode}, message: ${response.data}',
       );
     }
   }

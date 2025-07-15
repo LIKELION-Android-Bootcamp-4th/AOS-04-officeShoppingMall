@@ -6,14 +6,14 @@ class NotificationViewModel extends ChangeNotifier {
   final NotificationRepository _repository;
   NotificationViewModel(this._repository);
 
-  List<NotificationDTO> noti = [];
+  List<NotificationDTO> notices = [];
 
   Future<void> loadNotices() async {
-    noti.clear();
+    notices.clear();
     notifyListeners();
     try {
-      final notiList = await _repository.getNotices();
-      noti.addAll(notiList);
+      final noticeList = await _repository.getNotices();
+      notices.addAll(noticeList);
       notifyListeners();
     } catch(e) {
       print("불러오기 실패: $e");
