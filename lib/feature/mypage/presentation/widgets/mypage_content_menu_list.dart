@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/core/data/network/secure_storage.dart';
 import 'package:office_shopping_mall/feature/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:office_shopping_mall/feature/mypage/domain/menu_item.dart';
 
@@ -36,13 +37,7 @@ class MypageContentMenuList extends StatelessWidget {
         '로그아웃',
         onTap: () async {
           await context.read<AuthViewModel>().logOut();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.login,
-            // 홈만 남기고 삭제. 테스트 용
-            (route) => route.settings.name == AppRoutes.home,
-            // (route) => false,
-          );
+          Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
         },
       ),
     ];
