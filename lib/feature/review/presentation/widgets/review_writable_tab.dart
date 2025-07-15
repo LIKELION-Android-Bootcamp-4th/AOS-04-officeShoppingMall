@@ -58,6 +58,8 @@ class _ReviewWritableTabState extends State<ReviewWritableTab> {
               // Product 불러오기 시작
               await productVM.getProductById(productId);
 
+              context.read<ReviewModel>().selectedProduct = productVM.selectedProduct;
+
               // 완료 후 화면 이동
               Navigator.pushNamed(context, AppRoutes.addReview);
             },

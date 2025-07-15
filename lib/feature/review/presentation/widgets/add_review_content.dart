@@ -30,24 +30,16 @@ class AddReviewContent extends StatefulWidget {
 
 class _AddReviewContentState extends State<AddReviewContent> {
   late ReviewModel vm;
-  late MypageViewModel mypageVm;
 
   @override
   void initState() {
     super.initState();
     vm = context.read<ReviewModel>();
-    mypageVm = context.read<MypageViewModel>();
 
-    // 초기화
     vm.images.clear();
     vm.reviewController.clear();
   }
 
-  @override
-  void dispose() {
-    vm.reviewController.dispose();
-    super.dispose();
-  }
 
   Widget _buildImageSlot(int index) {
     bool isFilled = index < vm.images.length && vm.images[index] != null;
@@ -164,11 +156,14 @@ class _AddReviewContentState extends State<AddReviewContent> {
           SizedBox(height: 20),
           Row(
             children: [
+
               ProductButton(
                 text: "취소",
                 backgroundColor: AppColors.gray100,
                 textColor: Colors.black,
                 onPressed: _onCancel,
+                height: 48,
+                width: 120,
               ),
               SizedBox(width: 12),
               ProductButton(
@@ -176,6 +171,8 @@ class _AddReviewContentState extends State<AddReviewContent> {
                 backgroundColor: AppColors.primaryColor,
                 textColor: Colors.white,
                 onPressed: _onSubmit,
+                height: 48,
+                width: 120,
               ),
             ],
           ),

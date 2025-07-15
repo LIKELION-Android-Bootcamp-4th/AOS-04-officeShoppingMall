@@ -33,9 +33,9 @@ class ReviewModel extends ChangeNotifier {
   void onScoreSelected(int index) {
     for (int i = 0; i < score.length; i++) {
       if (i <= index) {
-        score[index] = SvgPicture.asset("images/icon/ic_star_large_1.svg");
+        score[i] = SvgPicture.asset("images/icon/ic_star_large_1.svg");
       } else {
-        score[index] = SvgPicture.asset("images/icon/ic_star_large_0.svg");
+        score[i] = SvgPicture.asset("images/icon/ic_star_large_0.svg");
       }
     }
     scoreValue = index + 1;
