@@ -6,7 +6,6 @@ import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_detail_viewmodel.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
-import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   OrderDetailScreen({super.key});
@@ -21,7 +20,6 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final orderInfo = ModalRoute.of(context)?.settings.arguments as OrderInfo?;
       final viewModel = context.read<OrderDetailViewModel>();
       viewModel.loadOrderDetail();
     });
