@@ -38,10 +38,10 @@ class CartListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => ProductDetailScreen()),
-                );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (_) => ProductDetailScreen()),
+                  // );
               },
               child: Column(
                 children: [
