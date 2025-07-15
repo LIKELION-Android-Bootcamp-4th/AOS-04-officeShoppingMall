@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
@@ -31,6 +32,10 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
   @override
   Widget build(BuildContext context) {
     final product = context.watch<ProductViewModel>().selectedProduct;
+    if (product == null) {
+      return const SizedBox(height: 60);
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
