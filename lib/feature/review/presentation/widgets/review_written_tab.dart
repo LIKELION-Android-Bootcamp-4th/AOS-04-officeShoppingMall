@@ -93,7 +93,6 @@ class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 8),
-                        SvgPicture.asset("images/icon"),
                         Text(
                           product?.price.toWon ?? '',
                           style: Theme.of(context).textTheme.bodyLarge,

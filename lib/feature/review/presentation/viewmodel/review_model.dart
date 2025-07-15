@@ -22,6 +22,7 @@ class ReviewModel extends ChangeNotifier {
   List<ReviewDTO> reviews = [];
   ReviewDTO? selectedReview;
   Product? selectedProduct;
+  String? productId;
   double? productScore;
   bool isLoading = false;
 
