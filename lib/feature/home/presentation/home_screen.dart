@@ -43,15 +43,11 @@ class HomeScreen extends StatelessWidget {
               categoryText('현재 인기 상품'),
               const SizedBox(height: 10),
               HomeContentProducts(products: vm.popularProducts),
+
               const SizedBox(height: 20),
-
-
-              // 새로운 추천 만들기
-              // HomeContentProducts(),
-              // HomeContentProducts(),
             ],
           );
-        }
+        },
       ),
       bottomNavigationBar: BottomNavigation(),
     );

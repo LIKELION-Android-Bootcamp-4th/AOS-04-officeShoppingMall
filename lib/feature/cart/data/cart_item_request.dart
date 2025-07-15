@@ -30,4 +30,3 @@ class Discount {
 
   Map<String, dynamic> toJson() => {'type': type, 'amount': amount};
 }
-

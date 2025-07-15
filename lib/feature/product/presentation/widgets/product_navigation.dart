@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 
 class ProductNavigation extends StatefulWidget {

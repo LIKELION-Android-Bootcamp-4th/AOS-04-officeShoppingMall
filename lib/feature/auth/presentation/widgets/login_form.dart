@@ -68,11 +68,7 @@ class LoginFormState extends State<LoginForm> {
       }
     } else if (authViewModel.loginResponse != null) {
       print('로그인 성공! 액세스 토큰: ${authViewModel.loginResponse!.data.accessToken}');
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        AppRoutes.home,
-        (route) => false,
-      );
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
     }
   }
 

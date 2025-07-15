@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
-import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
 import '../../../core/data/models/dto/product_dto.dart';
 import '../../../core/constants/api_endpoints.dart';
-import '../../../core/data/models/entity/product.dart';
 
 class ProductService {
   final Dio _dio;

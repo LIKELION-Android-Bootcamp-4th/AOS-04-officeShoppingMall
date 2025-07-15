@@ -77,7 +77,6 @@ class SettingViewModel extends ChangeNotifier {
     await prefs.setString(_prefsKey, raw);
   }
 
-  // TODO: 주문시 기본 배송지 호출
   SettingAddress getDefaultAddress() => _addresses.firstWhere((addr) => addr.isDefault);
 
   Future<void> loadProfile() async {

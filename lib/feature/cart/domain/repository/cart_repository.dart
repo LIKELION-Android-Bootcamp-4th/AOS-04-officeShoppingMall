@@ -3,8 +3,6 @@ import 'package:office_shopping_mall/feature/cart/data/cart_item_request.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_order_request.dart';
 import 'package:office_shopping_mall/feature/cart/data/cart_order_response.dart';
 
-import '../../../../../core/data/models/dto/cart_dto.dart';
-
 abstract class CartRepository {
   Future<List<CartItemResponse>> getCart();
 

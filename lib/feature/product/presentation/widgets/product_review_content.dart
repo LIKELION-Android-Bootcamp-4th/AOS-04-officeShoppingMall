@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
-import '../../../../core/data/models/entity/user.dart';
-import '../../../mypage/presentation/viewmodel/mypage_viewmodel.dart';
 import '../../../review/presentation/viewmodel/review_model.dart';
 import '../../../review/presentation/widgets/review_item.dart';
 import '../viewmodel/product_viewmodel.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/feature/preference/domain/preference_repository.dart';
 
