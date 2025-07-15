@@ -35,17 +35,4 @@ class OrderDetailViewModel extends ChangeNotifier {
   Future<void> setCurrentOrder(String orderId) async {
     this.orderId = orderId;
   }
-
-//   Future<void> cancelOrder(String orderId) async {
-//     _isLoading = true;
-//     notifyListeners();
-//     try {
-//       await _service.cancelOrder(orderId);
-//       orders.removeWhere((order) => order.orderId == orderId);
-//     } catch (e) {
-//       print('취소 실패: $e');
-//     }
-//     _isLoading = false;
-//     notifyListeners();
-//   }
 }
