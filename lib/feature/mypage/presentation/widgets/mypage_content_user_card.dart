@@ -8,6 +8,7 @@ import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/viewmodel/mypage_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 
 class MypageContentUserCard extends StatelessWidget {
@@ -17,6 +18,7 @@ class MypageContentUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.select((MypageViewModel vm) => vm.user!);
     final imgUrl = context.select((SettingViewModel vm) => vm.uploadImageUrl);
+    final orders = context.select((OrderListViewModel vm) => vm.orders);
     ImageProvider? imageProvider;
     String? initImage = user.profile.profileImage;
 
@@ -78,7 +80,7 @@ class MypageContentUserCard extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, AppRoutes.orderPaid),
                     child: Column(
                       children: [
-                        Text('0', style: Theme.of(context).textTheme.headlineMedium),
+                        Text('${orders.where((a) => a.status == 'pending').length}', style: Theme.of(context).textTheme.headlineMedium),
                         Text('결제 완료', style: Theme.of(context).textTheme.bodyLarge),
                       ],
                     ),
@@ -87,7 +89,7 @@ class MypageContentUserCard extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, AppRoutes.orderShipping),
                     child: Column(
                       children: [
-                        Text('1', style: Theme.of(context).textTheme.headlineMedium),
+                        Text('${orders.where((a) => a.status == 'shipped').length}', style: Theme.of(context).textTheme.headlineMedium),
                         Text('배송 중', style: Theme.of(context).textTheme.bodyLarge),
                       ],
                     ),
@@ -96,7 +98,7 @@ class MypageContentUserCard extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, AppRoutes.orderDelivered),
                     child: Column(
                       children: [
-                        Text('2', style: Theme.of(context).textTheme.headlineMedium),
+                        Text('${orders.where((a) => a.status == 'delivered').length}', style: Theme.of(context).textTheme.headlineMedium),
                         Text('배송 완료', style: Theme.of(context).textTheme.bodyLarge),
                       ],
                     ),
