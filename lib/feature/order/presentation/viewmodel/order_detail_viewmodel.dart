@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/feature/order/domain/repository/order_repository.dart';
+import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 
 class OrderDetailViewModel extends ChangeNotifier {
   final OrderRepository _repository;
@@ -8,6 +9,7 @@ class OrderDetailViewModel extends ChangeNotifier {
   OrderDetailViewModel(this._repository);
 
   OrderDTO? order = null;
+  OrderInfo? info = null;
   bool _isLoading = false;
   String orderId = "";
 

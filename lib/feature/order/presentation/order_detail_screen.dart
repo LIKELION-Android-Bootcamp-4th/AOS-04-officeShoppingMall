@@ -27,6 +27,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
   @override
   Widget build(BuildContext context) {
     final order = context.watch<OrderDetailViewModel>().order;
+    final info = context.watch<OrderDetailViewModel>().info;
     final viewModel = context.watch<OrderListViewModel>();
 
     return Scaffold(
@@ -153,7 +154,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
-                                    "카드 결제",
+                                    info?.paymentMethod ?? '',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium,
