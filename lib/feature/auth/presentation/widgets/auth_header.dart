@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
-import '../../../../core/theme/app_colors.dart';
 
 class AuthHeader extends StatelessWidget {
   const AuthHeader({super.key});
