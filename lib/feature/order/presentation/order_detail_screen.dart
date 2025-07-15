@@ -30,7 +30,6 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
   @override
   Widget build(BuildContext context) {
     final order = context.watch<OrderDetailViewModel>().order;
-    print(order);
 
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보'),
@@ -200,7 +199,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
-                                      "주소입니다아아아아 길어지면 줄바꿈 됩니다아아아아",
+                                      '주소',
                                       style: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium,
@@ -229,7 +228,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                     width: MediaQuery.of(context).size.width * 0.86,
                     height: MediaQuery.of(context).size.height * 0.06,
                     decoration: BoxDecoration(
-                      color: Color(0x80D9D9D9),
+                      color: AppColors.surfaceContainerColor,
                       borderRadius: BorderRadiusGeometry.circular(10),
                     ),
                     child: InkWell(
@@ -259,7 +258,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    // viewModel.cancelOrder(widget.order.orderId);
+                                    // order.cancelOrder(widget.order.orderId);
                                     // Navigator.pop(context);
                                   },
                                   child: Text("네"),

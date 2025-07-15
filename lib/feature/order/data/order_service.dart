@@ -8,9 +8,6 @@ class OrderService {
   
   Future<List<OrderDTO>> getOrders() async {
     final response = await _dio.get(Api.mypage.getOrders());
-    // print("$response");
-    // final data = response.data as List;
-    // return data.map((e) => OrderDTO.fromJson(e)).toList();
     if (response.statusCode == 200) {
       final items = response.data['data']['items'] as List;
 

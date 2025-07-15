@@ -5,9 +5,7 @@ import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/order/presentation/order_detail_screen.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_detail_viewmodel.dart';
-import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderDTO order;
@@ -33,12 +31,6 @@ class OrderListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (_) => OrderDetailScreen(orderId: order.orderId),
-                //   ),
-                // );
                 context.read<OrderDetailViewModel>().setCurrentOrder(order.orderId);
                 Navigator.pushNamed(context, AppRoutes.orderDetail);
               },

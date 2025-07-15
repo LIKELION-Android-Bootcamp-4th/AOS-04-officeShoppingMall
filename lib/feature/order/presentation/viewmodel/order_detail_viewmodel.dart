@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
-import 'package:office_shopping_mall/feature/order/data/order_service.dart';
 import 'package:office_shopping_mall/feature/order/domain/repository/order_repository.dart';
 
 class OrderDetailViewModel extends ChangeNotifier {
