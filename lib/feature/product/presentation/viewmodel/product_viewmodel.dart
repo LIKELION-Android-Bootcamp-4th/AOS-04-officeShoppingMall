@@ -52,7 +52,7 @@ class ProductViewModel extends ChangeNotifier {
       Fluttertoast.showToast(msg: response.message);
 
       if (!response.isLiked) {
-        selectedProduct = previous;
+        selectedProduct = toggled;
         notifyListeners();
       }
     } catch (e) {
