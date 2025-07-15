@@ -72,6 +72,7 @@ class AuthViewModel with ChangeNotifier {
     try {
       final success = await _authRepository.logOut();
       if (!success) _error = "알 수 없는 오류";
+      SecureStorage.clearTokens();
     } catch (e) {
       _error = "알 수 없는 오류: $e";
     }
