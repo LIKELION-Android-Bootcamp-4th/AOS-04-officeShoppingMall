@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:office_shopping_mall/feature/category/domain/category_section.dart';
+import 'package:office_shopping_mall/feature/category/data/category_section.dart';
 
 import '../../../../core/constants/app_routes.dart';
 import '../../../product/presentation/viewmodel/product_list_viewmodel.dart';
