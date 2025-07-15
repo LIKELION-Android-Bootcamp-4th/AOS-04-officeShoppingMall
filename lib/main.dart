@@ -36,7 +36,6 @@ class WalkinApp extends StatelessWidget {
       providers: [
         Provider<Dio>(create: (_) => ApiClient().dio),
         ChangeNotifierProvider(create: (_) => BottomNavProvider()),
-
         ...mypageModule,
         ...authModule,
         ...settingModule,
@@ -47,8 +46,7 @@ class WalkinApp extends StatelessWidget {
         ...orderModule,
         ...preferenceModule,
         ...reviewModule,
-        ...notificationModule
-
+        ...notificationModule,
       ],
       child: Consumer<BottomNavProvider>(
         builder: (context, nav, _) {
@@ -56,12 +54,12 @@ class WalkinApp extends StatelessWidget {
             title: AppConst.appName,
             theme: appThemeData(),
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.login,
+            initialRoute: AppRoutes.splash,
             onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorKey: navigatorKey,
             navigatorObservers: [BottomNavObserver(nav)],
           );
-        }
+        },
       ),
     );
   }

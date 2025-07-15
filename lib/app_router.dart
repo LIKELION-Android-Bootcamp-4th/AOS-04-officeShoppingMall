@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/constants/app_constants.dart';
 import 'package:office_shopping_mall/core/constants/app_routes.dart';
+import 'package:office_shopping_mall/feature/auth/presentation/splash_screen.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/cart_main_screen.dart';
 import 'package:office_shopping_mall/feature/home/presentation/home_screen.dart';
 import 'package:office_shopping_mall/feature/mypage/presentation/mypage_screen.dart';
@@ -32,6 +33,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SignupScreen(), settings: settings);
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => LoginScreen(), settings: settings);
+      case AppRoutes.splash:
+        return MaterialPageRoute(builder: (_) => SplashScreen(), settings: settings);
       case AppRoutes.preference:
         return MaterialPageRoute(builder: (_) => PreferenceScreen(), settings: settings);
       case AppRoutes.category:

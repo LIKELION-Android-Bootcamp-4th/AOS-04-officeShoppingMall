@@ -18,6 +18,7 @@ class LoginScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: "로그인",
         centerTitle: true, //appTextTheme().headlineLarge
+        isLeading: false,
       ),
       body: Stack(
         children: [
