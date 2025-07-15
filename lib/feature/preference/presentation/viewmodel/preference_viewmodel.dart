@@ -55,7 +55,7 @@ class PreferenceViewModel extends ChangeNotifier {
       Fluttertoast.showToast(msg: response.message);
 
       if (!response.isLiked) {
-        _favorites[index] = previous;
+        _favorites[index] = toggled;
         _likeCount = response.likeCount;
         notifyListeners();
       } else {
