@@ -7,9 +7,12 @@ import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
+import 'package:office_shopping_mall/feature/payment/presentaion/widgets/cart_payment_content.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_content.dart';
 import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:office_shopping_mall/feature/payment/presentaion/widgets/payment_bottom.dart';
+
+import '../cart/data/cart_order_response.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -23,19 +26,38 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Product product = context.select((ProductViewModel vm) => vm.selectedProduct!);
+    final args = ModalRoute.of(context)?.settings.arguments;
+    final Product product = context.select(
+      (ProductViewModel vm) => vm.selectedProduct!,
+    );
+
+    final bool isCartOrder = args is List<OrderData>;
+    final List<OrderData>? cartOrders = isCartOrder
+        ? args as List<OrderData>
+        : null;
+    final Product? singleProduct = !isCartOrder
+        ? context.select((ProductViewModel vm) => vm.selectedProduct)
+        : null;
 
     return Scaffold(
       extendBody: true,
 
-      appBar: CustomAppBar(title: "결제", titleTextStyle: Theme.of(context).textTheme.titleLarge),
+      appBar: CustomAppBar(
+        title: "결제",
+        titleTextStyle: Theme.of(context).textTheme.titleLarge,
+      ),
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: PaymentContent(
-          product: product,
-          onChanged: (info) => setState(() => _orderInfo = info),
-        ),
+        child: isCartOrder
+            ? CartPaymentContent(
+                orders: cartOrders!,
+                onChanged: (info) => setState(() => _orderInfo = info),
+              )
+            : PaymentContent(
+                product: singleProduct!,
+                onChanged: (info) => setState(() => _orderInfo = info),
+              ),
       ),
 
       bottomNavigationBar: Container(
@@ -65,7 +87,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('결제 금액', style: Theme.of(context).textTheme.titleMedium),
-                  Text(product.price.toWon, style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    isCartOrder
+                        ? cartOrders!
+                              .fold(0, (sum, order) => sum + order.totalAmount)
+                              .toWon
+                        : (singleProduct!.price * (_orderInfo?.quantity ?? 1))
+                              .toWon,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ],
               ),
             ),
@@ -106,18 +136,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                       ],
                     );
-                  }
+                  },
                 );
 
                 if (confirm == true) {
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (context) => const Center(child: CustomCircleIndicator()),
+                    builder: (context) =>
+                        const Center(child: CustomCircleIndicator()),
                   );
                   await Future.delayed(Duration(seconds: 2));
                   Navigator.of(context).pop();
-                  Navigator.pushNamed(context, AppRoutes.orderComplete, arguments: _orderInfo);
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.orderComplete,
+                    arguments: _orderInfo,
+                  );
                 }
               },
             ),
