@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
@@ -20,8 +21,9 @@ class ReviewItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 별점
+        SvgPicture.asset(""),
         Text(
-          "${review.rating}점",
+          "${review.rating}",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: 4),

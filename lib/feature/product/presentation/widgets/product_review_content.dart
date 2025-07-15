@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
 import '../../../../core/data/models/entity/user.dart';
@@ -43,7 +44,9 @@ class _ProductReviewContentState extends State<ProductReviewContent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (vm.reviews.isEmpty)
+              if(vm.isLoading == true)
+                Center(child: CustomCircleIndicator())
+              else if (vm.reviews.isEmpty)
                 Center(child: Text("리뷰가 없습니다."))
               else
                 ListView.builder(
