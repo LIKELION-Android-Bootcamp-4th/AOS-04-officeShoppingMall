@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/app_bar_actions.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
-import 'package:office_shopping_mall/feature/notification/data/app_notification_list.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
