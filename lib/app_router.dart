@@ -41,11 +41,11 @@ class AppRouter {
       case AppRoutes.productDetail:
         return MaterialPageRoute(builder: (_) => ProductDetailScreen(), settings: settings);
       case AppRoutes.order:
-        return MaterialPageRoute(builder: (_) => OrderScreen(), settings: settings);
+        return MaterialPageRoute(builder: (_) => PaymentScreen(), settings: settings);
       case AppRoutes.orderDetail:
         return MaterialPageRoute(builder: (_) => OrderDetailScreen(), settings: settings);
       case AppRoutes.orderComplete:
-        return MaterialPageRoute(builder: (_) => OrderCompleteScreen(), settings: settings);
+        return MaterialPageRoute(builder: (_) => PaymentCompleteScreen(), settings: settings);
       case AppRoutes.mypage:
         return MaterialPageRoute(builder: (_) => MypageScreen(), settings: settings);
       case AppRoutes.setting:

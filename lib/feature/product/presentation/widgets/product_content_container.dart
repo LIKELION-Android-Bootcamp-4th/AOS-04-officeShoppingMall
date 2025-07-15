@@ -6,6 +6,7 @@ class ProductContentContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxConstraints? constraints;
+  final Color? color;
 
   const ProductContentContainer({
     super.key,
@@ -13,6 +14,7 @@ class ProductContentContainer extends StatelessWidget {
     this.width,
     this.height,
     this.constraints,
+    this.color =  AppColors.gray100,
   });
 
   @override
@@ -23,7 +25,7 @@ class ProductContentContainer extends StatelessWidget {
       constraints: constraints,
       padding: EdgeInsets.all(16),
       alignment: Alignment.topLeft,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.gray100),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: color),
       child: child,
     );
   }

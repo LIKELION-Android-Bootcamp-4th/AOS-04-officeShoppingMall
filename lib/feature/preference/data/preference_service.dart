@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
 import 'package:office_shopping_mall/core/data/network/api_client.dart';
 
 class PreferenceService {
@@ -22,20 +23,30 @@ class PreferenceService {
     );
 
     if (response.statusCode == 200) {
-      final items = response.data['data']['items'] as List;
-      return items.map((item) => ProductDTO.fromJson(item)).toList();
+      final data = response.data['data'] as Map<String, dynamic>;
+      final items = data['items'] as List<dynamic>? ?? [];
+      return items.map((raw) {
+        final item = raw as Map<String, dynamic>;
+        final entityJson = item['entity'] as Map<String, dynamic>? ?? {};
+        return ProductDTO.fromJson({
+          ...entityJson,
+
+          'id': entityJson['id'] ?? '',
+          'isFavorite': true,
+          'favoriteCount': entityJson['likeCount'] ?? 0,
+        });
+      }).toList();
     } else {
       throw Exception(response.statusCode);
     }
   }
 
-  Future<bool> toggleFavorite(String productId) async {
+  Future<ToggleFavoriteResponse> toggleFavorite(String productId) async {
     final response = await _dio.post(Api.product.toggleFavorite(productId));
 
     if (response.statusCode == 200) {
-      return response.data['isFavorite'] as bool;
-    } else {
-      throw Exception(response.statusCode);
+      return ToggleFavoriteResponse.fromJson(response.data);
     }
+    throw Exception(response.statusCode);
   }
 }

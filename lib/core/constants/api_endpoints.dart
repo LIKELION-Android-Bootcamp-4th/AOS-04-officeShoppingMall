@@ -1,3 +1,5 @@
+// http://git.hansul.kr:3004/api/docs/user/#
+
 class Api {
   static const baseUrl = 'http://git.hansul.kr:3004/';
   static const xCompany = '6866fd325b230f5dc709bdf7';
@@ -123,7 +125,7 @@ class _CartEndpoints {
   const _CartEndpoints();
 
   /// ## 내 장바구니 조회 (GET)
-  String getCart(){
+  String getCart() {
     return 'api/cart';
   }
 
@@ -628,5 +630,52 @@ class _KeywordsEndpoints {
       path: '/api/keywords/$keyword/related',
       queryParameters: query.isEmpty ? null : query,
     ).toString();
+  }
+}
+
+// 공지사항
+class _NoticeEndpoints {
+  const _NoticeEndpoints();
+
+  /// ## 공지사항 목록 조회 (GET)
+  /// - 페이지네이션 지원, 최신순 정렬, 중요 공지사항 우선 표시
+  /// ---
+  /// - `page`: 페이지 번호 (기본값: 1)
+  /// - `limit`: 페이지당 항목 수 (기본값: 20)
+  /// - `sort`: 정렬 필드 (createdAt, updatedAt, title, publishedAt, viewCount; 기본값: createdAt)
+  /// - `order`: 정렬 순서 (asc, desc; 기본값: desc)
+  /// - `category`: 공지사항 카테고리 필터 (general, system, event, maintenance)
+  /// - `search`: 제목 또는 내용으로 검색
+  /// - `important`: 중요 공지사항만 조회 (boolean)
+  String getNotices({
+    int page = 1,
+    int limit = 20,
+    String sort = 'createdAt',
+    String order = 'desc',
+    String? category,
+    String? search,
+    bool? important,
+  }) {
+    final query = <String, String>{};
+    if (page != 1) query['page'] = page.toString();
+    if (limit != 20) query['limit'] = limit.toString();
+    if (sort != 'createdAt') query['sort'] = sort;
+    if (order != 'desc') query['order'] = order;
+    if (category != null && category.isNotEmpty) query['category'] = category;
+    if (search != null && search.isNotEmpty) query['search'] = search;
+    if (important != null && important) query['important'] = 'true';
+
+    return Uri(path: '/api/notice', queryParameters: query.isEmpty ? null : query).toString();
+  }
+
+  /// ## 공지사항 상세 조회 (GET)
+  /// 특정 공지사항의 상세 정보를 조회합니다.
+  /// #### 응답 특징
+  /// - 조회수 자동 증가
+  /// - 첨부파일 정보 포함
+  /// - 이전/다음 공지사항 정보 제공
+  /// - `noticeId`: 조회할 공지사항의 고유 ID
+  String getNoticeDetail(String noticeId) {
+    return '/api/notice/$noticeId';
   }
 }

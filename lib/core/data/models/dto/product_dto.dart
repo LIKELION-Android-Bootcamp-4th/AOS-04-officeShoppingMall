@@ -5,7 +5,7 @@ String fixImagePath(String path) {
     return 'http://git.hansul.kr:3004$path';
   }
   // 로컬 경로나 잘못된 경로는 빈 문자열 반환
-  return '';
+  return path;
 }
 
 class ProductDTO {
@@ -15,7 +15,7 @@ class ProductDTO {
   final String category;
   final int price;
   final int stock;
-  final String? thumbnailImage;
+  final ThumbnailImage? thumbnailImage;
   final String? contentImage;
   final List<String> images;
   final int favoriteCount;
@@ -90,6 +90,15 @@ class ProductDTO {
       }
     }
 
+    final thumbObj = json['thumbnailImage'] as Map<String, dynamic>?;
+    final rawThumb = thumbObj?['url'] as String? ?? json['thumbnailImageUrl'] as String?;
+    final thumbUrl = rawThumb != null ? fixImagePath(rawThumb) : null;
+
+    final rawContent =
+        (json['contentImage'] as Map<String, dynamic>?)?['url'] as String? ??
+        json['contentImageUrl'] as String?;
+    final contentUrl = rawContent != null ? fixImagePath(rawContent) : null;
+
     return ProductDTO(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
@@ -97,10 +106,8 @@ class ProductDTO {
       category: json['category'] ?? '',
       price: json['price'] ?? 0,
       stock: json['stock'] ?? 0,
-      thumbnailImage: json['thumbnailImage']?['url'] as String?
-          ?? json['thumbnailImageUrl'] as String?,
-      contentImage: json['contentImage']?['url'] as String?
-          ?? json['contentImageUrl'] as String?,
+      thumbnailImage: ThumbnailImage.fromJson(json['thumbnailImage'] ?? {}),
+      contentImage: json['contentImage']?['url'] as String? ?? json['contentImageUrl'] as String?,
       images: images,
       favoriteCount: json['favoriteCount'] ?? 0,
       viewCount: json['viewCount'] ?? 0,
@@ -108,7 +115,7 @@ class ProductDTO {
       reviewCount: json['reviewCount'] ?? 0,
       reviewStats: ReviewStats.fromJson(json['reviewStats'] ?? {}),
       isFavorite: json['isFavorite'] ?? false,
-      score: parsedScore,
+      score: parsedScore ?? 0,
     );
   }
 
@@ -185,4 +192,33 @@ class RatingDistribution {
   }
 
   Map<String, dynamic> toJson() => {'1': r1, '2': r2, '3': r3, '4': r4, '5': r5};
+}
+
+class ThumbnailImage {
+  final String id;
+  final String originalName;
+  final String? filename;
+  final String mimeType;
+  final int? size;
+  final String url;
+
+  ThumbnailImage({
+    required this.id,
+    required this.originalName,
+    this.filename,
+    required this.mimeType,
+    this.size,
+    required this.url,
+  });
+
+  factory ThumbnailImage.fromJson(Map<String, dynamic> json) {
+    return ThumbnailImage(
+      id: json['id'] as String? ?? '',
+      originalName: json['originalName'] ?? '',
+      filename: json['filename'] as String?,
+      mimeType: json['mimeType'] ?? '',
+      size: json['size'] as int?,
+      url: json['url'] ?? '',
+    );
+  }
 }

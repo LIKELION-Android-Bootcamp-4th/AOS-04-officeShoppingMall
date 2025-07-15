@@ -1,18 +1,24 @@
-import '../../../../core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 
 abstract class ProductRepository {
-  Future<void> addProduct(ProductDTO product);
+  // Future<void> addProduct(Product product);
 
-  Future<List<ProductDTO>> fetchProducts({
+  Future<List<Product>> fetchProducts({
     String? q,
     String? categoryId,
     String? category,
     String? sort,
   });
 
-  Future<ProductDTO> fetchProductDetail(String id);
+  Future<Product> fetchProductDetail(String id);
 
   Future<void> updateProduct(ProductDTO product);
 
-  Future<void> deleteProduct(String id);
+  Future<void> updateProductScore(String productId, double score);
+
+  // Future<void> deleteProduct(String id);
+
+  Future<ToggleFavoriteResponse> toggleFavorite(String id);
 }

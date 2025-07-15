@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_shopping_mall/core/data/models/dto/review_dto.dart';
-import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/core/theme/theme.dart';
-import 'package:office_shopping_mall/feature/review/presentation/review_detail_screen.dart';
+import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
+import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
+import 'package:office_shopping_mall/feature/review/presentation/widgets/review_item.dart';
 import 'package:office_shopping_mall/feature/review/presentation/widgets/review_written_item.dart';
 
 import '../../../../core/constants/app_routes.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../viewmodel/review_model.dart';
 
-class ReviewWrittenTab extends StatefulWidget{
+class ReviewWrittenTab extends StatefulWidget {
   const ReviewWrittenTab({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ReviewWrittenTab();
+  State<ReviewWrittenTab> createState() => _ReviewWrittenTabState();
 }
 
-class _ReviewWrittenTab extends State<ReviewWrittenTab> {
-
+class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
   late ReviewModel vm;
-  late List<ReviewDTO> review;
 
   @override
   void initState() {
@@ -30,35 +31,89 @@ class _ReviewWrittenTab extends State<ReviewWrittenTab> {
 
   @override
   Widget build(BuildContext context) {
-    // 예시 데이터 리스트
-    final items = [
-      {'title': '리뷰 작성 완료 상품 A', 'count': 2, 'price': 100000},
-      {'title': '리뷰 작성 완료 상품 B', 'count': 1, 'price': 50000},
-      {'title': '리뷰 작성 완료 상품 C', 'count': 3, 'price': 150000},
-      // 계속 추가 가능
-    ];
+    vm = context.watch<ReviewModel>();
 
-    return Align(
-      alignment: Alignment.center,
-      child: ListView.builder(
-        shrinkWrap: true, // Column 안에 있을 때 필요
-        physics: NeverScrollableScrollPhysics(), // 상위 스크롤에 영향 안 주도록
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: ReviewWrittenItem(
-              title: item['title'] as String,
-              count: item['count'] as int,
-              price: item['price'] as int,
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.reviewDetail);
-              },
-            ),
-          );
-        },
-      ),
+    if (vm.isLoading) {
+      Center(child: CustomCircleIndicator());
+    }
+
+    if (vm.reviews.isEmpty) {
+      return Center(child: Text('작성한 리뷰가 없습니다.'));
+    }
+
+    return ListView.builder(
+
+      itemCount: vm.reviews.length,
+      itemBuilder: (context, index) {
+        final ReviewDTO review = vm.reviews[index];
+        final product = review.product;
+
+        return ProductContentContainer(
+          width: double.infinity,
+          child: Column(
+            children: [
+
+              Row(
+                children: [
+                  // 이미지 영역
+                  Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: product?.thumbnailImage != null
+                        ? Image.network(
+                      product!.thumbnailImage!.url,
+                      fit: BoxFit.fill,
+                      width: 86,
+                      height: 86,
+                    )
+                        : Container(
+                      color: AppColors.gray200,
+                      alignment: Alignment.center,
+                      width: 86,
+                      height: 86,
+                      child: Text(
+                        '상품 이미지가 없습니다',
+                        style: Theme.of(context).textTheme.bodySmall,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  // 상품 정보 영역
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product?.name ?? '',
+                          style: Theme.of(context).textTheme.titleMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 8),
+                        SvgPicture.asset(""),
+                        Text(
+                          "${product?.score}",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 12),
+
+              // 리뷰 본문
+              ReviewItem(review: review),
+
+            ],
+          ),
+        );
+      },
     );
   }
 }

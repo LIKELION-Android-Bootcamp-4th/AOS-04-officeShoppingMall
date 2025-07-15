@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
+import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
 
 import '../../../../core/data/models/entity/user.dart';
@@ -18,7 +19,7 @@ class ProductReviewContent extends StatefulWidget {
 
 class _ProductReviewContentState extends State<ProductReviewContent> {
   late ReviewModel reviewModel;
-  late ProductDTO? product;
+  late Product? product;
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class _ProductReviewContentState extends State<ProductReviewContent> {
             ],
           ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }

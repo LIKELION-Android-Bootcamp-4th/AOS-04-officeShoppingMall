@@ -15,7 +15,7 @@ class MypageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = context.watch<MypageViewModel>();
     return Scaffold(
-      appBar: CustomAppBar(title: '마이페이지', actions: appBarActionsMypage()),
+      appBar: CustomAppBar(title: '마이페이지', actions: appBarActionsMypage(), isLeading: false),
       body: Builder(
         builder: (context) {
           if (vm.isLoading) return Center(child: CustomCircleIndicator());

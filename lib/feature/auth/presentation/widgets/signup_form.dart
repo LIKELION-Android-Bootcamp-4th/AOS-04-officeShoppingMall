@@ -17,7 +17,6 @@ class SignUpForm extends StatefulWidget {
 }
 
 class SignUpFormState extends State<SignUpForm> {
-  //각 입력마다 유효성 검사를 위한 키
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -30,14 +29,6 @@ class SignUpFormState extends State<SignUpForm> {
       _showVisibleIcon = !_showVisibleIcon;
     });
   }
-
-  /*  Map<String, String> getFormData() {
-    return {
-      "nickName": _nameController.text,
-      "email": _emailController.text,
-      "password": _pwController.text,
-    };
-  }*/
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {

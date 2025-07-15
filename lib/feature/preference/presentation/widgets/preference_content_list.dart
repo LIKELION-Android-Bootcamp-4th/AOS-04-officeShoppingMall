@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/preference/presentation/viewmodel/preference_viewmodel.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class PreferenceContentList extends StatelessWidget {
@@ -10,7 +12,7 @@ class PreferenceContentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<PreferenceViewModel>();
-    final favorites = vm.favorites;
+    final favorites = context.select((PreferenceViewModel vm) => vm.favoritesProd);
 
     return GridView.builder(
       shrinkWrap: true,
@@ -23,12 +25,16 @@ class PreferenceContentList extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  // TODO: 현재 상품 이미지가 없어 임시로 null 가능 적용
-                  child: Image.asset(
-                    currentProd.thumbnailImage ?? 'images/banner1.jpg',
-                    fit: BoxFit.fill,
+                InkWell(
+                  onTap: () {
+                    context.read<ProductViewModel>().setSelectedProduct(currentProd);
+                    Navigator.pushNamed(context, AppRoutes.productDetail);
+                  },
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: currentProd.thumbnailImage != null
+                        ? Image.network(currentProd.thumbnailImage!.url)
+                        : Image.asset('images/banner1.jpg', fit: BoxFit.fill),
                   ),
                 ),
                 Positioned(
@@ -47,8 +53,8 @@ class PreferenceContentList extends StatelessWidget {
                 ),
               ],
             ),
-            Text(currentProd.name, style: Theme.of(context).textTheme.titleMedium),
-            Text(currentProd.price.toWon, style: Theme.of(context).textTheme.bodyLarge),
+            Text(currentProd.name, style: Theme.of(context).textTheme.bodyLarge),
+            Text(currentProd.price.toWon, style: Theme.of(context).textTheme.bodyMedium),
           ],
         );
       },
