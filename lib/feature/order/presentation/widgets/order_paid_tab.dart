@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/feature/order/presentation/order_list_screen.dart';
 import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 
-class OrderPaidTab extends StatefulWidget{
+class OrderPaidTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return OrderPaidTabState();
   }
 }
 
-class OrderPaidTabState extends State<OrderPaidTab> with SingleTickerProviderStateMixin{
+class OrderPaidTabState extends State<OrderPaidTab>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -20,14 +21,12 @@ class OrderPaidTabState extends State<OrderPaidTab> with SingleTickerProviderSta
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: OrderListScreen(
-          orders: context
-              .watch<OrderListViewModel>()
-              .orders
-              .where((a) => a.status == 'pending')
-              .toList(),
-        ),
+      body: OrderListScreen(
+        orders: context
+            .watch<OrderListViewModel>()
+            .orders
+            .where((a) => a.status == 'pending')
+            .toList(),
       ),
     );
   }

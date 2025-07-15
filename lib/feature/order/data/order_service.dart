@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
+import 'package:office_shopping_mall/feature/order/data/order_add_requset.dart';
+import 'package:office_shopping_mall/feature/order/data/order_cancel_request.dart';
 
 class OrderService {
   final Dio _dio;
@@ -25,19 +27,20 @@ class OrderService {
     return OrderDTO.fromJson(data);
   }
   
-  // Future<void> addOrder(OrderDTO order) async {
-  //   final response = await _dio.post(Api.mypage.addOrder());
-  //   if (response.statusCode == 200) {
-  //     print('주문 추가 성공!');
-  //   } else {
-  //     throw Exception(
-  //       '주문 추가 실패: ${response.statusCode}, message: ${response.data}',
-  //     );
-  //   }
-  // }
+  Future<void> addOrder(OrderAddRequest request) async {
+    final response = await _dio.post(Api.order.createOrder, data: request.toJson());
+    if (response.statusCode == 200) {
+      print('주문 추가 성공!');
+    } else {
+      throw Exception(
+        '주문 추가 실패: ${response.statusCode}, message: ${response.data}',
+      );
+    }
+  }
 
   Future<void> cancelOrder(String id) async {
-    final response = await _dio.patch(Api.mypage.cancelOrder(id));
+    final orderCancelDTO = OrderCancelRequest(detailReason: '사용자 취소', reason: '취소');
+    final response = await _dio.post(Api.mypage.cancelOrder(id), data: orderCancelDTO.toJson());
     if (response.statusCode == 200) {
       print('주문 취소 성공!');
     } else {
@@ -46,15 +49,4 @@ class OrderService {
       );
     }
   }
-  
-  // Future<void> updateOrder(String id) async {
-  //   final response = await _dio.patch(Api.order.updateOrder(id));
-  //   if (response.statusCode == 200) {
-  //     print('배송 상태 변경 성공!');
-  //   } else {
-  //     throw Exception(
-  //       '배송 상태 변경 실패: ${response.statusCode}, message: ${response.data}',
-  //     );
-  //   }
-  // }
 }
