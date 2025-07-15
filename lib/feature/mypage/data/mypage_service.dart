@@ -16,10 +16,9 @@ class MypageService {
   Future<List<ProductDTO>> fetchRecent({required int page, required int limit}) async {
     final response = await _dio.get(Api.mypage.getRecentProducts(page: page, limit: limit));
     final items = response.data['data']['items'] as List<dynamic>;
-    return items.map((raw) {
-      final map = raw as Map<String, dynamic>;
-      final productJson = map['productId'] as Map<String, dynamic>;
-      return ProductDTO.fromJson(productJson);
+
+    return items.map((item) {
+      return ProductDTO.fromJson(item as Map<String, dynamic>);
     }).toList();
   }
 
