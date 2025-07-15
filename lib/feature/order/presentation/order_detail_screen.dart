@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
@@ -19,17 +18,17 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final viewModel = context.read<OrderDetailViewModel>();
-
       viewModel.loadOrderDetail();
     });
   }
   @override
   Widget build(BuildContext context) {
     final order = context.watch<OrderDetailViewModel>().order;
+    final info = context.watch<OrderDetailViewModel>().info;
+    final viewModel = context.watch<OrderListViewModel>();
 
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보'),
@@ -155,7 +154,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
-                                    "카드 결제",
+                                    info?.paymentMethod ?? '',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium,
@@ -199,7 +198,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
-                                      '주소',
+                                      order?.shippingInfo?.address ?? '주소',
                                       style: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium,
@@ -257,9 +256,10 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   child: Text("아니요"),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    // order.cancelOrder(widget.order.orderId);
-                                    // Navigator.pop(context);
+                                  onPressed: () async {
+                                    Navigator.of(context).pop();
+                                    await viewModel.cancelOrder(order!.orderId);
+                                    if (mounted) Navigator.of(this.context).pop();
                                   },
                                   child: Text("네"),
                                 ),

@@ -18,4 +18,12 @@ class OrderProductDTO{
       productId: json['id']
     );
   }
+  Map<String, dynamic> toJson() =>{
+    "productName": this.productName,
+    "quantity": this.quantity,
+    "unitPrice": this.unitPrice,
+    "totalPrice": this.totalPrice,
+    "thumbnailImageUrl": this.thumbnailImageUrl,
+    "productId": this.productId
+  };
 }
