@@ -2,16 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
+import 'package:office_shopping_mall/feature/review/presentation/viewmodel/review_model.dart';
 import '../../domain/repository/product_repository.dart';
 import 'package:office_shopping_mall/feature/product/domain/repository/product_repository.dart';
 
 class ProductViewModel extends ChangeNotifier {
   final ProductRepository _repo;
+  final ReviewModel reviewModel;
 
   bool _isLoading = false;
   String? _error;
 
-  ProductViewModel(this._repo);
+  ProductViewModel(this._repo, this.reviewModel);
 
   Product? selectedProduct;
   String? selectedProductId;
@@ -31,6 +33,7 @@ class ProductViewModel extends ChangeNotifier {
     try {
       final product = await _repo.fetchProductDetail(productId);
       selectedProduct = product;
+      reviewModel.getReviews(productId);
     } catch (e) {
       print('Error fetching product: $e');
     } finally {

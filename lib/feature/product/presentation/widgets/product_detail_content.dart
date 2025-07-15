@@ -23,6 +23,7 @@ class ProductDetailContent extends StatefulWidget {
 class _ProductDetailContent extends State<ProductDetailContent> {
   int _selectedTabIndex = 0;
   late ProductViewModel vm;
+  late ReviewModel reviewModel;
 
   void _selectTab(int index) {
     setState(() {
@@ -34,10 +35,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
   void initState() {
     super.initState();
     vm = context.read<ProductViewModel>();
-    if(vm.selectedProduct != null) {
-      context.read<ReviewModel>().getReviews(vm.selectedProduct!.id);
-    }
-
+    reviewModel = context.read<ReviewModel>();
   }
 
   @override
@@ -99,7 +97,7 @@ class _ProductDetailContent extends State<ProductDetailContent> {
             SvgPicture.asset("images/icon/ic_star_small_1.svg"),
             SizedBox(width: 4),
             Text(
-              "${context.read<ReviewModel>().productScore}",
+              "${reviewModel.productScore}",
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
