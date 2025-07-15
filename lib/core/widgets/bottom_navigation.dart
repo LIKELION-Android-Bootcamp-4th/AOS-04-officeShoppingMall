@@ -7,12 +7,19 @@ import 'package:office_shopping_mall/core/providers/bottom_nav_provider.dart';
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
 
+  static const _tabRoutes = [
+    AppRoutes.category,
+    AppRoutes.search,
+    AppRoutes.home,
+    AppRoutes.preference,
+    AppRoutes.mypage,
+  ];
+
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<BottomNavProvider>();
     final index = nav.currentIndex;
 
-    // TODO: 추후 모든 루트가 생성되면 null 제거
     Widget navItem(String icon, int tabIndex, String route) {
       final isSelected = index == tabIndex;
       return IconButton(
@@ -21,6 +28,15 @@ class BottomNavigation extends StatelessWidget {
           nav.changeIndex(tabIndex);
           if (route == AppRoutes.home) {
             Navigator.pushNamedAndRemoveUntil(context, route, (_) => false);
+            return;
+          }
+
+          final topName = ModalRoute.of(context)?.settings.name;
+
+          if (topName == AppRoutes.home) {
+            Navigator.pushNamed(context, route);
+          } else if (topName != null && _tabRoutes.contains(topName)) {
+            Navigator.pushReplacementNamed(context, route);
           } else {
             Navigator.pushNamed(context, route);
           }
@@ -40,7 +56,6 @@ class BottomNavigation extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // TODO: 앱 루트 추가
               navItem('ic_nav_category', 0, AppRoutes.category),
               navItem('ic_nav_search', 1, AppRoutes.search),
               navItem('ic_nav_home', 2, AppRoutes.home),

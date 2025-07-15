@@ -20,7 +20,7 @@ ThemeData appThemeData() {
 
     tabBarTheme: TabBarThemeData(
       indicator: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(60),
         color: appColorScheme().tertiary,
       ),
       indicatorSize: TabBarIndicatorSize.tab,
