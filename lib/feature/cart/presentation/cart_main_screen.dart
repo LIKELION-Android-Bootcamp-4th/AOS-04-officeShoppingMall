@@ -4,7 +4,7 @@ import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_tab_bar.dart';
-import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_delivered_tab.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_paid_tab.dart';
 import 'package:office_shopping_mall/feature/order/presentation/widgets/order_shipping_tab.dart';
@@ -37,7 +37,7 @@ class _CartMainScreenState extends State<CartMainScreen>
   @override
   Widget build(BuildContext context) {
     final cartsLength = context.watch<CartViewModel>().carts.length;
-    final orders = context.watch<OrderViewModel>().orders;
+    final orders = context.watch<OrderListViewModel>().orders;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -68,7 +68,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${orders.where((a) => a.orderIndex == 1).length}',
+                      '${orders.where((a) => a.status == 'pending').length}',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('결제 완료', style: TextStyle(fontSize: 10)),
@@ -80,7 +80,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${orders.where((a) => a.orderIndex == 2).length}',
+                      '${orders.where((a) => a.status == 'shipped').length}',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('배송 중', style: TextStyle(fontSize: 10)),
@@ -92,7 +92,7 @@ class _CartMainScreenState extends State<CartMainScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${orders.where((a) => a.orderIndex == 3).length}',
+                      '${orders.where((a) => a.status == 'delivered').length}',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text('배송 완료', style: TextStyle(fontSize: 10)),

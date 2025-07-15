@@ -64,7 +64,6 @@ class MypageViewModel extends ChangeNotifier {
 
     try {
       final response = await _repository.toggleFavorite(product.id);
-
       Fluttertoast.showToast(msg: response.message);
 
       if (!response.isLiked) {

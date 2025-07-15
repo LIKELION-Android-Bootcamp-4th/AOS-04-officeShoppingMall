@@ -14,11 +14,12 @@ class MypageRecentContentList extends StatefulWidget {
 }
 
 class _MypageRecentContentListState extends State<MypageRecentContentList> {
-
   @override
   void initState() {
     super.initState();
-    context.read<MypageViewModel>().loadRecentProduct();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MypageViewModel>().loadRecentProduct();
+    });
   }
 
   @override

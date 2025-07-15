@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:office_shopping_mall/core/data/models/dto/order_dto.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/widgets/app_bar/custom_app_bar.dart';
-import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_detail_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  final int index;
-
-  OrderDetailScreen({super.key, required this.index});
+  OrderDetailScreen({super.key});
 
   @override
   State<OrderDetailScreen> createState() => OrderDetailScreenState();
@@ -18,10 +18,18 @@ class OrderDetailScreen extends StatefulWidget {
 class OrderDetailScreenState extends State<OrderDetailScreen>
     with SingleTickerProviderStateMixin {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel = context.read<OrderDetailViewModel>();
+
+      viewModel.loadOrderDetail();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<OrderViewModel>();
-    final orders = context.watch<OrderViewModel>().orders;
-    final order = orders[widget.index];
+    final order = context.watch<OrderDetailViewModel>().order;
 
     return Scaffold(
       appBar: CustomAppBar(title: '주문 정보'),
@@ -34,8 +42,9 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
+                  width: 130,
                   height: 130,
-                  child: order.product.thumbnailImage == null
+                  child: order?.items[0].thumbnailImageUrl == null
                       ? Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -49,7 +58,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                           ),
                         )
                       : PageView.builder(
-                          itemCount: order.product.images.length,
+                          itemCount: order?.items[0].thumbnailImageUrl.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return Container(
@@ -57,7 +66,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                    order.product.images[index],
+                                    order?.items[0]?.thumbnailImageUrl ?? '',
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -74,21 +83,19 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                       Row(
                         children: [
                           Text(
-                            order.product.name,
+                            order?.items[0].productName ?? '',
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           Spacer(),
 
                           Text(
                             (() {
-                              switch (order.orderIndex) {
-                                case 1:
+                              switch (order?.status) {
+                                case 'pending':
                                   return '결제 완료';
-                                case 2:
+                                case 'shipped':
                                   return '배송 중';
-                                case 3:
-                                  return '배송 완료';
-                                case 4:
+                                case 'delivered':
                                   return '배송 완료';
                                 default:
                                   return '오류';
@@ -100,7 +107,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '${NumberFormat('#,###').format(order.product.price)}원',
+                        '${NumberFormat('#,###').format(order?.items[0].unitPrice ?? 0)}원',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
@@ -170,7 +177,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
-                                    order.orderId,
+                                    order?.orderId ?? '',
                                     style: Theme.of(context,).textTheme.bodyMedium,
                                   ),
                                 ),
@@ -192,7 +199,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 16),
                                     child: Text(
-                                      "주소입니다아아아아 길어지면 줄바꿈 됩니다아아아아",
+                                      '주소',
                                       style: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium,
@@ -216,12 +223,12 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
             SizedBox(height: 20),
 
             //주문 취소버튼. 결제 완료 상태에서만 보여야 됨
-            order.orderIndex == 1
+            order?.status == 'pending'
                 ? Container(
                     width: MediaQuery.of(context).size.width * 0.86,
                     height: MediaQuery.of(context).size.height * 0.06,
                     decoration: BoxDecoration(
-                      color: Color(0x80D9D9D9),
+                      color: AppColors.surfaceContainerColor,
                       borderRadius: BorderRadiusGeometry.circular(10),
                     ),
                     child: InkWell(
@@ -238,7 +245,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                       padding: EdgeInsets.all(16),
                                       child: Text(
                                         "주문을 취소 하시겠습니까?",
-                                        style: Theme.of(context,).textTheme.bodyMedium,
+                                        style: Theme.of(context).textTheme.bodyMedium,
                                       ),
                                     ),
                                   ],
@@ -251,8 +258,8 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    viewModel.cancelOrder(order.orderId);
-                                    Navigator.pop(context);
+                                    // order.cancelOrder(widget.order.orderId);
+                                    // Navigator.pop(context);
                                   },
                                   child: Text("네"),
                                 ),

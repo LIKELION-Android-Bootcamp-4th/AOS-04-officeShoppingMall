@@ -36,7 +36,9 @@ class BottomNavObserver extends NavigatorObserver {
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _syncIndex(route);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _syncIndex(route);
+    });
   }
 
   @override
