@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
-import 'package:office_shopping_mall/feature/order/data/order_list.dart';
-import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_viewmodel.dart';
+import 'package:office_shopping_mall/feature/order/presentation/order_list_screen.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 import 'package:office_shopping_mall/feature/review/presentation/add_review_screen.dart';
 
 class ReviewWritableTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final orderIndex3 = context
-        .watch<OrderViewModel>()
+    final orderDelivered = context
+        .watch<OrderListViewModel>()
         .orders
-        .where((a) => a.orderIndex == 3)
+        .where((a) => a.status == 'delivered')
         .toList();
 
     return Align(
       alignment: Alignment.topCenter,
       child: Column(
         children: [
-          if (orderIndex3.isNotEmpty) ...[
-            OrderList(orders: orderIndex3),
+          if (orderDelivered.isNotEmpty) ...[
+            OrderListScreen(orders: orderDelivered),
             Container(
               width: MediaQuery.of(context).size.width * 0.92,
               height: MediaQuery.of(context).size.height * 0.06,
