@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:office_shopping_mall/core/constants/api_endpoints.dart';
 import 'package:office_shopping_mall/core/data/models/dto/user_dto.dart';
@@ -30,12 +32,12 @@ class SettingService {
 
       if (e.response != null && e.response!.data != null) {
         final int? statusCode = e.response?.statusCode;
-        final PasswordSettingResponse errorResponse =
-            PasswordSettingResponse.fromJson(e.response!.data);
+        final PasswordSettingResponse errorResponse = PasswordSettingResponse.fromJson(
+          e.response!.data,
+        );
 
         if (statusCode == 400) {
-          print(
-            '비밀번호 변경 실패(400: 유효성 검사 및 현재 비밀번호 불일치) : ${errorResponse.message}',);
+          print('비밀번호 변경 실패(400: 유효성 검사 및 현재 비밀번호 불일치) : ${errorResponse.message}');
           return errorResponse;
         } else if (statusCode == 401) {
           print('비밀번호 변경 실패(401: 인증 실패) : ${errorResponse.message}');
@@ -76,14 +78,15 @@ class SettingService {
         filename: profileImagePath.split('/').last,
       );
       final form = FormData.fromMap({
-        ...dto.toJson()..remove('profileImage'),
+        'nickName': dto.nickName,
+        'phone': dto.phone,
+        'address': dto.address?.address1?? '',
         'profileImage': file,
       });
       response = await _dio.patch(Api.mypage.updateProfile, data: form);
     } else {
       response = await _dio.patch(Api.mypage.updateProfile, data: dto.toJson());
     }
-
     return UserDTO.fromJson(response.data['data']);
   }
 }
