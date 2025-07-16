@@ -65,10 +65,8 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 20),
-        Text('주문 상품', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12),
         Container(
-          constraints: BoxConstraints(maxHeight: 100),
+          constraints: BoxConstraints(maxHeight: 88),
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.orders.length,
@@ -91,18 +89,20 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                                 child: item.productImage != null
                                     ? Image.network(
                                         item.productImage!,
-                                        fit: BoxFit.cover,
-                                        width: 60,
-                                        height: 60,
+                                        fit: BoxFit.fill,
+                                        width: 80,
+                                        height: 80,
                                       )
                                     : Container(
                                         color: AppColors.gray200,
                                         alignment: Alignment.center,
-                                        width: 60,
-                                        height: 60,
-                                        child: Icon(
-                                          Icons.image,
-                                          color: AppColors.gray400,
+                                        width: 80,
+                                        height: 80,
+                                        child: Text(
+                                          '상품 이미지가 없습니다',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall,
                                         ),
                                       ),
                               ),
