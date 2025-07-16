@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_content_container.dart';
+import 'package:provider/provider.dart';
+
+import '../../../cart/presentation/viewmodel/cart_viewmodel.dart';
 
 class PaymentCompleteContent extends StatelessWidget {
   final OrderInfo? info;
@@ -107,6 +110,7 @@ class PaymentCompleteContent extends StatelessWidget {
         SizedBox(
           child: ElevatedButton(
             onPressed: () {
+              context.read<CartViewModel>().loadCarts();
               Navigator.pop(context);
               Navigator.pop(context);
             },
