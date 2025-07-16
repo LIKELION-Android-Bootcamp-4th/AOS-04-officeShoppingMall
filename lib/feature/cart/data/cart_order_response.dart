@@ -17,7 +17,9 @@ class CartOrderResponseDTO {
       throw Exception('orders 데이터가 없습니다.');
     }
 
-    final orders = ordersJson.map((orderJson) => OrderData.fromJson(orderJson)).toList();
+    final orders = ordersJson
+        .map((orderJson) => OrderData.fromJson(orderJson))
+        .toList();
 
     return CartOrderResponseDTO(
       success: json['success'],
@@ -131,7 +133,6 @@ class ShippingInfoSimple {
     this.deliveryOption,
   });
 
-
   factory ShippingInfoSimple.fromJson(Map<String, dynamic> json) {
     return ShippingInfoSimple(
       recipient: json['recipient']?.toString() ?? '',
@@ -140,7 +141,8 @@ class ShippingInfoSimple {
       zipCode: json.containsKey('zipCode') && json['zipCode'] != null
           ? json['zipCode'].toString()
           : '',
-      deliveryOption: json.containsKey('deliveryOption') && json['deliveryOption'] != null
+      deliveryOption:
+          json.containsKey('deliveryOption') && json['deliveryOption'] != null
           ? json['deliveryOption'].toString()
           : '',
     );
