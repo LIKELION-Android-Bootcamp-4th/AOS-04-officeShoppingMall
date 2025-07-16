@@ -83,7 +83,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                       Row(
                         children: [
                           Flexible(
-                            fit: FlexFit.loose,
+                            flex: 3,
                             child: Text(
                               order?.items[0].productName ?? '',
                               style: Theme
@@ -95,6 +95,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                               maxLines: 1,
                             ),
                           ),
+                          Spacer(),
                           Text(
                             (() {
                               switch (order?.status) {
@@ -162,7 +163,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
-                                    info?.paymentMethod ?? '',
+                                    info?.paymentMethod ?? 'd',
                                     style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
