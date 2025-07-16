@@ -30,11 +30,14 @@ class PreferenceContentList extends StatelessWidget {
                     context.read<ProductViewModel>().setSelectedProduct(currentProd);
                     Navigator.pushNamed(context, AppRoutes.productDetail);
                   },
-                  child: Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: currentProd.thumbnailImage != null
-                        ? Image.network(currentProd.thumbnailImage!.url)
-                        : Image.asset('images/banner1.jpg', fit: BoxFit.fill),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: currentProd.thumbnailImage != null
+                          ? Image.network(currentProd.thumbnailImage!.url)
+                          : Image.asset('images/banner1.jpg', fit: BoxFit.fill),
+                    ),
                   ),
                 ),
                 Positioned(
