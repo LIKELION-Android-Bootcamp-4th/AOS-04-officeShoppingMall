@@ -1,5 +1,6 @@
 import 'package:office_shopping_mall/core/data/models/dto/shipping_info_dto.dart';
 import 'package:office_shopping_mall/feature/order/data/order_product_dto.dart';
+import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
 
 class OrderDTO {
   final String orderId;
@@ -12,6 +13,7 @@ class OrderDTO {
   final String orderNumber;
   final List<OrderProductDTO> items;
   final ShippingInfoDTO? shippingInfo;
+  final String payment;
 
   OrderDTO({
     required this.orderId,
@@ -24,6 +26,7 @@ class OrderDTO {
     required this.orderNumber,
     required this.items,
     required this.shippingInfo,
+    required this.payment
   });
 
   factory OrderDTO.fromJson(Map<String, dynamic> json) {
@@ -42,6 +45,9 @@ class OrderDTO {
       shippingInfo: json['shippingInfo'] == null
           ? null
           : ShippingInfoDTO.fromJson(json['shippingInfo']),
+      payment: json['payment'] == null
+          ? ''
+          : json['payment']
     );
   }
 }
