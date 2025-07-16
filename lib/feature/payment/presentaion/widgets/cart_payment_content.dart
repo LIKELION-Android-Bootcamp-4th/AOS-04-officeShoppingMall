@@ -68,7 +68,7 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
         Text('주문 상품', style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 12),
         Container(
-          constraints: BoxConstraints(maxHeight: 150),
+          constraints: BoxConstraints(maxHeight: 100),
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.orders.length,

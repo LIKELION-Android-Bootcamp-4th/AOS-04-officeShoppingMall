@@ -139,6 +139,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     barrierDismissible: false,
                     builder: (context) => const Center(child: CustomCircleIndicator()),
                   );
+
+                  final items = isCartOrder
+                      ? cartOrders!.expand((order) => order.items.map(
+                        (item) => OrderProductDTO(
+                      productName: item.productName,
+                      quantity: item.quantity,
+                      unitPrice: item.unitPrice,
+                      totalPrice: item.totalPrice,
+                      thumbnailImageUrl: item.productImage ?? '',
+                      productId: item.productId,
+                    ),
+                  )).toList()
+                      : [
+                    OrderProductDTO(
+                      productName: product.name,
+                      quantity: _orderInfo!.quantity,
+                      unitPrice: product.price,
+                      totalPrice: _orderInfo!.quantity * product.price,
+                      thumbnailImageUrl: product.thumbnailImage!.url,
+                      productId: product.id,
+                    )
+                  ];
+
                   OrderAddRequest request = OrderAddRequest(
                     items: [
                       OrderProductDTO(
