@@ -29,7 +29,7 @@ class OrderService {
   
   Future<void> addOrder(OrderAddRequest request) async {
     final response = await _dio.post(Api.order.createOrder, data: request.toJson());
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200|| response.statusCode == 201) {
       print('주문 추가 성공!');
     } else {
       throw Exception(
