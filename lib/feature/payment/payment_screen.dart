@@ -112,6 +112,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ],
                       );
                     }
+
+                    if (cartOrders == null) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: AlertDialog(
+                          content: Text("배송 정보를 입력해 주세요."),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              },
+                              child: Text("확인"),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
                     return AlertDialog(
                       title: Text("결제"),
                       content: Text("결제 하시겠습니까?"),
