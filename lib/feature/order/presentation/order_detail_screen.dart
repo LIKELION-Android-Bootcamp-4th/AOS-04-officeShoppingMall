@@ -82,12 +82,19 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                     children: [
                       Row(
                         children: [
-                          Text(
-                            order?.items[0].productName ?? '',
-                            style: Theme.of(context).textTheme.titleSmall,
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: Text(
+                              order?.items[0].productName ?? '',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
-                          Spacer(),
-
                           Text(
                             (() {
                               switch (order?.status) {
@@ -130,7 +137,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
 
             Container(
               width: MediaQuery.of(context).size.width * 0.86,
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.4,
               decoration: BoxDecoration(
                 color: appColorScheme().surfaceContainer,
                 borderRadius: BorderRadiusGeometry.circular(10),
