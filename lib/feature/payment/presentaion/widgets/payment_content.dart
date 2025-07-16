@@ -92,7 +92,7 @@ class _PaymentContentState extends State<PaymentContent> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(product.name, style: Theme.of(context).textTheme.titleLarge),
+                Text(product.name, style: Theme.of(context).textTheme.titleSmall),
                 SizedBox(height: 4),
                 Text(product.price.toWon, style: Theme.of(context).textTheme.bodyLarge),
               ],

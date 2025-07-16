@@ -59,7 +59,6 @@ class User {
         profileImage: profile.profileImage,
       ),
       address: Address(
-        zipCode: address?.zipCode ?? '',
         address1: addr ?? address?.address1 ?? '',
         address2: address?.address2 ?? '',
       ),
