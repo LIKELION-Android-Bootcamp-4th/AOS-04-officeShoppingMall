@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
@@ -174,7 +175,9 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                         borderRadius: BorderRadius.circular(60),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.setting);
+                    },
                     child: Text('수정'),
                   ),
                 ],
