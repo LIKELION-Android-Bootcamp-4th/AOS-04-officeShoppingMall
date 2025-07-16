@@ -31,14 +31,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
-    final Product product = context.select(
-      (ProductViewModel vm) => vm.selectedProduct!,
-    );
+    final Product product = context.select((ProductViewModel vm) => vm.selectedProduct!);
 
     final bool isCartOrder = args is List<OrderData>;
-    final List<OrderData>? cartOrders = isCartOrder
-        ? args as List<OrderData>
-        : null;
+    final List<OrderData>? cartOrders = isCartOrder ? args as List<OrderData> : null;
     final Product? singleProduct = !isCartOrder
         ? context.select((ProductViewModel vm) => vm.selectedProduct)
         : null;
@@ -96,8 +92,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ? cartOrders!
                               .fold(0, (sum, order) => sum + order.totalAmount)
                               .toWon
-                        : (singleProduct!.price * (_orderInfo?.quantity ?? 1))
-                              .toWon,
+                        : (singleProduct!.price * (_orderInfo?.quantity ?? 1)).toWon,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
@@ -106,107 +101,112 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
             PaymentBottom(
               onSelected: () async {
-                final confirm = await showDialog<bool>(
-                  context: context,
-                  builder: (context) {
-                    if (_orderInfo?.paymentMethod == null) {
-                      return AlertDialog(
-                        content: Text("결제 방식을 선택해 주세요."),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(false);
-                            },
-                            child: Text("확인"),
-                          ),
-                        ],
-                      );
-                    }
-
-                    return AlertDialog(
-                      title: Text("결제"),
-                      content: Text("결제 하시겠습니까?"),
+                if (_orderInfo?.paymentMethod == null ||
+                    _orderInfo!.paymentMethod.isEmpty) {
+                  await showDialog<void>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Text("결제 방식을 선택해 주세요."),
                       actions: [
                         TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                          child: Text("취소"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
+                          onPressed: () => Navigator.of(context).pop(),
                           child: Text("확인"),
                         ),
                       ],
-                    );
-                  },
-                );
-
-                if (confirm == true) {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) =>
-                        const Center(child: CustomCircleIndicator()),
+                    ),
                   );
+                  return;
+                }
 
-                  final items = isCartOrder
-                      ? cartOrders!
-                            .expand(
-                              (order) => order.items.map(
-                                (item) => OrderProductDTO(
-                                  productName: item.productName,
-                                  quantity: item.quantity,
-                                  unitPrice: item.unitPrice,
-                                  totalPrice: item.totalPrice,
-                                  thumbnailImageUrl: item.productImage ?? '',
-                                  productId: item.productId,
-                                ),
-                              ),
-                            )
-                            .toList()
-                      : [
-                          OrderProductDTO(
-                            productName: product.name,
-                            quantity: _orderInfo!.quantity,
-                            unitPrice: product.price,
-                            totalPrice: _orderInfo!.quantity * product.price,
-                            thumbnailImageUrl: product.thumbnailImage!.url,
-                            productId: product.id,
-                          ),
-                        ];
+                if (_orderInfo?.address == null || _orderInfo!.address.isEmpty) {
+                  await showDialog<void>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Text("배송 정보를 입력해 주세요."),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text("확인"),
+                        ),
+                      ],
+                    ),
+                  );
+                  return; // 이후 로직 취소
+                }
 
-                  OrderAddRequest request = OrderAddRequest(
-                    items: [
-                      OrderProductDTO(
-                        productName: product.name,
-                        quantity: _orderInfo!.quantity,
-                        unitPrice: product.price,
-                        totalPrice: _orderInfo!.quantity * product.price,
-                        thumbnailImageUrl: product.thumbnailImage!.url,
-                        productId: product.id,
+                final proceed = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("결제"),
+                    content: Text("결제 하시겠습니까?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text("취소"),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: Text("확인"),
                       ),
                     ],
-                    shippingInfo: ShippingInfoDTO(
-                      recipient: _orderInfo!.recipient,
-                      address: _orderInfo!.address,
-                      phone: _orderInfo!.phone,
-                    ),
-                    payment: _orderInfo!.paymentMethod,
-                    memo: '',
-                  );
-                  await context.read<OrderListViewModel>().addOrder(request);
-                  await Future.delayed(Duration(seconds: 2));
+                  ),
+                );
 
-                  Navigator.of(context).pop();
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.orderComplete,
-                    arguments: _orderInfo,
-                  );
-                }
+                if (proceed != true) return;
+
+                // -> 실제 결제 로직
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => const Center(child: CustomCircleIndicator()),
+                );
+
+                final items = isCartOrder
+                    ? cartOrders!
+                          .expand(
+                            (order) => order.items.map(
+                              (item) => OrderProductDTO(
+                                productName: item.productName,
+                                quantity: item.quantity,
+                                unitPrice: item.unitPrice,
+                                totalPrice: item.totalPrice,
+                                thumbnailImageUrl: item.productImage ?? '',
+                                productId: item.productId,
+                              ),
+                            ),
+                          )
+                          .toList()
+                    : [
+                        OrderProductDTO(
+                          productName: product.name,
+                          quantity: _orderInfo!.quantity,
+                          unitPrice: product.price,
+                          totalPrice: _orderInfo!.quantity * product.price,
+                          thumbnailImageUrl: product.thumbnailImage!.url,
+                          productId: product.id,
+                        ),
+                      ];
+
+                final request = OrderAddRequest(
+                  items: items,
+                  shippingInfo: ShippingInfoDTO(
+                    recipient: _orderInfo!.recipient,
+                    address: _orderInfo!.address,
+                    phone: _orderInfo!.phone,
+                  ),
+                  payment: _orderInfo!.paymentMethod,
+                  memo: '',
+                );
+
+                await context.read<OrderListViewModel>().addOrder(request);
+                await Future.delayed(Duration(seconds: 2));
+
+                Navigator.of(context).pop(); // 로딩 다이얼로그 닫기
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.orderComplete,
+                  arguments: _orderInfo,
+                );
               },
             ),
           ],
