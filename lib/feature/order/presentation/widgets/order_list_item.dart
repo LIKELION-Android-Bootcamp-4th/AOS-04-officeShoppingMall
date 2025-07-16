@@ -87,7 +87,7 @@ class OrderListItem extends StatelessWidget {
                           ),
                           SizedBox(height: 3),
                           Text(
-                            "2개",
+                            '1개',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           Row(
