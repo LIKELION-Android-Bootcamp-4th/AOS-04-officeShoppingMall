@@ -32,7 +32,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
   @override
   void initState() {
     super.initState();
-    _nameCtrl = TextEditingController(text: widget.user.nickName);
+    _nameCtrl = TextEditingController(text: widget.user.profile.name);
     _phoneCtrl = TextEditingController(text: widget.user.phone ?? '');
     profileImagePath = null;
   }
@@ -101,7 +101,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        widget.user.nickName,
+                        widget.user.profile.name ?? '',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const Spacer(),

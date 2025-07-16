@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/core/widgets/custom_tab_bar.dart';
 import 'package:office_shopping_mall/core/widgets/loading_indicator.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_description_content.dart';
@@ -20,22 +21,18 @@ class ProductDetailContent extends StatefulWidget {
   State<ProductDetailContent> createState() => _ProductDetailContent();
 }
 
-class _ProductDetailContent extends State<ProductDetailContent> {
-  int _selectedTabIndex = 0;
+class _ProductDetailContent extends State<ProductDetailContent>
+    with SingleTickerProviderStateMixin {
   late ProductViewModel vm;
   late ReviewModel reviewModel;
-
-  void _selectTab(int index) {
-    setState(() {
-      _selectedTabIndex = index;
-    });
-  }
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     vm = context.read<ProductViewModel>();
     reviewModel = context.read<ReviewModel>();
+    _tabController = TabController(length: 2, vsync: this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final productId = vm.selectedProductId;
@@ -46,12 +43,15 @@ class _ProductDetailContent extends State<ProductDetailContent> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final product = context
-        .watch<ProductViewModel>()
-        .selectedProduct;
-    reviewModel = context.watch<ReviewModel>();
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    final product = context.watch<ProductViewModel>().selectedProduct;
+    reviewModel = context.watch<ReviewModel>();
 
     if (vm.isLoading) {
       return Center(child: CustomCircleIndicator());
@@ -70,45 +70,33 @@ class _ProductDetailContent extends State<ProductDetailContent> {
           height: 228,
           child: product.thumbnailImage == null
               ? Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.gray200,
-            ),
-            child: Center(
-              child: Text(
-                '상품 이미지가 없습니다',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodySmall,
-              ),
-            ),
-          )
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.gray200,
+                  ),
+                  child: Center(
+                    child: Text(
+                      '상품 이미지가 없습니다',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                )
               : Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(product.thumbnailImage!.url),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(product.thumbnailImage!.url),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
         ),
         SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(product.name, style: Theme
-                .of(context)
-                .textTheme
-                .titleLarge),
-            Text(
-              product.price.toWon,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleLarge,
-            ),
+            Text(product.name, style: Theme.of(context).textTheme.titleLarge),
+            Text(product.price.toWon, style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         SizedBox(height: 4),
@@ -119,32 +107,27 @@ class _ProductDetailContent extends State<ProductDetailContent> {
             reviewModel.isLoading
                 ? Text("평점 로딩 중...")
                 : Text(
-              "${reviewModel.productScore ?? 0.0}",
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyLarge,
-            ),
+                    "${reviewModel.productScore ?? 0.0}",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
           ],
         ),
         SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ProductTab(
-              tabs: ['상세 설명', '리뷰'],
-              selectedIndex: _selectedTabIndex,
-              onTabSelected: _selectTab,
-            ),
+        customTabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: '상세 설명'),
+            Tab(text: '리뷰'),
           ],
         ),
         SizedBox(height: 20),
-        if (_selectedTabIndex == 0)
-          ProductDescriptionContent()
-        else
-          if (_selectedTabIndex == 1)
-            ProductReviewContent(),
-
+        SizedBox(
+          height: 400,
+          child: TabBarView(
+            controller: _tabController,
+            children: [ProductDescriptionContent(), ProductReviewContent()],
+          ),
+        ),
       ],
     );
   }
