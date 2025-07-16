@@ -8,6 +8,7 @@ import 'package:office_shopping_mall/feature/product/presentation/widgets/produc
 import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 import '../../../cart/data/cart_order_response.dart';
+import '../../../product/presentation/viewmodel/product_viewmodel.dart';
 
 class CartPaymentContent extends StatefulWidget {
   final List<OrderData> orders;
@@ -26,6 +27,7 @@ class CartPaymentContent extends StatefulWidget {
 class _CartPaymentContentState extends State<CartPaymentContent> {
   String _payment = '';
   String _address = '';
+  final Map<String, String?> _productImages = {};
 
   void _onChanged(String value) {
     setState(() {
@@ -48,6 +50,37 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
         phone: '',
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMissingImages();
+  }
+
+  Future<void> _loadMissingImages() async {
+    final productVm = context.read<ProductViewModel>();
+
+    for (var order in widget.orders) {
+      for (var item in order.items) {
+        if (item.productImage == null &&
+            !_productImages.containsKey(item.productId)) {
+          try {
+            await productVm.getProductById(item.productId);
+            final imageUrl = productVm.selectedProduct?.thumbnailImage?.url;
+
+            setState(() {
+              _productImages[item.productId] = imageUrl;
+            });
+          } catch (e) {
+            print('상품 정보 불러오기 실패: $e');
+            _productImages[item.productId] = null;
+          }
+        } else {
+          _productImages[item.productId] = item.productImage;
+        }
+      }
+    }
   }
 
   @override
@@ -87,9 +120,12 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: item.productImage != null
+                                child:
+                                    (item.productImage != null ||
+                                        _productImages[item.productId] != null)
                                     ? Image.network(
-                                        item.productImage!,
+                                        item.productImage ??
+                                            _productImages[item.productId]!,
                                         fit: BoxFit.fill,
                                         width: 80,
                                         height: 80,
