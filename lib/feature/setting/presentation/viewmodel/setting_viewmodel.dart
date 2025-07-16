@@ -77,7 +77,21 @@ class SettingViewModel extends ChangeNotifier {
     await prefs.setString(_prefsKey, raw);
   }
 
-  SettingAddress getDefaultAddress() => _addresses.firstWhere((addr) => addr.isDefault);
+  //SettingAddress getDefaultAddress() => _addresses.firstWhere((addr) => addr.isDefault);
+  //기본 배송지 없을 경우 더미 데이터가 추가 되게 하였음
+  SettingAddress getDefaultAddress() {
+    return _addresses.firstWhere(
+          (addr) => addr.isDefault,
+      orElse: () => SettingAddress(
+        id: ' ',
+        name: '  ',
+        recipient: '  ',
+        addr: '  ',
+        phone: '000-0000-0000',
+        isDefault: true,
+      ),
+    );
+  }
 
   Future<void> loadProfile() async {
     _isLoading = true;

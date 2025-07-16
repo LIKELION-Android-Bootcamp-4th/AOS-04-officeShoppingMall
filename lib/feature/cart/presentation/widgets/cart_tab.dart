@@ -5,9 +5,7 @@ import 'package:office_shopping_mall/core/theme/theme.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/widgets/cart_list_item.dart';
 import 'package:office_shopping_mall/feature/cart/presentation/viewmodel/cart_viewmodel.dart';
-import 'package:office_shopping_mall/feature/payment/payment_screen.dart';
 import 'package:office_shopping_mall/feature/product/presentation/widgets/product_button.dart';
-import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +33,6 @@ class CartTabState extends State<CartTab> {
     );
   }
 
-
   Widget _buildBody(CartViewModel viewModel) {
     if (viewModel.isLoading) {
       return Center(child: CustomCircleIndicator());
@@ -45,9 +42,7 @@ class CartTabState extends State<CartTab> {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('에러가 발생했습니다: ${viewModel.error}'),
-          ],
+          children: [Text('에러가 발생했습니다: ${viewModel.error}')],
         ),
       );
     }
@@ -56,9 +51,7 @@ class CartTabState extends State<CartTab> {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('장바구니가 비어있습니다'),
-          ],
+          children: [Text('장바구니가 비어있습니다')],
         ),
       );
     }
@@ -70,22 +63,18 @@ class CartTabState extends State<CartTab> {
     );
   }
 
-
   Widget _buildBottomBar(BuildContext context, CartViewModel viewModel) {
     return Padding(
       padding: EdgeInsets.all(16),
       child: Container(
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(
-              color: appColorScheme().surfaceContainer,
-              width: 1,
-            ),
+            top: BorderSide(color: appColorScheme().surfaceContainer, width: 1),
           ),
         ),
         child: Container(
           color: AppColors.backgroundColor,
-          height: 130,
+          height: 110,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -93,23 +82,14 @@ class CartTabState extends State<CartTab> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text(
-                      "결제 금액",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyLarge,
-                    ),
+                    child: Text("결제 금액", style: Theme.of(context).textTheme.bodyLarge),
                   ),
                   Spacer(),
                   Padding(
                     padding: EdgeInsets.only(top: 16, right: 16),
                     child: Text(
                       viewModel.getSelectedTotalPrice.toWon,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleSmall,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
                 ],
@@ -122,7 +102,9 @@ class CartTabState extends State<CartTab> {
                     if (viewModel.selectedCarts.isEmpty) return;
 
                     final cartIds = viewModel.selectedCarts.map((e) => e.id).toList();
-                    final settingAddr = context.read<SettingViewModel>().getDefaultAddress();
+                    final settingAddr = context
+                        .read<SettingViewModel>()
+                        .getDefaultAddress();
 
                     final orderResponse = await viewModel.orderFromCart(
                       cartIds: cartIds,
@@ -138,9 +120,9 @@ class CartTabState extends State<CartTab> {
                         arguments: orderResponse.orders,
                       );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('주문에 실패했습니다. 다시 시도해주세요.')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text('주문에 실패했습니다. 다시 시도해주세요.')));
                     }
                   },
                   text: '결제',

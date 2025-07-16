@@ -88,7 +88,9 @@ class CartViewModel extends ChangeNotifier {
       if (idx != -1) {
         final old = carts[idx];
         carts[idx] = old.copyWith(
-            quantity: quantity, totalPrice: old.unitPrice * quantity);
+          quantity: quantity,
+          totalPrice: old.unitPrice * quantity,
+        );
       }
     } catch (e) {
       _error = e.toString();
@@ -144,12 +146,12 @@ class CartViewModel extends ChangeNotifier {
 
     try {
       final request = CartOrderRequestDTO(
-          cartIds: cartIds,
-          shippingInfo: ShippingInfo(
-              recipient: recipient,
-              address: address,
-              phone: phone,
-          ),
+        cartIds: cartIds,
+        shippingInfo: ShippingInfo(
+          recipient: recipient,
+          address: address,
+          phone: phone,
+        ),
       );
 
       final response = await _repository.orderFromCart(request);
@@ -158,10 +160,10 @@ class CartViewModel extends ChangeNotifier {
       notifyListeners();
 
       return response;
-    }catch (e){
+    } catch (e) {
       _error = e.toString();
       print('vm장바구니에서 주문 생성 중 오류 발생 $_error');
-    }finally{
+    } finally {
       _isLoading = false;
       notifyListeners();
     }

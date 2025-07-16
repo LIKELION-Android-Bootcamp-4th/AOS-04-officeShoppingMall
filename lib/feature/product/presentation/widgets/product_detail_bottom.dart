@@ -15,7 +15,11 @@ class ProductDetailBottom extends StatefulWidget {
 }
 
 class _ProductDetailBottom extends State<ProductDetailBottom> {
-  void _onCartPressed({required String productId, required int? quantity, required int unitPrice}) {
+  void _onCartPressed({
+    required String productId,
+    required int? quantity,
+    required int unitPrice
+  }) {
     context.read<CartViewModel>().addToCart(
       productId: productId,
       quantity: quantity ?? 1,
@@ -29,9 +33,7 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
 
   @override
   Widget build(BuildContext context) {
-    final product = context
-        .watch<ProductViewModel>()
-        .selectedProduct;
+    final product = context.watch<ProductViewModel>().selectedProduct;
     if (product == null) {
       return const SizedBox(height: 60);
     }
@@ -67,9 +69,11 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
                 backgroundColor: AppColors.gray100,
                 textColor: Colors.black,
                 onPressed: () {
-                  _onCartPressed(productId: product!.id,
-                      quantity: 1,
-                      unitPrice: product.price);
+                  _onCartPressed(
+                    productId: product.id,
+                    quantity: 1,
+                    unitPrice: product.price,
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: const Text('상품을 장바구니에 추가했습니다.'),
@@ -86,7 +90,6 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
               ),
             ),
 
-
             SizedBox(width: 8),
 
             Expanded(
@@ -98,7 +101,6 @@ class _ProductDetailBottom extends State<ProductDetailBottom> {
                 borderRadius: 60,
               ),
             ),
-
           ],
         ),
       ),
