@@ -49,9 +49,9 @@ class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
 
         return ProductContentContainer(
           width: double.infinity,
+
           child: Column(
             children: [
-
               Row(
                 children: [
                   // 이미지 영역
@@ -80,7 +80,7 @@ class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
                     ),
                   ),
 
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12),
 
                   // 상품 정보 영역
                   Expanded(
