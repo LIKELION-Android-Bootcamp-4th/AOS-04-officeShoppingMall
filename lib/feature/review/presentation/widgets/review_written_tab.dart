@@ -41,74 +41,75 @@ class _ReviewWrittenTabState extends State<ReviewWrittenTab> {
     }
 
     return ListView.builder(
-
       itemCount: vm.reviews.length,
       itemBuilder: (context, index) {
         final ReviewDTO review = vm.reviews[index];
         final product = review.product;
 
-        return ProductContentContainer(
-          width: double.infinity,
+        return Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: ProductContentContainer(
+            width: double.infinity,
 
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  // 이미지 영역
-                  Card(
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    // 이미지 영역
+                    Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: product?.thumbnailImage != null
+                          ? Image.network(
+                              product!.thumbnailImage!.url,
+                              fit: BoxFit.fill,
+                              width: 86,
+                              height: 86,
+                            )
+                          : Container(
+                              color: AppColors.gray200,
+                              alignment: Alignment.center,
+                              width: 86,
+                              height: 86,
+                              child: Text(
+                                '상품 이미지가 없습니다',
+                                style: Theme.of(context).textTheme.bodySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                     ),
-                    child: product?.thumbnailImage != null
-                        ? Image.network(
-                      product!.thumbnailImage!.url,
-                      fit: BoxFit.fill,
-                      width: 86,
-                      height: 86,
-                    )
-                        : Container(
-                      color: AppColors.gray200,
-                      alignment: Alignment.center,
-                      width: 86,
-                      height: 86,
-                      child: Text(
-                        '상품 이미지가 없습니다',
-                        style: Theme.of(context).textTheme.bodySmall,
-                        textAlign: TextAlign.center,
+
+                    SizedBox(width: 12),
+
+                    // 상품 정보 영역
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product?.name ?? '',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            product?.price.toWon ?? '',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
                       ),
                     ),
-                  ),
+                  ],
+                ),
 
-                  SizedBox(width: 12),
+                const SizedBox(height: 12),
 
-                  // 상품 정보 영역
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product?.name ?? '',
-                          style: Theme.of(context).textTheme.titleMedium,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          product?.price.toWon ?? '',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-
-              // 리뷰 본문
-              ReviewItem(review: review),
-
-            ],
+                // 리뷰 본문
+                ReviewItem(review: review),
+              ],
+            ),
           ),
         );
       },
