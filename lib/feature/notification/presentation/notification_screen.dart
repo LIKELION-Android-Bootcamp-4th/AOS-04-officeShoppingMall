@@ -76,7 +76,7 @@ class NotificationScreenState extends State<NotificationScreen>
                 ListView.builder(
                   itemCount: viewModel.notices.where((e) => e.category == 'delivery').length,
                   itemBuilder: (context, index) {
-                    List<NotificationDTO> filteredList = viewModel.notices.where((e) => e.category == 'general').toList();
+                    List<NotificationDTO> filteredList = viewModel.notices.where((e) => e.category == 'delivery').toList();
                     return NotificationItem(
                         notice: filteredList[index]
                     );
@@ -86,7 +86,7 @@ class NotificationScreenState extends State<NotificationScreen>
                 ListView.builder(
                   itemCount: viewModel.notices.where((e) => e.category == 'ad').length,
                   itemBuilder: (context, index) {
-                    List<NotificationDTO> filteredList = viewModel.notices.where((e) => e.category == 'general').toList();
+                    List<NotificationDTO> filteredList = viewModel.notices.where((e) => e.category == 'ad').toList();
                     return NotificationItem(
                         notice: filteredList[index]
                     );
