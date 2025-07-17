@@ -4,10 +4,7 @@ import 'package:office_shopping_mall/feature/search/presentation/widgets/search_
 import 'package:office_shopping_mall/feature/search/presentation/widgets/search_popular.dart';
 import 'package:office_shopping_mall/feature/search/presentation/widgets/search_recent_keyword.dart';
 import 'package:provider/provider.dart';
-import '../../../core/data/network/api_client.dart';
 import '../../../core/widgets/loading_indicator.dart';
-import '../../product/data/product_service.dart';
-import '../../product/domain/product_repository_impl.dart';
 import '../../product/presentation/product_list_screen.dart';
 import '../../product/presentation/viewmodel/product_list_viewmodel.dart';
 import '../data/search_service.dart';
@@ -45,16 +42,14 @@ class _SearchScreenState extends State<SearchScreen> {
         return;
       }
 
-      final productListViewModel = ProductListViewModel(
-        ProductRepositoryImpl(ProductService(ApiClient().dio)),
-      );
-      productListViewModel.setProductsFromSearch(results);
+      final vm = context.read<ProductListViewModel>();
+      vm.setProductsFromSearch(results);
 
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider<ProductListViewModel>.value(
-            value: productListViewModel,
+            value: vm,
             child: ProductListScreen(),
           ),
         ),

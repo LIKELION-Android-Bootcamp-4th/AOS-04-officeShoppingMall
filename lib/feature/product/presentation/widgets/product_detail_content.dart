@@ -107,7 +107,7 @@ class _ProductDetailContent extends State<ProductDetailContent>
             reviewModel.isLoading
                 ? Text("평점 로딩 중...")
                 : Text(
-                    "${reviewModel.productScore ?? 0.0}",
+                    (reviewModel.productScore ?? 0.0).toStringAsFixed(2),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
           ],

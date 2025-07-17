@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/feature/home/domain/home_repository.dart';
+import 'package:office_shopping_mall/feature/preference/domain/preference_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final HomeRepository _repo;
+  final HomeRepository _homeRepo;
+  final PreferenceRepository _preRepo;
 
   List<Product> _popularProducts = [];
   bool _isLoading = false;
   String? _error;
 
-  HomeViewModel(this._repo) {
+  HomeViewModel(this._homeRepo, this._preRepo) {
     getPopularProducts(limit: 4);
   }
 
@@ -26,7 +28,7 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _repo.fetchProducts(
+      final response = await _homeRepo.fetchProducts(
         limit: limit,
         category: category,
         sortBy: 'popular',
@@ -51,7 +53,7 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _repo.toggleFavorite(product.id);
+      final response = await _preRepo.toggleFavorite(product.id);
 
       Fluttertoast.showToast(msg: response.message);
 

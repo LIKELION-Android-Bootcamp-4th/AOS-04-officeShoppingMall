@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
+import 'package:office_shopping_mall/feature/preference/presentation/viewmodel/preference_viewmodel.dart';
+import 'package:office_shopping_mall/feature/product/presentation/viewmodel/product_list_viewmodel.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../viewmodel/product_viewmodel.dart';
 
@@ -18,12 +20,6 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItem extends State<ProductItem> {
   bool isFavorite = false;
-
-  void _onFavoritePressed() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,33 +48,31 @@ class _ProductItem extends State<ProductItem> {
                     ),
                     child: product.thumbnailImage?.url != null
                         ? Image.network(
-                      product.thumbnailImage!.url,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    )
+                            product.thumbnailImage!.url,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          )
                         : Container(
-                      color: AppColors.gray200,
-                      alignment: Alignment.center,
-                      child: Text(
-                        '상품 이미지가 없습니다',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodySmall,
-                      ),
-                    ),
+                            color: AppColors.gray200,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '상품 이미지가 없습니다',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
                   ),
                   Positioned(
                     right: 12,
                     bottom: 14,
                     child: GestureDetector(
                       onTap: () {
-                        _onFavoritePressed();
+                        context.read<ProductListViewModel>().toggleFavorite(product);
+                        context.read<PreferenceViewModel>().loadFavorites();
                       },
                       behavior: HitTestBehavior.translucent,
                       child: SvgPicture.asset(
-                        isFavorite
+                        product.isFavorite
                             ? 'images/icon/ic_heart_small_1.svg'
                             : 'images/icon/ic_heart_small_0.svg',
                       ),
@@ -95,25 +89,13 @@ class _ProductItem extends State<ProductItem> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Text(
                     product.name,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     overflow: TextOverflow.ellipsis,
                   ),
 
-
-                  Text(
-                      product.price.toWon,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyLarge
-                  ),
-
+                  Text(product.price.toWon, style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
             ),
