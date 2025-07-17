@@ -3,17 +3,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/feature/mypage/domain/mypage_repository.dart';
+import 'package:office_shopping_mall/feature/order/presentation/viewmodel/order_list_viewmodel.dart';
 
 class MypageViewModel extends ChangeNotifier {
   final MypageRepository _repository;
+  final OrderListViewModel _viewModel;
 
   User? _user;
   bool _isLoading = false;
   String? _error;
   List<Product> _recentProd = [];
 
-  MypageViewModel(this._repository) {
+  MypageViewModel(this._repository, this._viewModel) {
     getUser();
+    _viewModel.loadOrders();
   }
 
   User? get user => _user;
