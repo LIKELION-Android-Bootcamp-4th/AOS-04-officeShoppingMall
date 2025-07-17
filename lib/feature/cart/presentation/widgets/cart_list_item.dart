@@ -50,21 +50,21 @@ class CartListItem extends StatelessWidget {
                         clipBehavior: Clip.antiAlias,
                         child: cart.product.thumbnailImage != null
                             ? Image.network(
-                                cart.product.thumbnailImage!.url,
-                                fit: BoxFit.cover,
-                                width: 90,
-                                height: 90,
-                              )
+                          cart.product.thumbnailImage!.url,
+                          fit: BoxFit.cover,
+                          width: 90,
+                          height: 90,
+                        )
                             : Container(
-                                color: AppColors.gray200,
-                                alignment: Alignment.center,
-                                width: 90,
-                                height: 90,
-                                child: Text(
-                                  '상품 이미지가 없습니다',
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              ),
+                          color: AppColors.gray200,
+                          alignment: Alignment.center,
+                          width: 90,
+                          height: 90,
+                          child: Text(
+                            '상품 이미지가 없습니다',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
                       ),
 
                       SizedBox(width: MediaQuery.of(context).size.width * 0.04),
