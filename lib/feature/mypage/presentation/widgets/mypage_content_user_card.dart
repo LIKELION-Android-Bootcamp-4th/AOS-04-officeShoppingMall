@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,14 +17,13 @@ class MypageContentUserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((MypageViewModel vm) => vm.user!);
-    final imgUrl = context.select((SettingViewModel vm) => vm.uploadImageUrl);
+    final image = context.select((SettingViewModel vm) => vm.image);
     ImageProvider? imageProvider;
-    String? initImage = user.profile.profileImage;
 
-    if (imgUrl != null) {
-      imageProvider = NetworkImage(imgUrl);
-    } else if (initImage != null && initImage.isNotEmpty) {
-      imageProvider = NetworkImage(initImage);
+    if (image != null) {
+      imageProvider = FileImage(File(image.path));
+    } else if (user.profile.profileImage?.isNotEmpty == true) {
+      imageProvider = NetworkImage(user.profile.profileImage!);
     } else {
       imageProvider = AssetImage('images/default_profile.jpg');
     }
@@ -38,9 +39,9 @@ class MypageContentUserCard extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
+                    backgroundImage: imageProvider,
                     backgroundColor: appColorScheme().surfaceContainerHigh,
                     radius: 32,
-                    backgroundImage: imageProvider,
                   ),
                   SizedBox(width: 20),
                   Column(
