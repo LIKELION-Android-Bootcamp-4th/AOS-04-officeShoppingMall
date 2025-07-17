@@ -25,7 +25,11 @@ class _CartMainScreenState extends State<CartMainScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this, initialIndex: widget.tabIndex);
+    _tabController = TabController(
+      length: 4,
+      vsync: this,
+      initialIndex: widget.tabIndex,
+    );
   }
 
   @override
@@ -40,11 +44,7 @@ class _CartMainScreenState extends State<CartMainScreen>
     final orders = context.watch<OrderListViewModel>().orders;
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: widget.tabIndex == 0
-            ? '장바구니'
-            : '주문내역',
-      ),
+      appBar: CustomAppBar(title: widget.tabIndex == 0 ? '장바구니' : '주문내역'),
       body: Column(
         children: [
           CartTabBar(
@@ -56,7 +56,10 @@ class _CartMainScreenState extends State<CartMainScreen>
                   children: [
                     Text(
                       '$cartsLength',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text('장바구니', style: TextStyle(fontSize: 10)),
                   ],
@@ -69,7 +72,10 @@ class _CartMainScreenState extends State<CartMainScreen>
                   children: [
                     Text(
                       '${orders.where((a) => a.status == 'pending').length}',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text('결제 완료', style: TextStyle(fontSize: 10)),
                   ],
@@ -81,7 +87,10 @@ class _CartMainScreenState extends State<CartMainScreen>
                   children: [
                     Text(
                       '${orders.where((a) => a.status == 'shipped').length}',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text('배송 중', style: TextStyle(fontSize: 10)),
                   ],
@@ -93,7 +102,10 @@ class _CartMainScreenState extends State<CartMainScreen>
                   children: [
                     Text(
                       '${orders.where((a) => a.status == 'delivered').length}',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text('배송 완료', style: TextStyle(fontSize: 10)),
                   ],

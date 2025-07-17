@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 enum UserRole { buyer, seller, admin }
 
 class Image {
@@ -29,35 +31,31 @@ class Profile {
       }
     }
 
-    return Profile(
-      name: json['name'] ?? '',
-      profileImage: parsedImage?.url,
-    );
+    return Profile(name: json['name'] ?? '', profileImage: parsedImage?.url);
   }
 
-  Map<String, dynamic> toJson() => {
-    'name': name,
-    'profileImage': profileImage,
-  };
+  Map<String, dynamic> toJson() => {'name': name, 'profileImage': profileImage};
 }
 
 class Address {
-  final String zipCode;
   final String address1;
   final String address2;
 
-  Address({required this.zipCode, required this.address1, required this.address2});
+  Address({required this.address1, required this.address2});
 
-  factory Address.fromJson(Map<String, dynamic> json) {
-    return Address(
-      zipCode: json['zipCode'] ?? '',
-      address1: json['address1'] ?? '',
-      address2: json['address2'] ?? '',
-    );
-  }
+  factory Address.fromJson(dynamic raw) {
+    if (raw is Map<String, dynamic>) {
+      return Address(
+        address1: raw['address1'] as String? ?? '',
+        address2: raw['address2'] as String? ?? '',
+      );
+    }
 
-  Map<String, dynamic> toJson() {
-    return {'zipCode': zipCode, 'address1': address1, 'address2': address2};
+    if (raw is String) {
+      return Address(address1: raw, address2: '');
+    }
+
+    return Address(address1: '', address2: '');
   }
 }
 
@@ -99,6 +97,6 @@ class UserDTO {
     'isAdmin': isAdmin,
     'profile': profile.toJson(),
     'phone': phone,
-    'address': address?.toJson(),
+    'address': address?.address1 ?? '',
   };
 }

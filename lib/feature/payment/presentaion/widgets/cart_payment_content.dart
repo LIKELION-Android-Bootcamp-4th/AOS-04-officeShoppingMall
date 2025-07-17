@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:office_shopping_mall/core/constants/app_routes.dart';
 import 'package:office_shopping_mall/core/theme/app_colors.dart';
 import 'package:office_shopping_mall/core/utils/extension.dart';
 import 'package:office_shopping_mall/feature/payment/domain/order_info.dart';
@@ -7,6 +8,7 @@ import 'package:office_shopping_mall/feature/product/presentation/widgets/produc
 import 'package:office_shopping_mall/feature/setting/data/setting_address.dart';
 import 'package:office_shopping_mall/feature/setting/presentation/viewmodel/setting_viewmodel.dart';
 import '../../../cart/data/cart_order_response.dart';
+import '../../../product/presentation/viewmodel/product_viewmodel.dart';
 
 class CartPaymentContent extends StatefulWidget {
   final List<OrderData> orders;
@@ -25,6 +27,7 @@ class CartPaymentContent extends StatefulWidget {
 class _CartPaymentContentState extends State<CartPaymentContent> {
   String _payment = '';
   String _address = '';
+  final Map<String, String?> _productImages = {};
 
   void _onChanged(String value) {
     setState(() {
@@ -50,6 +53,37 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _loadMissingImages();
+  }
+
+  Future<void> _loadMissingImages() async {
+    final productVm = context.read<ProductViewModel>();
+
+    for (var order in widget.orders) {
+      for (var item in order.items) {
+        if (item.productImage == null &&
+            !_productImages.containsKey(item.productId)) {
+          try {
+            await productVm.getProductById(item.productId);
+            final imageUrl = productVm.selectedProduct?.thumbnailImage?.url;
+
+            setState(() {
+              _productImages[item.productId] = imageUrl;
+            });
+          } catch (e) {
+            print('상품 정보 불러오기 실패: $e');
+            _productImages[item.productId] = null;
+          }
+        } else {
+          _productImages[item.productId] = item.productImage;
+        }
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final settingVm = context.watch<SettingViewModel>();
 
@@ -65,10 +99,8 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 20),
-        Text('주문 상품', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12),
         Container(
-          constraints: BoxConstraints(maxHeight: 150),
+          constraints: BoxConstraints(maxHeight: 88),
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.orders.length,
@@ -88,21 +120,26 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: item.productImage != null
+                                child:
+                                    (item.productImage != null ||
+                                        _productImages[item.productId] != null)
                                     ? Image.network(
-                                        item.productImage!,
-                                        fit: BoxFit.cover,
-                                        width: 60,
-                                        height: 60,
+                                        item.productImage ??
+                                            _productImages[item.productId]!,
+                                        fit: BoxFit.fill,
+                                        width: 80,
+                                        height: 80,
                                       )
                                     : Container(
                                         color: AppColors.gray200,
                                         alignment: Alignment.center,
-                                        width: 60,
-                                        height: 60,
-                                        child: Icon(
-                                          Icons.image,
-                                          color: AppColors.gray400,
+                                        width: 80,
+                                        height: 80,
+                                        child: Text(
+                                          '상품 이미지가 없습니다',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall,
                                         ),
                                       ),
                               ),
@@ -174,7 +211,9 @@ class _CartPaymentContentState extends State<CartPaymentContent> {
                         borderRadius: BorderRadius.circular(60),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.setting);
+                    },
                     child: Text('수정'),
                   ),
                 ],

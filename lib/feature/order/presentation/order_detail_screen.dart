@@ -28,7 +28,6 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
   @override
   Widget build(BuildContext context) {
     final order = context.watch<OrderDetailViewModel>().order;
-    final info = context.watch<OrderDetailViewModel>().info;
     final viewModel = context.watch<OrderListViewModel>();
 
     return Scaffold(
@@ -82,12 +81,20 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                     children: [
                       Row(
                         children: [
-                          Text(
-                            order?.items[0].productName ?? '',
-                            style: Theme.of(context).textTheme.titleSmall,
+                          Flexible(
+                            flex: 3,
+                            child: Text(
+                              order?.items[0].productName ?? '',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                           Spacer(),
-
                           Text(
                             (() {
                               switch (order?.status) {
@@ -130,7 +137,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
 
             Container(
               width: MediaQuery.of(context).size.width * 0.86,
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.4,
               decoration: BoxDecoration(
                 color: appColorScheme().surfaceContainer,
                 borderRadius: BorderRadiusGeometry.circular(10),
@@ -155,7 +162,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen>
                                 Padding(
                                   padding: EdgeInsets.only(right: 16),
                                   child: Text(
-                                    info?.paymentMethod ?? '',
+                                    order?.payment ?? '',
                                     style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),

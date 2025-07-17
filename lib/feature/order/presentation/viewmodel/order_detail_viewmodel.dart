@@ -9,7 +9,6 @@ class OrderDetailViewModel extends ChangeNotifier {
   OrderDetailViewModel(this._repository);
 
   OrderDTO? order = null;
-  OrderInfo? info = null;
   bool _isLoading = false;
   String orderId = "";
 

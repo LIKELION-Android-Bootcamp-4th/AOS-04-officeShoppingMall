@@ -32,7 +32,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
   @override
   void initState() {
     super.initState();
-    _nameCtrl = TextEditingController(text: widget.user.nickName);
+    _nameCtrl = TextEditingController(text: widget.user.profile.name);
     _phoneCtrl = TextEditingController(text: widget.user.phone ?? '');
     profileImagePath = null;
   }
@@ -44,13 +44,12 @@ class _UserInfoTabState extends State<UserInfoTab> {
     _phoneCtrl.dispose();
   }
 
-  Future<void> _onSave() async {
+  Future<void> _onSave(String? path) async {
     if (!_formKey.currentState!.validate()) return;
     await context.read<SettingViewModel>().updateProfile(
       name: _nameCtrl.text,
       phone: _phoneCtrl.text,
       addr: addr,
-      profileImagePath: profileImagePath,
     );
     setState(() {
       profileImagePath = null;
@@ -60,13 +59,14 @@ class _UserInfoTabState extends State<UserInfoTab> {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<SettingViewModel>();
-    final serverUrl = vm.uploadImageUrl ?? vm.user?.profile.profileImage;
-    ImageProvider? imageProvider;
 
-    if (profileImagePath != null) {
-      imageProvider = FileImage(File(profileImagePath!));
-    } else if (serverUrl != null && serverUrl.isNotEmpty) {
-      imageProvider = NetworkImage(serverUrl);
+    ImageProvider? imageProvider;
+    if (vm.image != null) {
+      imageProvider = FileImage(File(vm.image!.path));
+    } else if (vm.uploadImageUrl != null && vm.uploadImageUrl!.isNotEmpty) {
+      imageProvider = NetworkImage(vm.uploadImageUrl!);
+    } else if (widget.user.profile.profileImage != null) {
+      imageProvider = NetworkImage(widget.user.profile.profileImage!);
     }
 
     return Padding(
@@ -89,13 +89,13 @@ class _UserInfoTabState extends State<UserInfoTab> {
                         radius: 32,
                         backgroundImage: imageProvider,
                         backgroundColor: appColorScheme().surfaceContainerHigh,
-                        child: imageProvider == null
-                            ? SvgPicture.asset('images/icon/ic_user.svg')
-                            : null,
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Text(widget.user.nickName, style: Theme.of(context).textTheme.titleMedium),
+                    Text(
+                      widget.user.profile.name ?? '',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     const Spacer(),
                     IconButton(
                       onPressed: showImagePickerDialog,
@@ -123,7 +123,10 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('이름', style: Theme.of(context).textTheme.bodyMedium),
+                        child: Text(
+                          '이름',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -138,7 +141,10 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('전화번호', style: Theme.of(context).textTheme.bodyMedium),
+                        child: Text(
+                          '전화번호',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -154,10 +160,16 @@ class _UserInfoTabState extends State<UserInfoTab> {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('이메일', style: Theme.of(context).textTheme.bodyMedium),
+                        child: Text(
+                          '이메일',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
                       Expanded(
-                        child: TextFormField(readOnly: true, initialValue: widget.user.email),
+                        child: TextFormField(
+                          readOnly: true,
+                          initialValue: widget.user.email,
+                        ),
                       ),
                     ],
                   ),
@@ -168,7 +180,10 @@ class _UserInfoTabState extends State<UserInfoTab> {
                       onPressed: () {
                         Navigator.pushNamed(context, AppRoutes.pwSetting);
                       },
-                      child: Text('비밀번호 변경', style: Theme.of(context).textTheme.bodySmall),
+                      child: Text(
+                        '비밀번호 변경',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     ),
                   ),
                 ],
@@ -200,7 +215,10 @@ class _UserInfoTabState extends State<UserInfoTab> {
                             color: appColorScheme().tertiary,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Text('기본 배송지', style: Theme.of(context).textTheme.labelMedium),
+                          child: Text(
+                            '기본 배송지',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         ),
                       Spacer(),
                       SizedBox(
@@ -226,9 +244,16 @@ class _UserInfoTabState extends State<UserInfoTab> {
                         height: 30,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.destSetting, arguments: address);
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.destSetting,
+                              arguments: address,
+                            );
                           },
-                          style: ElevatedButton.styleFrom(padding: EdgeInsets.zero, elevation: 0),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            elevation: 0,
+                          ),
                           child: Text('수정'),
                         ),
                       ),
@@ -244,7 +269,8 @@ class _UserInfoTabState extends State<UserInfoTab> {
               child: InkWell(
                 onTap: () async {
                   final result =
-                      await Navigator.pushNamed(context, AppRoutes.destSetting) as SettingAddress?;
+                      await Navigator.pushNamed(context, AppRoutes.destSetting)
+                          as SettingAddress?;
                   if (result != null) {
                     context.read<SettingViewModel>().addAddress(result);
                     if (vm.addresses.length == 1) result.isDefault = true;
@@ -256,7 +282,10 @@ class _UserInfoTabState extends State<UserInfoTab> {
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: SvgPicture.asset(
                     'images/icon/ic_circle_add.svg',
-                    colorFilter: ColorFilter.mode(appColorScheme().onSurface, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                      appColorScheme().onSurface,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),
@@ -264,7 +293,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                _onSave();
+                _onSave(vm.image?.path);
               },
               child: Text('저장하기'),
             ),
@@ -289,7 +318,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                 title: Text('카메라로 촬영'),
                 onTap: () {
                   Navigator.pop(context); // dialog close
-                  pickImage(ImageSource.camera);
+                  context.read<SettingViewModel>().pickImage(ImageSource.camera);
                 },
               ),
               ListTile(
@@ -297,7 +326,7 @@ class _UserInfoTabState extends State<UserInfoTab> {
                 title: Text('갤러리에서 선택'),
                 onTap: () {
                   Navigator.pop(context); // dialog close
-                  pickImage(ImageSource.gallery);
+                  context.read<SettingViewModel>().pickImage(ImageSource.gallery);
                 },
               ),
             ],
@@ -305,19 +334,5 @@ class _UserInfoTabState extends State<UserInfoTab> {
         );
       },
     );
-  }
-
-  Future<void> pickImage(ImageSource source) async {
-    try {
-      XFile? image = await picker.pickImage(source: source);
-      if (image != null) {
-        setState(() {
-          profileImagePath = image.path;
-        });
-      }
-      _onSave();
-    } catch (e) {
-      print(e);
-    }
   }
 }
