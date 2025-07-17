@@ -9,6 +9,7 @@ import '../../../product/presentation/viewmodel/product_list_viewmodel.dart';
 class CategoryContentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prodListVm = context.watch<ProductListViewModel>();
     return ListView(
       children: [
         Padding(
@@ -19,7 +20,7 @@ class CategoryContentList extends StatelessWidget {
               for (var section in categorySections) ...[
                 InkWell(
                   onTap: () {
-                    context.read<ProductListViewModel>().selectCategory(section.title);
+                    prodListVm.selectCategory(section.title);
                     Navigator.pushNamed(context, AppRoutes.productList);
                   },
                   child: Row(
@@ -41,7 +42,7 @@ class CategoryContentList extends StatelessWidget {
                     return TextButton(
                       style: TextButton.styleFrom(alignment: Alignment.centerLeft),
                       onPressed: () {
-                        context.read<ProductListViewModel>().selectCategory("${section.title} / ${section.details[index]}");
+                        prodListVm.selectCategory("${section.title} / ${section.details[index]}");
                         Navigator.pushNamed(context, AppRoutes.productList);
                       },
                       child: Text(

@@ -1,5 +1,3 @@
-import 'package:office_shopping_mall/core/data/models/dto/product_dto.dart';
-import 'package:office_shopping_mall/core/data/models/dto/toggle_favorite_response.dart';
 import 'package:office_shopping_mall/core/data/models/entity/product.dart';
 import '../data/product_service.dart';
 import 'repository/product_repository.dart';
@@ -29,9 +27,4 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Product> fetchProductDetail(String id) async {
     return Product.fromDTO(await _service.getProductDetail(id));
   }
-
-
-
-  @override
-  Future<ToggleFavoriteResponse> toggleFavorite(String id) => _service.toggleFavorite(id);
 }
