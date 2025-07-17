@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:office_shopping_mall/core/data/models/entity/user.dart';
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_request.dart';
 import 'package:office_shopping_mall/feature/setting/data/pw_setting_response.dart';
@@ -17,6 +18,8 @@ class SettingViewModel extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   String? _uploadImageUrl;
+  XFile? image;
+  final ImagePicker _picker = ImagePicker();
   final List<SettingAddress> _addresses = [];
   PasswordSettingResponse? _passwordSettingResponse;
 
@@ -31,7 +34,7 @@ class SettingViewModel extends ChangeNotifier {
 
   String? get error => _error;
 
-  String ? get uploadImageUrl => _uploadImageUrl;
+  String? get uploadImageUrl => _uploadImageUrl;
 
   List<SettingAddress> get addresses => List.unmodifiable(_addresses);
 
@@ -97,7 +100,6 @@ class SettingViewModel extends ChangeNotifier {
     required String? name,
     required String? phone,
     required String? addr,
-    String? profileImagePath,
   }) async {
     if (_user == null) return;
     _isLoading = true;
@@ -106,9 +108,7 @@ class SettingViewModel extends ChangeNotifier {
     try {
       _user = await _repository.saveProfile(
         _user!.copyWith(name: name, phone: phone, addr: addr),
-        profileImagePath: profileImagePath,
       );
-      if (profileImagePath != null) _uploadImageUrl = _user?.profile.profileImage;
     } catch (e) {
       _error = '$e';
     } finally {
@@ -136,6 +136,33 @@ class SettingViewModel extends ChangeNotifier {
       _error = null;
     } catch (e) {
       _error = "viewModel: 비밀번호 실패 : $e";
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile == null) return;
+
+    image = pickedFile;
+
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _user = await _repository.saveProfile(
+        _user!.copyWith(
+          name: _user!.profile.name,
+          phone: _user!.phone,
+          addr: _user!.address?.address1,
+        ),
+        profileImagePath:  pickedFile.path,
+      );
+      _uploadImageUrl = _user!.profile.profileImage;
+    } catch (e) {
+      _error = e.toString();
     } finally {
       _isLoading = false;
       notifyListeners();
