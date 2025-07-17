@@ -30,7 +30,7 @@ class CartListItem extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            padding: EdgeInsets.only(top: 16,left: 16, bottom: 16),
+            padding: EdgeInsets.only(top: 16, left: 16, bottom: 16),
             width: MediaQuery.of(context).size.width * 0.84,
             decoration: BoxDecoration(
               color: appColorScheme().surfaceContainerLow,
@@ -38,7 +38,9 @@ class CartListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                context.read<ProductViewModel>().getProductById(cart.product.id);
+                context.read<ProductViewModel>().getProductById(
+                  cart.product.id,
+                );
                 Navigator.pushNamed(context, AppRoutes.productDetail);
               },
               child: Column(
@@ -50,21 +52,21 @@ class CartListItem extends StatelessWidget {
                         clipBehavior: Clip.antiAlias,
                         child: cart.product.thumbnailImage != null
                             ? Image.network(
-                          cart.product.thumbnailImage!.url,
-                          fit: BoxFit.cover,
-                          width: 90,
-                          height: 90,
-                        )
+                                cart.product.thumbnailImage!.url,
+                                fit: BoxFit.cover,
+                                width: 90,
+                                height: 90,
+                              )
                             : Container(
-                          color: AppColors.gray200,
-                          alignment: Alignment.center,
-                          width: 90,
-                          height: 90,
-                          child: Text(
-                            '상품 이미지가 없습니다',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
+                                color: AppColors.gray200,
+                                alignment: Alignment.center,
+                                width: 90,
+                                height: 90,
+                                child: Text(
+                                  '상품 이미지가 없습니다',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
                       ),
 
                       SizedBox(width: MediaQuery.of(context).size.width * 0.04),
@@ -81,7 +83,9 @@ class CartListItem extends StatelessWidget {
                                   width: 160,
                                   child: Text(
                                     cart.product.name,
-                                    style: Theme.of(context).textTheme.bodyLarge,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
@@ -91,7 +95,9 @@ class CartListItem extends StatelessWidget {
                                   onPressed: () {
                                     viewModel.deleteCart(cart.id);
                                   },
-                                  icon: SvgPicture.asset('images/icon/ic_close.svg'),
+                                  icon: SvgPicture.asset(
+                                    'images/icon/ic_close.svg',
+                                  ),
                                 ),
                               ],
                             ),
@@ -110,7 +116,7 @@ class CartListItem extends StatelessWidget {
                                   cart.totalPrice.toWon,
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
-                                SizedBox(width: 16,)
+                                SizedBox(width: 16),
                               ],
                             ),
                           ],
