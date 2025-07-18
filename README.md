@@ -19,12 +19,11 @@ flutter project_직장인들을 위한 올인원 쇼핑몰
 |<img width=150 src="https://avatars.githubusercontent.com/u/84005175?v=4"/>|<img width=150 src="https://avatars.githubusercontent.com/u/125240447?v=4"/>|<img width=150 src="https://avatars.githubusercontent.com/u/204842548?v=4">|<img width=150 src="https://avatars.githubusercontent.com/u/165343848?v=4">|
 |[이다영](https://github.com/urhelp)|[김의현](https://github.com/UiHyeon-Kim)|[이다은](https://github.com/mninm)|[이지형](https://github.com/groundinsider)|
 
-## 개발 환경
-- **OS**: Windows 10 / macOS  
-- **언어**: Dart 3.x  
-- **프레임워크**: Flutter 3.x  
-- **IDE**: Android Studio / VS Code  
-- **버전 관리**: Git + GitHub (Gitflow)
+## 개발 환경  
+- **언어**: Dart
+- **프레임워크**: Flutter  
+- **IDE**: Android Studio  
+- **버전 관리**: Git + GitHub
   
 ## 주요 기능
 
