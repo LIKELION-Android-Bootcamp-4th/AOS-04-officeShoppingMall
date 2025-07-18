@@ -48,6 +48,8 @@ flutter project_직장인들을 위한 올인원 쇼핑몰
 - **UI**: Flutter Widget
 
 ## 스크린샷
-<img width="30%" alt="Image" src="https://github.com/user-attachments/assets/3e7aa0a4-ab4a-462f-80f7-a88af832d65c" />
-<img width="30%" alt="Image" src="https://github.com/user-attachments/assets/54d30004-ad01-423b-a9d9-2bc3fa0954d8" />
-<img width="30%" alt="Image" src="https://github.com/user-attachments/assets/5a81b36d-a5ab-4a31-9c3b-01aa10c4ac04" />
+<div style="display: flex; gap: 10px;">
+<img width="20%" alt="Image" src="https://github.com/user-attachments/assets/3e7aa0a4-ab4a-462f-80f7-a88af832d65c" />
+<img width="20%" alt="Image" src="https://github.com/user-attachments/assets/54d30004-ad01-423b-a9d9-2bc3fa0954d8" />
+<img width="20%" alt="Image" src="https://github.com/user-attachments/assets/5a81b36d-a5ab-4a31-9c3b-01aa10c4ac04" />
+</div>
