@@ -47,6 +47,4 @@ flutter project_직장인들을 위한 올인원 쇼핑몰
 - **네트워크**: Swagger 기반 API  
 - **UI**: Flutter Widget
 
-## 트러블 슈팅
-
 ## 스크린샷
